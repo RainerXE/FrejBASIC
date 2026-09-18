@@ -840,6 +840,8 @@ private function hLinkFiles( ) as integer
 		case FB_CPUFAMILY_ARM
 			'' fixme: this is clearly too specific
 			ldcline += "-arch armv6 "
+		case FB_CPUFAMILY_AARCH64
+			ldcline += "-arch arm64 "
 		end select
 	end select
 
@@ -945,7 +947,13 @@ private function hLinkFiles( ) as integer
 
 		if( fbGetOption( FB_COMPOPT_OUTTYPE ) = FB_OUTTYPE_DYNAMICLIB ) then
 			dllname = hStripPath( hStripExt( fbc.outname ) )
-			ldcline += " -shared -h" + hStripPath( fbc.outname )
+			if( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_DARWIN ) then
+				'' Darwin's linker (ld64) has no -shared/-h; it uses -dynamiclib
+				'' and records the install name via -install_name.
+				ldcline += " -dynamiclib -install_name " + QUOTE + dllname + QUOTE
+			else
+				ldcline += " -shared -h" + hStripPath( fbc.outname )
+			end if
 
 			'' Turn libfoo into foo, so it can be checked against -l foo below
 			if( left( dllname, 3 ) = "lib" ) then
@@ -986,7 +994,8 @@ private function hLinkFiles( ) as integer
 		'' But able to have shared library generated successfully afterward
 		if( (fbGetOption( FB_COMPOPT_OUTTYPE ) = FB_OUTTYPE_DYNAMICLIB) or _
 			fbGetOption( FB_COMPOPT_EXPORT ) ) and _
-			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_SOLARIS) then
+			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_SOLARIS) and _
+			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_DARWIN) then
 			ldcline += " --export-dynamic"
 		end if
 
@@ -1166,7 +1175,10 @@ private function hLinkFiles( ) as integer
 		FB_COMPTARGET_FREEBSD, FB_COMPTARGET_OPENBSD, _
 		FB_COMPTARGET_NETBSD, FB_COMPTARGET_DRAGONFLY, FB_COMPTARGET_SOLARIS
 
-		if( fbGetOption( FB_COMPOPT_OUTTYPE ) = FB_OUTTYPE_EXECUTABLE) then
+		'' Darwin's linker takes no explicit crt1.o; the C compiler driver
+		'' supplies the startup object (it lives inside libSystem).
+		if( (fbGetOption( FB_COMPOPT_OUTTYPE ) = FB_OUTTYPE_EXECUTABLE) and _
+		    (fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_DARWIN) ) then
 			if( fbGetOption( FB_COMPOPT_PROFILE ) ) then
 				select case as const fbGetOption( FB_COMPOPT_TARGET )
 				case FB_COMPTARGET_OPENBSD, FB_COMPTARGET_NETBSD
@@ -1322,18 +1334,17 @@ private function hLinkFiles( ) as integer
 
 	end select
 
-	if( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_DARWIN ) then
-		ldcline += " -macosx_version_min 10.4"
-	end if
+	'' Note: on Darwin the deployment target (-mmacosx-version-min) is supplied
+	'' by the C compiler driver used for linking, not hard-coded here.
 
 	'' This is required for 64-bit modules on *nix-y platforms
 	'' for the unwind tables to have any effect
 	'' Windows doesn't need this option
+	'' (ld64 rejects --eh-frame-hdr; Darwin is handled by clang instead)
 	select case as const fbGetOption( FB_COMPOPT_TARGET )
 	case FB_COMPTARGET_LINUX, FB_COMPTARGET_FREEBSD, _
 		FB_COMPTARGET_OPENBSD, FB_COMPTARGET_NETBSD, _
-		FB_COMPTARGET_DRAGONFLY, FB_COMPTARGET_SOLARIS, _
-		FB_COMPTARGET_DARWIN
+		FB_COMPTARGET_DRAGONFLY, FB_COMPTARGET_SOLARIS
 		dim as long outtype = fbGetOption( FB_COMPOPT_OUTTYPE )
 		if outtype = FB_OUTTYPE_EXECUTABLE OrElse outtype = FB_OUTTYPE_DYNAMICLIB Then
 			dim as long cpufamily = fbGetCpuFamily( )
@@ -1408,6 +1419,10 @@ private function hLinkFiles( ) as integer
 	var ld = FBCTOOL_LD
 	if( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_JS ) then
 		ld = FBCTOOL_EMLD
+	elseif( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_DARWIN ) then
+		'' ld64 can't be driven like GNU ld (different crt handling, and it
+		'' rejects several GNU options), so use the C compiler driver to link.
+		ld = FBCTOOL_CLANG
 	end if
 
 	if( fbcRunBin( "linking", ld, ldcline ) = FALSE ) then
@@ -4308,9 +4323,9 @@ private sub hAddDefaultLibs( )
 		end if
 
 	case FB_COMPTARGET_DARWIN
-		fbcAddDefLib( "gcc" )
-		fbcAddDefLib( "System" )
-		fbcAddDefLib( "pthread" )
+		'' There is no libgcc on macOS unless a GCC toolchain is installed;
+		'' the clang driver pulls in libSystem (and thus libc/libm/pthread)
+		'' by itself.  libncurses is still needed by the FB runtime.
 		fbcAddDefLib( "ncurses" )
 
 	case FB_COMPTARGET_DOS
