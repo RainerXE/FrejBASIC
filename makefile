@@ -180,6 +180,8 @@ FBFLAGS := -maxerr 1
 AS = $(BUILD_PREFIX)as
 AR = $(BUILD_PREFIX)ar
 CC = $(BUILD_PREFIX)gcc
+# Objective-C compiler, used for the native Cocoa graphics driver on Darwin
+OBJC = $(CC) -x objective-c
 prefix := /usr/local
 
 # Determine the makefile's directory, this may be a relative path when
@@ -726,10 +728,15 @@ LIBFBRTMTPIC_C := $(patsubst %,$(libfbmtpicobjdir)/%,$(filter-out $(patsubst $(l
 LIBFBGFX_H := $(sort $(foreach i,$(GFXLIB2_DIRS),$(wildcard $(i)/*.h)) $(LIBFB_H))
 LIBFBGFX_C := $(sort $(foreach i,$(GFXLIB2_DIRS),$(patsubst $(i)/%.c,$(libfbgfxobjdir)/%.o,$(wildcard $(i)/*.c))))
 LIBFBGFX_S := $(sort $(foreach i,$(GFXLIB2_DIRS),$(patsubst $(i)/%.s,$(libfbgfxobjdir)/%.o,$(wildcard $(i)/*.s))))
+# Objective-C sources (the native Cocoa driver on Darwin)
+LIBFBGFX_M := $(sort $(foreach i,$(GFXLIB2_DIRS),$(patsubst $(i)/%.m,$(libfbgfxobjdir)/%.o,$(wildcard $(i)/*.m))))
 LIBFBGFXPIC_C   := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxpicobjdir)/%,$(LIBFBGFX_C))
+LIBFBGFXPIC_M   := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxpicobjdir)/%,$(LIBFBGFX_M))
 LIBFBGFXMT_C    := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxmtobjdir)/%,$(LIBFBGFX_C))
 LIBFBGFXMT_S    := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxmtobjdir)/%,$(LIBFBGFX_S))
+LIBFBGFXMT_M    := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxmtobjdir)/%,$(LIBFBGFX_M))
 LIBFBGFXMTPIC_C := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxmtpicobjdir)/%,$(LIBFBGFX_C))
+LIBFBGFXMTPIC_M := $(patsubst $(libfbgfxobjdir)/%,$(libfbgfxmtpicobjdir)/%,$(LIBFBGFX_M))
 
 
 RTL_LIBS := $(libdir)/$(FB_LDSCRIPT)
@@ -777,6 +784,7 @@ ifndef V
   QUIET_FBC   = @echo "FBC $@";
   QUIET_LINK  = @echo "LINK $@";
   QUIET_CC    = @echo "CC $@";
+  QUIET_OBJC  = @echo "OBJC $@";
   QUIET_CPPAS = @echo "CPPAS $@";
   QUIET_AS    = @echo "AS $@";
   QUIET_AR    = @echo "AR $@";
@@ -993,29 +1001,37 @@ $(LIBFBMTRTPIC_BAS): $(libfbrtmtpicobjdir)/%.o: %.c $(LIBFBRT_BI) | $(libfbrtmtp
 .PHONY: gfxlib2
 gfxlib2: $(GFX_LIBS)
 
-$(libdir)/libfbgfx.a: $(LIBFBGFX_C) $(LIBFBGFX_S) | $(libdir)
+$(libdir)/libfbgfx.a: $(LIBFBGFX_C) $(LIBFBGFX_S) $(LIBFBGFX_M) | $(libdir)
 	$(QUIET_AR)rm -f $@; $(AR) rcs $@ $^
 $(LIBFBGFX_C): $(libfbgfxobjdir)/%.o: %.c $(LIBFBGFX_H) | $(libfbgfxobjdir)
 	$(QUIET_CC)$(CC) $(ALLCFLAGS) -c $< -o $@
 $(LIBFBGFX_S): $(libfbgfxobjdir)/%.o: %.s $(LIBFBGFX_H) | $(libfbgfxobjdir)
 	$(QUIET_CPPAS)$(CC) -x assembler-with-cpp $(ALLCFLAGS) -c $< -o $@
+$(LIBFBGFX_M): $(libfbgfxobjdir)/%.o: %.m $(LIBFBGFX_H) | $(libfbgfxobjdir)
+	$(QUIET_OBJC)$(OBJC) $(ALLCFLAGS) -c $< -o $@
 
-$(libdir)/libfbgfxpic.a: $(LIBFBGFXPIC_C) | $(libdir)
+$(libdir)/libfbgfxpic.a: $(LIBFBGFXPIC_C) $(LIBFBGFXPIC_M) | $(libdir)
 	$(QUIET_AR)rm -f $@; $(AR) rcs $@ $^
 $(LIBFBGFXPIC_C): $(libfbgfxpicobjdir)/%.o: %.c $(LIBFBGFX_H) | $(libfbgfxpicobjdir)
 	$(QUIET_CC)$(CC) -fPIC $(ALLCFLAGS) -c $< -o $@
+$(LIBFBGFXPIC_M): $(libfbgfxpicobjdir)/%.o: %.m $(LIBFBGFX_H) | $(libfbgfxpicobjdir)
+	$(QUIET_OBJC)$(OBJC) -fPIC $(ALLCFLAGS) -c $< -o $@
 
-$(libdir)/libfbgfxmt.a: $(LIBFBGFXMT_C) $(LIBFBGFXMT_S) | $(libdir)
+$(libdir)/libfbgfxmt.a: $(LIBFBGFXMT_C) $(LIBFBGFXMT_S) $(LIBFBGFXMT_M) | $(libdir)
 	$(QUIET_AR)rm -f $@; $(AR) rcs $@ $^
 $(LIBFBGFXMT_C): $(libfbgfxmtobjdir)/%.o: %.c $(LIBFBGFX_H) | $(libfbgfxmtobjdir)
 	$(QUIET_CC)$(CC) -DENABLE_MT $(ALLCFLAGS) -c $< -o $@
 $(LIBFBGFXMT_S): $(libfbgfxmtobjdir)/%.o: %.s $(LIBFBGFX_H) | $(libfbgfxmtobjdir)
 	$(QUIET_CPPAS)$(CC) -x assembler-with-cpp -DENABLE_MT $(ALLCFLAGS) -c $< -o $@
+$(LIBFBGFXMT_M): $(libfbgfxmtobjdir)/%.o: %.m $(LIBFBGFX_H) | $(libfbgfxmtobjdir)
+	$(QUIET_OBJC)$(OBJC) -DENABLE_MT $(ALLCFLAGS) -c $< -o $@
 
-$(libdir)/libfbgfxmtpic.a: $(LIBFBGFXMTPIC_C) | $(libdir)
+$(libdir)/libfbgfxmtpic.a: $(LIBFBGFXMTPIC_C) $(LIBFBGFXMTPIC_M) | $(libdir)
 	$(QUIET_AR)rm -f $@; $(AR) rcs $@ $^
 $(LIBFBGFXMTPIC_C): $(libfbgfxmtpicobjdir)/%.o: %.c $(LIBFBGFX_H) | $(libfbgfxmtpicobjdir)
 	$(QUIET_CC)$(CC) -DENABLE_MT -fPIC $(ALLCFLAGS) -c $< -o $@
+$(LIBFBGFXMTPIC_M): $(libfbgfxmtpicobjdir)/%.o: %.m $(LIBFBGFX_H) | $(libfbgfxmtpicobjdir)
+	$(QUIET_OBJC)$(OBJC) -DENABLE_MT -fPIC $(ALLCFLAGS) -c $< -o $@
 
 ################################################################################
 
