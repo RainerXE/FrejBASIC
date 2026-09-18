@@ -4310,11 +4310,9 @@ private sub hAddDefaultLibs( )
 				fbcAddDefLibPath( "/usr/X11R6/lib" )
 			#endif
 
-			#if defined(__FB_DARWIN__) and defined(ENABLE_XQUARTZ)
-				fbcAddDefLibPAth( "/opt/X11/lib" )
-			#endif
-
-			#if (not defined(__FB_DARWIN__)) or defined(ENABLE_XQUARTZ)
+			'' Darwin uses the native Cocoa driver and never links X11, so the
+			'' X11 libraries below are only added for the other unix targets.
+			#if not defined(__FB_DARWIN__)
 				fbcAddDefLib( "X11" )
 				fbcAddDefLib( "Xext" )
 				fbcAddDefLib( "Xpm" )

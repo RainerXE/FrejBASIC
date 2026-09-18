@@ -586,17 +586,15 @@ ifeq ($(TARGET_OS),solaris)
 endif
 
 ifeq ($(TARGET_OS),darwin)
-  ALLCFLAGS += -I/opt/X11/include -I/usr/include/ffi
-
-  ifdef ENABLE_XQUARTZ
-    ALLFBCFLAGS += -d ENABLE_XQUARTZ
-  else
-    ALLCFLAGS += -DDISABLE_X11
-    # FB's OpenGL support lives in the X11 driver, so without XQuartz there is
-    # no GL driver at all.  gfx_opengl.c otherwise still calls the driver hook
-    # fb_hGL_GetProcAddress(), leaving libfbgfx with an undefined symbol.
-    ALLCFLAGS += -DDISABLE_OPENGL
-  endif
+  # Darwin uses the native Cocoa/CoreGraphics driver, so X11 (XQuartz) is never
+  # built here: it would drag in an extra runtime dependency for the legacy
+  # path only.  FB's OpenGL support lives in the X11 gfx driver, so without it
+  # there is no GL driver either -- gfx_opengl.c would otherwise still call
+  # the driver hook fb_hGL_GetProcAddress(), leaving libfbgfx with an undefined
+  # symbol.
+  ALLCFLAGS += -I/usr/include/ffi
+  ALLCFLAGS += -DDISABLE_X11
+  ALLCFLAGS += -DDISABLE_OPENGL
 endif
 
 ifneq ($(filter cygwin win32,$(TARGET_OS)),)
