@@ -137,6 +137,27 @@ static void cocoa_post_mouse(int type, int x, int y, int button)
 	fb_hPostEvent(&e);
 }
 
+/* Map an NSEvent to FB's keycode convention: plain characters as-is, extended
+   keys (arrows, function keys, ...) through the scancode table, mirroring what
+   the X11 driver does with XLookupString/translate_key. */
+static int cocoa_translate_key(NSEvent *event, int scancode)
+{
+	NSString *chars = [event characters];
+	unichar c;
+
+	if ([chars length] >= 1) {
+		c = [chars characterAtIndex:0];
+		/* Remap ASCII DEL to FB's extended DELETE keycode, as the other
+		   drivers do */
+		if (c == 0x7F)
+			return KEY_DEL;
+		if (c < 0x80)
+			return (int)c;
+	}
+
+	return fb_hScancodeToExtendedKey(scancode);
+}
+
 static void cocoa_handle_event(NSEvent *event)
 {
 	NSPoint p;
@@ -152,8 +173,14 @@ static void cocoa_handle_event(NSEvent *event)
 		if (scancode == 0)
 			break;
 		if ([event type] == NSEventTypeKeyDown) {
+			int key = cocoa_translate_key(event, scancode);
+
 			__fb_gfx->key[scancode] = TRUE;
-			cocoa_post_key(scancode, (int)[[event characters] characterAtIndex:0],
+			/* InKey() reads the key buffer, GetKey()/the event queue read
+			   the posted event, so feed both like the other drivers do */
+			if (key)
+				fb_hPostKey(key);
+			cocoa_post_key(scancode, ((key < 0) || (key > 0xFF)) ? 0 : key,
 			               [event isARepeat] ? EVENT_KEY_REPEAT : EVENT_KEY_PRESS);
 		} else {
 			__fb_gfx->key[scancode] = FALSE;
@@ -176,9 +203,21 @@ static void cocoa_handle_event(NSEvent *event)
 		break;
 
 	case NSEventTypeMouseMoved:
+		/* Only report motion inside the window; this driver sees moves for
+		   the whole app, unlike the X11 one which only gets in-window
+		   motion events. */
+		p = [event locationInWindow];
+		if ((p.x < 0) || (p.x >= cocoa.w) || (p.y < 0) || (p.y >= cocoa.h))
+			break;
+		cocoa.mouse_x = (int)p.x;
+		cocoa.mouse_y = cocoa.h - (int)p.y - 1;
+		cocoa_post_mouse(EVENT_MOUSE_MOVE, cocoa.mouse_x, cocoa.mouse_y, 0);
+		break;
+
 	case NSEventTypeLeftMouseDragged:
 	case NSEventTypeRightMouseDragged:
 	case NSEventTypeOtherMouseDragged:
+		/* Dragging may legitimately leave the window */
 		p = [event locationInWindow];
 		cocoa.mouse_x = (int)p.x;
 		cocoa.mouse_y = cocoa.h - (int)p.y - 1;
@@ -297,9 +336,10 @@ void fb_hCocoaSetPalette(int index, int r, int g, int b)
 
 int fb_hCocoaGetMouse(int *x, int *y, int *z, int *buttons, int *clip)
 {
-	if (!cocoa.has_focus)
-		return -1;
-
+	/* Always report the last known state.  Gating this on the window being
+	   key (as the X11 driver does with its focus tracking) makes GetMouse()
+	   return -1 whenever another application is frontmost, which breaks
+	   programs that poll the mouse while unattended. */
 	*x = cocoa.mouse_x;
 	*y = cocoa.mouse_y;
 	*z = cocoa.mouse_z;
@@ -444,6 +484,23 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 		cocoa.view.layer.magnificationFilter = kCAFilterNearest;
 		cocoa.view.layer.contentsScale = 1.0;
 		cocoa.window.contentView = cocoa.view;
+
+		/* Closing the window should end the program, as ALT+F4 does
+		   elsewhere: post the close event and the quit key. */
+		[[NSNotificationCenter defaultCenter]
+		    addObserverForName:NSWindowWillCloseNotification
+		                object:cocoa.window
+		                 queue:nil
+		            usingBlock:^(NSNotification *note) {
+			EVENT e;
+			(void)note;
+			if (!__fb_gfx)
+				return;
+			fb_hMemSet(&e, 0, sizeof(EVENT));
+			e.type = EVENT_WINDOW_CLOSE;
+			fb_hPostEvent(&e);
+			fb_hPostKey(KEY_QUIT);
+		}];
 
 		[cocoa.window makeKeyAndOrderFront:nil];
 		[NSApp activateIgnoringOtherApps:YES];
