@@ -24,6 +24,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../fb_gfx.h"
 #include "fb_gfx_cocoa.h"
@@ -108,6 +111,32 @@ static void cocoa_present_background(CGImageRef image)
 
 /* --------------------------------------------------------------- event pump */
 
+/* Optional diagnostics: set FBCOCOA_DEBUG=<file> to log the raw AppKit events
+   the driver receives, which is the quickest way to tell an input delivery
+   problem from a translation problem. */
+static FILE *cocoa_debug = NULL;
+
+static void cocoa_debug_init(void)
+{
+	char *p = getenv("FBCOCOA_DEBUG");
+
+	if (p && *p)
+		cocoa_debug = fopen(p, "a");
+}
+
+static void cocoa_debug_log(const char *fmt, ...)
+{
+	va_list ap;
+
+	if (cocoa_debug == NULL)
+		return;
+
+	va_start(ap, fmt);
+	vfprintf(cocoa_debug, fmt, ap);
+	va_end(ap);
+	fflush(cocoa_debug);
+}
+
 static void cocoa_post_key(int scancode, int ascii, int type)
 {
 	EVENT e;
@@ -166,15 +195,21 @@ static void cocoa_handle_event(NSEvent *event)
 	if (!__fb_gfx)
 		return;
 
+	cocoa_debug_log("event type=%d\n", (int)[event type]);
+
 	switch ([event type]) {
 	case NSEventTypeKeyDown:
 	case NSEventTypeKeyUp:
 		scancode = fb_cocoakeycode_to_scancode[[event keyCode] & 0xFF];
+		cocoa_debug_log("  key keyCode=%d scancode=%d down=%d\n",
+		                (int)[event keyCode], scancode,
+		                [event type] == NSEventTypeKeyDown);
 		if (scancode == 0)
 			break;
 		if ([event type] == NSEventTypeKeyDown) {
 			int key = cocoa_translate_key(event, scancode);
 
+			cocoa_debug_log("  translated key=%d\n", key);
 			__fb_gfx->key[scancode] = TRUE;
 			/* InKey() reads the key buffer, GetKey()/the event queue read
 			   the posted event, so feed both like the other drivers do */
@@ -254,9 +289,19 @@ static void cocoa_handle_event(NSEvent *event)
 static void cocoa_pump_events(void)
 {
 	NSEvent *event;
+	static int last_active = -1, last_key = -1;
+	int active, keywin;
 
 	if (!cocoa_ready)
 		return;
+
+	active = [NSApp isActive] ? 1 : 0;
+	keywin = [cocoa.window isKeyWindow] ? 1 : 0;
+	if ((active != last_active) || (keywin != last_key)) {
+		last_active = active;
+		last_key = keywin;
+		cocoa_debug_log("state isActive=%d isKeyWindow=%d\n", active, keywin);
+	}
 
 	while ((event = [NSApp nextEventMatchingMask:NSEventMaskAny
 	                                   untilDate:[NSDate distantPast]
@@ -267,7 +312,7 @@ static void cocoa_pump_events(void)
 	}
 
 	/* Focus follows the window, which is what InKey/GetMouse care about */
-	cocoa.has_focus = [cocoa.window isKeyWindow] ? TRUE : FALSE;
+	cocoa.has_focus = keywin ? TRUE : FALSE;
 }
 
 /* --------------------------------------------------------- refresh thread */
@@ -454,6 +499,8 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 		cocoa.mouse_visible = 1;
 		cocoa.has_focus = 1;
 		pthread_mutex_init(&cocoa.mutex, NULL);
+		cocoa_debug_init();
+		cocoa_debug_log("--- driver_init w=%d h=%d depth=%d flags=%d\n", w, h, depth, flags);
 
 		if (!cocoa_app_ready) {
 			[NSApplication sharedApplication];
