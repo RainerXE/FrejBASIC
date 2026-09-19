@@ -258,7 +258,13 @@ private sub hSetOutName( )
 		select case( fbGetOption( FB_COMPOPT_TARGET ) )
 		case FB_COMPTARGET_CYGWIN, FB_COMPTARGET_WIN32
 			fbc.outname += ".dll"
-		case FB_COMPTARGET_LINUX, FB_COMPTARGET_DARWIN, _
+		case FB_COMPTARGET_DARWIN
+			'' Mach-O shared libraries are .dylib; .so is the loadable
+			'' bundle extension, and fb_DylibLoad() looks for the .dylib
+			'' name first on Darwin.
+			fbc.outname = hStripFilename( fbc.outname ) + _
+				"lib" + hStripPath( fbc.outname ) + ".dylib"
+		case FB_COMPTARGET_LINUX, _
 		     FB_COMPTARGET_FREEBSD, FB_COMPTARGET_OPENBSD, _
 		     FB_COMPTARGET_NETBSD, FB_COMPTARGET_DRAGONFLY, _
 		     FB_COMPTARGET_SOLARIS, FB_COMPTARGET_ANDROID
@@ -994,9 +1000,14 @@ private function hLinkFiles( ) as integer
 		'' But able to have shared library generated successfully afterward
 		if( (fbGetOption( FB_COMPOPT_OUTTYPE ) = FB_OUTTYPE_DYNAMICLIB) or _
 			fbGetOption( FB_COMPOPT_EXPORT ) ) and _
-			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_SOLARIS) and _
-			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_DARWIN) then
-			ldcline += " --export-dynamic"
+			(fbGetOption( FB_COMPOPT_TARGET ) <> FB_COMPTARGET_SOLARIS) then
+			'' Darwin links through the clang driver, which wants the option
+			'' spelled with -Wl, rather than passed through as --export-dynamic
+			if( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_DARWIN ) then
+				ldcline += " -Wl,-export_dynamic"
+			else
+				ldcline += " --export-dynamic"
+			end if
 		end if
 
 	case FB_COMPTARGET_XBOX
