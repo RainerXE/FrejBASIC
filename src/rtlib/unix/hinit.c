@@ -55,6 +55,105 @@ static const char *seq[] = {
 };
 #endif
 
+#ifdef DISABLE_NCURSES
+/*
+ * Built-in VT100/xterm capability strings, used when no terminfo database can
+ * be read at run time.  Every terminal FreeBASIC is likely to meet today
+ * understands these, and on macOS the alternative is linking a terminfo
+ * library that the OS does not ship at all.
+ *
+ * The parameterised capabilities have no entry here; fb_hTermVt100() builds
+ * them below, because the termcap API fb_hTermOut() otherwise uses has some
+ * surprising argument handling that has to be reproduced (see there).
+ *
+ * NULL means "this capability is not available", which is also how a terminfo
+ * lookup that finds nothing is treated: fb_hTermOut() returns FALSE and emits
+ * nothing.  SEQ_WINDOW_SIZE is in that class deliberately -- it is a query, so
+ * the caller learns the size from the terminal's answer, not from output.
+ */
+static const char *vt100_codes[SEQ_MAX] = {
+	NULL,             /* SEQ_LOCATE        - built below */
+	"\e[H",           /* SEQ_HOME          */
+	NULL,             /* SEQ_SCROLL_REGION - built below */
+	"\e[H\e[2J",      /* SEQ_CLS           */
+	"\e[K",           /* SEQ_CLEOL         */
+	NULL,             /* SEQ_WINDOW_SIZE   - a query, nothing to emit */
+	"\a",             /* SEQ_BEEP          */
+	NULL,             /* SEQ_FG_COLOR      - built below */
+	NULL,             /* SEQ_BG_COLOR      - built below */
+	"\e[0m",          /* SEQ_RESET_COLOR   */
+	"\e[1m",          /* SEQ_BRIGHT_COLOR  */
+	NULL,             /* SEQ_SCROLL        - built below */
+	"\e[?12l\e[?25h", /* SEQ_SHOW_CURSOR   */
+	"\e[?25l",        /* SEQ_HIDE_CURSOR   */
+	"\e[P",           /* SEQ_DEL_CHAR      */
+	"\e[?1h\e=",      /* SEQ_INIT_KEYPAD   */
+	"\e[?1l\e>",      /* SEQ_EXIT_KEYPAD   */
+};
+
+/*
+ * Expand one of the capabilities into "dst", returning the number of bytes
+ * written.  A return of 0 means "no such capability", which fb_hTermOut()
+ * reports as failure, exactly as it does for a NULL terminfo string.
+ *
+ * Watch the argument order.  The termcap tgoto() used by the terminfo build
+ * resolves a capability's %p1 against its *second* argument, so the fallback
+ * has to do the same or LOCATE and Colour come out transposed.  Measured
+ * against ncurses' tgoto() on xterm-256color:
+ *
+ *     tgoto( cm, 2, 4 )  ==  \e[5;3H    LOCATE passes (column-1, row-1)
+ *     tgoto( cs, 2, 4 )  ==  \e[5;3r    scroll region passes (bottom-1, top-1)
+ *     tgoto( AF, 0, 1 )  ==  \e[31m     colours arrive in param2
+ *     tgoto( AB, 0, 1 )  ==  \e[41m
+ *     tgoto( SF, 2, 4 )  ==  \e[4S
+ */
+static size_t fb_hTermVt100( char *dst, size_t dstlen, int code,
+                             int param1, int param2 )
+{
+	int len;
+
+	switch( code ) {
+	case SEQ_LOCATE:
+		/* param1 = column-1, param2 = row-1; CUP wants row;column */
+		len = snprintf( dst, dstlen, "\e[%d;%dH", param2 + 1, param1 + 1 );
+		break;
+	case SEQ_SCROLL_REGION:
+		/* param1 = bottom-1, param2 = top-1; csr wants top;bottom */
+		len = snprintf( dst, dstlen, "\e[%d;%dr", param2 + 1, param1 + 1 );
+		break;
+	case SEQ_FG_COLOR:
+	case SEQ_BG_COLOR: {
+		/* 0-7 are SGR 30-37/40-47, 8-15 are 90-97/100-107 */
+		int idx  = param2;
+		int attr = ( code == SEQ_FG_COLOR ) ? 30 : 40;
+		if( idx >= 8 )
+			attr += 60 + ( idx - 8 );
+		else
+			attr += idx;
+		len = snprintf( dst, dstlen, "\e[%dm", attr );
+		break;
+	}
+	case SEQ_SCROLL:
+		len = snprintf( dst, dstlen, "\e[%dS", param2 );
+		break;
+	default: {
+		const char *fmt = vt100_codes[ code ];
+		if( (fmt == NULL) || (*fmt == 0) )
+			return 0;
+		len = snprintf( dst, dstlen, "%s", fmt );
+		break;
+	}
+	}
+
+	if( len < 0 )
+		return 0;
+	if( (size_t)len >= dstlen )
+		len = (int)dstlen - 1;
+
+	return (size_t)len;
+}
+#endif /* DISABLE_NCURSES */
+
 static pthread_t __fb_bg_thread;
 static int bgthread_inited = FALSE;
 static pthread_mutex_t __fb_bg_mutex;
@@ -275,10 +374,6 @@ static void sigwinch_handler(int sig)
 
 int fb_hTermOut( int code, int param1, int param2 )
 {
-#ifdef DISABLE_NCURSES
-	/* Never output escape sequences. */
-	return FALSE;
-#else
 	/* Hard-coded VT100 terminal escape sequences corresponding to our SEQ_*
 	   #defines with values >= 100. Apparently these codes are not available
 	   through termcap/terminfo (tgetstr()), so we need to hard-code them.
@@ -322,9 +417,12 @@ int fb_hTermOut( int code, int param1, int param2 )
 		}
 	} else {
 #ifdef DISABLE_NCURSES
-		/* if (code == SEQ_FG_COLOR) */
-		/* 	puts() */
-		/* else */
+		char buf[ 32 ];
+		size_t len = fb_hTermVt100( buf, sizeof( buf ), code, param1, param2 );
+		if( len == 0 )
+			return FALSE;
+		if( fwrite( buf, 1, len, stdout ) != len )
+			return FALSE;
 #else
 		if (!__fb_con.seq[code])
 			return FALSE;
@@ -340,7 +438,6 @@ int fb_hTermOut( int code, int param1, int param2 )
 	fflush( stdout );
 
 	return TRUE;
-#endif
 }
 
 /**
@@ -601,14 +698,12 @@ static void hInit( void )
 	memset(&__fb_con, 0, sizeof(__fb_con));
 
 #ifdef DISABLE_NCURSES
-	
 	term = getenv("TERM");
 	if (!term)
 		term = "console";
-	// Allow initialisation continue, aside from loading terminal control codes.
-	
-	/* for (i = 0; i < SEQ_MAX; i++) */
-	/* 	__fb_con.seq[i] = vt100_codes[i]; */
+	/* No terminfo to read, so __fb_con.seq[] stays empty and fb_hTermOut()
+	   serves the built-in vt100_codes[] table instead. Initialisation carries
+	   on from here so that TERM is still classified below. */
 #else
 
 	/* Init termcap */

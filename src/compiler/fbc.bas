@@ -4346,8 +4346,11 @@ private sub hAddDefaultLibs( )
 	case FB_COMPTARGET_DARWIN
 		'' There is no libgcc on macOS unless a GCC toolchain is installed;
 		'' the clang driver pulls in libSystem (and thus libc/libm/pthread)
-		'' by itself.  libncurses is still needed by the FB runtime.
+		'' by itself.
+		#ifndef DISABLE_NCURSES
+		'' Only needed when the FB runtime was built against terminfo.
 		fbcAddDefLib( "ncurses" )
+		#endif
 
 	case FB_COMPTARGET_DOS
 		fbcAddDefLib( "gcc" )
@@ -4363,14 +4366,18 @@ private sub hAddDefaultLibs( )
 		fbcAddDefLib( "pthread" )
 		fbcAddDefLib( "c" )
 		fbcAddDefLib( "m" )
+		#ifndef DISABLE_NCURSES
 		fbcAddDefLib( "ncurses" )
+		#endif
 
 	case FB_COMPTARGET_DRAGONFLY, FB_COMPTARGET_SOLARIS
 		fbcAddDefLib( "gcc" )
 		fbcAddDefLib( "pthread" )
 		fbcAddDefLib( "c" )
 		fbcAddDefLib( "m" )
+		#ifndef DISABLE_NCURSES
 		fbcAddDefLib( "ncurses" )
+		#endif
 
 	case FB_COMPTARGET_LINUX
 		''
@@ -4387,12 +4394,14 @@ private sub hAddDefaultLibs( )
 		'' and sometimes separate (depending on how ncurses was built).
 
 		'' Prefer libtinfo over libncurses
+		#ifndef DISABLE_NCURSES
 		if( (len( fbcFindLibFile( "libtinfo.a"  ) ) > 0) or _
 			(len( fbcFindLibFile( "libtinfo.so" ) ) > 0) ) then
 			fbcAddDefLib( "tinfo" )
 		else
 			fbcAddDefLib( "ncurses" )
 		end if
+		#endif
 
 		fbcAddDefLib( "m" )
 		fbcAddDefLib( "dl" )
@@ -4410,14 +4419,18 @@ private sub hAddDefaultLibs( )
 		fbcAddDefLib( "pthread" )
 		fbcAddDefLib( "c" )
 		fbcAddDefLib( "m" )
+		#ifndef DISABLE_NCURSES
 		fbcAddDefLib( "ncurses" )
+		#endif
 
 	case FB_COMPTARGET_OPENBSD
 		fbcAddDefLib( "gcc" )
 		fbcAddDefLib( "pthread" )
 		fbcAddDefLib( "c" )
 		fbcAddDefLib( "m" )
+		#ifndef DISABLE_NCURSES
 		fbcAddDefLib( "ncurses" )
+		#endif
 
 	case FB_COMPTARGET_ANDROID
 		fbcAddDefLib( "m" )

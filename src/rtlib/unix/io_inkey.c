@@ -57,13 +57,55 @@ static const KEY_DATA key_data[] = {
 	{ "kD", KEY_DEL       },
 	{ NULL, 0 }
 };
+#else
+/*
+ * Without terminfo there are no capability strings to look up, so use the
+ * literal VT100/xterm sequences instead.  These are the same sequences the
+ * terminfo database holds for xterm, and they are what terminals actually
+ * send here: fb_hInitConsole() puts the keypad into application mode
+ * (\e[?1h\e=), so the cursor keys arrive as \eOA..\eOD rather than \eOA..\e[D.
+ *
+ * Backspace and Tab deliberately have no entry.  They are not ESC-prefixed,
+ * so they never reach the escape-sequence tree in get_input(); they come
+ * through fb_hAddCh() as ordinary characters, which already maps 0x7F to 0x08.
+ */
+typedef struct VT100_KEY
+{
+	const char *seq;
+	int code;
+} VT100_KEY;
+
+static const VT100_KEY vt100_keys[] = {
+	{ "\eOP",   KEY_F1        },
+	{ "\eOQ",   KEY_F2        },
+	{ "\eOR",   KEY_F3        },
+	{ "\eOS",   KEY_F4        },
+	{ "\e[15~", KEY_F5        },
+	{ "\e[17~", KEY_F6        },
+	{ "\e[18~", KEY_F7        },
+	{ "\e[19~", KEY_F8        },
+	{ "\e[20~", KEY_F9        },
+	{ "\e[21~", KEY_F10       },
+	{ "\e[23~", KEY_F11       },
+	{ "\e[24~", KEY_F12       },
+	{ "\eOH",   KEY_HOME      },
+	{ "\eOA",   KEY_UP        },
+	{ "\e[5~",  KEY_PAGE_UP   },
+	{ "\eOD",   KEY_LEFT      },
+	{ "\eOC",   KEY_RIGHT     },
+	{ "\eOF",   KEY_END       },
+	{ "\eOB",   KEY_DOWN      },
+	{ "\e[6~",  KEY_PAGE_DOWN },
+	{ "\e[2~",  KEY_INS       },
+	{ "\e[3~",  KEY_DEL       },
+	{ NULL, 0 }
+};
 #endif
 
 static int key_buffer[KEY_BUFFER_LEN], key_head = 0, key_tail = 0, key_buffer_changed = FALSE;
 static NODE *root_node = NULL;
 
-#ifndef DISABLE_NCURSES
-static void add_key(NODE **node, char *key, short code)
+static void add_key(NODE **node, const char *key, short code)
 {
 	NODE *n;
 
@@ -102,7 +144,6 @@ static void add_key(NODE **node, char *key, short code)
 	else
 		n->code = code;
 }
-#endif
 
 static void init_keys(void)
 {
@@ -147,8 +188,15 @@ static void init_keys(void)
 			add_key(&root_node, key + 1, data->code);
 		}
 	}
-	add_key(&root_node, "[M", KEY_MOUSE);
+#else
+	{
+		const VT100_KEY *k;
+
+		for (k = vt100_keys; k->seq; k++)
+			add_key(&root_node, k->seq + 1, k->code);
+	}
 #endif
+	add_key(&root_node, "[M", KEY_MOUSE);
 }
 
 static int get_input(void)

@@ -145,7 +145,11 @@
 #   -DDISABLE_OPENGL   build without OpenGL headers (disables OpenGL gfx drivers)
 #   -DDISABLE_FBDEV    build without Linux framebuffer device headers (disables Linux fbdev gfx driver)
 #   -DDISABLE_D3D10    build without DirectX 10 driver(disable D2D driver in windows)
-#   -DDISABLE_NCURSES  build without libtinfo or ncurses (disables console commands)
+#   -DDISABLE_NCURSES  build without libtinfo or ncurses. Console I/O still works
+#                      through a built-in VT100/xterm capability table instead of
+#                      the terminfo database; this is the default on Darwin, where
+#                      no terminfo library is shipped. Set NCURSES_PREFIX to build
+#                      against a real ncurses instead.
 #   -DDISABLE_LANGINFO build without locale info (affects Unix only; makes no difference unless you
 #                      call setlocale() manually). Does not remove setlocale(LC_CTYPE, "") call.
 #   -DDISABLE_WCHAR    build without wchar_t type or functions. wstring becomes ASCII only (fbc needs to match this).
@@ -185,6 +189,11 @@ OBJC = $(CC) -x objective-c
 # Line-ending fixer, only used when packaging bootstrap sources.  Not packaged
 # on every distro, so callers must check that this is non-empty before using it.
 DOS2UNIX ?= $(shell command -v dos2unix 2>/dev/null)
+# Optional terminfo/ncurses installation to build the console support against.
+# Only needed on Darwin, which has no system terminfo library; leaving it unset
+# there selects the built-in VT100 capability table.  See the BOOTSTRAP_LIBS
+# rules near the bootstrap-fbc link, and DISABLE_NCURSES in the CFLAGS list.
+NCURSES_PREFIX ?=
 prefix := /usr/local
 
 # Determine the makefile's directory, this may be a relative path when
@@ -540,6 +549,34 @@ ALLFBRTCFLAGS += -e -m nomain
 ALLFBRTLFLAGS += -e -m nomain
 ALLCFLAGS += -Wall -Wextra -Wno-unused-parameter -Werror-implicit-function-declaration
 
+# ------------------------------------------------------------------------------
+# Terminfo/ncurses support for the console rtlib.
+#
+# DISABLE_NCURSES has to be set consistently for the C sources (ALLCFLAGS) and
+# for the compiler sources (ALLFBCFLAGS).  The C rtlib is what actually calls
+# into terminfo, but it is fbc that decides whether -lncurses/-ltinfo is handed
+# to the linker for every program it builds (see fbcAddDefaultLibs() in
+# src/compiler/fbc.bas).  Setting only one of the two yields either an
+# undefined tgetstr() or a link against a library nothing uses.
+#
+# macOS is the reason the switch exists at all: it ships no linkable terminfo
+# library, so the built-in VT100 table in src/rtlib/unix/hinit.c is used unless
+# NCURSES_PREFIX points at a real ncurses installation.
+FB_DISABLE_NCURSES := no
+ifeq ($(TARGET_OS),darwin)
+  ifeq ($(strip $(NCURSES_PREFIX)),)
+    FB_DISABLE_NCURSES := yes
+  endif
+endif
+ifeq ($(TARGET_OS),android)
+  FB_DISABLE_NCURSES := yes
+endif
+ifeq ($(FB_DISABLE_NCURSES),yes)
+  ALLCFLAGS += -DDISABLE_NCURSES
+  ALLFBCFLAGS += -d DISABLE_NCURSES
+endif
+# ------------------------------------------------------------------------------
+
 ifneq ($(filter bootstrap bootstrap-minimal, $(MAKECMDGOALS)),)
   # Disable features not needed to compile a minimal bootstrap fbc.
   # "bootstrap" depends on "bootstrap-minimal", but MAKECMDGOALS only names the
@@ -558,7 +595,7 @@ ifeq ($(TARGET_OS),android)
   # Android has very limited locale support in the NDK -- only the C locale is supported.
   # Locale information is available from Java. The CrystaX alternative NDK has locale support.
 
-  ALLCFLAGS += -DDISABLE_NCURSES -DDISABLE_X11 -DDISABLE_FFI -DDISABLE_LANGINFO
+  ALLCFLAGS += -DDISABLE_X11 -DDISABLE_FFI -DDISABLE_LANGINFO
 endif
 
 ifeq ($(TARGET_OS),xbox)
@@ -602,6 +639,15 @@ ifeq ($(TARGET_OS),darwin)
   ALLCFLAGS += -I/usr/include/ffi
   ALLCFLAGS += -DDISABLE_X11
   ALLCFLAGS += -DDISABLE_OPENGL
+  # macOS has no linkable terminfo library: /usr/lib/libncurses.5.4.dylib is
+  # Apple's deprecated private copy, resolved out of the dyld shared cache
+  # rather than off disk, and the SDK carries only a .tbd stub for it.  The
+  # default is therefore the built-in VT100 capability table; set
+  # NCURSES_PREFIX=/opt/homebrew/opt/ncurses to build against a real ncurses
+  # instead, for full terminfo fidelity.  See FB_DISABLE_NCURSES above.
+  ifneq ($(strip $(NCURSES_PREFIX)),)
+    ALLCFLAGS += -I$(NCURSES_PREFIX)/include
+  endif
 endif
 
 ifneq ($(filter cygwin win32,$(TARGET_OS)),)
@@ -1604,11 +1650,28 @@ endif
 
 # Use gcc to link fbc from the bootstrap .o's
 # (assuming the rtlib was built already)
+#
+# BOOTSTRAP_LIBS is computed rather than hardcoded so that it always matches
+# what the rtlib was actually compiled with: linking -lncurses into an fbc
+# whose rtlib has no terminfo calls would just add a dependency for nothing --
+# and on Darwin it would pull in Apple's deprecated private libncurses.
+#
+# NCURSES_PREFIX points the compile and the link at a specific ncurses
+# installation.  The rules above already add the matching -I; LDFLAGS is
+# honoured too, so -L can also be passed the usual way.
+LDFLAGS ?=
+BOOTSTRAP_LDFLAGS := $(if $(strip $(NCURSES_PREFIX)),-L$(NCURSES_PREFIX)/lib)
+
 ifneq ($(filter darwin freebsd dragonfly linux netbsd openbsd solaris,$(TARGET_OS)),)
-  BOOTSTRAP_LIBS := -lncurses -lm -pthread
+  BOOTSTRAP_LIBS := -lm -pthread
+  ifneq ($(FB_DISABLE_NCURSES),yes)
+    BOOTSTRAP_LIBS += -lncurses
+  endif
+else
+  BOOTSTRAP_LIBS :=
 endif
 $(BOOTSTRAP_FBC): rtlib $(BOOTSTRAP_OBJ)
-	$(QUIET_LINK)$(CC) -o $@ $(libdir)/fbrt0.o bootstrap/$(FBTARGET)/*.o $(libdir)/libfb.a $(BOOTSTRAP_LIBS)
+	$(QUIET_LINK)$(CC) -o $@ $(BOOTSTRAP_LDFLAGS) $(LDFLAGS) $(libdir)/fbrt0.o bootstrap/$(FBTARGET)/*.o $(libdir)/libfb.a $(BOOTSTRAP_LIBS)
 
 .PHONY: clean-bootstrap
 clean-bootstrap:
