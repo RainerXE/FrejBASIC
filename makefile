@@ -182,6 +182,9 @@ AR = $(BUILD_PREFIX)ar
 CC = $(BUILD_PREFIX)gcc
 # Objective-C compiler, used for the native Cocoa graphics driver on Darwin
 OBJC = $(CC) -x objective-c
+# Line-ending fixer, only used when packaging bootstrap sources.  Not packaged
+# on every distro, so callers must check that this is non-empty before using it.
+DOS2UNIX ?= $(shell command -v dos2unix 2>/dev/null)
 prefix := /usr/local
 
 # Determine the makefile's directory, this may be a relative path when
@@ -1492,23 +1495,29 @@ bootstrap-dist:
 
 	# Ensure to have LFs regardless of host system (LFs will probably work
 	# on DOS/Win32, but CRLFs could cause issues on Linux)
-	dos2unix bootstrap/dos/*
-	dos2unix bootstrap/freebsd-x86/*
-	dos2unix bootstrap/freebsd-x86_64/*
-	dos2unix bootstrap/freebsd-powerpc/*
-	dos2unix bootstrap/freebsd-powerpc64/*
-	dos2unix bootstrap/freebsd-powerpc64le/*
-	dos2unix bootstrap/dragonfly-x86_64/*
-	dos2unix bootstrap/solaris-x86_64/*
-	dos2unix bootstrap/linux-x86/*
-	dos2unix bootstrap/linux-x86_64/*
-	dos2unix bootstrap/cygwin-x86_64/*
-	dos2unix bootstrap/win32/*
-	dos2unix bootstrap/win64/*
-	dos2unix bootstrap/linux-arm/*
-	dos2unix bootstrap/linux-aarch64/*
-	dos2unix bootstrap/darwin-x86_64/*
-	dos2unix bootstrap/darwin-aarch64/*
+	# dos2unix is not packaged everywhere.  Everything fbc writes is already
+	# LF-terminated, so skipping the conversion when it is missing is safe.
+	@if [ -z "$(DOS2UNIX)" ]; then \
+		echo "note: dos2unix not found, keeping generated line endings"; \
+	else \
+		$(DOS2UNIX) bootstrap/dos/*; \
+		$(DOS2UNIX) bootstrap/freebsd-x86/*; \
+		$(DOS2UNIX) bootstrap/freebsd-x86_64/*; \
+		$(DOS2UNIX) bootstrap/freebsd-powerpc/*; \
+		$(DOS2UNIX) bootstrap/freebsd-powerpc64/*; \
+		$(DOS2UNIX) bootstrap/freebsd-powerpc64le/*; \
+		$(DOS2UNIX) bootstrap/dragonfly-x86_64/*; \
+		$(DOS2UNIX) bootstrap/solaris-x86_64/*; \
+		$(DOS2UNIX) bootstrap/linux-x86/*; \
+		$(DOS2UNIX) bootstrap/linux-x86_64/*; \
+		$(DOS2UNIX) bootstrap/cygwin-x86_64/*; \
+		$(DOS2UNIX) bootstrap/win32/*; \
+		$(DOS2UNIX) bootstrap/win64/*; \
+		$(DOS2UNIX) bootstrap/linux-arm/*; \
+		$(DOS2UNIX) bootstrap/linux-aarch64/*; \
+		$(DOS2UNIX) bootstrap/darwin-x86_64/*; \
+		$(DOS2UNIX) bootstrap/darwin-aarch64/*; \
+	fi
 
 	# Package FB sources (similar to our "gitdist" command), and add the bootstrap/ directory
 	# Making a .tar.xz should be good enough for now.
@@ -1526,8 +1535,10 @@ bootstrap-dist-arm:
 	mkdir -p bootstrap/linux-aarch64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-arm           && mv src/compiler/*.c   bootstrap/linux-arm
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-aarch64       && mv src/compiler/*.c   bootstrap/linux-aarch64
-	dos2unix bootstrap/linux-arm/*
-	dos2unix bootstrap/linux-aarch64/*
+	@if [ -n "$(DOS2UNIX)" ]; then \
+		$(DOS2UNIX) bootstrap/linux-arm/*; \
+		$(DOS2UNIX) bootstrap/linux-aarch64/*; \
+	fi
 
 	# Package FB sources (similar to our "gitdist" command), and add the bootstrap/ directory
 	# Making a .tar.xz should be good enough for now.
@@ -1549,7 +1560,7 @@ bootstrap-dist-target:
 	mkdir -p bootstrap/$(FBTARGET)
 
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target $(FBTARGET) && mv src/compiler/*.$(FBBOOTSTRAPFILEEXT) bootstrap/$(FBTARGET)
-	dos2unix bootstrap/$(FBTARGET)/*
+	@if [ -n "$(DOS2UNIX)" ]; then $(DOS2UNIX) bootstrap/$(FBTARGET)/*; fi
 
 	# Package FB sources (similar to our "gitdist" command), and add the bootstrap/ directory
 	# Making a .tar.xz should be good enough for now.
