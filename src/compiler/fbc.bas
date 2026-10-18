@@ -956,7 +956,12 @@ private function hLinkFiles( ) as integer
 			if( fbGetOption( FB_COMPOPT_TARGET ) = FB_COMPTARGET_DARWIN ) then
 				'' Darwin's linker (ld64) has no -shared/-h; it uses -dynamiclib
 				'' and records the install name via -install_name.
-				ldcline += " -dynamiclib -install_name " + QUOTE + dllname + QUOTE
+				''
+				'' LC_ID_DYLIB must match the produced filename, so pass the
+				'' complete output name here (libfoo.dylib) and not the "libfoo"
+				'' stem that dllname holds for the -l lookup below.
+				ldcline += " -dynamiclib -install_name " + QUOTE + _
+					hStripPath( fbc.outname ) + QUOTE
 			else
 				ldcline += " -shared -h" + hStripPath( fbc.outname )
 			end if
