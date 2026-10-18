@@ -1470,6 +1470,8 @@ bootstrap-dist:
 	mkdir -p bootstrap/win64
 	mkdir -p bootstrap/linux-arm
 	mkdir -p bootstrap/linux-aarch64
+	mkdir -p bootstrap/darwin-x86_64
+	mkdir -p bootstrap/darwin-aarch64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target dos                 && mv src/compiler/*.asm bootstrap/dos
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target freebsd-x86         && mv src/compiler/*.asm bootstrap/freebsd-x86
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target freebsd-x86_64      && mv src/compiler/*.c   bootstrap/freebsd-x86_64
@@ -1485,6 +1487,8 @@ bootstrap-dist:
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target win64               && mv src/compiler/*.c   bootstrap/win64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-arm           && mv src/compiler/*.c   bootstrap/linux-arm
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-aarch64       && mv src/compiler/*.c   bootstrap/linux-aarch64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target darwin-x86_64        && mv src/compiler/*.c   bootstrap/darwin-x86_64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target darwin-aarch64        && mv src/compiler/*.c   bootstrap/darwin-aarch64
 
 	# Ensure to have LFs regardless of host system (LFs will probably work
 	# on DOS/Win32, but CRLFs could cause issues on Linux)
@@ -1503,6 +1507,8 @@ bootstrap-dist:
 	dos2unix bootstrap/win64/*
 	dos2unix bootstrap/linux-arm/*
 	dos2unix bootstrap/linux-aarch64/*
+	dos2unix bootstrap/darwin-x86_64/*
+	dos2unix bootstrap/darwin-aarch64/*
 
 	# Package FB sources (similar to our "gitdist" command), and add the bootstrap/ directory
 	# Making a .tar.xz should be good enough for now.
