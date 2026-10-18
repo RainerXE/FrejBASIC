@@ -13,6 +13,7 @@
 /log-tests-log-fblite.lst
 /log-tests-log-qb.lst
 /log-tests-qb.inc
+/failed-log-tests-*.inc
 
 # Log test *.exe files are already covered by toplevel .gitignore,
 # but the Linux variants are, unfortunately, not.
@@ -22,10 +23,12 @@
 /cpp/class-fbc
 /cpp/derived-fbc
 /cpp/fbcall-fbc
+/cpp/fastcall-fbc
 /cpp/mangle-fbc
 /cpp/mangle-enum-fbc
 /cpp/mangle-struct-fbc
 /cpp/this-fbc
+/cpp/thiscall-fbc
 /deprecated/implicit_explicit
 /deprecated/innerdup
 /deprecated/shadow_inherit
@@ -75,6 +78,8 @@
 /scopes/dtor_eol_eof2
 /scopes/for-temp-unscoping-fblite
 /scopes/for-temp-unscoping-qb
+/scopes/lookup-local-main-1
+/scopes/lookup-local-main-2
 /scopes/select-temp-var-vs-unscoping-fb
 /scopes/select-temp-var-vs-unscoping-fblite
 /scopes/select-temp-var-vs-unscoping-qb
