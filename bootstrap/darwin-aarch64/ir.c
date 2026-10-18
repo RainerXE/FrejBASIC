@@ -1110,10 +1110,11 @@ __FB_STATIC_ASSERT( sizeof( struct $8FBARRAY1IPvE ) == 72 );
 static struct $8FBARRAY1IPvE tmp$106$;
 struct $11IRHLCONTEXT {
 	int64 REGCOUNT;
+	int64 LBLCOUNT;
 	struct $6TFLIST VREGS;
 	struct $5TLIST CALLARGS;
 };
-__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 184 );
+__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 192 );
 extern struct $11IRHLCONTEXT IRHL$;
 struct $5IRCTX IR$;
 struct $11IRHLCONTEXT IRHL$;
@@ -1169,16 +1170,16 @@ void IREND( void )
 void IRHLINIT( void )
 {
 	label$23:;
-	FLISTINIT( (struct $6TFLIST*)((uint8*)&IRHL$ + 8ll), 6144ll, 120ll );
-	LISTINIT( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll), 32ll, 24ll, 6ll );
+	FLISTINIT( (struct $6TFLIST*)((uint8*)&IRHL$ + 16ll), 6144ll, 120ll );
+	LISTINIT( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll), 32ll, 24ll, 6ll );
 	label$24:;
 }
 
 void IRHLEND( void )
 {
 	label$25:;
-	LISTEND( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll) );
-	FLISTEND( (struct $6TFLIST*)((uint8*)&IRHL$ + 8ll) );
+	LISTEND( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll) );
+	FLISTEND( (struct $6TFLIST*)((uint8*)&IRHL$ + 16ll) );
 	label$26:;
 }
 
@@ -1186,13 +1187,14 @@ void IRHLEMITPROCBEGIN( void )
 {
 	label$27:;
 	*(int64*)&IRHL$ = 0ll;
+	*(int64*)((uint8*)&IRHL$ + 8ll) = 0ll;
 	label$28:;
 }
 
 void IRHLEMITPROCEND( void )
 {
 	label$29:;
-	FLISTRESET( (struct $6TFLIST*)((uint8*)&IRHL$ + 8ll) );
+	FLISTRESET( (struct $6TFLIST*)((uint8*)&IRHL$ + 16ll) );
 	label$30:;
 }
 
@@ -1200,7 +1202,7 @@ void IRHLEMITPUSHARG( struct $8FBSYMBOL* PARAM$1, struct $6IRVREG* VR$1, int64 U
 {
 	label$31:;
 	struct $9IRCALLARG* ARG$1;
-	void* vr$1 = LISTNEWNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll) );
+	void* vr$1 = LISTNEWNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll) );
 	ARG$1 = (struct $9IRCALLARG*)vr$1;
 	*(struct $8FBSYMBOL**)ARG$1 = PARAM$1;
 	*(struct $6IRVREG**)((uint8*)ARG$1 + 8ll) = VR$1;
@@ -1214,7 +1216,7 @@ struct $6IRVREG* IRHLNEWVREG( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, int64
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$33:;
 	struct $6IRVREG* V$1;
-	void* vr$2 = FLISTNEWITEM( (struct $6TFLIST*)((uint8*)&IRHL$ + 8ll) );
+	void* vr$2 = FLISTNEWITEM( (struct $6TFLIST*)((uint8*)&IRHL$ + 16ll) );
 	V$1 = (struct $6IRVREG*)vr$2;
 	*($15IRVREGTYPE_ENUM*)V$1 = VTYPE$1;
 	*($11FB_DATATYPE*)((uint8*)V$1 + 8ll) = DTYPE$1;

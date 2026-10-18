@@ -377,8 +377,10 @@ int64 HFILEEXISTS( char* FILENAME$1 )
 		fb$result$1 = -1ll;
 		int32 vr$8 = fb_FileClose( (int32)F$1 );
 		if( (int64)vr$8 == 0ll) goto label$54;
-		void* vr$10 = fb_ErrorThrowAt( 161, (char*)"src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+		void* vr$10 = fb_ErrorThrowAt( 161, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$10;
+		__fb_jumpptr$0$:;
 		label$54:;
 	}
 	goto label$52;
@@ -920,8 +922,10 @@ int64 HCHECKFILEFORMAT( int64 F$1 )
 			{
 				int32 vr$19 = fb_FileSeekLarge( (int32)F$1, 1ll );
 				if( (int64)vr$19 == 0ll) goto label$156;
-				void* vr$21 = fb_ErrorThrowAt( 425, (char*)"src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				void* vr$21 = fb_ErrorThrowAt( 425, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				(void)&&__fb_jumpptr$0$;
 				goto *vr$21;
+				__fb_jumpptr$0$:;
 				label$156:;
 			}
 			goto label$153;
@@ -931,8 +935,10 @@ int64 HCHECKFILEFORMAT( int64 F$1 )
 			{
 				int32 vr$23 = fb_FileSeekLarge( (int32)F$1, 4ll );
 				if( (int64)vr$23 == 0ll) goto label$159;
-				void* vr$25 = fb_ErrorThrowAt( 428, (char*)"src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				void* vr$25 = fb_ErrorThrowAt( 428, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				(void)&&__fb_jumpptr$1$;
 				goto *vr$25;
+				__fb_jumpptr$1$:;
 				label$159:;
 			}
 			goto label$153;
@@ -944,8 +950,10 @@ int64 HCHECKFILEFORMAT( int64 F$1 )
 			{
 				int32 vr$27 = fb_FileSeekLarge( (int32)F$1, 3ll );
 				if( (int64)vr$27 == 0ll) goto label$163;
-				void* vr$29 = fb_ErrorThrowAt( 432, (char*)"src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				void* vr$29 = fb_ErrorThrowAt( 432, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp.bas", (void*)0ull, (void*)0ull );
+				(void)&&__fb_jumpptr$2$;
 				goto *vr$29;
+				__fb_jumpptr$2$:;
 				label$163:;
 			}
 			label$160:;

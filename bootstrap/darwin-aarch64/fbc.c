@@ -1199,8 +1199,10 @@ static FBSTRING* HGET1STOUTPUTLINEFROMCOMMAND( FBSTRING* CMD$1 )
 	fb_InputString( (void*)&LN$1, -1ll, 0 );
 	int32 vr$6 = fb_FileClose( F$1 );
 	if( (int64)vr$6 == 0ll) goto label$87;
-	void* vr$8 = fb_ErrorThrowAt( 316, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$8 = fb_ErrorThrowAt( 316, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$8;
+	__fb_jumpptr$0$:;
 	label$87:;
 	fb_StrInit( (void*)&fb$result$1, -1ll, (void*)&LN$1, -1ll, 0 );
 	fb_StrDelete( (FBSTRING*)&LN$1 );
@@ -1291,8 +1293,10 @@ static FBSTRING* FBCQUERYCC( FBSTRING* OPTIONS$1 )
 	fb_InputString( (void*)&RET$1, -1ll, 0 );
 	int32 vr$26 = fb_FileClose( (int32)FF$1 );
 	if( (int64)vr$26 == 0ll) goto label$106;
-	void* vr$28 = fb_ErrorThrowAt( 355, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$28 = fb_ErrorThrowAt( 355, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$28;
+	__fb_jumpptr$0$:;
 	label$106:;
 	fb_StrInit( (void*)&fb$result$1, -1ll, (void*)&RET$1, -1ll, 0 );
 	fb_StrDelete( (FBSTRING*)&RET$1 );
@@ -1744,8 +1748,10 @@ static int64 CLEARDEFLIST( FBSTRING* DEFFILE$1 )
 	{
 		int32 vr$18 = fb_FileClose( (int32)FI$1 );
 		if( (int64)vr$18 == 0ll) goto label$190;
-		void* vr$20 = fb_ErrorThrowAt( 667, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+		void* vr$20 = fb_ErrorThrowAt( 667, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$20;
+		__fb_jumpptr$0$:;
 		label$190:;
 		fb$result$1 = 0ll;
 		fb_StrDelete( (FBSTRING*)&CLEANED$1 );
@@ -1778,13 +1784,17 @@ static int64 CLEARDEFLIST( FBSTRING* DEFFILE$1 )
 	label$192:;
 	int32 vr$41 = fb_FileClose( (int32)FO$1 );
 	if( (int64)vr$41 == 0ll) goto label$195;
-	void* vr$43 = fb_ErrorThrowAt( 682, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$43 = fb_ErrorThrowAt( 682, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$1$;
 	goto *vr$43;
+	__fb_jumpptr$1$:;
 	label$195:;
 	int32 vr$45 = fb_FileClose( (int32)FI$1 );
 	if( (int64)vr$45 == 0ll) goto label$196;
-	void* vr$47 = fb_ErrorThrowAt( 683, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$47 = fb_ErrorThrowAt( 683, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$2$;
 	goto *vr$47;
+	__fb_jumpptr$2$:;
 	label$196:;
 	fb_FileKill( (FBSTRING*)DEFFILE$1 );
 	int32 vr$49 = rename( (char*)*(char**)&CLEANED$1, (char*)*(char**)DEFFILE$1 );
@@ -1819,8 +1829,10 @@ static int64 HGENERATEEMPTYDEFFILE( FBSTRING* DEFFILE$1 )
 	fb_PrintString( TMP$120$1, (FBSTRING*)vr$4, 1 );
 	int32 vr$5 = fb_FileClose( F$1 );
 	if( (int64)vr$5 == 0ll) goto label$201;
-	void* vr$7 = fb_ErrorThrowAt( 697, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$7 = fb_ErrorThrowAt( 697, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$7;
+	__fb_jumpptr$0$:;
 	label$201:;
 	fb$result$1 = -1ll;
 	label$198:;
@@ -3297,13 +3309,17 @@ static int64 HLINKFILES( void )
 			VALUE$3 = (int32)vr$487;
 			int32 vr$491 = fb_FilePutLarge( (int32)F$3, 533ll, (void*)&VALUE$3, 4ull );
 			if( (int64)vr$491 == 0ll) goto label$461;
-			void* vr$493 = fb_ErrorThrowAt( 1465, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+			void* vr$493 = fb_ErrorThrowAt( 1465, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+			(void)&&__fb_jumpptr$0$;
 			goto *vr$493;
+			__fb_jumpptr$0$:;
 			label$461:;
 			int32 vr$495 = fb_FileClose( (int32)F$3 );
 			if( (int64)vr$495 == 0ll) goto label$462;
-			void* vr$497 = fb_ErrorThrowAt( 1467, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+			void* vr$497 = fb_ErrorThrowAt( 1467, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+			(void)&&__fb_jumpptr$1$;
 			goto *vr$497;
+			__fb_jumpptr$1$:;
 			label$462:;
 		}
 		goto label$456;
@@ -6020,8 +6036,10 @@ static void PARSEARGSFROMFILE( FBSTRING* FILENAME$1, int64 IS_SOURCE$1 )
 	label$1051:;
 	int32 vr$16 = fb_FileClose( (int32)F$1 );
 	if( (int64)vr$16 == 0ll) goto label$1052;
-	void* vr$18 = fb_ErrorThrowAt( 2966, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$18 = fb_ErrorThrowAt( 2966, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$18;
+	__fb_jumpptr$0$:;
 	label$1052:;
 	fb_StrDelete( (FBSTRING*)&ARGS$1 );
 	label$1047:;
@@ -6936,8 +6954,10 @@ static int64 HPARSEXPM( FBSTRING* XPMFILE$1, FBSTRING* CODE$1 )
 	{
 		int32 vr$14 = fb_FileClose( (int32)F$1 );
 		if( (int64)vr$14 == 0ll) goto label$1231;
-		void* vr$16 = fb_ErrorThrowAt( 3596, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+		void* vr$16 = fb_ErrorThrowAt( 3596, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$16;
+		__fb_jumpptr$0$:;
 		label$1231:;
 		fb_StrDelete( (FBSTRING*)&LN$1 );
 		goto label$1226;
@@ -6982,8 +7002,10 @@ static int64 HPARSEXPM( FBSTRING* XPMFILE$1, FBSTRING* CODE$1 )
 	label$1233:;
 	int32 vr$46 = fb_FileClose( (int32)F$1 );
 	if( (int64)vr$46 == 0ll) goto label$1238;
-	void* vr$48 = fb_ErrorThrowAt( 3626, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$48 = fb_ErrorThrowAt( 3626, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$1$;
 	goto *vr$48;
+	__fb_jumpptr$1$:;
 	label$1238:;
 	if( SAW_ROWS$1 != 0ll) goto label$1240;
 	{
@@ -7071,8 +7093,10 @@ static int64 HCOMPILEXPM( void )
 	fb_PrintString( (int32)TMP$596$1, (FBSTRING*)&CODE$1, 0 );
 	int32 vr$38 = fb_FileClose( (int32)FO$1 );
 	if( (int64)vr$38 == 0ll) goto label$1253;
-	void* vr$40 = fb_ErrorThrowAt( 3682, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$40 = fb_ErrorThrowAt( 3682, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$40;
+	__fb_jumpptr$0$:;
 	label$1253:;
 	if( *(int64*)((uint8*)&FBC$ + 80ll) != 0ll) goto label$1255;
 	{
@@ -7838,8 +7862,10 @@ static int64 HCOMPILEFBCTINF( void )
 	label$1418:;
 	int32 vr$17 = fb_FileClose( (int32)FO$1 );
 	if( (int64)vr$17 == 0ll) goto label$1420;
-	void* vr$19 = fb_ErrorThrowAt( 4161, (char*)"src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	void* vr$19 = fb_ErrorThrowAt( 4161, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fbc.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$19;
+	__fb_jumpptr$0$:;
 	label$1420:;
 	if( *(int64*)((uint8*)&FBC$ + 80ll) != 0ll) goto label$1422;
 	{

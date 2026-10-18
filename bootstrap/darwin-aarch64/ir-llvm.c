@@ -1430,10 +1430,11 @@ struct $6TFLIST {
 __FB_STATIC_ASSERT( sizeof( struct $6TFLIST ) == 112 );
 struct $11IRHLCONTEXT {
 	int64 REGCOUNT;
+	int64 LBLCOUNT;
 	struct $6TFLIST VREGS;
 	struct $5TLIST CALLARGS;
 };
-__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 184 );
+__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 192 );
 extern struct $11IRHLCONTEXT IRHL$;
 static struct $7BUILTIN BUILTINS$[18] = { { (char*)"declare void @llvm.memset.p0i8.i32(i8*, i8, i32, i32, i1) nounwind" }, { (char*)"declare void @llvm.memmove.p0i8.p0i8.i32(i8*, i8*, i32, i32, i1) nounwind" }, { (char*)"declare float  @llvm.sin.f32(float ) nounwind" }, { (char*)"declare double @llvm.sin.f64(double) nounwind" }, { (char*)"declare float  @llvm.cos.f32(float ) nounwind" }, { (char*)"declare double @llvm.cos.f64(double) nounwind" }, { (char*)"declare float  @llvm.exp.f32(float ) nounwind" }, { (char*)"declare double @llvm.exp.f64(double) nounwind" }, { (char*)"declare float  @llvm.log.f32(float ) nounwind" }, { (char*)"declare double @llvm.log.f64(double) nounwind" }, { (char*)"declare float  @llvm.sqrt.f32(float ) nounwind" }, { (char*)"declare double @llvm.sqrt.f64(double) nounwind" }, { (char*)"declare float  @llvm.floor.f32(float ) nounwind" }, { (char*)"declare double @llvm.floor.f64(double) nounwind" }, { (char*)"declare float  @llvm.fabs.f32(float ) nounwind" }, { (char*)"declare double @llvm.fabs.f64(double) nounwind" }, { (char*)"declare float  @llvm.nearbyint.f32(float ) nounwind" }, { (char*)"declare double @llvm.nearbyint.f64(double) nounwind" } };
 static struct $13IRLLVMCONTEXT CTX$;
@@ -4909,7 +4910,7 @@ static void HDOCALL( char* PNAME$1, struct $8FBSYMBOL* PROC$1, int64 BYTESTOPOP$
 	__builtin_memset( &TMP$454$1, 0, 24ll );
 	FBSTRING* vr$37 = fb_StrConcat( &TMP$454$1, (void*)&LN$1, -1ll, (void*)vr$33, -1ll );
 	fb_StrAssign( (void*)&LN$1, -1ll, (void*)vr$37, -1ll, 0 );
-	void* vr$40 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll) );
+	void* vr$40 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll) );
 	ARG$1 = (struct $9IRCALLARG*)vr$40;
 	label$608:;
 	if( ARG$1 == (struct $9IRCALLARG*)0ull) goto label$610;
@@ -4954,7 +4955,7 @@ static void HDOCALL( char* PNAME$1, struct $8FBSYMBOL* PROC$1, int64 BYTESTOPOP$
 		fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)" ", 2ll, 0 );
 		FBSTRING* vr$65 = HVREGTOSTR( VARG$1 );
 		fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)vr$65, -1ll, 0 );
-		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll), (void*)ARG$1 );
+		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll), (void*)ARG$1 );
 		if( PREV$1 == (struct $9IRCALLARG*)0ull) goto label$614;
 		{
 			if( *(int64*)((uint8*)PREV$1 + 16ll) != LEVEL$1) goto label$616;

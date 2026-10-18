@@ -540,8 +540,12 @@ ALLFBRTCFLAGS += -e -m nomain
 ALLFBRTLFLAGS += -e -m nomain
 ALLCFLAGS += -Wall -Wextra -Wno-unused-parameter -Werror-implicit-function-declaration
 
-ifneq ($(filter bootstrap-minimal, $(MAKECMDGOALS)),)
-  # Disable features not needed to compile a minimal bootstrap fbc
+ifneq ($(filter bootstrap bootstrap-minimal, $(MAKECMDGOALS)),)
+  # Disable features not needed to compile a minimal bootstrap fbc.
+  # "bootstrap" depends on "bootstrap-minimal", but MAKECMDGOALS only names the
+  # goal that was actually asked for, so it has to be matched here as well --
+  # otherwise a plain "make bootstrap" still demands gpm.h, ffi.h and X11
+  # headers that a host doing nothing but bootstrapping need not have.
   ALLCFLAGS += -DDISABLE_GPM -DDISABLE_FFI -DDISABLE_X11
 endif
 

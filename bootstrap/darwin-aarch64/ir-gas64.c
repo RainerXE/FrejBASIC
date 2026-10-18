@@ -1476,10 +1476,11 @@ __FB_STATIC_ASSERT( sizeof( struct $7LEX_CTX ) == 844712 );
 extern struct $7LEX_CTX LEX$;
 struct $11IRHLCONTEXT {
 	int64 REGCOUNT;
+	int64 LBLCOUNT;
 	struct $6TFLIST VREGS;
 	struct $5TLIST CALLARGS;
 };
-__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 184 );
+__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 192 );
 extern struct $11IRHLCONTEXT IRHL$;
 static struct $6DBGCTX CTXDBG$;
 static int64 REGHANDLE$[18];
@@ -5057,8 +5058,10 @@ static int64 DBG_ADDSTR( FBSTRING* STRG$1, int64 NOSEARCH$1 )
 		*(int64*)((uint8*)&CTXDBG$ + 80ll) = fb_D2L( (double)*(int64*)((uint8*)&CTXDBG$ + 80ll) * 0x1.4CCCCCCCCCCCDp+0 );
 		int32 vr$13 = fb_ArrayRedimPresvObj( (struct $7FBARRAYIvE*)&DBGSTR$, 32ull, (void*)&_ZN7TDBGSTRC1Ev, (void*)&_ZN7TDBGSTRD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 80ll) );
 		if( (int64)vr$13 == 0ll) goto label$512;
-		void* vr$15 = fb_ErrorThrowAt( 1606, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$15 = fb_ErrorThrowAt( 1606, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$15;
+		__fb_jumpptr$0$:;
 		label$512:;
 	}
 	label$511:;
@@ -5103,8 +5106,10 @@ static void DBG_ADDSTAB( FBSTRING* TXT$1, uint8 COD$1, int16 DESC$1, FBSTRING* V
 		*(int64*)((uint8*)&CTXDBG$ + 96ll) = fb_D2L( (double)*(int64*)((uint8*)&CTXDBG$ + 96ll) * 0x1.8p+0 );
 		int32 vr$15 = fb_ArrayRedimPresvObj( (struct $7FBARRAYIvE*)&DBGSTAB$, 32ull, (void*)&_ZN8TDBGSTABC1Ev, (void*)&_ZN8TDBGSTABD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 96ll) );
 		if( (int64)vr$15 == 0ll) goto label$521;
-		void* vr$17 = fb_ErrorThrowAt( 1626, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$17 = fb_ErrorThrowAt( 1626, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$17;
+		__fb_jumpptr$0$:;
 		label$521:;
 	}
 	label$520:;
@@ -5273,15 +5278,19 @@ static void EDBGEMITHEADER_ASM64( char* FILENAME$1 )
 	*(int64*)((uint8*)&CTXDBG$ + 80ll) = 1000ll;
 	int32 vr$1 = fb_ArrayRedimObj( (struct $7FBARRAYIvE*)&DBGSTR$, 32ull, (void*)&_ZN7TDBGSTRC1Ev, (void*)&_ZN7TDBGSTRD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 80ll) );
 	if( (int64)vr$1 == 0ll) goto label$540;
-	void* vr$3 = fb_ErrorThrowAt( 1665, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+	void* vr$3 = fb_ErrorThrowAt( 1665, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$3;
+	__fb_jumpptr$0$:;
 	label$540:;
 	*(int64*)((uint8*)&CTXDBG$ + 88ll) = -1ll;
 	*(int64*)((uint8*)&CTXDBG$ + 96ll) = 1000ll;
 	int32 vr$4 = fb_ArrayRedimObj( (struct $7FBARRAYIvE*)&DBGSTAB$, 32ull, (void*)&_ZN8TDBGSTABC1Ev, (void*)&_ZN8TDBGSTABD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 96ll) );
 	if( (int64)vr$4 == 0ll) goto label$541;
-	void* vr$6 = fb_ErrorThrowAt( 1668, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+	void* vr$6 = fb_ErrorThrowAt( 1668, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$1$;
 	goto *vr$6;
+	__fb_jumpptr$1$:;
 	label$541:;
 	*(int64*)((uint8*)&CTXDBG$ + 104ll) = 1ll;
 	*(int64*)((uint8*)&CTXDBG$ + 8ll) = -1ll;
@@ -8813,8 +8822,10 @@ static int64 _EMITBEGIN( void )
 		*(int64*)((uint8*)&CTX$ + 496ll) = 8388608ll;
 		int32 vr$22 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&LISTREG$, 8ull, -1, 0, 1ull, 1ll, 8ll );
 		if( (int64)vr$22 == 0ll) goto label$997;
-		void* vr$24 = fb_ErrorThrowAt( 3164, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$24 = fb_ErrorThrowAt( 3164, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$0$;
 		goto *vr$24;
+		__fb_jumpptr$0$:;
 		label$997:;
 		*(int64*)((uint8*)*(int64*)&LISTREG$ + 8ll) = 5ll;
 		*(int64*)((uint8*)*(int64*)&LISTREG$ + 16ll) = 4ll;
@@ -8831,8 +8842,10 @@ static int64 _EMITBEGIN( void )
 		*(int64*)((uint8*)&CTX$ + 496ll) = *(int64*)((uint8*)&ENV$ + 496ll);
 		int32 vr$25 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&LISTREG$, 8ull, -1, 0, 1ull, 1ll, 6ll );
 		if( (int64)vr$25 == 0ll) goto label$998;
-		void* vr$27 = fb_ErrorThrowAt( 3168, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$27 = fb_ErrorThrowAt( 3168, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$1$;
 		goto *vr$27;
+		__fb_jumpptr$1$:;
 		label$998:;
 		*(int64*)((uint8*)*(int64*)&LISTREG$ + 8ll) = 2ll;
 		*(int64*)((uint8*)*(int64*)&LISTREG$ + 16ll) = 3ll;
@@ -8854,15 +8867,19 @@ static int64 _EMITBEGIN( void )
 		*(int64*)((uint8*)&CTXDBG$ + 80ll) = 4ll;
 		int32 vr$29 = fb_ArrayRedimObj( (struct $7FBARRAYIvE*)&DBGSTR$, 32ull, (void*)&_ZN7TDBGSTRC1Ev, (void*)&_ZN7TDBGSTRD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 80ll) );
 		if( (int64)vr$29 == 0ll) goto label$1001;
-		void* vr$31 = fb_ErrorThrowAt( 3180, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$31 = fb_ErrorThrowAt( 3180, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$2$;
 		goto *vr$31;
+		__fb_jumpptr$2$:;
 		label$1001:;
 		*(int64*)((uint8*)&CTXDBG$ + 88ll) = -1ll;
 		*(int64*)((uint8*)&CTXDBG$ + 96ll) = 4ll;
 		int32 vr$32 = fb_ArrayRedimObj( (struct $7FBARRAYIvE*)&DBGSTAB$, 32ull, (void*)&_ZN8TDBGSTABC1Ev, (void*)&_ZN8TDBGSTABD1Ev, 1ull, 0ll, *(int64*)((uint8*)&CTXDBG$ + 96ll) );
 		if( (int64)vr$32 == 0ll) goto label$1002;
-		void* vr$34 = fb_ErrorThrowAt( 3183, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		void* vr$34 = fb_ErrorThrowAt( 3183, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
+		(void)&&__fb_jumpptr$3$;
 		goto *vr$34;
+		__fb_jumpptr$3$:;
 		label$1002:;
 		*(int64*)((uint8*)&CTXDBG$ + 104ll) = 1ll;
 		*(int64*)((uint8*)&CTXDBG$ + 8ll) = -1ll;
@@ -23156,7 +23173,7 @@ static void HDOCALL( struct $8FBSYMBOL* PROC$1, FBSTRING* PNAME$1, FBSTRING* FIR
 	}
 	*(int64*)((uint8*)&CTX$ + 256ll) = *(int64*)((uint8*)&CTX$ + 232ll) + 104ll;
 	*(int64*)((uint8*)&CTX$ + 248ll) = *(int64*)((uint8*)&CTX$ + 256ll);
-	void* vr$21 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll) );
+	void* vr$21 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll) );
 	ARG$1 = (struct $9IRCALLARG*)vr$21;
 	label$2767:;
 	if( ARG$1 == (struct $9IRCALLARG*)0ull) goto label$2769;
@@ -25235,7 +25252,7 @@ static void HDOCALL( struct $8FBSYMBOL* PROC$1, FBSTRING* PNAME$1, FBSTRING* FIR
 			label$2907:;
 		}
 		label$2824:;
-		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll), (void*)ARG$1 );
+		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll), (void*)ARG$1 );
 		ARG$1 = PREV$1;
 	}
 	goto label$2767;

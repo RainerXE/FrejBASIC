@@ -1568,8 +1568,10 @@ static void HLOADFILE( FBSTRING* FILENAME$1, struct $10DATABUFFER* BUF$1 )
 	label$257:;
 	int32 vr$17 = fb_FileClose( (int32)F$1 );
 	if( (int64)vr$17 == 0ll) goto label$261;
-	void* vr$19 = fb_ErrorThrowAt( 860, (char*)"src/compiler/objinfo.bas", (void*)0ull, (void*)0ull );
+	void* vr$19 = fb_ErrorThrowAt( 860, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/objinfo.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$19;
+	__fb_jumpptr$0$:;
 	label$261:;
 	label$254:;
 }

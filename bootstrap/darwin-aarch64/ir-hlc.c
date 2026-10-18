@@ -1491,10 +1491,11 @@ struct $6TFLIST {
 __FB_STATIC_ASSERT( sizeof( struct $6TFLIST ) == 112 );
 struct $11IRHLCONTEXT {
 	int64 REGCOUNT;
+	int64 LBLCOUNT;
 	struct $6TFLIST VREGS;
 	struct $5TLIST CALLARGS;
 };
-__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 184 );
+__FB_STATIC_ASSERT( sizeof( struct $11IRHLCONTEXT ) == 192 );
 extern struct $11IRHLCONTEXT IRHL$;
 static struct $8IRHLCCTX CTX$;
 static char* DTYPENAME$[26] = { (char*)"void", (char*)"boolean", (char*)"int8", (char*)"uint8", (char*)"char", (char*)"int16", (char*)"uint16", (char*)0ull, (char*)0ull, (char*)0ull, (char*)0ull, (char*)"int32", (char*)"uint32", (char*)"int64", (char*)"uint64", (char*)"float", (char*)"double", (char*)"FBSTRING", (char*)0ull, (char*)"__builtin_va_list", (char*)0ull, (char*)0ull, (char*)0ull, (char*)"void", (char*)0ull };
@@ -2502,7 +2503,7 @@ static void HEMITUDT( struct $8FBSYMBOL* S$1, int64 IS_PTR$1 )
 		}
 		goto label$209;
 		label$210:;
-		static const void* tmp$701[8ll] = {
+		static const void* tmp$710[8ll] = {
 			&&label$213,
 			&&label$209,
 			&&label$209,
@@ -2513,7 +2514,7 @@ static void HEMITUDT( struct $8FBSYMBOL* S$1, int64 IS_PTR$1 )
 			&&label$212,
 		};
 		if( (TMP$191$2 - 3ull) > 7ull ) goto label$209;
-		goto *tmp$701[TMP$191$2 - 3ull];
+		goto *tmp$710[TMP$191$2 - 3ull];
 		label$209:;
 	}
 	SECTIONRETURN( SECTION$1 );
@@ -3727,7 +3728,7 @@ static int64 _SUPPORTSOP( int64 OP$1, int64 DTYPE$1 )
 		}
 		goto label$425;
 		label$426:;
-		static const void* tmp$702[16ll] = {
+		static const void* tmp$711[16ll] = {
 			&&label$427,
 			&&label$428,
 			&&label$428,
@@ -3746,7 +3747,7 @@ static int64 _SUPPORTSOP( int64 OP$1, int64 DTYPE$1 )
 			&&label$427,
 		};
 		if( (TMP$362$2 - 58ull) > 15ull ) goto label$428;
-		goto *tmp$702[TMP$362$2 - 58ull];
+		goto *tmp$711[TMP$362$2 - 58ull];
 		label$425:;
 	}
 	label$424:;
@@ -3949,7 +3950,7 @@ static FBSTRING* HEMITTYPE( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1 )
 		}
 		goto label$464;
 		label$465:;
-		static const void* tmp$703[16ll] = {
+		static const void* tmp$712[16ll] = {
 			&&label$472,
 			&&label$475,
 			&&label$475,
@@ -3968,7 +3969,7 @@ static FBSTRING* HEMITTYPE( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1 )
 			&&label$471,
 		};
 		if( (TMP$365$2 - 7ull) > 15ull ) goto label$475;
-		goto *tmp$703[TMP$365$2 - 7ull];
+		goto *tmp$712[TMP$365$2 - 7ull];
 		label$464:;
 	}
 	if( PTRCOUNT$1 <= 0ll) goto label$477;
@@ -4585,7 +4586,7 @@ static struct $8EXPRNODE* EXPRNEWUOP( int64 OP$1, struct $8EXPRNODE* L$1 )
 		}
 		goto label$585;
 		label$586:;
-		static const void* tmp$704[56ll] = {
+		static const void* tmp$713[56ll] = {
 			&&label$587,
 			&&label$597,
 			&&label$597,
@@ -4644,7 +4645,7 @@ static struct $8EXPRNODE* EXPRNEWUOP( int64 OP$1, struct $8EXPRNODE* L$1 )
 			&&label$590,
 		};
 		if( (TMP$396$2 - 22ull) > 55ull ) goto label$597;
-		goto *tmp$704[TMP$396$2 - 22ull];
+		goto *tmp$713[TMP$396$2 - 22ull];
 		label$585:;
 	}
 	if( SOLVED_OUT$1 == 0ll) goto label$599;
@@ -4697,7 +4698,7 @@ static struct $8EXPRNODE* EXPRNEWBOP( int64 OP$1, struct $8EXPRNODE* L$1, struct
 		}
 		goto label$602;
 		label$603:;
-		static const void* tmp$705[6ll] = {
+		static const void* tmp$714[6ll] = {
 			&&label$604,
 			&&label$604,
 			&&label$604,
@@ -4706,7 +4707,7 @@ static struct $8EXPRNODE* EXPRNEWBOP( int64 OP$1, struct $8EXPRNODE* L$1, struct
 			&&label$604,
 		};
 		if( (TMP$397$2 - 45ull) > 5ull ) goto label$602;
-		goto *tmp$705[TMP$397$2 - 45ull];
+		goto *tmp$714[TMP$397$2 - 45ull];
 		label$602:;
 	}
 	struct $8EXPRNODE* vr$22 = EXPRNEW( 5ll, DTYPE$1, (struct $8FBSYMBOL*)0ull );
@@ -5263,7 +5264,7 @@ static char* HBOPTOSTR( int64 OP$1 )
 		}
 		goto label$712;
 		label$713:;
-		static const void* tmp$706[23ll] = {
+		static const void* tmp$715[23ll] = {
 			&&label$714,
 			&&label$715,
 			&&label$716,
@@ -5289,7 +5290,7 @@ static char* HBOPTOSTR( int64 OP$1 )
 			&&label$730,
 		};
 		if( (TMP$442$2 - 28ull) > 22ull ) goto label$712;
-		goto *tmp$706[TMP$442$2 - 28ull];
+		goto *tmp$715[TMP$442$2 - 28ull];
 		label$712:;
 	}
 	label$711:;
@@ -5374,14 +5375,14 @@ static char* HUOPTOSTR( int64 OP$1, int64 DTYPE$1, int64* IS_BUILTIN$1 )
 				}
 				goto label$747;
 				label$748:;
-				static const void* tmp$707[4ll] = {
+				static const void* tmp$716[4ll] = {
 					&&label$751,
 					&&label$751,
 					&&label$749,
 					&&label$750,
 				};
 				if( (TMP$462$4 - 7ull) > 3ull ) goto label$752;
-				goto *tmp$707[TMP$462$4 - 7ull];
+				goto *tmp$716[TMP$462$4 - 7ull];
 				label$747:;
 			}
 		}
@@ -5450,7 +5451,7 @@ static char* HUOPTOSTR( int64 OP$1, int64 DTYPE$1, int64* IS_BUILTIN$1 )
 					}
 					goto label$756;
 					label$757:;
-					static const void* tmp$708[13ll] = {
+					static const void* tmp$717[13ll] = {
 						&&label$758,
 						&&label$759,
 						&&label$760,
@@ -5466,7 +5467,7 @@ static char* HUOPTOSTR( int64 OP$1, int64 DTYPE$1, int64* IS_BUILTIN$1 )
 						&&label$767,
 					};
 					if( (TMP$467$5 - 59ull) > 12ull ) goto label$768;
-					goto *tmp$708[TMP$467$5 - 59ull];
+					goto *tmp$717[TMP$467$5 - 59ull];
 					label$756:;
 				}
 			}
@@ -5532,7 +5533,7 @@ static char* HUOPTOSTR( int64 OP$1, int64 DTYPE$1, int64* IS_BUILTIN$1 )
 					}
 					goto label$769;
 					label$770:;
-					static const void* tmp$709[13ll] = {
+					static const void* tmp$718[13ll] = {
 						&&label$771,
 						&&label$772,
 						&&label$773,
@@ -5548,7 +5549,7 @@ static char* HUOPTOSTR( int64 OP$1, int64 DTYPE$1, int64* IS_BUILTIN$1 )
 						&&label$780,
 					};
 					if( (TMP$478$5 - 59ull) > 12ull ) goto label$781;
-					goto *tmp$709[TMP$478$5 - 59ull];
+					goto *tmp$718[TMP$478$5 - 59ull];
 					label$769:;
 				}
 			}
@@ -5831,7 +5832,7 @@ static void HEXPRFLUSH( struct $8EXPRNODE* N$1, int64 NEED_PARENS$1 )
 		}
 		goto label$798;
 		label$799:;
-		static const void* tmp$710[7ll] = {
+		static const void* tmp$719[7ll] = {
 			&&label$800,
 			&&label$801,
 			&&label$802,
@@ -5841,7 +5842,7 @@ static void HEXPRFLUSH( struct $8EXPRNODE* N$1, int64 NEED_PARENS$1 )
 			&&label$804,
 		};
 		if( TMP$496$2 > 6ull ) goto label$798;
-		goto *tmp$710[TMP$496$2 - 0ull];
+		goto *tmp$719[TMP$496$2 - 0ull];
 		label$798:;
 	}
 	label$797:;
@@ -6152,7 +6153,7 @@ static struct $8EXPRNODE* EXPRNEWVREG( struct $6IRVREG* VREG$1, int64 IS_LVALUE$
 		}
 		goto label$845;
 		label$846:;
-		static const void* tmp$711[6ll] = {
+		static const void* tmp$720[6ll] = {
 			&&label$885,
 			&&label$847,
 			&&label$847,
@@ -6161,7 +6162,7 @@ static struct $8EXPRNODE* EXPRNEWVREG( struct $6IRVREG* VREG$1, int64 IS_LVALUE$
 			&&label$884,
 		};
 		if( TMP$512$2 > 5ull ) goto label$845;
-		goto *tmp$711[TMP$512$2 - 0ull];
+		goto *tmp$720[TMP$512$2 - 0ull];
 		label$845:;
 	}
 	if( IS_LVALUE$1 != 0ll) goto label$895;
@@ -6420,7 +6421,7 @@ static void _EMITBOP( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1, 
 		}
 		goto label$918;
 		label$919:;
-		static const void* tmp$712[23ll] = {
+		static const void* tmp$721[23ll] = {
 			&&label$925,
 			&&label$925,
 			&&label$931,
@@ -6446,7 +6447,7 @@ static void _EMITBOP( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1, 
 			&&label$920,
 		};
 		if( (TMP$533$2 - 28ull) > 22ull ) goto label$918;
-		goto *tmp$712[TMP$533$2 - 28ull];
+		goto *tmp$721[TMP$533$2 - 28ull];
 		label$918:;
 	}
 	EXPRSTORE( VR$1, L$1, 0ll );
@@ -6728,7 +6729,7 @@ static void HDOCALL( FBSTRING* S$1, int64 BYTESTOPOP$1, struct $6IRVREG* VR$1, i
 	int64 DTYPE$1;
 	struct $8FBSYMBOL* SUBTYPE$1;
 	fb_StrConcatByref( (void*)S$1, -1ll, (void*)"( ", 3ll, 0 );
-	void* vr$1 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll) );
+	void* vr$1 = LISTGETTAIL( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll) );
 	ARG$1 = (struct $9IRCALLARG*)vr$1;
 	label$994:;
 	if( ARG$1 == (struct $9IRCALLARG*)0ull) goto label$996;
@@ -6762,7 +6763,7 @@ static void HDOCALL( FBSTRING* S$1, int64 BYTESTOPOP$1, struct $6IRVREG* VR$1, i
 		label$998:;
 		FBSTRING* vr$17 = EXPRFLUSH( EXPR$2, 0ll );
 		fb_StrConcatByref( (void*)S$1, -1ll, (void*)vr$17, -1ll, 0 );
-		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 120ll), (void*)ARG$1 );
+		LISTDELNODE( (struct $5TLIST*)((uint8*)&IRHL$ + 128ll), (void*)ARG$1 );
 		if( PREV$2 == (struct $9IRCALLARG*)0ull) goto label$1001;
 		{
 			if( *(int64*)((uint8*)PREV$2 + 16ll) != LEVEL$1) goto label$1003;
@@ -6821,57 +6822,87 @@ static void _EMITJUMPPTR( struct $6IRVREG* V1$1 )
 {
 	FBSTRING TMP$554$1;
 	FBSTRING TMP$555$1;
-	FBSTRING TMP$556$1;
+	FBSTRING TMP$557$1;
+	FBSTRING TMP$558$1;
+	FBSTRING TMP$559$1;
+	FBSTRING TMP$561$1;
+	FBSTRING TMP$562$1;
+	FBSTRING TMP$563$1;
+	FBSTRING TMP$564$1;
+	FBSTRING TMP$565$1;
 	label$1010:;
-	__builtin_memset( &TMP$556$1, 0, 24ll );
-	struct $8EXPRNODE* vr$1 = EXPRNEWVREG( V1$1, 0ll );
-	FBSTRING* vr$2 = EXPRFLUSH( vr$1, -1ll );
+	FBSTRING DUMMY$1;
+	FBSTRING* vr$0 = fb_LongintToStr( *(int64*)((uint8*)&IRHL$ + 8ll) );
 	__builtin_memset( &TMP$554$1, 0, 24ll );
-	FBSTRING* vr$5 = fb_StrConcat( &TMP$554$1, (void*)"goto *", 7ll, (void*)vr$2, -1ll );
+	FBSTRING* vr$3 = fb_StrConcat( &TMP$554$1, (void*)"__fb_jumpptr$", 14ll, (void*)vr$0, -1ll );
 	__builtin_memset( &TMP$555$1, 0, 24ll );
-	FBSTRING* vr$8 = fb_StrConcat( &TMP$555$1, (void*)vr$5, -1ll, (void*)";", 2ll );
-	fb_StrAssign( (void*)&TMP$556$1, -1ll, (void*)vr$8, -1ll, 0 );
-	HWRITELINE( &TMP$556$1, 0ll );
-	fb_StrDelete( (FBSTRING*)&TMP$556$1 );
+	FBSTRING* vr$6 = fb_StrConcat( &TMP$555$1, (void*)vr$3, -1ll, (void*)"$", 2ll );
+	fb_StrInit( (void*)&DUMMY$1, -1ll, (void*)vr$6, -1ll, 0 );
+	*(int64*)((uint8*)&IRHL$ + 8ll) = *(int64*)((uint8*)&IRHL$ + 8ll) + 1ll;
+	__builtin_memset( &TMP$559$1, 0, 24ll );
+	__builtin_memset( &TMP$557$1, 0, 24ll );
+	FBSTRING* vr$13 = fb_StrConcat( &TMP$557$1, (void*)"(void)&&", 9ll, (void*)&DUMMY$1, -1ll );
+	__builtin_memset( &TMP$558$1, 0, 24ll );
+	FBSTRING* vr$16 = fb_StrConcat( &TMP$558$1, (void*)vr$13, -1ll, (void*)";", 2ll );
+	fb_StrAssign( (void*)&TMP$559$1, -1ll, (void*)vr$16, -1ll, 0 );
+	HWRITELINE( &TMP$559$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$559$1 );
+	__builtin_memset( &TMP$563$1, 0, 24ll );
+	struct $8EXPRNODE* vr$21 = EXPRNEWVREG( V1$1, 0ll );
+	FBSTRING* vr$22 = EXPRFLUSH( vr$21, -1ll );
+	__builtin_memset( &TMP$561$1, 0, 24ll );
+	FBSTRING* vr$25 = fb_StrConcat( &TMP$561$1, (void*)"goto *", 7ll, (void*)vr$22, -1ll );
+	__builtin_memset( &TMP$562$1, 0, 24ll );
+	FBSTRING* vr$28 = fb_StrConcat( &TMP$562$1, (void*)vr$25, -1ll, (void*)";", 2ll );
+	fb_StrAssign( (void*)&TMP$563$1, -1ll, (void*)vr$28, -1ll, 0 );
+	HWRITELINE( &TMP$563$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$563$1 );
+	__builtin_memset( &TMP$565$1, 0, 24ll );
+	__builtin_memset( &TMP$564$1, 0, 24ll );
+	FBSTRING* vr$36 = fb_StrConcat( &TMP$564$1, (void*)&DUMMY$1, -1ll, (void*)":;", 3ll );
+	fb_StrAssign( (void*)&TMP$565$1, -1ll, (void*)vr$36, -1ll, 0 );
+	HWRITELINE( &TMP$565$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$565$1 );
+	fb_StrDelete( (FBSTRING*)&DUMMY$1 );
 	label$1011:;
 }
 
 static void _EMITBRANCH( int64 OP$1, struct $8FBSYMBOL* LABEL$1 )
 {
-	FBSTRING TMP$558$1;
-	FBSTRING TMP$559$1;
-	FBSTRING TMP$560$1;
+	FBSTRING TMP$567$1;
+	FBSTRING TMP$568$1;
+	FBSTRING TMP$569$1;
 	label$1012:;
-	__builtin_memset( &TMP$560$1, 0, 24ll );
+	__builtin_memset( &TMP$569$1, 0, 24ll );
 	char* vr$1 = SYMBGETMANGLEDNAME( LABEL$1 );
-	__builtin_memset( &TMP$558$1, 0, 24ll );
-	FBSTRING* vr$4 = fb_StrConcat( &TMP$558$1, (void*)"goto ", 6ll, (void*)vr$1, 0ll );
-	__builtin_memset( &TMP$559$1, 0, 24ll );
-	FBSTRING* vr$7 = fb_StrConcat( &TMP$559$1, (void*)vr$4, -1ll, (void*)";", 2ll );
-	fb_StrAssign( (void*)&TMP$560$1, -1ll, (void*)vr$7, -1ll, 0 );
-	HWRITELINE( &TMP$560$1, 0ll );
-	fb_StrDelete( (FBSTRING*)&TMP$560$1 );
+	__builtin_memset( &TMP$567$1, 0, 24ll );
+	FBSTRING* vr$4 = fb_StrConcat( &TMP$567$1, (void*)"goto ", 6ll, (void*)vr$1, 0ll );
+	__builtin_memset( &TMP$568$1, 0, 24ll );
+	FBSTRING* vr$7 = fb_StrConcat( &TMP$568$1, (void*)vr$4, -1ll, (void*)";", 2ll );
+	fb_StrAssign( (void*)&TMP$569$1, -1ll, (void*)vr$7, -1ll, 0 );
+	HWRITELINE( &TMP$569$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$569$1 );
 	label$1013:;
 }
 
 static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint64* VALUES$1, struct $8FBSYMBOL** LABELS$1, int64 LABELCOUNT$1, struct $8FBSYMBOL* DEFLABEL$1, uint64 BIAS$1, uint64 SPAN$1 )
 {
-	FBSTRING TMP$570$1;
-	FBSTRING TMP$571$1;
-	FBSTRING TMP$572$1;
-	FBSTRING TMP$573$1;
-	FBSTRING TMP$574$1;
 	FBSTRING TMP$579$1;
+	FBSTRING TMP$580$1;
 	FBSTRING TMP$581$1;
 	FBSTRING TMP$582$1;
 	FBSTRING TMP$583$1;
-	FBSTRING TMP$584$1;
-	FBSTRING TMP$585$1;
-	FBSTRING TMP$586$1;
-	FBSTRING TMP$587$1;
 	FBSTRING TMP$588$1;
-	FBSTRING TMP$589$1;
 	FBSTRING TMP$590$1;
+	FBSTRING TMP$591$1;
+	FBSTRING TMP$592$1;
+	FBSTRING TMP$593$1;
+	FBSTRING TMP$594$1;
+	FBSTRING TMP$595$1;
+	FBSTRING TMP$596$1;
+	FBSTRING TMP$597$1;
+	FBSTRING TMP$598$1;
+	FBSTRING TMP$599$1;
 	label$1014:;
 	FBSTRING TB$1;
 	__builtin_memset( &TB$1, 0, 24ll );
@@ -6887,29 +6918,29 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 	fb_StrAssign( (void*)&TEMP$1, -1ll, (void*)vr$5, -1ll, 0 );
 	if( LABELCOUNT$1 > 0ll) goto label$1017;
 	{
-		FBSTRING TMP$561$2;
-		FBSTRING TMP$562$2;
-		FBSTRING TMP$563$2;
-		FBSTRING TMP$565$2;
-		FBSTRING TMP$566$2;
-		FBSTRING TMP$567$2;
-		__builtin_memset( &TMP$563$2, 0, 24ll );
+		FBSTRING TMP$570$2;
+		FBSTRING TMP$571$2;
+		FBSTRING TMP$572$2;
+		FBSTRING TMP$574$2;
+		FBSTRING TMP$575$2;
+		FBSTRING TMP$576$2;
+		__builtin_memset( &TMP$572$2, 0, 24ll );
 		char* vr$8 = SYMBGETMANGLEDNAME( DEFLABEL$1 );
-		__builtin_memset( &TMP$561$2, 0, 24ll );
-		FBSTRING* vr$11 = fb_StrConcat( &TMP$561$2, (void*)"goto ", 6ll, (void*)vr$8, 0ll );
-		__builtin_memset( &TMP$562$2, 0, 24ll );
-		FBSTRING* vr$14 = fb_StrConcat( &TMP$562$2, (void*)vr$11, -1ll, (void*)";", 2ll );
-		fb_StrAssign( (void*)&TMP$563$2, -1ll, (void*)vr$14, -1ll, 0 );
-		HWRITELINE( &TMP$563$2, -1ll );
-		fb_StrDelete( (FBSTRING*)&TMP$563$2 );
-		__builtin_memset( &TMP$567$2, 0, 24ll );
-		__builtin_memset( &TMP$565$2, 0, 24ll );
-		FBSTRING* vr$22 = fb_StrConcat( &TMP$565$2, (void*)"(void)", 7ll, (void*)&TEMP$1, -1ll );
-		__builtin_memset( &TMP$566$2, 0, 24ll );
-		FBSTRING* vr$25 = fb_StrConcat( &TMP$566$2, (void*)vr$22, -1ll, (void*)";", 2ll );
-		fb_StrAssign( (void*)&TMP$567$2, -1ll, (void*)vr$25, -1ll, 0 );
-		HWRITELINE( &TMP$567$2, -1ll );
-		fb_StrDelete( (FBSTRING*)&TMP$567$2 );
+		__builtin_memset( &TMP$570$2, 0, 24ll );
+		FBSTRING* vr$11 = fb_StrConcat( &TMP$570$2, (void*)"goto ", 6ll, (void*)vr$8, 0ll );
+		__builtin_memset( &TMP$571$2, 0, 24ll );
+		FBSTRING* vr$14 = fb_StrConcat( &TMP$571$2, (void*)vr$11, -1ll, (void*)";", 2ll );
+		fb_StrAssign( (void*)&TMP$572$2, -1ll, (void*)vr$14, -1ll, 0 );
+		HWRITELINE( &TMP$572$2, -1ll );
+		fb_StrDelete( (FBSTRING*)&TMP$572$2 );
+		__builtin_memset( &TMP$576$2, 0, 24ll );
+		__builtin_memset( &TMP$574$2, 0, 24ll );
+		FBSTRING* vr$22 = fb_StrConcat( &TMP$574$2, (void*)"(void)", 7ll, (void*)&TEMP$1, -1ll );
+		__builtin_memset( &TMP$575$2, 0, 24ll );
+		FBSTRING* vr$25 = fb_StrConcat( &TMP$575$2, (void*)vr$22, -1ll, (void*)";", 2ll );
+		fb_StrAssign( (void*)&TMP$576$2, -1ll, (void*)vr$25, -1ll, 0 );
+		HWRITELINE( &TMP$576$2, -1ll );
+		fb_StrDelete( (FBSTRING*)&TMP$576$2 );
 		fb_StrDelete( (FBSTRING*)&LN$1 );
 		fb_StrDelete( (FBSTRING*)&TEMP$1 );
 		fb_StrDelete( (FBSTRING*)&TB$1 );
@@ -6921,19 +6952,19 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 	fb_StrAssign( (void*)&TB$1, -1ll, (void*)vr$32, 0ll, 0 );
 	struct $8EXPRNODE* vr$35 = EXPRNEWIMMI( (int64)(SPAN$1 + 1ull), 8ll );
 	L$1 = vr$35;
-	__builtin_memset( &TMP$574$1, 0, 24ll );
+	__builtin_memset( &TMP$583$1, 0, 24ll );
 	FBSTRING* vr$37 = EXPRFLUSH( L$1, 0ll );
-	__builtin_memset( &TMP$570$1, 0, 24ll );
-	FBSTRING* vr$41 = fb_StrConcat( &TMP$570$1, (void*)"static const void* ", 20ll, (void*)&TB$1, -1ll );
-	__builtin_memset( &TMP$571$1, 0, 24ll );
-	FBSTRING* vr$44 = fb_StrConcat( &TMP$571$1, (void*)vr$41, -1ll, (void*)"[", 2ll );
-	__builtin_memset( &TMP$572$1, 0, 24ll );
-	FBSTRING* vr$47 = fb_StrConcat( &TMP$572$1, (void*)vr$44, -1ll, (void*)vr$37, -1ll );
-	__builtin_memset( &TMP$573$1, 0, 24ll );
-	FBSTRING* vr$50 = fb_StrConcat( &TMP$573$1, (void*)vr$47, -1ll, (void*)"] = {", 6ll );
-	fb_StrAssign( (void*)&TMP$574$1, -1ll, (void*)vr$50, -1ll, 0 );
-	HWRITELINE( &TMP$574$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$574$1 );
+	__builtin_memset( &TMP$579$1, 0, 24ll );
+	FBSTRING* vr$41 = fb_StrConcat( &TMP$579$1, (void*)"static const void* ", 20ll, (void*)&TB$1, -1ll );
+	__builtin_memset( &TMP$580$1, 0, 24ll );
+	FBSTRING* vr$44 = fb_StrConcat( &TMP$580$1, (void*)vr$41, -1ll, (void*)"[", 2ll );
+	__builtin_memset( &TMP$581$1, 0, 24ll );
+	FBSTRING* vr$47 = fb_StrConcat( &TMP$581$1, (void*)vr$44, -1ll, (void*)vr$37, -1ll );
+	__builtin_memset( &TMP$582$1, 0, 24ll );
+	FBSTRING* vr$50 = fb_StrConcat( &TMP$582$1, (void*)vr$47, -1ll, (void*)"] = {", 6ll );
+	fb_StrAssign( (void*)&TMP$583$1, -1ll, (void*)vr$50, -1ll, 0 );
+	HWRITELINE( &TMP$583$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$583$1 );
 	SECTIONINDENT(  );
 	int64 I$1;
 	I$1 = 0ll;
@@ -6941,9 +6972,9 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 	VALUE$1 = 0ll;
 	label$1018:;
 	{
-		FBSTRING TMP$576$2;
-		FBSTRING TMP$577$2;
-		FBSTRING TMP$578$2;
+		FBSTRING TMP$585$2;
+		FBSTRING TMP$586$2;
+		FBSTRING TMP$587$2;
 		struct $8FBSYMBOL* LABEL$2;
 		__builtin_memset( &LABEL$2, 0, 8ll );
 		if( (uint64)VALUE$1 != *(uint64*)((uint8*)VALUES$1 + (I$1 << (3ll & 63ll)))) goto label$1022;
@@ -6957,15 +6988,15 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 			LABEL$2 = DEFLABEL$1;
 		}
 		label$1021:;
-		__builtin_memset( &TMP$578$2, 0, 24ll );
+		__builtin_memset( &TMP$587$2, 0, 24ll );
 		char* vr$61 = SYMBGETMANGLEDNAME( LABEL$2 );
-		__builtin_memset( &TMP$576$2, 0, 24ll );
-		FBSTRING* vr$64 = fb_StrConcat( &TMP$576$2, (void*)"&&", 3ll, (void*)vr$61, 0ll );
-		__builtin_memset( &TMP$577$2, 0, 24ll );
-		FBSTRING* vr$67 = fb_StrConcat( &TMP$577$2, (void*)vr$64, -1ll, (void*)",", 2ll );
-		fb_StrAssign( (void*)&TMP$578$2, -1ll, (void*)vr$67, -1ll, 0 );
-		HWRITELINE( &TMP$578$2, -1ll );
-		fb_StrDelete( (FBSTRING*)&TMP$578$2 );
+		__builtin_memset( &TMP$585$2, 0, 24ll );
+		FBSTRING* vr$64 = fb_StrConcat( &TMP$585$2, (void*)"&&", 3ll, (void*)vr$61, 0ll );
+		__builtin_memset( &TMP$586$2, 0, 24ll );
+		FBSTRING* vr$67 = fb_StrConcat( &TMP$586$2, (void*)vr$64, -1ll, (void*)",", 2ll );
+		fb_StrAssign( (void*)&TMP$587$2, -1ll, (void*)vr$67, -1ll, 0 );
+		HWRITELINE( &TMP$587$2, -1ll );
+		fb_StrDelete( (FBSTRING*)&TMP$587$2 );
 		if( (uint64)VALUE$1 != SPAN$1) goto label$1024;
 		{
 			goto label$1019;
@@ -6978,10 +7009,10 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 	goto label$1018;
 	label$1019:;
 	SECTIONUNINDENT(  );
-	__builtin_memset( &TMP$579$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$579$1, -1ll, (void*)"};", 3ll, 0 );
-	HWRITELINE( &TMP$579$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$579$1 );
+	__builtin_memset( &TMP$588$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$588$1, -1ll, (void*)"};", 3ll, 0 );
+	HWRITELINE( &TMP$588$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$588$1 );
 	struct $8EXPRNODE* vr$76 = EXPRNEWTEXT( DTYPE$1, (struct $8FBSYMBOL*)0ull, (char*)*(char**)&TEMP$1 );
 	L$1 = vr$76;
 	if( BIAS$1 == 0ull) goto label$1026;
@@ -6995,38 +7026,38 @@ static void _EMITJMPTB( struct $6IRVREG* V1$1, struct $8FBSYMBOL* TBSYM$1, uint6
 	struct $8EXPRNODE* vr$79 = EXPRNEWIMMI( (int64)SPAN$1, DTYPE$1 );
 	struct $8EXPRNODE* vr$80 = EXPRNEWBOP( 46ll, L$1, vr$79 );
 	L$1 = vr$80;
-	__builtin_memset( &TMP$585$1, 0, 24ll );
+	__builtin_memset( &TMP$594$1, 0, 24ll );
 	char* vr$82 = SYMBGETMANGLEDNAME( DEFLABEL$1 );
 	FBSTRING* vr$83 = EXPRFLUSH( L$1, 0ll );
-	__builtin_memset( &TMP$581$1, 0, 24ll );
-	FBSTRING* vr$86 = fb_StrConcat( &TMP$581$1, (void*)"if( ", 5ll, (void*)vr$83, -1ll );
-	__builtin_memset( &TMP$582$1, 0, 24ll );
-	FBSTRING* vr$89 = fb_StrConcat( &TMP$582$1, (void*)vr$86, -1ll, (void*)" ) goto ", 9ll );
-	__builtin_memset( &TMP$583$1, 0, 24ll );
-	FBSTRING* vr$92 = fb_StrConcat( &TMP$583$1, (void*)vr$89, -1ll, (void*)vr$82, 0ll );
-	__builtin_memset( &TMP$584$1, 0, 24ll );
-	FBSTRING* vr$95 = fb_StrConcat( &TMP$584$1, (void*)vr$92, -1ll, (void*)";", 2ll );
-	fb_StrAssign( (void*)&TMP$585$1, -1ll, (void*)vr$95, -1ll, 0 );
-	HWRITELINE( &TMP$585$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$585$1 );
+	__builtin_memset( &TMP$590$1, 0, 24ll );
+	FBSTRING* vr$86 = fb_StrConcat( &TMP$590$1, (void*)"if( ", 5ll, (void*)vr$83, -1ll );
+	__builtin_memset( &TMP$591$1, 0, 24ll );
+	FBSTRING* vr$89 = fb_StrConcat( &TMP$591$1, (void*)vr$86, -1ll, (void*)" ) goto ", 9ll );
+	__builtin_memset( &TMP$592$1, 0, 24ll );
+	FBSTRING* vr$92 = fb_StrConcat( &TMP$592$1, (void*)vr$89, -1ll, (void*)vr$82, 0ll );
+	__builtin_memset( &TMP$593$1, 0, 24ll );
+	FBSTRING* vr$95 = fb_StrConcat( &TMP$593$1, (void*)vr$92, -1ll, (void*)";", 2ll );
+	fb_StrAssign( (void*)&TMP$594$1, -1ll, (void*)vr$95, -1ll, 0 );
+	HWRITELINE( &TMP$594$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$594$1 );
 	struct $8EXPRNODE* vr$99 = EXPRNEWTEXT( DTYPE$1, (struct $8FBSYMBOL*)0ull, (char*)*(char**)&TEMP$1 );
 	L$1 = vr$99;
 	struct $8EXPRNODE* vr$100 = EXPRNEWIMMI( (int64)BIAS$1, DTYPE$1 );
 	struct $8EXPRNODE* vr$101 = EXPRNEWBOP( 29ll, L$1, vr$100 );
 	L$1 = vr$101;
-	__builtin_memset( &TMP$590$1, 0, 24ll );
+	__builtin_memset( &TMP$599$1, 0, 24ll );
 	FBSTRING* vr$103 = EXPRFLUSH( L$1, 0ll );
-	__builtin_memset( &TMP$586$1, 0, 24ll );
-	FBSTRING* vr$107 = fb_StrConcat( &TMP$586$1, (void*)"goto *", 7ll, (void*)&TB$1, -1ll );
-	__builtin_memset( &TMP$587$1, 0, 24ll );
-	FBSTRING* vr$110 = fb_StrConcat( &TMP$587$1, (void*)vr$107, -1ll, (void*)"[", 2ll );
-	__builtin_memset( &TMP$588$1, 0, 24ll );
-	FBSTRING* vr$113 = fb_StrConcat( &TMP$588$1, (void*)vr$110, -1ll, (void*)vr$103, -1ll );
-	__builtin_memset( &TMP$589$1, 0, 24ll );
-	FBSTRING* vr$116 = fb_StrConcat( &TMP$589$1, (void*)vr$113, -1ll, (void*)"];", 3ll );
-	fb_StrAssign( (void*)&TMP$590$1, -1ll, (void*)vr$116, -1ll, 0 );
-	HWRITELINE( &TMP$590$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$590$1 );
+	__builtin_memset( &TMP$595$1, 0, 24ll );
+	FBSTRING* vr$107 = fb_StrConcat( &TMP$595$1, (void*)"goto *", 7ll, (void*)&TB$1, -1ll );
+	__builtin_memset( &TMP$596$1, 0, 24ll );
+	FBSTRING* vr$110 = fb_StrConcat( &TMP$596$1, (void*)vr$107, -1ll, (void*)"[", 2ll );
+	__builtin_memset( &TMP$597$1, 0, 24ll );
+	FBSTRING* vr$113 = fb_StrConcat( &TMP$597$1, (void*)vr$110, -1ll, (void*)vr$103, -1ll );
+	__builtin_memset( &TMP$598$1, 0, 24ll );
+	FBSTRING* vr$116 = fb_StrConcat( &TMP$598$1, (void*)vr$113, -1ll, (void*)"];", 3ll );
+	fb_StrAssign( (void*)&TMP$599$1, -1ll, (void*)vr$116, -1ll, 0 );
+	HWRITELINE( &TMP$599$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$599$1 );
 	fb_StrDelete( (FBSTRING*)&LN$1 );
 	fb_StrDelete( (FBSTRING*)&TEMP$1 );
 	fb_StrDelete( (FBSTRING*)&TB$1 );
@@ -7040,68 +7071,68 @@ static void _EMITMEM( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1, 
 		if( OP$1 != 108ll) goto label$1030;
 		label$1031:;
 		{
-			FBSTRING TMP$592$3;
-			FBSTRING TMP$593$3;
-			FBSTRING TMP$594$3;
-			FBSTRING TMP$595$3;
-			FBSTRING TMP$596$3;
-			FBSTRING TMP$597$3;
-			FBSTRING TMP$598$3;
-			__builtin_memset( &TMP$598$3, 0, 24ll );
-			struct $8EXPRNODE* vr$1 = EXPRNEWVREG( V2$1, 0ll );
-			FBSTRING* vr$2 = EXPRFLUSH( vr$1, 0ll );
-			FBSTRING* vr$3 = fb_LongintToStr( FILLCHAR$1 );
-			struct $8EXPRNODE* vr$4 = EXPRNEWVREG( V1$1, 0ll );
-			FBSTRING* vr$5 = EXPRFLUSH( vr$4, 0ll );
-			__builtin_memset( &TMP$592$3, 0, 24ll );
-			FBSTRING* vr$8 = fb_StrConcat( &TMP$592$3, (void*)"__builtin_memset( ", 19ll, (void*)vr$5, -1ll );
-			__builtin_memset( &TMP$593$3, 0, 24ll );
-			FBSTRING* vr$11 = fb_StrConcat( &TMP$593$3, (void*)vr$8, -1ll, (void*)", ", 3ll );
-			__builtin_memset( &TMP$594$3, 0, 24ll );
-			FBSTRING* vr$14 = fb_StrConcat( &TMP$594$3, (void*)vr$11, -1ll, (void*)vr$3, -1ll );
-			__builtin_memset( &TMP$595$3, 0, 24ll );
-			FBSTRING* vr$17 = fb_StrConcat( &TMP$595$3, (void*)vr$14, -1ll, (void*)", ", 3ll );
-			__builtin_memset( &TMP$596$3, 0, 24ll );
-			FBSTRING* vr$20 = fb_StrConcat( &TMP$596$3, (void*)vr$17, -1ll, (void*)vr$2, -1ll );
-			__builtin_memset( &TMP$597$3, 0, 24ll );
-			FBSTRING* vr$23 = fb_StrConcat( &TMP$597$3, (void*)vr$20, -1ll, (void*)" );", 4ll );
-			fb_StrAssign( (void*)&TMP$598$3, -1ll, (void*)vr$23, -1ll, 0 );
-			HWRITELINE( &TMP$598$3, 0ll );
-			fb_StrDelete( (FBSTRING*)&TMP$598$3 );
-		}
-		goto label$1029;
-		label$1030:;
-		if( OP$1 != 106ll) goto label$1032;
-		label$1033:;
-		{
-			FBSTRING TMP$600$3;
 			FBSTRING TMP$601$3;
 			FBSTRING TMP$602$3;
 			FBSTRING TMP$603$3;
 			FBSTRING TMP$604$3;
 			FBSTRING TMP$605$3;
 			FBSTRING TMP$606$3;
+			FBSTRING TMP$607$3;
+			__builtin_memset( &TMP$607$3, 0, 24ll );
+			struct $8EXPRNODE* vr$1 = EXPRNEWVREG( V2$1, 0ll );
+			FBSTRING* vr$2 = EXPRFLUSH( vr$1, 0ll );
+			FBSTRING* vr$3 = fb_LongintToStr( FILLCHAR$1 );
+			struct $8EXPRNODE* vr$4 = EXPRNEWVREG( V1$1, 0ll );
+			FBSTRING* vr$5 = EXPRFLUSH( vr$4, 0ll );
+			__builtin_memset( &TMP$601$3, 0, 24ll );
+			FBSTRING* vr$8 = fb_StrConcat( &TMP$601$3, (void*)"__builtin_memset( ", 19ll, (void*)vr$5, -1ll );
+			__builtin_memset( &TMP$602$3, 0, 24ll );
+			FBSTRING* vr$11 = fb_StrConcat( &TMP$602$3, (void*)vr$8, -1ll, (void*)", ", 3ll );
+			__builtin_memset( &TMP$603$3, 0, 24ll );
+			FBSTRING* vr$14 = fb_StrConcat( &TMP$603$3, (void*)vr$11, -1ll, (void*)vr$3, -1ll );
+			__builtin_memset( &TMP$604$3, 0, 24ll );
+			FBSTRING* vr$17 = fb_StrConcat( &TMP$604$3, (void*)vr$14, -1ll, (void*)", ", 3ll );
+			__builtin_memset( &TMP$605$3, 0, 24ll );
+			FBSTRING* vr$20 = fb_StrConcat( &TMP$605$3, (void*)vr$17, -1ll, (void*)vr$2, -1ll );
 			__builtin_memset( &TMP$606$3, 0, 24ll );
+			FBSTRING* vr$23 = fb_StrConcat( &TMP$606$3, (void*)vr$20, -1ll, (void*)" );", 4ll );
+			fb_StrAssign( (void*)&TMP$607$3, -1ll, (void*)vr$23, -1ll, 0 );
+			HWRITELINE( &TMP$607$3, 0ll );
+			fb_StrDelete( (FBSTRING*)&TMP$607$3 );
+		}
+		goto label$1029;
+		label$1030:;
+		if( OP$1 != 106ll) goto label$1032;
+		label$1033:;
+		{
+			FBSTRING TMP$609$3;
+			FBSTRING TMP$610$3;
+			FBSTRING TMP$611$3;
+			FBSTRING TMP$612$3;
+			FBSTRING TMP$613$3;
+			FBSTRING TMP$614$3;
+			FBSTRING TMP$615$3;
+			__builtin_memset( &TMP$615$3, 0, 24ll );
 			FBSTRING* vr$28 = fb_ULongintToStr( (uint64)BYTES$1 );
 			struct $8EXPRNODE* vr$29 = EXPRNEWVREG( V2$1, 0ll );
 			FBSTRING* vr$30 = EXPRFLUSH( vr$29, 0ll );
 			struct $8EXPRNODE* vr$31 = EXPRNEWVREG( V1$1, 0ll );
 			FBSTRING* vr$32 = EXPRFLUSH( vr$31, 0ll );
-			__builtin_memset( &TMP$600$3, 0, 24ll );
-			FBSTRING* vr$35 = fb_StrConcat( &TMP$600$3, (void*)"__builtin_memcpy( ", 19ll, (void*)vr$32, -1ll );
-			__builtin_memset( &TMP$601$3, 0, 24ll );
-			FBSTRING* vr$38 = fb_StrConcat( &TMP$601$3, (void*)vr$35, -1ll, (void*)", ", 3ll );
-			__builtin_memset( &TMP$602$3, 0, 24ll );
-			FBSTRING* vr$41 = fb_StrConcat( &TMP$602$3, (void*)vr$38, -1ll, (void*)vr$30, -1ll );
-			__builtin_memset( &TMP$603$3, 0, 24ll );
-			FBSTRING* vr$44 = fb_StrConcat( &TMP$603$3, (void*)vr$41, -1ll, (void*)", ", 3ll );
-			__builtin_memset( &TMP$604$3, 0, 24ll );
-			FBSTRING* vr$47 = fb_StrConcat( &TMP$604$3, (void*)vr$44, -1ll, (void*)vr$28, -1ll );
-			__builtin_memset( &TMP$605$3, 0, 24ll );
-			FBSTRING* vr$50 = fb_StrConcat( &TMP$605$3, (void*)vr$47, -1ll, (void*)" );", 4ll );
-			fb_StrAssign( (void*)&TMP$606$3, -1ll, (void*)vr$50, -1ll, 0 );
-			HWRITELINE( &TMP$606$3, 0ll );
-			fb_StrDelete( (FBSTRING*)&TMP$606$3 );
+			__builtin_memset( &TMP$609$3, 0, 24ll );
+			FBSTRING* vr$35 = fb_StrConcat( &TMP$609$3, (void*)"__builtin_memcpy( ", 19ll, (void*)vr$32, -1ll );
+			__builtin_memset( &TMP$610$3, 0, 24ll );
+			FBSTRING* vr$38 = fb_StrConcat( &TMP$610$3, (void*)vr$35, -1ll, (void*)", ", 3ll );
+			__builtin_memset( &TMP$611$3, 0, 24ll );
+			FBSTRING* vr$41 = fb_StrConcat( &TMP$611$3, (void*)vr$38, -1ll, (void*)vr$30, -1ll );
+			__builtin_memset( &TMP$612$3, 0, 24ll );
+			FBSTRING* vr$44 = fb_StrConcat( &TMP$612$3, (void*)vr$41, -1ll, (void*)", ", 3ll );
+			__builtin_memset( &TMP$613$3, 0, 24ll );
+			FBSTRING* vr$47 = fb_StrConcat( &TMP$613$3, (void*)vr$44, -1ll, (void*)vr$28, -1ll );
+			__builtin_memset( &TMP$614$3, 0, 24ll );
+			FBSTRING* vr$50 = fb_StrConcat( &TMP$614$3, (void*)vr$47, -1ll, (void*)" );", 4ll );
+			fb_StrAssign( (void*)&TMP$615$3, -1ll, (void*)vr$50, -1ll, 0 );
+			HWRITELINE( &TMP$615$3, 0ll );
+			fb_StrDelete( (FBSTRING*)&TMP$615$3 );
 		}
 		label$1032:;
 		label$1029:;
@@ -7118,38 +7149,38 @@ static void _EMITMACRO( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1
 		if( OP$1 != 110ll) goto label$1037;
 		label$1038:;
 		{
-			FBSTRING TMP$607$3;
-			FBSTRING TMP$608$3;
+			FBSTRING TMP$616$3;
+			FBSTRING TMP$617$3;
 			struct $8EXPRNODE* vr$0 = EXPRNEWVREG( V1$1, 0ll );
 			L$1 = vr$0;
 			struct $8EXPRNODE* vr$1 = EXPRNEWVREG( V2$1, 0ll );
 			R$1 = vr$1;
-			__builtin_memset( &TMP$608$3, 0, 24ll );
+			__builtin_memset( &TMP$617$3, 0, 24ll );
 			struct $8EXPRNODE* vr$3 = EXPRNEWMACRO( OP$1, 2147483648ll, (struct $8FBSYMBOL*)0ull, L$1, R$1 );
 			FBSTRING* vr$4 = EXPRFLUSH( vr$3, 0ll );
-			__builtin_memset( &TMP$607$3, 0, 24ll );
-			FBSTRING* vr$7 = fb_StrConcat( &TMP$607$3, (void*)vr$4, -1ll, (void*)";", 2ll );
-			fb_StrAssign( (void*)&TMP$608$3, -1ll, (void*)vr$7, -1ll, 0 );
-			HWRITELINE( &TMP$608$3, 0ll );
-			fb_StrDelete( (FBSTRING*)&TMP$608$3 );
+			__builtin_memset( &TMP$616$3, 0, 24ll );
+			FBSTRING* vr$7 = fb_StrConcat( &TMP$616$3, (void*)vr$4, -1ll, (void*)";", 2ll );
+			fb_StrAssign( (void*)&TMP$617$3, -1ll, (void*)vr$7, -1ll, 0 );
+			HWRITELINE( &TMP$617$3, 0ll );
+			fb_StrDelete( (FBSTRING*)&TMP$617$3 );
 		}
 		goto label$1036;
 		label$1037:;
 		if( OP$1 != 111ll) goto label$1039;
 		label$1040:;
 		{
-			FBSTRING TMP$609$3;
-			FBSTRING TMP$610$3;
+			FBSTRING TMP$618$3;
+			FBSTRING TMP$619$3;
 			struct $8EXPRNODE* vr$11 = EXPRNEWVREG( V1$1, 0ll );
 			L$1 = vr$11;
-			__builtin_memset( &TMP$610$3, 0, 24ll );
+			__builtin_memset( &TMP$619$3, 0, 24ll );
 			struct $8EXPRNODE* vr$13 = EXPRNEWMACRO( OP$1, 2147483648ll, (struct $8FBSYMBOL*)0ull, L$1, (struct $8EXPRNODE*)0ull );
 			FBSTRING* vr$14 = EXPRFLUSH( vr$13, 0ll );
-			__builtin_memset( &TMP$609$3, 0, 24ll );
-			FBSTRING* vr$17 = fb_StrConcat( &TMP$609$3, (void*)vr$14, -1ll, (void*)";", 2ll );
-			fb_StrAssign( (void*)&TMP$610$3, -1ll, (void*)vr$17, -1ll, 0 );
-			HWRITELINE( &TMP$610$3, 0ll );
-			fb_StrDelete( (FBSTRING*)&TMP$610$3 );
+			__builtin_memset( &TMP$618$3, 0, 24ll );
+			FBSTRING* vr$17 = fb_StrConcat( &TMP$618$3, (void*)vr$14, -1ll, (void*)";", 2ll );
+			fb_StrAssign( (void*)&TMP$619$3, -1ll, (void*)vr$17, -1ll, 0 );
+			HWRITELINE( &TMP$619$3, 0ll );
+			fb_StrDelete( (FBSTRING*)&TMP$619$3 );
 		}
 		goto label$1036;
 		label$1039:;
@@ -7167,20 +7198,20 @@ static void _EMITMACRO( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1
 		if( OP$1 != 112ll) goto label$1043;
 		label$1044:;
 		{
-			FBSTRING TMP$611$3;
-			FBSTRING TMP$612$3;
+			FBSTRING TMP$620$3;
+			FBSTRING TMP$621$3;
 			struct $8EXPRNODE* vr$25 = EXPRNEWVREG( V1$1, 0ll );
 			L$1 = vr$25;
 			struct $8EXPRNODE* vr$26 = EXPRNEWVREG( V2$1, 0ll );
 			R$1 = vr$26;
-			__builtin_memset( &TMP$612$3, 0, 24ll );
+			__builtin_memset( &TMP$621$3, 0, 24ll );
 			struct $8EXPRNODE* vr$28 = EXPRNEWMACRO( OP$1, 2147483648ll, (struct $8FBSYMBOL*)0ull, L$1, R$1 );
 			FBSTRING* vr$29 = EXPRFLUSH( vr$28, 0ll );
-			__builtin_memset( &TMP$611$3, 0, 24ll );
-			FBSTRING* vr$32 = fb_StrConcat( &TMP$611$3, (void*)vr$29, -1ll, (void*)";", 2ll );
-			fb_StrAssign( (void*)&TMP$612$3, -1ll, (void*)vr$32, -1ll, 0 );
-			HWRITELINE( &TMP$612$3, 0ll );
-			fb_StrDelete( (FBSTRING*)&TMP$612$3 );
+			__builtin_memset( &TMP$620$3, 0, 24ll );
+			FBSTRING* vr$32 = fb_StrConcat( &TMP$620$3, (void*)vr$29, -1ll, (void*)";", 2ll );
+			fb_StrAssign( (void*)&TMP$621$3, -1ll, (void*)vr$32, -1ll, 0 );
+			HWRITELINE( &TMP$621$3, 0ll );
+			fb_StrDelete( (FBSTRING*)&TMP$621$3 );
 		}
 		label$1043:;
 		label$1036:;
@@ -7246,20 +7277,20 @@ static void _EMITCOMMENT( char* TEXT$1 )
 	LENGTH$1 = vr$1;
 	if( LENGTH$1 <= 0ll) goto label$1062;
 	{
-		FBSTRING TMP$615$2;
-		FBSTRING TMP$616$2;
+		FBSTRING TMP$624$2;
+		FBSTRING TMP$625$2;
 		if( (uint64)(int64)*(uint8*)((uint8*)((uint8*)*(char**)&S$1 + LENGTH$1) + -1ll) != 92ull) goto label$1064;
 		{
 			fb_StrConcatAssign( (void*)&S$1, -1ll, (void*)"not_an_escape", 14ll, 0 );
 		}
 		label$1064:;
 		label$1063:;
-		__builtin_memset( &TMP$616$2, 0, 24ll );
-		__builtin_memset( &TMP$615$2, 0, 24ll );
-		FBSTRING* vr$7 = fb_StrConcat( &TMP$615$2, (void*)"// ", 4ll, (void*)&S$1, -1ll );
-		fb_StrAssign( (void*)&TMP$616$2, -1ll, (void*)vr$7, -1ll, 0 );
-		HWRITELINE( &TMP$616$2, -1ll );
-		fb_StrDelete( (FBSTRING*)&TMP$616$2 );
+		__builtin_memset( &TMP$625$2, 0, 24ll );
+		__builtin_memset( &TMP$624$2, 0, 24ll );
+		FBSTRING* vr$7 = fb_StrConcat( &TMP$624$2, (void*)"// ", 4ll, (void*)&S$1, -1ll );
+		fb_StrAssign( (void*)&TMP$625$2, -1ll, (void*)vr$7, -1ll, 0 );
+		HWRITELINE( &TMP$625$2, -1ll );
+		fb_StrDelete( (FBSTRING*)&TMP$625$2 );
 	}
 	label$1062:;
 	label$1061:;
@@ -7325,16 +7356,16 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 		if( *(int64*)N$1 != 1ll) goto label$1079;
 		{
 			{
-				$12FB_SYMBCLASS TMP$617$4;
-				TMP$617$4 = *($12FB_SYMBCLASS*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll);
-				if( TMP$617$4 != 7ll) goto label$1081;
+				$12FB_SYMBCLASS TMP$626$4;
+				TMP$626$4 = *($12FB_SYMBCLASS*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll);
+				if( TMP$626$4 != 7ll) goto label$1081;
 				label$1082:;
 				{
 					USES_LABEL$1 = -1ll;
 				}
 				goto label$1080;
 				label$1081:;
-				if( TMP$617$4 != 1ll) goto label$1083;
+				if( TMP$626$4 != 1ll) goto label$1083;
 				label$1084:;
 				{
 					LABELINDEX$1 = LABELINDEX$1 + 1ll;
@@ -7381,19 +7412,19 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 	if( N$1 == (struct $9ASTASMTOK*)0ull) goto label$1090;
 	{
 		{
-			$14AST_ASMTOKTYPE TMP$621$3;
-			TMP$621$3 = *($14AST_ASMTOKTYPE*)N$1;
-			if( TMP$621$3 != 0ll) goto label$1092;
+			$14AST_ASMTOKTYPE TMP$630$3;
+			TMP$630$3 = *($14AST_ASMTOKTYPE*)N$1;
+			if( TMP$630$3 != 0ll) goto label$1092;
 			label$1093:;
 			{
-				FBSTRING TMP$622$4;
-				__builtin_memset( &TMP$622$4, 0, 24ll );
-				FBSTRING* vr$25 = fb_StrConcat( &TMP$622$4, (void*)&ASMCODE$1, -1ll, *(void**)((uint8*)N$1 + 8ll), 0ll );
+				FBSTRING TMP$631$4;
+				__builtin_memset( &TMP$631$4, 0, 24ll );
+				FBSTRING* vr$25 = fb_StrConcat( &TMP$631$4, (void*)&ASMCODE$1, -1ll, *(void**)((uint8*)N$1 + 8ll), 0ll );
 				fb_StrAssign( (void*)&ASMCODE$1, -1ll, (void*)vr$25, -1ll, 0 );
 			}
 			goto label$1091;
 			label$1092:;
-			if( TMP$621$3 != 1ll) goto label$1094;
+			if( TMP$630$3 != 1ll) goto label$1094;
 			label$1095:;
 			{
 				if( *(int64*)((uint8*)&ENV$ + 264ll) != 0ll) goto label$1097;
@@ -7402,9 +7433,9 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 					if( vr$27 == 0ll) goto label$1099;
 					{
 						{
-							$12FB_SYMBCLASS TMP$623$7;
-							TMP$623$7 = *($12FB_SYMBCLASS*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll);
-							if( TMP$623$7 != 1ll) goto label$1101;
+							$12FB_SYMBCLASS TMP$632$7;
+							TMP$632$7 = *($12FB_SYMBCLASS*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll);
+							if( TMP$632$7 != 1ll) goto label$1101;
 							label$1102:;
 							{
 								fb_StrConcatAssign( (void*)&ASMCODE$1, -1ll, (void*)"%", 2ll, 0 );
@@ -7413,9 +7444,9 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 								OPERANDINDEX$1 = OPERANDINDEX$1 + 1ll;
 								if( USES_LABEL$1 == 0ll) goto label$1104;
 								{
-									FBSTRING TMP$626$9;
-									FBSTRING TMP$627$9;
-									FBSTRING TMP$628$9;
+									FBSTRING TMP$635$9;
+									FBSTRING TMP$636$9;
+									FBSTRING TMP$637$9;
 									int64 vr$35 = fb_StrLen( (void*)&INPUTCONSTRAINTS$1, -1ll );
 									if( vr$35 <= 0ll) goto label$1106;
 									{
@@ -7424,20 +7455,20 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 									label$1106:;
 									label$1105:;
 									char* vr$38 = SYMBGETMANGLEDNAME( *(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll) );
-									__builtin_memset( &TMP$626$9, 0, 24ll );
-									FBSTRING* vr$41 = fb_StrConcat( &TMP$626$9, (void*)"\x22m\x22 (", 6ll, (void*)vr$38, 0ll );
-									__builtin_memset( &TMP$627$9, 0, 24ll );
-									FBSTRING* vr$44 = fb_StrConcat( &TMP$627$9, (void*)vr$41, -1ll, (void*)")", 2ll );
-									__builtin_memset( &TMP$628$9, 0, 24ll );
-									FBSTRING* vr$48 = fb_StrConcat( &TMP$628$9, (void*)&INPUTCONSTRAINTS$1, -1ll, (void*)vr$44, -1ll );
+									__builtin_memset( &TMP$635$9, 0, 24ll );
+									FBSTRING* vr$41 = fb_StrConcat( &TMP$635$9, (void*)"\x22m\x22 (", 6ll, (void*)vr$38, 0ll );
+									__builtin_memset( &TMP$636$9, 0, 24ll );
+									FBSTRING* vr$44 = fb_StrConcat( &TMP$636$9, (void*)vr$41, -1ll, (void*)")", 2ll );
+									__builtin_memset( &TMP$637$9, 0, 24ll );
+									FBSTRING* vr$48 = fb_StrConcat( &TMP$637$9, (void*)&INPUTCONSTRAINTS$1, -1ll, (void*)vr$44, -1ll );
 									fb_StrAssign( (void*)&INPUTCONSTRAINTS$1, -1ll, (void*)vr$48, -1ll, 0 );
 								}
 								goto label$1103;
 								label$1104:;
 								{
-									FBSTRING TMP$630$9;
-									FBSTRING TMP$631$9;
-									FBSTRING TMP$632$9;
+									FBSTRING TMP$639$9;
+									FBSTRING TMP$640$9;
+									FBSTRING TMP$641$9;
 									int64 vr$51 = fb_StrLen( (void*)&OUTPUTCONSTRAINTS$1, -1ll );
 									if( vr$51 <= 0ll) goto label$1108;
 									{
@@ -7446,19 +7477,19 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 									label$1108:;
 									label$1107:;
 									char* vr$54 = SYMBGETMANGLEDNAME( *(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll) );
-									__builtin_memset( &TMP$630$9, 0, 24ll );
-									FBSTRING* vr$57 = fb_StrConcat( &TMP$630$9, (void*)"\x22+m\x22 (", 7ll, (void*)vr$54, 0ll );
-									__builtin_memset( &TMP$631$9, 0, 24ll );
-									FBSTRING* vr$60 = fb_StrConcat( &TMP$631$9, (void*)vr$57, -1ll, (void*)")", 2ll );
-									__builtin_memset( &TMP$632$9, 0, 24ll );
-									FBSTRING* vr$64 = fb_StrConcat( &TMP$632$9, (void*)&OUTPUTCONSTRAINTS$1, -1ll, (void*)vr$60, -1ll );
+									__builtin_memset( &TMP$639$9, 0, 24ll );
+									FBSTRING* vr$57 = fb_StrConcat( &TMP$639$9, (void*)"\x22+m\x22 (", 7ll, (void*)vr$54, 0ll );
+									__builtin_memset( &TMP$640$9, 0, 24ll );
+									FBSTRING* vr$60 = fb_StrConcat( &TMP$640$9, (void*)vr$57, -1ll, (void*)")", 2ll );
+									__builtin_memset( &TMP$641$9, 0, 24ll );
+									FBSTRING* vr$64 = fb_StrConcat( &TMP$641$9, (void*)&OUTPUTCONSTRAINTS$1, -1ll, (void*)vr$60, -1ll );
 									fb_StrAssign( (void*)&OUTPUTCONSTRAINTS$1, -1ll, (void*)vr$64, -1ll, 0 );
 								}
 								label$1103:;
 							}
 							goto label$1100;
 							label$1101:;
-							if( TMP$623$7 != 7ll) goto label$1109;
+							if( TMP$632$7 != 7ll) goto label$1109;
 							label$1110:;
 							{
 								int64 LABELNUM$8;
@@ -7474,7 +7505,7 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 								goto label$1111;
 								label$1112:;
 								{
-									FBSTRING TMP$633$9;
+									FBSTRING TMP$642$9;
 									LABELNUM$8 = LABELINDEX$1;
 									LABELINDEX$1 = LABELINDEX$1 + 1ll;
 									void* vr$74 = LISTNEWNODE( &SEENLABELLIST$1 );
@@ -7487,8 +7518,8 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 									label$1114:;
 									label$1113:;
 									char* vr$78 = SYMBGETMANGLEDNAME( LABELSYM$8 );
-									__builtin_memset( &TMP$633$9, 0, 24ll );
-									FBSTRING* vr$82 = fb_StrConcat( &TMP$633$9, (void*)&LABELLIST$1, -1ll, (void*)vr$78, 0ll );
+									__builtin_memset( &TMP$642$9, 0, 24ll );
+									FBSTRING* vr$82 = fb_StrConcat( &TMP$642$9, (void*)&LABELLIST$1, -1ll, (void*)vr$78, 0ll );
 									fb_StrAssign( (void*)&LABELLIST$1, -1ll, (void*)vr$82, -1ll, 0 );
 								}
 								label$1111:;
@@ -7499,10 +7530,10 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 							goto label$1100;
 							label$1109:;
 							{
-								FBSTRING TMP$635$8;
+								FBSTRING TMP$644$8;
 								FBSTRING* vr$88 = HGETMANGLEDNAMEFORASM( *(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll), -1ll );
-								__builtin_memset( &TMP$635$8, 0, 24ll );
-								FBSTRING* vr$92 = fb_StrConcat( &TMP$635$8, (void*)&ASMCODE$1, -1ll, (void*)vr$88, -1ll );
+								__builtin_memset( &TMP$644$8, 0, 24ll );
+								FBSTRING* vr$92 = fb_StrConcat( &TMP$644$8, (void*)&ASMCODE$1, -1ll, (void*)vr$88, -1ll );
 								fb_StrAssign( (void*)&ASMCODE$1, -1ll, (void*)vr$92, -1ll, 0 );
 							}
 							label$1115:;
@@ -7512,10 +7543,10 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 					goto label$1098;
 					label$1099:;
 					{
-						FBSTRING TMP$636$6;
+						FBSTRING TMP$645$6;
 						FBSTRING* vr$95 = HGETMANGLEDNAMEFORASM( *(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll), -1ll );
-						__builtin_memset( &TMP$636$6, 0, 24ll );
-						FBSTRING* vr$99 = fb_StrConcat( &TMP$636$6, (void*)&ASMCODE$1, -1ll, (void*)vr$95, -1ll );
+						__builtin_memset( &TMP$645$6, 0, 24ll );
+						FBSTRING* vr$99 = fb_StrConcat( &TMP$645$6, (void*)&ASMCODE$1, -1ll, (void*)vr$95, -1ll );
 						fb_StrAssign( (void*)&ASMCODE$1, -1ll, (void*)vr$99, -1ll, 0 );
 					}
 					label$1098:;
@@ -7523,10 +7554,10 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 				goto label$1096;
 				label$1097:;
 				{
-					FBSTRING TMP$637$5;
+					FBSTRING TMP$646$5;
 					char* vr$102 = SYMBGETMANGLEDNAME( *(struct $8FBSYMBOL**)((uint8*)N$1 + 8ll) );
-					__builtin_memset( &TMP$637$5, 0, 24ll );
-					FBSTRING* vr$106 = fb_StrConcat( &TMP$637$5, (void*)&ASMCODE$1, -1ll, (void*)vr$102, 0ll );
+					__builtin_memset( &TMP$646$5, 0, 24ll );
+					FBSTRING* vr$106 = fb_StrConcat( &TMP$646$5, (void*)&ASMCODE$1, -1ll, (void*)vr$102, 0ll );
 					fb_StrAssign( (void*)&ASMCODE$1, -1ll, (void*)vr$106, -1ll, 0 );
 				}
 				label$1096:;
@@ -7552,12 +7583,12 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 			fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)&INPUTCONSTRAINTS$1, -1ll, 0 );
 			fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)" : \x22" "cc\x22, \x22memory\x22", 18ll, 0 );
 			{
-				int64 TMP$640$4;
+				int64 TMP$649$4;
 				int64 vr$122 = FBGETCPUFAMILY(  );
-				TMP$640$4 = vr$122;
-				if( TMP$640$4 == 0ll) goto label$1122;
+				TMP$649$4 = vr$122;
+				if( TMP$649$4 == 0ll) goto label$1122;
 				label$1123:;
-				if( TMP$640$4 != 1ll) goto label$1121;
+				if( TMP$649$4 != 1ll) goto label$1121;
 				label$1122:;
 				{
 					int64 vr$123 = FBGETCPUFAMILY(  );
@@ -7598,9 +7629,9 @@ static void _EMITASMLINE( struct $9ASTASMTOK* ASMTOKENHEAD$1 )
 				}
 				goto label$1120;
 				label$1121:;
-				if( TMP$640$4 == 2ll) goto label$1133;
+				if( TMP$649$4 == 2ll) goto label$1133;
 				label$1134:;
-				if( TMP$640$4 != 3ll) goto label$1132;
+				if( TMP$649$4 != 3ll) goto label$1132;
 				label$1133:;
 				{
 					fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)", \x22r0\x22, \x22r1\x22, \x22r2\x22, \x22r3\x22, \x22r4\x22, \x22r5\x22, \x22r6\x22", 43ll, 0 );
@@ -7756,17 +7787,17 @@ static void _EMITVARINISTR( int64 VARLENGTH$1, char* LITERAL$1, int64 LITLENGTH$
 	label$1163:;
 	if( NOTERM$1 == 0ll) goto label$1166;
 	{
-		int64 TMP$652$2;
-		TMP$652$2 = 0ll;
-		char* vr$3 = HUNESCAPE( LITERAL$1, &TMP$652$2 );
+		int64 TMP$661$2;
+		TMP$661$2 = 0ll;
+		char* vr$3 = HUNESCAPE( LITERAL$1, &TMP$661$2 );
 		HBUILDSTRLIT( (FBSTRING*)((uint8*)&CTX$ + 5280ll), vr$3, LITLENGTH$1 + 1ll, VARLENGTH$1 + 1ll );
 	}
 	goto label$1165;
 	label$1166:;
 	{
-		int64 TMP$653$2;
-		TMP$653$2 = 0ll;
-		char* vr$7 = HUNESCAPE( LITERAL$1, &TMP$653$2 );
+		int64 TMP$662$2;
+		TMP$662$2 = 0ll;
+		char* vr$7 = HUNESCAPE( LITERAL$1, &TMP$662$2 );
 		HBUILDSTRLIT( (FBSTRING*)((uint8*)&CTX$ + 5280ll), vr$7, LITLENGTH$1 + 1ll, 0ll );
 	}
 	label$1165:;
@@ -7776,13 +7807,13 @@ static void _EMITVARINISTR( int64 VARLENGTH$1, char* LITERAL$1, int64 LITLENGTH$
 
 static void _EMITVARINIWSTR( int64 VARLENGTH$1, uint32* LITERAL$1, int64 LITLENGTH$1 )
 {
-	int64 TMP$655$1;
+	int64 TMP$664$1;
 	label$1167:;
 	uint64 CH$1;
 	int64 WCHARSIZE$1;
 	fb_StrConcatByref( (void*)((uint8*)&CTX$ + 5280ll), -1ll, (void*)"{ ", 3ll, 0 );
-	TMP$655$1 = 0ll;
-	uint32* vr$2 = HUNESCAPEW( LITERAL$1, &TMP$655$1 );
+	TMP$664$1 = 0ll;
+	uint32* vr$2 = HUNESCAPEW( LITERAL$1, &TMP$664$1 );
 	LITERAL$1 = vr$2;
 	WCHARSIZE$1 = *(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + 400ll);
 	if( LITLENGTH$1 <= VARLENGTH$1) goto label$1170;
@@ -7794,8 +7825,8 @@ static void _EMITVARINIWSTR( int64 VARLENGTH$1, uint32* LITERAL$1, int64 LITLENG
 	{
 		int64 I$2;
 		I$2 = 0ll;
-		int64 TMP$656$2;
-		TMP$656$2 = LITLENGTH$1 + -1ll;
+		int64 TMP$665$2;
+		TMP$665$2 = LITLENGTH$1 + -1ll;
 		goto label$1171;
 		label$1174:;
 		{
@@ -7835,7 +7866,7 @@ static void _EMITVARINIWSTR( int64 VARLENGTH$1, uint32* LITERAL$1, int64 LITLENG
 		label$1172:;
 		I$2 = I$2 + 1ll;
 		label$1171:;
-		if( I$2 <= TMP$656$2) goto label$1174;
+		if( I$2 <= TMP$665$2) goto label$1174;
 		label$1173:;
 	}
 	fb_StrConcatByref( (void*)((uint8*)&CTX$ + 5280ll), -1ll, (void*)" }", 3ll, 0 );
@@ -7877,12 +7908,12 @@ static void _EMITVARINISCOPEEND( void )
 
 static void _EMITFBCTINFBEGIN( void )
 {
-	FBSTRING TMP$659$1;
+	FBSTRING TMP$668$1;
 	label$1189:;
-	__builtin_memset( &TMP$659$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$659$1, -1ll, (void*)"", 1ll, 0 );
-	HWRITELINE( &TMP$659$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$659$1 );
+	__builtin_memset( &TMP$668$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$668$1, -1ll, (void*)"", 1ll, 0 );
+	HWRITELINE( &TMP$668$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$668$1 );
 	fb_StrAssign( (void*)((uint8*)&CTX$ + 5312ll), -1ll, (void*)"static const char ", 19ll, 0 );
 	int64 vr$5 = FBGETOPTION( 3ll );
 	if( vr$5 != 10ll) goto label$1192;
@@ -7901,13 +7932,13 @@ static void _EMITFBCTINFBEGIN( void )
 
 static void _EMITFBCTINFSTRING( char* S$1 )
 {
-	FBSTRING TMP$670$1;
-	FBSTRING TMP$671$1;
+	FBSTRING TMP$679$1;
+	FBSTRING TMP$680$1;
 	label$1193:;
-	__builtin_memset( &TMP$670$1, 0, 24ll );
-	FBSTRING* vr$2 = fb_StrConcat( &TMP$670$1, (void*)S$1, 0ll, (void*)"\x5C" "0", 3ll );
-	__builtin_memset( &TMP$671$1, 0, 24ll );
-	FBSTRING* vr$6 = fb_StrConcat( &TMP$671$1, (void*)((uint8*)&CTX$ + 5312ll), -1ll, (void*)vr$2, -1ll );
+	__builtin_memset( &TMP$679$1, 0, 24ll );
+	FBSTRING* vr$2 = fb_StrConcat( &TMP$679$1, (void*)S$1, 0ll, (void*)"\x5C" "0", 3ll );
+	__builtin_memset( &TMP$680$1, 0, 24ll );
+	FBSTRING* vr$6 = fb_StrConcat( &TMP$680$1, (void*)((uint8*)&CTX$ + 5312ll), -1ll, (void*)vr$2, -1ll );
 	fb_StrAssign( (void*)((uint8*)&CTX$ + 5312ll), -1ll, (void*)vr$6, -1ll, 0 );
 	label$1194:;
 }
@@ -7932,18 +7963,18 @@ static void _EMITFBCTINFEND( void )
 
 static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABEL$1 )
 {
-	FBSTRING TMP$673$1;
-	FBSTRING TMP$687$1;
-	FBSTRING TMP$688$1;
+	FBSTRING TMP$682$1;
+	FBSTRING TMP$696$1;
+	FBSTRING TMP$697$1;
 	label$1199:;
 	HUPDATECURRENTFILENAME( *(char**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 48ll) );
 	IRHLEMITPROCBEGIN(  );
 	FBSTRING MANGLED$1;
 	__builtin_memset( &MANGLED$1, 0, 24ll );
-	__builtin_memset( &TMP$673$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$673$1, -1ll, (void*)"", 1ll, 0 );
-	HWRITELINE( &TMP$673$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$673$1 );
+	__builtin_memset( &TMP$682$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$682$1, -1ll, (void*)"", 1ll, 0 );
+	HWRITELINE( &TMP$682$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$682$1 );
 	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$1202;
 	{
 		_EMITDBG( 114ll, PROC$1, *(int64*)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 32ll), (char*)0ull );
@@ -7952,35 +7983,35 @@ static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLA
 	label$1201:;
 	if( (*(int64*)((uint8*)PROC$1 + 16ll) & 128ll) == 0ll) goto label$1204;
 	{
-		FBSTRING TMP$674$2;
-		FBSTRING TMP$677$2;
-		FBSTRING TMP$678$2;
-		FBSTRING TMP$679$2;
-		FBSTRING TMP$682$2;
 		FBSTRING TMP$683$2;
-		FBSTRING TMP$684$2;
+		FBSTRING TMP$686$2;
+		FBSTRING TMP$687$2;
+		FBSTRING TMP$688$2;
+		FBSTRING TMP$691$2;
+		FBSTRING TMP$692$2;
+		FBSTRING TMP$693$2;
 		FBSTRING* vr$11 = HGETMANGLEDNAMEFORASM( PROC$1, -1ll );
 		fb_StrAssign( (void*)&MANGLED$1, -1ll, (void*)vr$11, -1ll, 0 );
-		__builtin_memset( &TMP$674$2, 0, 24ll );
-		fb_StrAssign( (void*)&TMP$674$2, -1ll, (void*)"__asm__( \x22.text\x22 );", 20ll, 0 );
-		HWRITELINE( &TMP$674$2, 0ll );
-		fb_StrDelete( (FBSTRING*)&TMP$674$2 );
-		__builtin_memset( &TMP$679$2, 0, 24ll );
-		__builtin_memset( &TMP$677$2, 0, 24ll );
-		FBSTRING* vr$21 = fb_StrConcat( &TMP$677$2, (void*)"__asm__( \x22.globl ", 18ll, (void*)&MANGLED$1, -1ll );
-		__builtin_memset( &TMP$678$2, 0, 24ll );
-		FBSTRING* vr$24 = fb_StrConcat( &TMP$678$2, (void*)vr$21, -1ll, (void*)"\x22 );", 5ll );
-		fb_StrAssign( (void*)&TMP$679$2, -1ll, (void*)vr$24, -1ll, 0 );
-		HWRITELINE( &TMP$679$2, 0ll );
-		fb_StrDelete( (FBSTRING*)&TMP$679$2 );
-		__builtin_memset( &TMP$684$2, 0, 24ll );
-		__builtin_memset( &TMP$682$2, 0, 24ll );
-		FBSTRING* vr$32 = fb_StrConcat( &TMP$682$2, (void*)"__asm__( \x22", 11ll, (void*)&MANGLED$1, -1ll );
 		__builtin_memset( &TMP$683$2, 0, 24ll );
-		FBSTRING* vr$35 = fb_StrConcat( &TMP$683$2, (void*)vr$32, -1ll, (void*)":\x22 );", 6ll );
-		fb_StrAssign( (void*)&TMP$684$2, -1ll, (void*)vr$35, -1ll, 0 );
-		HWRITELINE( &TMP$684$2, 0ll );
-		fb_StrDelete( (FBSTRING*)&TMP$684$2 );
+		fb_StrAssign( (void*)&TMP$683$2, -1ll, (void*)"__asm__( \x22.text\x22 );", 20ll, 0 );
+		HWRITELINE( &TMP$683$2, 0ll );
+		fb_StrDelete( (FBSTRING*)&TMP$683$2 );
+		__builtin_memset( &TMP$688$2, 0, 24ll );
+		__builtin_memset( &TMP$686$2, 0, 24ll );
+		FBSTRING* vr$21 = fb_StrConcat( &TMP$686$2, (void*)"__asm__( \x22.globl ", 18ll, (void*)&MANGLED$1, -1ll );
+		__builtin_memset( &TMP$687$2, 0, 24ll );
+		FBSTRING* vr$24 = fb_StrConcat( &TMP$687$2, (void*)vr$21, -1ll, (void*)"\x22 );", 5ll );
+		fb_StrAssign( (void*)&TMP$688$2, -1ll, (void*)vr$24, -1ll, 0 );
+		HWRITELINE( &TMP$688$2, 0ll );
+		fb_StrDelete( (FBSTRING*)&TMP$688$2 );
+		__builtin_memset( &TMP$693$2, 0, 24ll );
+		__builtin_memset( &TMP$691$2, 0, 24ll );
+		FBSTRING* vr$32 = fb_StrConcat( &TMP$691$2, (void*)"__asm__( \x22", 11ll, (void*)&MANGLED$1, -1ll );
+		__builtin_memset( &TMP$692$2, 0, 24ll );
+		FBSTRING* vr$35 = fb_StrConcat( &TMP$692$2, (void*)vr$32, -1ll, (void*)":\x22 );", 6ll );
+		fb_StrAssign( (void*)&TMP$693$2, -1ll, (void*)vr$35, -1ll, 0 );
+		HWRITELINE( &TMP$693$2, 0ll );
+		fb_StrDelete( (FBSTRING*)&TMP$693$2 );
 		fb_StrDelete( (FBSTRING*)&MANGLED$1 );
 		goto label$1200;
 	}
@@ -7990,35 +8021,35 @@ static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLA
 	int64 vr$40 = HNEEDALIAS( PROC$1 );
 	if( vr$40 == 0ll) goto label$1206;
 	{
-		FBSTRING TMP$685$2;
-		FBSTRING TMP$686$2;
-		__builtin_memset( &TMP$686$2, 0, 24ll );
+		FBSTRING TMP$694$2;
+		FBSTRING TMP$695$2;
+		__builtin_memset( &TMP$695$2, 0, 24ll );
 		FBSTRING* vr$42 = HEMITPROCHEADER( PROC$1, 1ll );
-		__builtin_memset( &TMP$685$2, 0, 24ll );
-		FBSTRING* vr$45 = fb_StrConcat( &TMP$685$2, (void*)vr$42, -1ll, (void*)";", 2ll );
-		fb_StrAssign( (void*)&TMP$686$2, -1ll, (void*)vr$45, -1ll, 0 );
-		HWRITELINE( &TMP$686$2, 0ll );
-		fb_StrDelete( (FBSTRING*)&TMP$686$2 );
+		__builtin_memset( &TMP$694$2, 0, 24ll );
+		FBSTRING* vr$45 = fb_StrConcat( &TMP$694$2, (void*)vr$42, -1ll, (void*)";", 2ll );
+		fb_StrAssign( (void*)&TMP$695$2, -1ll, (void*)vr$45, -1ll, 0 );
+		HWRITELINE( &TMP$695$2, 0ll );
+		fb_StrDelete( (FBSTRING*)&TMP$695$2 );
 	}
 	label$1206:;
 	label$1205:;
-	__builtin_memset( &TMP$687$1, 0, 24ll );
+	__builtin_memset( &TMP$696$1, 0, 24ll );
 	FBSTRING* vr$50 = HEMITPROCHEADER( PROC$1, 0ll );
-	fb_StrAssign( (void*)&TMP$687$1, -1ll, (void*)vr$50, -1ll, 0 );
-	HWRITELINE( &TMP$687$1, 0ll );
-	fb_StrDelete( (FBSTRING*)&TMP$687$1 );
-	__builtin_memset( &TMP$688$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$688$1, -1ll, (void*)"{", 2ll, 0 );
-	HWRITELINE( &TMP$688$1, 0ll );
-	fb_StrDelete( (FBSTRING*)&TMP$688$1 );
+	fb_StrAssign( (void*)&TMP$696$1, -1ll, (void*)vr$50, -1ll, 0 );
+	HWRITELINE( &TMP$696$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$696$1 );
+	__builtin_memset( &TMP$697$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$697$1, -1ll, (void*)"{", 2ll, 0 );
+	HWRITELINE( &TMP$697$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$697$1 );
 	SECTIONINDENT(  );
 	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 2ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 312ll) == -1ll)) == 0ll) goto label$1208;
 	{
-		FBSTRING TMP$690$2;
-		__builtin_memset( &TMP$690$2, 0, 24ll );
-		fb_StrAssign( (void*)&TMP$690$2, -1ll, (void*)"_unusedlabel: ; void *_llvmbug18658 = &&_unusedlabel;", 54ll, 0 );
-		HWRITELINE( &TMP$690$2, 0ll );
-		fb_StrDelete( (FBSTRING*)&TMP$690$2 );
+		FBSTRING TMP$699$2;
+		__builtin_memset( &TMP$699$2, 0, 24ll );
+		fb_StrAssign( (void*)&TMP$699$2, -1ll, (void*)"_unusedlabel: ; void *_llvmbug18658 = &&_unusedlabel;", 54ll, 0 );
+		HWRITELINE( &TMP$699$2, 0ll );
+		fb_StrDelete( (FBSTRING*)&TMP$699$2 );
 	}
 	label$1208:;
 	label$1207:;
@@ -8028,7 +8059,7 @@ static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLA
 
 static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABEL$1, struct $8FBSYMBOL* EXITLABEL$1 )
 {
-	FBSTRING TMP$698$1;
+	FBSTRING TMP$707$1;
 	label$1209:;
 	FBSTRING MANGLED$1;
 	__builtin_memset( &MANGLED$1, 0, 24ll );
@@ -8037,25 +8068,25 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	{
 		if( *(int64*)((uint8*)&ENV$ + 216ll) != 2ll) goto label$1214;
 		{
-			FBSTRING TMP$693$3;
-			FBSTRING TMP$694$3;
-			FBSTRING TMP$695$3;
-			FBSTRING TMP$696$3;
-			FBSTRING TMP$697$3;
+			FBSTRING TMP$702$3;
+			FBSTRING TMP$703$3;
+			FBSTRING TMP$704$3;
+			FBSTRING TMP$705$3;
+			FBSTRING TMP$706$3;
 			FBSTRING* vr$3 = HGETMANGLEDNAMEFORASM( PROC$1, -1ll );
 			fb_StrAssign( (void*)&MANGLED$1, -1ll, (void*)vr$3, -1ll, 0 );
-			__builtin_memset( &TMP$697$3, 0, 24ll );
-			__builtin_memset( &TMP$693$3, 0, 24ll );
-			FBSTRING* vr$10 = fb_StrConcat( &TMP$693$3, (void*)"__asm__( \x22.size ", 17ll, (void*)&MANGLED$1, -1ll );
-			__builtin_memset( &TMP$694$3, 0, 24ll );
-			FBSTRING* vr$13 = fb_StrConcat( &TMP$694$3, (void*)vr$10, -1ll, (void*)", .-", 5ll );
-			__builtin_memset( &TMP$695$3, 0, 24ll );
-			FBSTRING* vr$16 = fb_StrConcat( &TMP$695$3, (void*)vr$13, -1ll, (void*)&MANGLED$1, -1ll );
-			__builtin_memset( &TMP$696$3, 0, 24ll );
-			FBSTRING* vr$19 = fb_StrConcat( &TMP$696$3, (void*)vr$16, -1ll, (void*)"\x22 );", 5ll );
-			fb_StrAssign( (void*)&TMP$697$3, -1ll, (void*)vr$19, -1ll, 0 );
-			HWRITELINE( &TMP$697$3, -1ll );
-			fb_StrDelete( (FBSTRING*)&TMP$697$3 );
+			__builtin_memset( &TMP$706$3, 0, 24ll );
+			__builtin_memset( &TMP$702$3, 0, 24ll );
+			FBSTRING* vr$10 = fb_StrConcat( &TMP$702$3, (void*)"__asm__( \x22.size ", 17ll, (void*)&MANGLED$1, -1ll );
+			__builtin_memset( &TMP$703$3, 0, 24ll );
+			FBSTRING* vr$13 = fb_StrConcat( &TMP$703$3, (void*)vr$10, -1ll, (void*)", .-", 5ll );
+			__builtin_memset( &TMP$704$3, 0, 24ll );
+			FBSTRING* vr$16 = fb_StrConcat( &TMP$704$3, (void*)vr$13, -1ll, (void*)&MANGLED$1, -1ll );
+			__builtin_memset( &TMP$705$3, 0, 24ll );
+			FBSTRING* vr$19 = fb_StrConcat( &TMP$705$3, (void*)vr$16, -1ll, (void*)"\x22 );", 5ll );
+			fb_StrAssign( (void*)&TMP$706$3, -1ll, (void*)vr$19, -1ll, 0 );
+			HWRITELINE( &TMP$706$3, -1ll );
+			fb_StrDelete( (FBSTRING*)&TMP$706$3 );
 		}
 		label$1214:;
 		label$1213:;
@@ -8065,10 +8096,10 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	label$1212:;
 	label$1211:;
 	SECTIONUNINDENT(  );
-	__builtin_memset( &TMP$698$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$698$1, -1ll, (void*)"}", 2ll, 0 );
-	HWRITELINE( &TMP$698$1, 0ll );
-	fb_StrDelete( (FBSTRING*)&TMP$698$1 );
+	__builtin_memset( &TMP$707$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$707$1, -1ll, (void*)"}", 2ll, 0 );
+	HWRITELINE( &TMP$707$1, 0ll );
+	fb_StrDelete( (FBSTRING*)&TMP$707$1 );
 	SECTIONEND(  );
 	label$1215:;
 	{
@@ -8093,26 +8124,26 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 
 static void _EMITSCOPEBEGIN( struct $8FBSYMBOL* S$1 )
 {
-	FBSTRING TMP$699$1;
+	FBSTRING TMP$708$1;
 	label$1220:;
 	SECTIONBEGIN(  );
-	__builtin_memset( &TMP$699$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$699$1, -1ll, (void*)"{", 2ll, 0 );
-	HWRITELINE( &TMP$699$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$699$1 );
+	__builtin_memset( &TMP$708$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$708$1, -1ll, (void*)"{", 2ll, 0 );
+	HWRITELINE( &TMP$708$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$708$1 );
 	SECTIONINDENT(  );
 	label$1221:;
 }
 
 static void _EMITSCOPEEND( struct $8FBSYMBOL* S$1 )
 {
-	FBSTRING TMP$700$1;
+	FBSTRING TMP$709$1;
 	label$1222:;
 	SECTIONUNINDENT(  );
-	__builtin_memset( &TMP$700$1, 0, 24ll );
-	fb_StrAssign( (void*)&TMP$700$1, -1ll, (void*)"}", 2ll, 0 );
-	HWRITELINE( &TMP$700$1, -1ll );
-	fb_StrDelete( (FBSTRING*)&TMP$700$1 );
+	__builtin_memset( &TMP$709$1, 0, 24ll );
+	fb_StrAssign( (void*)&TMP$709$1, -1ll, (void*)"}", 2ll, 0 );
+	HWRITELINE( &TMP$709$1, -1ll );
+	fb_StrDelete( (FBSTRING*)&TMP$709$1 );
 	SECTIONEND(  );
 	label$1223:;
 }

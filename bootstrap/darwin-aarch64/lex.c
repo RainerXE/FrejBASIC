@@ -1217,8 +1217,10 @@ void LEXPOPCTX( void )
 			{
 				int32 vr$12 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + -40ll) );
 				if( (int64)vr$12 == 0ll) goto label$24;
-				void* vr$14 = fb_ErrorThrowAt( 70, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+				void* vr$14 = fb_ErrorThrowAt( 70, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+				(void)&&__fb_jumpptr$0$;
 				goto *vr$14;
+				__fb_jumpptr$0$:;
 				label$24:;
 			}
 			label$23:;
@@ -2920,13 +2922,17 @@ FBSTRING* LEXPEEKCURRENTLINE( FBSTRING* TOKEN_POS$1, int64 DO_TRIM$1 )
 	label$868:;
 	int32 vr$20 = fb_FileGetStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), P$1 + 1ll, (void*)BUFFER$1, 1025ll );
 	if( (int64)vr$20 == 0ll) goto label$870;
-	void* vr$22 = fb_ErrorThrowAt( 2484, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+	void* vr$22 = fb_ErrorThrowAt( 2484, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$0$;
 	goto *vr$22;
+	__fb_jumpptr$0$:;
 	label$870:;
 	int32 vr$24 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), OLD_P$1 );
 	if( (int64)vr$24 == 0ll) goto label$871;
-	void* vr$26 = fb_ErrorThrowAt( 2485, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+	void* vr$26 = fb_ErrorThrowAt( 2485, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/lex.bas", (void*)0ull, (void*)0ull );
+	(void)&&__fb_jumpptr$1$;
 	goto *vr$26;
+	__fb_jumpptr$1$:;
 	label$871:;
 	C$1 = (uint8*)((uint8*)BUFFER$1 + START$1);
 	TOKEN_LEN$1 = 0ll;
