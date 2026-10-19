@@ -1,0 +1,94 @@
+FrejBASIC - notes for Darwin (macOS / Apple Silicon)
+====================================================
+
+This fork adds native macOS support on arm64. The notes below describe where
+its behaviour differs from FreeBASIC on the other platforms, so that these
+differences are documented instead of being discovered by surprise.
+
+General language and library documentation is the FreeBASIC manual
+(https://www.freebasic.net/wiki/DocToc).
+
+
+1. Operators declared inside EXTERN "C"
+----------------------------------------
+
+fbc generates the procedure name itself; it never asks the C++ compiler. For
+an operator declared in an EXTERN "C" block it writes the name GCC uses for
+such an operator: the operator code without the parameter types. "operator+"
+becomes "_Zpl", with no parameter type code appended.
+
+GCC produces exactly that name, so a C++ module built with GCC links against
+it. Clang does not: it applies its regular C++ mangling to an operator even
+when the operator is declared with C linkage, so the same declaration is
+compiled there as "_ZplRK13UDT_C_DEFAULTS1_". macOS ships Clang as its C++
+compiler, so an operator declared in EXTERN "C" and implemented on the C++
+side does not link on macOS - the linker reports undefined symbols such as
+"_Zpl".
+
+This is a compiler difference, not a platform one: any target whose C++
+compiler is Clang behaves the same way (for example Linux with CXX=clang++,
+or FreeBSD, which also ships Clang).
+
+Workaround: declare operators in an EXTERN "C++" block instead. Its mangling
+matches Clang exactly and matches GCC for the cases that matter, so it works
+on every platform. Plain procedures (no operator overloading) are not
+affected: they work in EXTERN "C" as before. Operators that are declared in
+EXTERN "C" and implemented in BASIC itself are also unaffected, because both
+the reference and the definition then use the same name.
+
+When compiling for a Darwin target, fbc reports this at the declaration:
+
+    warning 54(2): Operator declared inside EXTERN "C" is name-mangled
+    without the parameter types; that matches GCC, but a C++ module built
+    with Clang will not use this symbol - declare the operator inside
+    EXTERN "C++" instead
+
+It is warning level 2, so it is shown by default; raise the threshold with
+"-w 3" to silence it.
+
+
+2. Console output without a terminfo database
+---------------------------------------------
+
+On Darwin the console functions (PRINT, COLOR, LOCATE, INKEY, and the
+full-screen behaviour of the runtime library) are served by a built-in
+VT100/xterm-compatible sequence table instead of by terminfo, and fbc links
+no ncurses or terminfo library.
+
+macOS has no terminfo library that a compiler could link against - the SDK
+ships only a .tbd stub with no library behind it - so the usual terminfo
+lookup is not available. The fallback table covers the same sequence set
+that xterm's terminfo entry provides, so terminal behaviour is unchanged for
+the common terminals (TERM=xterm, xterm-256color, screen, ...). It is fixed,
+however: a terminal whose terminfo entry differs from xterm's will not be
+described exactly.
+
+This is the default on Darwin. On the other Unix targets the terminfo path
+is used unless the build defines DISABLE_NCURSES. DISABLE_NCURSES means "no
+terminfo database"; it does not disable console output, which also means
+that targets built with it (Darwin and Android) get standard VT100 output.
+
+
+3. Building and testing on macOS
+--------------------------------
+
+The build needs the seed compiler's include path, because plain "make"
+cannot find the compiler's own headers:
+
+    make -j4 FBC="$PWD/bin/fbc -i $PWD/inc"
+
+bin/fbc is itself linked by that seed compiler, so a second build pass is
+needed before a link-time setting that was changed (such as the removal of
+ncurses) shows up in bin/fbc.
+
+The test suites run on darwin-aarch64:
+
+    make unit-tests        all green apart from two pre-existing acos()
+                           precision asserts in optimizations/consteval.bas
+    make log-tests         1687 tests, all green
+    make warning-tests     all reference sets match
+
+The warnings suite carries a darwin-aarch64 reference set that is
+byte-identical to the linux-x86_64 set; its test.sh needed a portable sed
+expression, since the original one relied on GNU-specific extensions and
+matched nothing on BSD sed.
