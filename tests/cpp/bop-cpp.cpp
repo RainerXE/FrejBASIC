@@ -80,6 +80,12 @@ class UDT_C_DEFAULT
 		int value;
 };
 
+// fbc mangles an operator declared inside extern "C" the way GCC does: using
+// the plain C operator name, without the parameter types. Clang instead keeps
+// its regular C++ mangling for such operators, so there is no name fbc could
+// emit that both compilers accept. Skip this part of the test with clang;
+// see also bop.bmk, which skips the matching fbc module.
+#if !defined(__clang__)
 extern "C" {
 UDT_C_DEFAULT operator+( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs );
 UDT_C_DEFAULT operator-( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs );
@@ -92,6 +98,7 @@ UDT_C_DEFAULT operator&( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs );
 UDT_C_DEFAULT operator|( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs );
 UDT_C_DEFAULT operator^( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs );
 }
+#endif
 
 class UDT_CPP_DEFAULT
 {
@@ -135,6 +142,8 @@ UDT_DEFAULT operator|( UDT_DEFAULT const& lhs, UDT_DEFAULT const& rhs ) { exec_b
 UDT_DEFAULT operator^( UDT_DEFAULT const& lhs, UDT_DEFAULT const& rhs ) { exec_bop( UDT_DEFAULT, ^ ) }
 
 // C mangling (on fbc side), default calling convention
+// (skipped with clang, see the declaration block above)
+#if !defined(__clang__)
 extern "C" {
 UDT_C_DEFAULT operator+( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs ){exec_bop( UDT_C_DEFAULT, + ) }
 UDT_C_DEFAULT operator-( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs ) { exec_bop( UDT_C_DEFAULT, - ) }
@@ -147,6 +156,7 @@ UDT_C_DEFAULT operator&( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs ) { 
 UDT_C_DEFAULT operator|( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs ) { exec_bop( UDT_C_DEFAULT, | ) }
 UDT_C_DEFAULT operator^( UDT_C_DEFAULT const& lhs, UDT_C_DEFAULT const& rhs ) { exec_bop( UDT_C_DEFAULT, ^ ) }
 } // extern "C"
+#endif
 
 // c++ mangling (on fbc side), default calling convention
 

@@ -96,6 +96,7 @@ declare function hMakeParamDesc _
 		( /'FB_WARNINGMSG_MISSINGANDROIDSYSROOT     '/ 1, @"GCC/Clang didn't provide a proper sysroot. You probably have to pass fbc an argument of the form '-sysroot $NDK/platforms/android-$API/arch-$ARCH'" ), _
 		( /'FB_WARNINGMSG_INVALIDUNICODESEQUENCE    '/ 2, @"Invalid or truncated unicode escape sequence" ), _
 		( /'FB_WARNINGMSG_SURROGATEPAIR             '/ 1, @"Surrogate or surrogate pair in unicode literal" ), _
+		( /'FB_WARNINGMSG_OPERATORINEXTERNC         '/ 2, @"Operator declared inside EXTERN ""C"" is name-mangled without the parameter types; that matches GCC, but a C++ module built with Clang will not use this symbol - declare the operator inside EXTERN ""C++"" instead" ), _
 		( /'FB_WARNINGMSGS                          '/ 0, @"FB_WARNINGMSGS" ) _
 	}
 

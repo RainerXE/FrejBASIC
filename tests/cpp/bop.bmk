@@ -5,6 +5,17 @@ SRCS :=
 
 EXTRA_OBJS := bop-cpp.o
 
+# fbc gives an operator declared inside extern "C" the plain C operator name
+# (eg. "_Zpl", without the parameter types), which is the name GCC uses for
+# such operators. Clang does not do that: it applies its usual C++ mangling
+# even under extern "C", so a clang compiled bop-cpp.o would have no matching
+# symbols. Only run the extern "C" part of the test when the C++ compiler is
+# not clang. See also bop-cpp.cpp, which uses __clang__ directly.
+CXX_IS_CLANG := $(shell $(CXX) --version 2>/dev/null | grep -i -c clang)
+ifeq ($(CXX_IS_CLANG),0)
+FBC_CFLAGS += -d FBC_TEST_EXTERN_C_OPERATORS=1
+endif
+
 $(SRCDIR)bop-cpp.o : $(SRCDIR)bop-cpp.cpp
 	# Pass $(CFLAGS) to get -m32 or -m64 as required
 	$(CXX) -c $(CFLAGS) -Wall -Wno-attributes -o $@ $^

@@ -76,6 +76,7 @@ Version 1.20.0
 - sf.net #1013 : NEW uses callocate instead allocate + memset(0) as it's faster (SARG)
 - sf.net #1013 (gas64) : memfill calls MEMSET if area size is greater than 64 bytes as it's faster (SARG)
 - fbc: new syntax 'end while' equivalent to 'wend'. wend syntax remains valid (SARG)
+- fbc: darwin: warn when an operator is declared inside EXTERN "C"; fbc gives such operators the name GCC uses (the operator code without the parameter types), which a C++ module built with Clang will not provide. Declare the operator inside EXTERN "C++" instead, or build the C++ module with GCC
 
 [fixed]
 - github #410: give consistent floating point comparisons results involving NaNs.

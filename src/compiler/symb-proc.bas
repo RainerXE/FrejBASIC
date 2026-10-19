@@ -952,6 +952,16 @@ add_proc:
 		'' it's in "c++" mode or "rtlib" mode
 		if(( parser.mangling <> FB_MANGLING_CPP ) and ( parser.mangling <> FB_MANGLING_RTLIB )) then
 			stats or= FB_SYMBSTATS_EXCLPARENT
+
+			'' Operators declared in EXTERN "C" get the GCC-style name (just the
+			'' operator code, without the parameter types), which is how GCC
+			'' names C-linkage operators. Clang does not do that: it mangles the
+			'' operator in full even with C linkage, so a C++ module built with
+			'' Clang will not provide the symbol. Only warn on targets whose
+			'' system C++ compiler is Clang.
+			if( (env.clopt.target = FB_COMPTARGET_DARWIN) and symbIsOperator( proc ) ) then
+				errReportWarn( FB_WARNINGMSG_OPERATORINEXTERNC )
+			end if
 		end if
 	end if
 

@@ -38,10 +38,14 @@ declare operator xor( byref lhs as const UDT_DEFAULT, byref rhs as const UDT_DEF
 
 
 '' extern "c", default calling convention
+'' fbc names these operators the way GCC does (the plain C operator name,
+'' without the parameter types); clang uses its regular C++ mangling instead,
+'' so this part of the test is skipped when the C++ side is built with clang
 type UDT_C_DEFAULT
 	value as long
 end type
 
+#ifdef FBC_TEST_EXTERN_C_OPERATORS
 extern "c"
 	declare operator +( byref lhs as const UDT_C_DEFAULT, byref rhs as const UDT_C_DEFAULT ) as UDT_C_DEFAULT
 	declare operator -( byref lhs as const UDT_C_DEFAULT, byref rhs as const UDT_C_DEFAULT ) as UDT_C_DEFAULT
@@ -54,6 +58,7 @@ extern "c"
 	declare operator or ( byref lhs as const UDT_C_DEFAULT, byref rhs as const UDT_C_DEFAULT ) as UDT_C_DEFAULT
 	declare operator xor( byref lhs as const UDT_C_DEFAULT, byref rhs as const UDT_C_DEFAULT ) as UDT_C_DEFAULT
 end extern
+#endif
 
 
 '' extern "c++", default calling convention
@@ -101,6 +106,7 @@ chkbop( and, UDT_DEFAULT, "UDT_DEFAULT operator&", &b1100, &b1010, &b1000 )
 chkbop( or , UDT_DEFAULT, "UDT_DEFAULT operator|", &b1100, &b1010, &b1110 )
 chkbop( xor, UDT_DEFAULT, "UDT_DEFAULT operator^", &b1100, &b1010, &b0110 )
 
+#ifdef FBC_TEST_EXTERN_C_OPERATORS
 chkbop( +, UDT_C_DEFAULT, "UDT_C_DEFAULT operator+", 5, 7, 12  )
 chkbop( -, UDT_C_DEFAULT, "UDT_C_DEFAULT operator-", 5, 7, -2  )
 chkbop( *, UDT_C_DEFAULT, "UDT_C_DEFAULT operator*", 5, 7, 35  )
@@ -111,6 +117,7 @@ chkbop( shr, UDT_C_DEFAULT, "UDT_C_DEFAULT operator>>", 16, 2, 4  )
 chkbop( and, UDT_C_DEFAULT, "UDT_C_DEFAULT operator&", &b1100, &b1010, &b1000 )
 chkbop( or , UDT_C_DEFAULT, "UDT_C_DEFAULT operator|", &b1100, &b1010, &b1110 )
 chkbop( xor, UDT_C_DEFAULT, "UDT_C_DEFAULT operator^", &b1100, &b1010, &b0110 )
+#endif
 
 chkbop( +, UDT_CPP_DEFAULT, "UDT_CPP_DEFAULT operator+", 5, 7, 12  )
 chkbop( -, UDT_CPP_DEFAULT, "UDT_CPP_DEFAULT operator-", 5, 7, -2  )
