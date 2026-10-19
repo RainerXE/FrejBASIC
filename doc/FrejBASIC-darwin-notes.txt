@@ -34,7 +34,9 @@ matches Clang exactly and matches GCC for the cases that matter, so it works
 on every platform. Plain procedures (no operator overloading) are not
 affected: they work in EXTERN "C" as before. Operators that are declared in
 EXTERN "C" and implemented in BASIC itself are also unaffected, because both
-the reference and the definition then use the same name.
+the reference and the definition then use the same name; fbc cannot know at
+the declaration whether the module will go on to define the operator, so it
+reports the declaration either way.
 
 When compiling for a Darwin target, fbc reports this at the declaration:
 
