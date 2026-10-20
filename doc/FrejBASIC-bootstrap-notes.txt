@@ -106,8 +106,11 @@ tree or clone on their own platform: "make bootstrap", then "make", then a
 program compiled and run with the result. The Linux clone was taken straight
 from the repository, with nothing else installed.
 
-darwin-x86_64 is precompiled and checked in, but it has not been built on an
-Intel Mac, because there was no such machine to try it on. Its precompiled C
-compiles cleanly for x86_64 and it regenerates byte-identically to the other
-sets on either build machine, so the first real check is "make bootstrap" on
-the machine itself.
+darwin-x86_64 was exercised the same way on an Apple Silicon machine: the
+precompiled C builds with clang -arch x86_64, the compiler that comes out of
+it runs under Rosetta and reports itself as darwin-x86_64, it compiles
+programs to x86_64 Mach-O and those run - including C varargs, which use a
+different ABI than on arm64 - and the Cocoa graphics driver reports the same
+pixels as the arm64 build for the same drawing. What has not happened yet is a
+build on Intel hardware itself, so "make bootstrap" on that machine is still
+the first thing to do when one is available.
