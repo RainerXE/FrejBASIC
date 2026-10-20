@@ -71,6 +71,10 @@ the seed only has to be able to compile the current sources, but it should
 not be left to drift. Only the precompiled files whose output really changed
 are rewritten.
 
+Precompiling depends on the target, not on the machine doing it: regenerating
+a set on Linux produces exactly the files that precompiling it on macOS does,
+so either machine can refresh them.
+
 
 3. Building a checkout that has no fbc yet
 -------------------------------------------
