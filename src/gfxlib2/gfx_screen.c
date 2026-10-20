@@ -312,7 +312,9 @@ static int set_mode
         if (!__fb_window_title)
         {
             __fb_window_title = fb_hGetExeName( window_title_buff, WINDOW_TITLE_SIZE - 1 );
-            if ((c = strrchr(__fb_window_title, '.')))
+            if (__fb_window_title == NULL)
+                __fb_window_title = "FreeBASIC";
+            else if ((c = strrchr(__fb_window_title, '.')))
                 *c = '\0';
         }
 
