@@ -1,0 +1,173 @@
+FrejBASIC - notes on the application corpus
+===========================================
+
+tests/apps holds a list of complete FreeBASIC programs taken from examples/.
+They are not unit tests: the unit and log suites already check every library
+function in isolation.  These are ordinary applications that open screens,
+draw, animate, read keys and mouse, use threads and files, and wait for input,
+so that a port is exercised the way people use a compiler - compile, link,
+run, look at the window.
+
+
+1. Layout
+---------
+
+    tests/apps/manifest.txt    the corpus: one program per line, paths
+                               relative to the repository root
+    tests/apps/run-apps.sh     builds and runs it
+    tests/apps/_selftest/      tiny programs used to check the classifier
+                               (ok, hang, crash, segv, bad syntax)
+
+A manifest line may carry extra compiler flags after a vertical bar:
+
+    examples/some/program.bas|-d SOME_DEFINE
+
+The manifest is curated on purpose.  examples/ also contains fragments,
+programs for other targets, and programs that need external libraries; a
+compile-only sweep over all of them is available as a breadth check (see
+below), but the manifest is the gate.
+
+
+2. Pass and fail
+----------------
+
+A program passes when it compiles and then either
+
+  * exits with status 0, or
+  * is still running when the per-program timeout expires.
+
+The second case is normal for interactive programs: they end in SLEEP or in an
+event loop and are supposed to wait for a key.  A crash, a runtime error, a
+signal, or any other non-zero exit is a failure.  Exit status 1 from the
+runner means at least one entry failed.
+
+The runner never treats "it only printed something" as a pass: the program has
+to survive.  The optional frame check adds "it put something on screen".
+
+
+3. Running it
+-------------
+
+    make apps-tests              build and run the corpus
+    make apps-tests-frames       the same, plus the frame check
+
+    tests/apps/run-apps.sh [options]
+
+      --fbc PATH          compiler to test        (default: ../../bin/fbc)
+      --inc PATH          include directory       (default: ../../inc)
+      --manifest FILE     corpus list             (default: manifest.txt)
+      --timeout SECONDS   how long one program may run (default: 5)
+      --build-timeout S   how long one build may take  (default: 60)
+      --only PATTERN      run only entries containing PATTERN
+      --report FILE       write a tab separated report
+                          (path, status, rc, secs, detail, frame)
+      --compare FILE      compare against a report from another run/platform
+      --sweep             compile every example, run nothing (see below)
+      --screens           frame check (see below)
+      --keep              keep the temporary binaries and logs
+      -v, --verbose       show compiler output of passing programs
+
+Every program is built from a temporary directory with its own directory added
+to the include path, so a failed build cannot leave .c files in examples/.  It
+is run in its own directory so relative data files work.  The timeout uses a
+watchdog rather than GNU timeout, which macOS does not have.
+
+
+4. The frame check
+------------------
+
+A program can pass while its window stays black, which is exactly what
+happened when the Cocoa driver hooked "flip" for a software framebuffer: every
+double-buffered program reported "ran" and presented nothing.
+
+With --screens the runner sets FB_COCOA_DUMP, the Cocoa driver writes the
+frame it is about to present as a binary PPM, and the runner samples it:
+
+    drew:N      N distinct colours (the window has content)
+    blank       one colour everywhere
+    none        no frame (console program, or a driver without the dump)
+
+Blank is a diagnostic, not a failure: four event demos in the corpus start
+black on purpose and only print when an event arrives.  The PPM dump is
+deliberately driver-side instead of a screen capture, so it needs no screen
+recording permission and records exactly what was presented.
+
+
+5. Current result
+-----------------
+
+darwin-aarch64, macOS 15.8.1, 2026-10-20:
+
+    48 programs: 48 pass (16 exited, 32 ran until timeout), 0 fail
+    Frames: 22 drew something, 4 blank, 22 no frame (console programs)
+    Time: 114 seconds
+
+The four blank frames are examples/graphics/events.bas and
+examples/manual/proguide/events/event1-3.bas; they wait for keyboard or mouse
+input before printing anything.
+
+
+6. Known issues, kept out of the manifest
+-----------------------------------------
+
+These do not build, or do not survive, for reasons in the program itself
+rather than in the compiler or the runtime:
+
+    regulateLite_testCode4.bas          error 42: variable not declared
+    use_delay.bas                       delay_regulate_framerate.bi(85):
+    use_regulate_framerate.bas          error 58, type mismatch
+    use_regulate_framerate_2.bas
+
+    libzip.bas                          ld: library 'zip' not found
+    QuickLZ.bas                         ld: library 'quicklz' not found
+
+    zlib.bas                            SIGSEGV inside libz's inflate()
+
+zlib.bas is a 64-bit bug in the example: it declares the lengths it passes to
+compress()/uncompress() as FreeBASIC ULong (32-bit) while zlib's uLongf is
+unsigned long, 64 bits on LP64.  libz then reads a bogus size and crashes.
+Linux x86_64 would behave the same; the fix belongs in the example, not in the
+port.  The corpus does not include it, so a crash here is not mistaken for a
+port regression.
+
+
+7. What the corpus found
+------------------------
+
+Running it the first time turned up four real port bugs, all fixed:
+
+  * programs started from a path of 128 characters or more crashed in
+    gfx_screen.c, because fb_hGetExeName returned NULL and its result was
+    passed to strrchr() (depth.bas and others);
+  * mt.bas aborted inside AppKit, because a worker thread's ScreenUnlock
+    reached nextEventMatching (main-thread-only);
+  * GetJoystick/Stick/Strig programs did not link, because Darwin had no
+    joystick implementation;
+  * every double-buffered program (ScreenSet/Flip) showed a black window, and
+    PSet-heavy programs never finished a frame - see the Cocoa driver section
+    in doc/FrejBASIC-darwin-notes.txt.
+
+That is the reason the corpus exists: the unit and log suites were green
+throughout all four.
+
+
+8. Adding a program
+-------------------
+
+Append its path to tests/apps/manifest.txt (with |flags if it needs any), run
+it alone with --only, then run the whole corpus.  Prefer programs that finish
+or wait for input.  Programs that need network access, external libraries,
+other targets or that write outside their directory do not belong in the gate;
+add a note in the "Known issues" section instead.
+
+
+9. Breadth check
+----------------
+
+    tests/apps/run-apps.sh --sweep --report sweep.tsv
+
+compiles every .bas under examples/ with -c and reports the result.  It is not
+a gate: fragments, programs for other platforms and programs needing external
+libraries are expected to fail.  It is a quick way to see whether a change
+broke a large number of programs, and to compare two platforms entry by entry
+with --compare.

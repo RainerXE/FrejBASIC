@@ -80,6 +80,7 @@
 #   unit-tests   (Convenience wrappers around tests/Makefile, running the tests
 #   log-tests     using the newly built fbc)
 #   warning-tests
+#   apps-tests    Build and run the application corpus in tests/apps
 #   clean-tests
 #
 #   bootstrap-dist      Create source package with precompiled fbc sources
@@ -1162,7 +1163,7 @@ help:
 
 ################################################################################
 
-.PHONY: unit-tests log-tests clean-tests
+.PHONY: unit-tests log-tests apps-tests apps-tests-frames clean-tests
 
 unit-tests:
 	cd tests && $(MAKE) unit-tests FBC="`pwd`/../$(FBC_EXE) -i `pwd`/../inc"
@@ -1172,6 +1173,12 @@ log-tests:
 
 warning-tests:
 	cd tests/warnings && FBC="`pwd`/../../$(FBC_EXE)" ./test.sh
+
+apps-tests:
+	tests/apps/run-apps.sh --fbc "`pwd`/$(FBC_EXE)" --inc "`pwd`/inc"
+
+apps-tests-frames:
+	tests/apps/run-apps.sh --screens --fbc "`pwd`/$(FBC_EXE)" --inc "`pwd`/inc"
 
 clean-tests:
 	cd tests && $(MAKE) clean

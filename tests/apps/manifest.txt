@@ -1,0 +1,156 @@
+# Application corpus for FrejBASIC.
+#
+# One program per line, path relative to the repository root.  A line may be
+# followed by '|' and extra compiler flags, as in
+#
+#     examples/some/program.bas|-d SOME_DEFINE
+#
+# A program passes when it compiles and then either exits with status 0 or is
+# still running when the timeout expires.  The second case is normal for
+# interactive programs, which wait for a key or an event; a crash, a runtime
+# error, a signal or a non-zero exit is a failure.
+#
+# Run them with:
+#
+#     tests/apps/run-apps.sh                      # the gate
+#     tests/apps/run-apps.sh --screens            # also check the frames
+#     tests/apps/run-apps.sh --report out.tsv     # machine readable result
+#
+# These are real programs, not unit tests: they are here to show that the
+# compiler, the runtime and the graphics driver work together on complete
+# applications, including ones that open windows, animate and wait for input.
+
+# examples/graphics/depth.bas
+examples/graphics/depth.bas
+
+# examples/graphics/events.bas
+examples/graphics/events.bas
+
+# examples/graphics/flame.bas
+examples/graphics/flame.bas
+
+# examples/graphics/getput.bas
+examples/graphics/getput.bas
+
+# examples/graphics/imageinfo.bas
+examples/graphics/imageinfo.bas
+
+# examples/graphics/input.bas
+examples/graphics/input.bas
+
+# examples/graphics/mt.bas
+examples/graphics/mt.bas
+
+# examples/graphics/qbsprite.bas
+examples/graphics/qbsprite.bas
+
+# examples/console/color.bas
+examples/console/color.bas
+
+# examples/console/disable-vt100-escapes.bas
+examples/console/disable-vt100-escapes.bas
+
+# examples/console/inkey.bas
+examples/console/inkey.bas
+
+# examples/console/mouse.bas
+examples/console/mouse.bas
+
+# examples/console/pcopy.bas
+examples/console/pcopy.bas
+
+# examples/console/tui.bas
+examples/console/tui.bas
+
+# examples/manual/input
+examples/manual/input/getjoystick.bas
+examples/manual/input/getkey.bas
+examples/manual/input/getmouse.bas
+examples/manual/input/getmouse2.bas
+examples/manual/input/inkey.bas
+examples/manual/input/inkeyext.bas
+examples/manual/input/multikey.bas
+examples/manual/input/setmouse.bas
+examples/manual/input/stick.bas
+examples/manual/input/strig.bas
+
+# examples/manual/faq
+examples/manual/faq/gfxlib2/bload-workaround.bas
+examples/manual/faq/gfxlib2/check-for-close.bas
+examples/manual/faq/gfxlib2/image-header.bas
+examples/manual/faq/gfxlib2/RGB-component.bas
+
+# examples/manual/proguide
+examples/manual/proguide/graphics/anti-flickering.bas
+examples/manual/proguide/graphics/regulateLite_animationCode.bas
+examples/manual/proguide/graphics/regulateLite_animationCode2.bas
+examples/manual/proguide/graphics/regulateLite_testCode1.bas
+examples/manual/proguide/graphics/regulateLite_testCode2.bas
+examples/manual/proguide/graphics/regulateLite_testCode3.bas
+examples/manual/proguide/events/event1.bas
+examples/manual/proguide/events/event2.bas
+examples/manual/proguide/events/event3.bas
+
+# examples/files/array.bas
+examples/files/array.bas
+
+# examples/files/binary.bas
+examples/files/binary.bas
+
+# examples/files/pipe.bas
+examples/files/pipe.bas
+
+# examples/files/random.bas
+examples/files/random.bas
+
+# examples/files/records.bas
+examples/files/records.bas
+
+# examples/files/text.bas
+examples/files/text.bas
+
+# examples/threads/consumer-producer.bas
+examples/threads/consumer-producer.bas
+
+# examples/threads/threaddetach.bas
+examples/threads/threaddetach.bas
+
+# examples/threads/threads.bas
+examples/threads/threads.bas
+
+# examples/threads/threads2.bas
+examples/threads/threads2.bas
+
+# examples/compression/bz2compress.bas
+examples/compression/bz2compress.bas
+
+# ---------------------------------------------------------------------------
+# Not run, kept here as documentation.
+#
+# The programs below do not build or do not survive on a 64-bit platform for
+# reasons that are in the example itself, not in the compiler or the runtime:
+#
+#   examples/manual/proguide/graphics/regulateLite_testCode4.bas
+#       error 42: variable not declared (the example uses a name it never
+#       declares)
+#   examples/manual/proguide/graphics/use_delay.bas
+#   examples/manual/proguide/graphics/use_regulate_framerate.bas
+#   examples/manual/proguide/graphics/use_regulate_framerate_2.bas
+#       delay_regulate_framerate.bi(85): error 58, type mismatch
+#
+# Needs libraries that are not part of FreeBASIC:
+#
+#   examples/compression/libzip.bas       ld: library 'zip' not found
+#   examples/compression/QuickLZ.bas      ld: library 'quicklz' not found
+#
+# A 64-bit bug in the example: it declares the zlib lengths it passes to
+# compress()/uncompress() as FreeBASIC ULong (32-bit) while zlib expects
+# uLongf (unsigned long, 64-bit on LP64), so libz reads a bogus length and
+# crashes inside inflate().  It would do the same on Linux x86_64; the fix
+# belongs in the example, not in the port.
+#
+#   examples/compression/zlib.bas
+#
+# examples/graphics/events.bas is in the corpus, but it only prints when an
+# event arrives, so it legitimately shows an empty (black) window until it is
+# given keyboard or mouse input.
