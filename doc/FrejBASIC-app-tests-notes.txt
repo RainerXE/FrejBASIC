@@ -51,7 +51,7 @@ to survive.  The optional frame check adds "it put something on screen".
     make apps-tests              build and run the corpus
     make apps-tests-frames       the same, plus the frame check
 
-    tests/apps/run-apps.sh [options]
+    tests/apps/run-apps.sh [options] [PROGRAM...]
 
       --fbc PATH          compiler to test        (default: ../../bin/fbc)
       --inc PATH          include directory       (default: ../../inc)
@@ -66,6 +66,31 @@ to survive.  The optional frame check adds "it put something on screen".
       --screens           frame check (see below)
       --keep              keep the temporary binaries and logs
       -v, --verbose       show compiler output of passing programs
+
+PROGRAM arguments replace the manifest, so one demo, a few demos, or a whole
+directory can be checked without editing the list:
+
+    tests/apps/run-apps.sh --screens examples/graphics/*.bas
+    tests/apps/run-apps.sh --screens --timeout 8 examples/graphics/depth.bas
+    tests/apps/run-apps.sh --screens examples/manual/proguide/graphics/*.bas
+
+Each window stays open for --timeout seconds, so raise it when you want to
+watch a demo run rather than just check that it drew.
+
+Every program is built into its own directory under the temporary directory,
+with the binary named after the source file.  The Cocoa driver takes the window
+title from the executable name, so a demo started this way shows its own name
+in the title bar, and the name in the report matches the window on screen.
+--keep prints where the binaries and the captured frames went.
+
+Compiling a demo on its own works the same way, since the executable gets the
+source file's name:
+
+    bin/fbc -i inc examples/graphics/depth.bas -x /tmp/depth && /tmp/depth
+
+A program can also set its own title at run time:
+
+    ScreenControl fb.SET_WINDOW_TITLE, "FrejBASIC - depth test"
 
 Every program is built from a temporary directory with its own directory added
 to the include path, so a failed build cannot leave .c files in examples/.  It

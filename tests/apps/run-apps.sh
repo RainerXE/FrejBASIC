@@ -14,7 +14,12 @@
 # a timeout is not a failure by itself - but a crash, a runtime error, a
 # non-zero exit or a signal is.
 #
-# Usage: run-apps.sh [options]
+# Usage: run-apps.sh [options] [PROGRAM...]
+#
+# PROGRAM arguments replace the manifest, so one demo, a few demos or a glob
+# can be checked without editing the list:
+#
+#     tests/apps/run-apps.sh --screens examples/graphics/*.bas
 #
 #   --fbc PATH          compiler to test        (default: ../../bin/fbc)
 #   --inc PATH          include directory       (default: ../../inc)
@@ -73,7 +78,9 @@ while [ $# -gt 0 ]; do
 		--keep)          KEEP=1; shift ;;
 		-v|--verbose)    VERBOSE=1; shift ;;
 		-h|--help)       usage; exit 0 ;;
-		*) echo "run-apps: unknown option '$1' (try --help)" >&2; exit 2 ;;
+		--)              shift; break ;;
+		-*) echo "run-apps: unknown option '$1' (try --help)" >&2; exit 2 ;;
+		*) break ;;      # first PROGRAM argument; the rest are programs too
 	esac
 done
 
@@ -88,6 +95,15 @@ cleanup() {
 	[ "$KEEP" = 1 ] || rm -rf "$TMP"
 }
 trap cleanup EXIT INT TERM
+
+# Programs given on the command line replace the manifest.
+if [ $# -gt 0 ]; then
+	MANIFEST=$TMP/manifest.args
+	: >"$MANIFEST"
+	for arg in "$@"; do
+		printf '%s\n' "$arg" >>"$MANIFEST"
+	done
+fi
 
 #
 # Run a command in a directory with a time limit.
@@ -216,7 +232,10 @@ report_line() { # path status rc secs detail frame
 run_one() { # entry extra-fbc-flags
 	entry=$1
 	entry_flags=${2:-}
-	src=$ROOT/$entry
+	case $entry in
+		/*) src=$entry ;;
+		*)  src=$ROOT/$entry ;;
+	esac
 
 	if [ ! -f "$src" ]; then
 		printf '%-8s %s\n' "missing" "$entry"
@@ -226,7 +245,12 @@ run_one() { # entry extra-fbc-flags
 	fi
 
 	slug=$(slug_of "$entry")
-	out=$TMP/bin/$slug
+	# one directory per entry, and the binary named after the program: the
+	# Cocoa driver takes the window title from the executable name, so a demo
+	# started this way shows its own name in the title bar
+	outdir=$TMP/bin/$slug
+	mkdir -p "$outdir"
+	out=$outdir/$(basename "$src" .bas)
 	srcdir=$(dirname "$src")
 
 	t0=$(date +%s)
@@ -307,9 +331,10 @@ sweep() {
 		fi
 		[ $((n % 100)) -eq 0 ] && printf '  ... %d of %d\n' "$n" "$(find "$ROOT/examples" -name '*.bas' | wc -l | tr -d ' ')"
 	done
-	report_line "SUMMARY" "sweep" "$n" "0" "compiles=$good errors=$bad"
+	report_line "SUMMARY" "sweep" "$n" "0" "compiles=$good errors=$bad" "-"
 	printf '\n%d programs: %d compile, %d do not (fragments, external libraries, other targets)\n' "$n" "$good" "$bad"
 	if [ -n "$REPORT" ]; then cp "$REPORT_TMP" "$REPORT"; fi
+	[ "$KEEP" = 1 ] && printf 'Kept: %s\n' "$TMP"
 	exit 0
 }
 
@@ -359,6 +384,8 @@ if [ -n "$REPORT" ]; then
 	cp "$REPORT_TMP" "$REPORT"
 	printf 'Report: %s\n' "$REPORT"
 fi
+
+[ "$KEEP" = 1 ] && printf 'Kept: %s (binaries in bin/, frames in log/*.ppm)\n' "$TMP"
 
 if [ -n "$COMPARE" ]; then
 	printf '\nCompared with %s:\n' "$COMPARE"
