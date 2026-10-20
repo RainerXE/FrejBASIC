@@ -94,3 +94,54 @@ The warnings suite carries a darwin-aarch64 reference set that is
 byte-identical to the linux-x86_64 set; its test.sh needed a portable sed
 expression, since the original one relied on GNU-specific extensions and
 matched nothing on BSD sed.
+
+
+4. The Cocoa graphics driver
+----------------------------
+
+The driver keeps its own 32-bit BGRA buffer and lets gfxlib2 translate the
+program's framebuffer into it (fb_hGetBlitter), then publishes that buffer as
+the window's layer contents.  Three rules follow from that, and each one was
+learned from a program that showed a black window:
+
+  * Only OpenGL drivers own the "flip" hook, because there it means "swap
+    buffers".  For a software framebuffer the core's default Flip copies the
+    work page into the visible page, marks it dirty and calls unlock.  A
+    driver that hooks "flip" takes over the copy as well, so a program using
+    ScreenSet/Flip never gets its work page into the visible one and stays
+    black forever.  The Cocoa driver therefore leaves flip NULL.
+
+  * "unlock" is called once per primitive - once per pixel for PSet.  A full
+    present (colour conversion, CGImage allocation, Core Animation commit)
+    per primitive made a single frame of examples/manual/proguide/graphics/
+    regulateLite_animationCode2.bas take minutes: the window stayed black
+    while the program was still drawing its first frame.  unlock now only
+    sets present_pending and the refresh thread publishes the frame at 60 Hz.
+    Event pumping stays in unlock, as on X11, so InKey/GetMouse work in loops
+    that never call Sleep.
+
+  * AppKit is main-thread only.  fb_hCocoaUnlock and cocoa_pump_events check
+    [NSThread isMainThread], so programs that unlock from worker threads (for
+    example examples/graphics/mt.bas) do not abort inside nextEventMatching's
+    NSException.  The refresh thread publishes frames for those programs.
+
+Diagnostics: set FB_COCOA_DUMP=/path/frame.ppm and the driver writes the frame
+it is about to present as a binary PPM, at most four times a second.  This is
+how tests/apps/run-apps.sh --screens tells a window that drew something from
+one that stayed black, without needing screen recording permission.
+
+Two more fixes came out of running the application corpus:
+
+  * fb_hGetExeName used a 128-byte buffer, so a program started from a long
+    path got NULL back and gfx_screen.c then called strrchr(NULL, '.').  The
+    buffer is now PATH_MAX, and gfx_screen.c falls back to "FreeBASIC" if the
+    name is still unavailable.
+
+  * The joystick API had no Darwin implementation, so GetJoystick/Stick/Strig
+    programs failed to link.  There is now a stub that reports no joystick
+    (-1 buttons, centred axes), matching the FreeBSD driver, so programs run
+    and detect "no device" instead of refusing to build.  A real IOKit backend
+    can replace it without touching the programs.
+
+The application corpus lives in tests/apps; doc/FrejBASIC-app-tests-notes.txt
+describes how to run it.

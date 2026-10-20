@@ -63,6 +63,55 @@ static COCOA_CTX cocoa;
 static int cocoa_ready = 0;
 static int cocoa_app_ready = 0;
 
+/* ------------------------------------------------------------- diagnostics */
+
+/* FB_COCOA_DUMP=<file.ppm> makes the driver write the frame it is about to
+   present as a binary PPM, at most four times a second.  The application
+   corpus uses it to tell a window that drew something from one that stayed
+   black, without needing screen recording permission. */
+static char *cocoa_dump_path = NULL;
+static double cocoa_dump_last = 0.0;
+
+static void cocoa_dump_frame(void)
+{
+	FILE *f;
+	unsigned char *row;
+	int x, y, w = cocoa.w, h = cocoa.h;
+	double now;
+
+	if (cocoa_dump_path == NULL || *cocoa_dump_path == '\0' || cocoa.buf == NULL)
+		return;
+
+	now = CACurrentMediaTime();
+	if (now - cocoa_dump_last < 0.25)
+		return;
+	cocoa_dump_last = now;
+
+	row = (unsigned char *)malloc((size_t)w * 3);
+	if (row == NULL)
+		return;
+	f = fopen(cocoa_dump_path, "wb");
+	if (f == NULL) {
+		free(row);
+		return;
+	}
+
+	fprintf(f, "P6\n%d %d\n255\n", w, h);
+	for (y = 0; y < h; y++) {
+		const unsigned char *p = cocoa.buf + (size_t)y * w * 4;
+		unsigned char *o = row;
+		for (x = 0; x < w; x++, p += 4, o += 3) {
+			o[0] = p[0];
+			o[1] = p[1];
+			o[2] = p[2];
+		}
+		fwrite(row, 1, (size_t)w * 3, f);
+	}
+
+	fclose(f);
+	free(row);
+}
+
 /* ------------------------------------------------------------------ present */
 
 /* Convert the FB framebuffer into our BGRA buffer.  Caller holds the mutex. */
@@ -75,29 +124,8 @@ static void cocoa_convert(void)
 
 	if (__fb_gfx->dirty)
 		fb_hMemSet(__fb_gfx->dirty, 0, __fb_gfx->h);
-}
 
-/* Publish the buffer to the window.  Main thread only (AppKit). */
-static void cocoa_present(void)
-{
-	CGImageRef image;
-
-	if (!cocoa_ready || !__fb_gfx)
-		return;
-
-	pthread_mutex_lock(&cocoa.mutex);
-	cocoa_convert();
-	image = CGBitmapContextCreateImage(cocoa.ctx);
-	pthread_mutex_unlock(&cocoa.mutex);
-
-	if (image == NULL)
-		return;
-
-	/* Layer contents are set on the main thread here; the refresh thread
-	   does its own best-effort publish for programs that never reach a
-	   driver hook. */
-	cocoa.view.layer.contents = (__bridge id)image;
-	CGImageRelease(image);
+	cocoa_dump_frame();
 }
 
 /* Best-effort publish from the refresh thread: Core Animation is thread-safe
@@ -285,14 +313,15 @@ static void cocoa_handle_event(NSEvent *event)
 	}
 }
 
-/* Pump pending AppKit events.  Main thread only. */
+/* Pump pending AppKit events.  Main thread only: NSApplication is not usable
+   from other threads. */
 static void cocoa_pump_events(void)
 {
 	NSEvent *event;
 	static int last_active = -1, last_key = -1;
 	int active, keywin;
 
-	if (!cocoa_ready)
+	if (!cocoa_ready || ![NSThread isMainThread])
 		return;
 
 	active = [NSApp isActive] ? 1 : 0;
@@ -324,16 +353,19 @@ static void *cocoa_thread(void *arg)
 	(void)arg;
 
 	while (cocoa.running) {
-		CGImageRef image;
+		if (cocoa.present_pending) {
+			CGImageRef image;
 
-		pthread_mutex_lock(&cocoa.mutex);
-		cocoa_convert();
-		image = CGBitmapContextCreateImage(cocoa.ctx);
-		pthread_mutex_unlock(&cocoa.mutex);
+			cocoa.present_pending = 0;
+			pthread_mutex_lock(&cocoa.mutex);
+			cocoa_convert();
+			image = CGBitmapContextCreateImage(cocoa.ctx);
+			pthread_mutex_unlock(&cocoa.mutex);
 
-		if (image) {
-			cocoa_present_background(image);
-			CGImageRelease(image);
+			if (image) {
+				cocoa_present_background(image);
+				CGImageRelease(image);
+			}
 		}
 
 		usleep(1000 * 1000 / 60);
@@ -351,21 +383,18 @@ void fb_hCocoaLock(void)
 
 void fb_hCocoaUnlock(void)
 {
-	/* Called whenever the program unlocks the screen; a natural point to
-	   push the current frame out on the main thread. */
-	if (cocoa_ready) {
-		CGImageRef image;
-
-		cocoa_convert();
-		image = CGBitmapContextCreateImage(cocoa.ctx);
-		if (image) {
-			cocoa.view.layer.contents = (__bridge id)image;
-			CGImageRelease(image);
-		}
-		cocoa_pump_events();
-	}
+	/* The core unlocks once per primitive - once per pixel for PSet.  A
+	   full present (colour conversion, CGImage allocation, Core Animation
+	   commit) per primitive made a single frame take minutes, so only flag
+	   the frame here and let the refresh thread publish it at display
+	   rate.  Event pumping stays, as on the X11 driver, so InKey/GetMouse
+	   work in loops that never call Sleep. */
+	cocoa.present_pending = 1;
 
 	pthread_mutex_unlock(&cocoa.mutex);
+
+	if (cocoa_ready && [NSThread isMainThread])
+		cocoa_pump_events();
 }
 
 void fb_hCocoaWaitVSync(void)
@@ -461,21 +490,14 @@ static void cocoa_poll_events_hook(void)
 	cocoa_pump_events();
 }
 
-static void cocoa_flip_hook(void)
-{
-	if (!cocoa_ready)
-		return;
-
-	cocoa_present();
-	cocoa_pump_events();
-}
-
 static void cocoa_update_hook(void)
 {
 	if (!cocoa_ready)
 		return;
 
-	cocoa_present();
+	/* Same reasoning as fb_hCocoaUnlock: the core may call this with the
+	   driver lock held, so only flag the frame. */
+	cocoa.present_pending = 1;
 }
 
 static int driver_init(char *title, int w, int h, int depth, int refresh_rate, int flags)
@@ -494,6 +516,7 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 			return -1;
 
 		fb_hMemSet(&cocoa, 0, sizeof(cocoa));
+		cocoa_dump_path = getenv("FB_COCOA_DUMP");
 		cocoa.w = w;
 		cocoa.h = h;
 		cocoa.mouse_visible = 1;
@@ -574,6 +597,7 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 
 		cocoa_ready = 1;
 		cocoa.running = 1;
+		cocoa.present_pending = 1;
 		if (pthread_create(&cocoa.thread, NULL, cocoa_thread, NULL) != 0) {
 			cocoa.running = 0;
 			cocoa_ready = 0;
@@ -630,7 +654,12 @@ const GFXDRIVER fb_gfxDriverCocoa =
 	fb_hCocoaSetWindowTitle,    /* void (*set_window_title)(char *); */
 	fb_hCocoaSetWindowPos,      /* int (*set_window_pos)(int, int); */
 	fb_hCocoaFetchModes,        /* int *(*fetch_modes)(int, int *); */
-	cocoa_flip_hook,            /* void (*flip)(void); */
+	/* No flip hook: only OpenGL drivers own Flip (it means "swap buffers"
+	   there).  For a software framebuffer the core's default Flip copies the
+	   work page into the visible page and marks it dirty, which is what
+	   ScreenSet/Flip based programs expect.  Hooking it presented the stale
+	   visible page and every double-buffered program stayed black. */
+	NULL,                       /* void (*flip)(void); */
 	cocoa_poll_events_hook,     /* void (*poll_events)(void); */
 	cocoa_update_hook            /* void (*update)(void); */
 };
