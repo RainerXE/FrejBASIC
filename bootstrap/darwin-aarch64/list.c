@@ -414,7 +414,7 @@ static void FATALOUTOFMEMORY( void )
 {
 	label$2:;
 	label$4:;
-	void* vr$0 = fb_ErrorThrowEx( 4, 10, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/list.bas", (void*)0ull, (void*)0ull );
+	void* vr$0 = fb_ErrorThrowEx( 4, 10, (char*)"src/compiler/list.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$0;
 	__fb_jumpptr$0$:;

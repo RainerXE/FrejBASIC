@@ -951,7 +951,7 @@ struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
 	__builtin_memset( (void*)((uint8*)&ARGEXPR$1 + 48ll), 0, 24ll );
 	int32 vr$13 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&ARGEXPR$1, 8ull, -1, 0, 1ull, 1ll, ARGUPPER$1 );
 	if( (int64)vr$13 == 0ll) goto label$92;
-	void* vr$15 = fb_ErrorThrowAt( 191, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/rtl-system-thread.bas", (void*)0ull, (void*)0ull );
+	void* vr$15 = fb_ErrorThrowAt( 191, (char*)"src/compiler/rtl-system-thread.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$15;
 	__fb_jumpptr$0$:;
@@ -966,7 +966,7 @@ struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
 	__builtin_memset( (void*)((uint8*)&ARGMODE$1 + 48ll), 0, 24ll );
 	int32 vr$18 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&ARGMODE$1, 8ull, -1, 0, 1ull, 1ll, ARGUPPER$1 );
 	if( (int64)vr$18 == 0ll) goto label$93;
-	void* vr$20 = fb_ErrorThrowAt( 192, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/rtl-system-thread.bas", (void*)0ull, (void*)0ull );
+	void* vr$20 = fb_ErrorThrowAt( 192, (char*)"src/compiler/rtl-system-thread.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$1$;
 	goto *vr$20;
 	__fb_jumpptr$1$:;

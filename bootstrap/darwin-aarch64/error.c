@@ -1180,7 +1180,7 @@ struct $9FB_ERRCTX {
 };
 __FB_STATIC_ASSERT( sizeof( struct $9FB_ERRCTX ) == 128 );
 static struct $9FB_ERRCTX ERRCTX$;
-static struct $9FBWARNING WARNINGMSGS$[54] = { { 2ll, (char*)"Passing scalar as pointer" }, { 2ll, (char*)"Passing pointer to scalar" }, { 2ll, (char*)"Passing different pointer types" }, { 2ll, (char*)"Suspicious pointer assignment" }, { 1ll, (char*)"Implicit conversion" }, { 2ll, (char*)"Cannot export symbol without -export option" }, { 2ll, (char*)"Identifier's name too big, truncated" }, { 2ll, (char*)"Literal number too big, truncated" }, { 2ll, (char*)"Literal string too big, truncated" }, { 1ll, (char*)"UDT with pointer, var-len string, or var-len array fields" }, { 1ll, (char*)"Implicit variable allocation" }, { 1ll, (char*)"Missing closing quote in literal string" }, { 1ll, (char*)"Function result was not explicitly set" }, { 2ll, (char*)"Branch crossing local variable definition" }, { 1ll, (char*)"No explicit BYREF or BYVAL" }, { 1ll, (char*)"Possible escape sequence found in" }, { 1ll, (char*)"The type length is too large, consider passing BYREF" }, { 2ll, (char*)"The length of the parameters list is too large, consider passing UDT's BYREF" }, { 2ll, (char*)"The ANY initializer has no effect on UDT's with default constructors" }, { 3ll, (char*)"Object files or libraries with mixed multithreading (-mt) options" }, { 3ll, (char*)"Object files or libraries with mixed language (-lang) options" }, { 1ll, (char*)"Deleting ANY pointers is undefined" }, { 3ll, (char*)"Array too large for stack, consider making it var-len or SHARED" }, { 3ll, (char*)"Variable too large for stack, consider making it SHARED" }, { 1ll, (char*)"Overflow in constant conversion" }, { 1ll, (char*)"Variable following NEXT is meaningless" }, { 1ll, (char*)"Cast to non-pointer" }, { 1ll, (char*)"Return method mismatch" }, { 1ll, (char*)"Passing Pointer" }, { 1ll, (char*)"Command line option overrides directive" }, { 1ll, (char*)"Directive ignored after first pass" }, { 1ll, (char*)"'IF' statement found directly after multi-line 'ELSE'" }, { 1ll, (char*)"Shift value greater than or equal to number of bits in data type" }, { 1ll, (char*)"'=' parsed as equality operator in function argument, not assignment to BYREF function result" }, { 1ll, (char*)"Mixing signed/unsigned operands" }, { 1ll, (char*)"Mismatching parameter initializer" }, { 2ll, (char*)"" }, { 1ll, (char*)"Suspicious logic operation, mixed boolean and non-boolean operands" }, { 1ll, (char*)"Redefinition of intrinsic" }, { 0ll, (char*)"CONST qualifier discarded" }, { 0ll, (char*)"Return type mismatch" }, { 0ll, (char*)"Calling convention mismatch" }, { 0ll, (char*)"Argument count mismatch" }, { 1ll, (char*)"Suffix ignored" }, { 1ll, (char*)"FOR counter variable is unable to exceed limit value" }, { 1ll, (char*)"#cmdline ignored" }, { 1ll, (char*)"Use of reserved global or backend symbol" }, { 1ll, (char*)"Expected digit" }, { 1ll, (char*)"Up-casting discards initializer(s)" }, { 2ll, (char*)"Suspicious address expression passed to BYREF parameter" }, { 1ll, (char*)"GCC/Clang didn't provide a proper sysroot. You probably have to pass fbc an argument of the form '-sysroot $NDK/platforms/android-$API/arch-$ARCH'" }, { 2ll, (char*)"Invalid or truncated unicode escape sequence" }, { 1ll, (char*)"Surrogate or surrogate pair in unicode literal" }, { 0ll, (char*)"FB_WARNINGMSGS" } };
+static struct $9FBWARNING WARNINGMSGS$[55] = { { 2ll, (char*)"Passing scalar as pointer" }, { 2ll, (char*)"Passing pointer to scalar" }, { 2ll, (char*)"Passing different pointer types" }, { 2ll, (char*)"Suspicious pointer assignment" }, { 1ll, (char*)"Implicit conversion" }, { 2ll, (char*)"Cannot export symbol without -export option" }, { 2ll, (char*)"Identifier's name too big, truncated" }, { 2ll, (char*)"Literal number too big, truncated" }, { 2ll, (char*)"Literal string too big, truncated" }, { 1ll, (char*)"UDT with pointer, var-len string, or var-len array fields" }, { 1ll, (char*)"Implicit variable allocation" }, { 1ll, (char*)"Missing closing quote in literal string" }, { 1ll, (char*)"Function result was not explicitly set" }, { 2ll, (char*)"Branch crossing local variable definition" }, { 1ll, (char*)"No explicit BYREF or BYVAL" }, { 1ll, (char*)"Possible escape sequence found in" }, { 1ll, (char*)"The type length is too large, consider passing BYREF" }, { 2ll, (char*)"The length of the parameters list is too large, consider passing UDT's BYREF" }, { 2ll, (char*)"The ANY initializer has no effect on UDT's with default constructors" }, { 3ll, (char*)"Object files or libraries with mixed multithreading (-mt) options" }, { 3ll, (char*)"Object files or libraries with mixed language (-lang) options" }, { 1ll, (char*)"Deleting ANY pointers is undefined" }, { 3ll, (char*)"Array too large for stack, consider making it var-len or SHARED" }, { 3ll, (char*)"Variable too large for stack, consider making it SHARED" }, { 1ll, (char*)"Overflow in constant conversion" }, { 1ll, (char*)"Variable following NEXT is meaningless" }, { 1ll, (char*)"Cast to non-pointer" }, { 1ll, (char*)"Return method mismatch" }, { 1ll, (char*)"Passing Pointer" }, { 1ll, (char*)"Command line option overrides directive" }, { 1ll, (char*)"Directive ignored after first pass" }, { 1ll, (char*)"'IF' statement found directly after multi-line 'ELSE'" }, { 1ll, (char*)"Shift value greater than or equal to number of bits in data type" }, { 1ll, (char*)"'=' parsed as equality operator in function argument, not assignment to BYREF function result" }, { 1ll, (char*)"Mixing signed/unsigned operands" }, { 1ll, (char*)"Mismatching parameter initializer" }, { 2ll, (char*)"" }, { 1ll, (char*)"Suspicious logic operation, mixed boolean and non-boolean operands" }, { 1ll, (char*)"Redefinition of intrinsic" }, { 0ll, (char*)"CONST qualifier discarded" }, { 0ll, (char*)"Return type mismatch" }, { 0ll, (char*)"Calling convention mismatch" }, { 0ll, (char*)"Argument count mismatch" }, { 1ll, (char*)"Suffix ignored" }, { 1ll, (char*)"FOR counter variable is unable to exceed limit value" }, { 1ll, (char*)"#cmdline ignored" }, { 1ll, (char*)"Use of reserved global or backend symbol" }, { 1ll, (char*)"Expected digit" }, { 1ll, (char*)"Up-casting discards initializer(s)" }, { 2ll, (char*)"Suspicious address expression passed to BYREF parameter" }, { 1ll, (char*)"GCC/Clang didn't provide a proper sysroot. You probably have to pass fbc an argument of the form '-sysroot $NDK/platforms/android-$API/arch-$ARCH'" }, { 2ll, (char*)"Invalid or truncated unicode escape sequence" }, { 1ll, (char*)"Surrogate or surrogate pair in unicode literal" }, { 2ll, (char*)"Operator declared inside EXTERN \x22" "C\x22 is name-mangled without the parameter types; that matches GCC, but a C++ module built with Clang will not use this symbol - declare the operator inside EXTERN \x22" "C++\x22 instead" }, { 0ll, (char*)"FB_WARNINGMSGS" } };
 static char* ERRORMSGS$[333] = { (char*)"Argument count mismatch", (char*)"Expected End-of-File", (char*)"Expected End-of-Line", (char*)"Duplicated definition", (char*)"Expected 'AS'", (char*)"Expected '('", (char*)"Expected ')'", (char*)"Undefined symbol", (char*)"Expected expression", (char*)"Expected '='", (char*)"Expected constant", (char*)"Expected 'TO'", (char*)"Expected 'NEXT'", (char*)"Expected identifier", (char*)"Expected '-'", (char*)"Expected ','", (char*)"Syntax error", (char*)"Element not defined", (char*)"Expected 'END TYPE' or 'END UNION'", (char*)"Type mismatch", (char*)"Internal!", (char*)"Parameter type mismatch", (char*)"File not found", (char*)"Invalid data types", (char*)"Invalid character", (char*)"File access error", (char*)"Recursion level too deep", (char*)"Expected pointer", (char*)"Expected 'LOOP'", (char*)"Expected 'WEND or END WHILE'", (char*)"Expected 'THEN'", (char*)"Expected 'END IF'", (char*)"Illegal 'END'", (char*)"Expected 'CASE'", (char*)"Expected 'END SELECT'", (char*)"Wrong number of dimensions", (char*)"Array boundaries do not match the original EXTERN declaration", (char*)"'SUB' or 'FUNCTION' without 'END SUB' or 'END FUNCTION'", (char*)"Expected 'END SUB' or 'END FUNCTION'", (char*)"Return type here does not match DECLARE prototype", (char*)"Calling convention does not match DECLARE prototype", (char*)"Variable not declared", (char*)"Variable required", (char*)"Illegal outside a compound statement", (char*)"Expected 'END ASM'", (char*)"Function not declared", (char*)"Expected ';'", (char*)"Undefined label", (char*)"Too many array dimensions", (char*)"Array too big", (char*)"User Defined Type too big", (char*)"Expected scalar counter", (char*)"Illegal outside a CONSTRUCTOR, DESTRUCTOR, FUNCTION, OPERATOR, PROPERTY or SUB block", (char*)"Expected var-len array", (char*)"Fixed-len strings cannot be returned from functions", (char*)"Array already dimensioned", (char*)"Illegal without the -ex option", (char*)"Type mismatch", (char*)"Illegal specification", (char*)"Expected 'END WITH'", (char*)"Illegal inside functions", (char*)"Statement in between SELECT and first CASE", (char*)"Expected array", (char*)"Expected '{'", (char*)"Expected '}'", (char*)"Expected ']'", (char*)"Too many expressions", (char*)"Expected explicit result type", (char*)"Range too large", (char*)"Forward references not allowed", (char*)"Incomplete type", (char*)"Array not dimensioned", (char*)"Array access, index expected", (char*)"Expected 'END ENUM'", (char*)"Var-len arrays cannot be initialized", (char*)"'...' ellipsis upper bound given for dynamic array (this is not supported)", (char*)"'...' ellipsis upper bound given for array field (this is not supported)", (char*)"Invalid bitfield", (char*)"Too many parameters", (char*)"Macro text too long", (char*)"Invalid command-line option", (char*)"Selected non-x86 CPU when compiling for DOS", (char*)"Selected -gen gas|gas64 ASM backend is incompatible with CPU", (char*)"-asm att used for -gen gas, but -gen gas only supports -asm intel", (char*)"-pic is not supported with -gen gas", (char*)"-pic used, but not supported by target system (only works for Unixes)", (char*)"Var-len strings cannot be initialized", (char*)"Recursive TYPE or UNION not allowed", (char*)"Recursive DEFINE not allowed", (char*)"Identifier cannot include periods", (char*)"Executable not found", (char*)"Array out-of-bounds", (char*)"Missing command-line option for", (char*)"Expected 'ANY'", (char*)"Expected 'END SCOPE'", (char*)"Illegal inside a compound statement or scoped block", (char*)"UDT function results cannot be passed by reference", (char*)"Ambiguous call to overloaded function", (char*)"No matching overloaded function", (char*)"Division by zero", (char*)"Cannot pop stack, underflow", (char*)"UDT's containing var-len string fields cannot be initialized", (char*)"Branching to scope block containing local variables", (char*)"Branching to other functions or to module-level", (char*)"Branch crossing local array, var-len string or object definition", (char*)"LOOP without DO", (char*)"NEXT without FOR", (char*)"WEND or END WHILE without WHILE", (char*)"END WITH without WITH", (char*)"END IF without IF", (char*)"END SELECT without SELECT", (char*)"END SUB or FUNCTION without SUB or FUNCTION", (char*)"END SCOPE without SCOPE", (char*)"END NAMESPACE without NAMESPACE", (char*)"END EXTERN without EXTERN", (char*)"ELSEIF without IF", (char*)"ELSE without IF", (char*)"CASE without SELECT", (char*)"Cannot modify a constant", (char*)"Expected period ('.')", (char*)"Expected 'END NAMESPACE'", (char*)"Illegal inside a NAMESPACE block", (char*)"Symbols defined inside namespaces cannot be removed", (char*)"Expected 'END EXTERN'", (char*)"Expected 'END SUB'", (char*)"Expected 'END FUNCTION'", (char*)"Expected 'END CONSTRUCTOR'", (char*)"Expected 'END DESTRUCTOR'", (char*)"Expected 'END OPERATOR'", (char*)"Expected 'END PROPERTY'", (char*)"Declaration outside the original namespace", (char*)"No end of multi-line comment, expected \x22'/\x22", (char*)"Too many errors, exiting", (char*)"Expected 'ENDMACRO'", (char*)"EXTERN or COMMON variables cannot be initialized", (char*)"EXTERN or COMMON dynamic arrays cannot have initial bounds", (char*)"At least one parameter must be a user-defined type", (char*)"Parameter or result must be a user-defined type", (char*)"Both parameters can't be of the same type", (char*)"Parameter and result can't be of the same type", (char*)"Invalid result type for this operator", (char*)"Invalid parameter type, it must be the same as the parent TYPE/CLASS", (char*)"Vararg parameters are not allowed in overloaded functions", (char*)"Illegal outside an OPERATOR block", (char*)"Parameter cannot be optional", (char*)"Only valid in -lang", (char*)"Default types or suffixes are only valid in -lang", (char*)"Suffixes are only valid in -lang", (char*)"Implicit variables are only valid in -lang", (char*)"Auto variables are only valid in -lang", (char*)"Invalid array index", (char*)"Operator must be a member function", (char*)"Operator cannot be a member function", (char*)"Method declared in anonymous UDT", (char*)"Constant declared in anonymous UDT", (char*)"Static variable declared in anonymous UDT", (char*)"Expected operator", (char*)"Declaration outside the original namespace or class", (char*)"A destructor should not have any parameters", (char*)"Expected class or UDT identifier", (char*)"Var-len strings cannot be part of UNION's or nested TYPE's", (char*)"Dynamic arrays cannot be part of UNION's or nested TYPE's", (char*)"Fields with constructors cannot be part of UNION's or nested TYPE's", (char*)"Fields with destructors cannot be part of UNION's or nested TYPE's", (char*)"Illegal outside a CONSTRUCTOR block", (char*)"Illegal outside a DESTRUCTOR block", (char*)"UDT's with methods must have unique names", (char*)"Parent is not a class or UDT", (char*)"CONSTRUCTOR() chain call not at top of constructor", (char*)"BASE() initializer not at top of constructor", (char*)"REDIM on UDT with non-CDECL constructor", (char*)"REDIM on UDT with non-CDECL destructor", (char*)"REDIM on UDT with non-parameterless default constructor", (char*)"ERASE on UDT with non-CDECL constructor", (char*)"ERASE on UDT with non-CDECL destructor", (char*)"ERASE on UDT with non-parameterless default constructor", (char*)"This symbol cannot be undefined", (char*)"RETURN mixed with 'FUNCTION =' or EXIT FUNCTION (using both styles together is unsupported when returning objects with constructors)", (char*)"'FUNCTION =' or EXIT FUNCTION mixed with RETURN (using both styles together is unsupported when returning objects with constructors)", (char*)"Missing RETURN to copy-construct function result", (char*)"Invalid assignment/conversion", (char*)"Invalid array subscript", (char*)"TYPE or CLASS has no default constructor", (char*)"Function result TYPE has no default constructor", (char*)"Missing BASE() initializer (base UDT without default constructor requires manual initialization)", (char*)"Missing default constructor implementation (base UDT without default constructor requires manual initialization)", (char*)"Missing UDT.constructor(byref as UDT) implementation (base UDT without default constructor requires manual initialization)", (char*)"Missing UDT.constructor(byref as const UDT) implementation (base UDT without default constructor requires manual initialization)", (char*)"Invalid priority attribute", (char*)"PROPERTY GET should have no parameter, or just one if indexed", (char*)"PROPERTY SET should have one parameter, or just two if indexed", (char*)"Expected 'PROPERTY'", (char*)"Illegal outside a PROPERTY block", (char*)"PROPERTY has no GET method/accessor", (char*)"PROPERTY has no SET method/accessor", (char*)"PROPERTY has no indexed GET method/accessor", (char*)"PROPERTY has no indexed SET method/accessor", (char*)"Missing overloaded operator: ", (char*)"The NEW[] operator does not allow explicit calls to constructors", (char*)"The NEW[] operator only supports the { ANY } initialization", (char*)"The NEW operator cannot be used with fixed-length strings", (char*)"Illegal member access", (char*)"Expected ':'", (char*)"The default constructor has no public access", (char*)"Constructor has no public access", (char*)"Destructor has no public access", (char*)"Accessing base UDT's private default constructor", (char*)"Accessing base UDT's private destructor", (char*)"Illegal non-static member access", (char*)"Constructor declared ABSTRACT", (char*)"Constructor declared VIRTUAL", (char*)"Destructor declared ABSTRACT", (char*)"Member cannot be static", (char*)"Member isn't static", (char*)"Only static members can be accessed from static functions and parameter initializers", (char*)"The PRIVATE and PUBLIC attributes are not allowed with REDIM, COMMON or EXTERN", (char*)"STATIC used here, but not the in the DECLARE statement", (char*)"CONST used here, but not the in the DECLARE statement", (char*)"VIRTUAL used here, but not the in the DECLARE statement", (char*)"ABSTRACT used here, but not the in the DECLARE statement", (char*)"Method declared VIRTUAL, but UDT does not extend OBJECT", (char*)"Method declared ABSTRACT, but UDT does not extend OBJECT", (char*)"Not overriding any virtual method", (char*)"Implemented body for an ABSTRACT method", (char*)"Override has different return type than overridden method", (char*)"Override has different calling convention than overridden method", (char*)"Implicit destructor override would have different calling convention", (char*)"Implicit LET operator override would have different calling convention", (char*)"Override is not a CONST member like the overridden method", (char*)"Override is a CONST member, but the overridden method is not", (char*)"Override has different parameters than overridden method", (char*)"This operator cannot be STATIC", (char*)"This operator is implicitly STATIC and cannot be VIRTUAL or ABSTRACT", (char*)"This operator is implicitly STATIC and cannot be CONST", (char*)"Parameter must be an integer", (char*)"Parameter must be a pointer", (char*)"Expected initializer", (char*)"Fields cannot be named as keywords in TYPE's that contain member functions or in CLASS'es", (char*)"Illegal outside a FOR compound statement", (char*)"Illegal outside a DO compound statement", (char*)"Illegal outside a WHILE compound statement", (char*)"Illegal outside a SELECT compound statement", (char*)"Expected 'FOR'", (char*)"Expected 'DO'", (char*)"Expected 'WHILE'", (char*)"Expected 'SELECT'", (char*)"No outer FOR compound statement found", (char*)"No outer DO compound statement found", (char*)"No outer WHILE compound statement found", (char*)"No outer SELECT compound statement found", (char*)"Expected 'CONSTRUCTOR', 'DESTRUCTOR', 'DO', 'FOR', 'FUNCTION', 'OPERATOR', 'PROPERTY', 'SELECT', 'SUB' or 'WHILE'", (char*)"Expected 'DO', 'FOR' or 'WHILE'", (char*)"Illegal outside a SUB block", (char*)"Illegal outside a FUNCTION block", (char*)"Ambiguous symbol access, explicit scope resolution required", (char*)"An ENUM, TYPE or UNION cannot be empty", (char*)"ENUM's declared inside EXTERN .. END EXTERN blocks don't open new scopes", (char*)"STATIC used on non-member procedure", (char*)"CONST used on non-member procedure", (char*)"ABSTRACT used on non-member procedure", (char*)"VIRTUAL used on non-member procedure", (char*)"Invalid initializer", (char*)"Objects with default [con|de]structors or methods are only allowed in the module level", (char*)"Static member variable in nested UDT (only allowed in toplevel UDTs)", (char*)"Symbol not a CLASS, ENUM, TYPE or UNION type", (char*)"Too many elements", (char*)"Only data members supported", (char*)"UNIONs are not allowed", (char*)"Arrays are not allowed", (char*)"COMMON variables cannot be object instances of CLASS/TYPE's with cons/destructors", (char*)"Cloning operators (LET, Copy constructors) can't take a byval arg of the parent's type", (char*)"Local symbols can't be referenced", (char*)"Expected 'PTR' or 'POINTER'", (char*)"Too many levels of pointer indirection", (char*)"Dynamic arrays can't be const", (char*)"Const UDT cannot invoke non-const method", (char*)"Elements must be empty for strings and arrays", (char*)"GOSUB disabled, use 'OPTION GOSUB' to enable", (char*)"Invalid -lang", (char*)"Can't use ANY as initializer in array with ellipsis bound", (char*)"Must have initializer with array with ellipsis bound", (char*)"Can't use ... as lower bound", (char*)"FOR/NEXT variable name mismatch", (char*)"Selected option requires an SSE FPU mode", (char*)"Expected relational operator ( =, >, <, <>, <=, >= )", (char*)"Unsupported statement in -gen gcc/clang mode", (char*)"Too many labels", (char*)"Unsupported function", (char*)"Expected sub", (char*)"Expected '#ENDIF'", (char*)"Resource file given for target system that does not support them", (char*)"-o <file> option without corresponding input file", (char*)"Not extending a TYPE/UNION (a TYPE/UNION can only extend other TYPEs/UNIONs)", (char*)"Illegal outside a CLASS, TYPE or UNION method", (char*)"CLASS, TYPE or UNION not derived", (char*)"CLASS, TYPE or UNION has no constructor", (char*)"Symbol type has no Run-Time Type Info (RTTI)", (char*)"Types have no hierarchical relation", (char*)"Expected a CLASS, TYPE or UNION symbol type", (char*)"Casting derived UDT pointer from incompatible pointer type", (char*)"Casting derived UDT pointer from unrelated UDT pointer type", (char*)"Casting derived UDT pointer to incompatible pointer type", (char*)"Casting derived UDT pointer to unrelated UDT pointer type", (char*)"ALIAS name string is empty", (char*)"LIB name string is empty", (char*)"UDT has unimplemented abstract methods", (char*)"Non-virtual call to ABSTRACT method", (char*)"#ASSERT condition failed", (char*)"Expected '>'", (char*)"Invalid size", (char*)"ALIAS name here does not match ALIAS given in DECLARE prototype", (char*)"vararg parameters are only allowed in CDECL procedures", (char*)"the first parameter in a procedure may not be vararg", (char*)"CONST used on constructor (not needed)", (char*)"CONST used on destructor (not needed)", (char*)"Byref function result not set", (char*)"Function result assignment outside of the function", (char*)"Type mismatch in byref function result assignment", (char*)"-asm att|intel option given, but not supported for this target (only x86 or x86_64)", (char*)"Reference not initialized", (char*)"Incompatible reference initializer", (char*)"Array of references - not supported yet", (char*)"Invalid CASE range, start value is greater than the end value", (char*)"Fixed-length string combined with BYREF (not supported)", (char*)"Illegal use of reserved symbol", (char*)"Expected ',' or ';'", (char*)"Expected file number expression", (char*)"Malformed SOURCE_DATE_EPOCH environment variable", (char*)"Graphics routines were used, but the gfxlib has not been ported to this target", (char*)"-fpu sse option can only be used on x86 and x86_64 architectures", (char*)"-fpu neon option can only be used on arm architectures", (char*)"Undefined built-in symbol", (char*)"FB_ERRMSGS" };
 
 void ERRPREINIT( void )
@@ -1336,12 +1336,12 @@ void ERRREPORT( int64 ERRNUM$1, int64 ISBEFORE$1, char* CUSTOMTEXT$1 )
 
 void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRMSGOPT OPTIONS$1, char* CUSTOMTEXT$1 )
 {
-	FBSTRING TMP$509$1;
-	FBSTRING TMP$510$1;
 	FBSTRING TMP$511$1;
 	FBSTRING TMP$512$1;
+	FBSTRING TMP$513$1;
+	FBSTRING TMP$514$1;
 	label$97:;
-	if( ((int64)-(MSGNUM$1 < 1ll) | (int64)-(MSGNUM$1 >= 54ll)) == 0ll) goto label$100;
+	if( ((int64)-(MSGNUM$1 < 1ll) | (int64)-(MSGNUM$1 >= 55ll)) == 0ll) goto label$100;
 	{
 		goto label$98;
 	}
@@ -1393,13 +1393,13 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 	label$109:;
 	if( LINENUM$1 <= 0ll) goto label$114;
 	{
-		FBSTRING TMP$503$2;
-		FBSTRING TMP$504$2;
+		FBSTRING TMP$505$2;
+		FBSTRING TMP$506$2;
 		FBSTRING* vr$12 = fb_LongintToStr( LINENUM$1 );
-		__builtin_memset( &TMP$503$2, 0, 24ll );
-		FBSTRING* vr$15 = fb_StrConcat( &TMP$503$2, (void*)"(", 2ll, (void*)vr$12, -1ll );
-		__builtin_memset( &TMP$504$2, 0, 24ll );
-		FBSTRING* vr$18 = fb_StrConcat( &TMP$504$2, (void*)vr$15, -1ll, (void*)")", 2ll );
+		__builtin_memset( &TMP$505$2, 0, 24ll );
+		FBSTRING* vr$15 = fb_StrConcat( &TMP$505$2, (void*)"(", 2ll, (void*)vr$12, -1ll );
+		__builtin_memset( &TMP$506$2, 0, 24ll );
+		FBSTRING* vr$18 = fb_StrConcat( &TMP$506$2, (void*)vr$15, -1ll, (void*)")", 2ll );
 		fb_PrintString( 0, (FBSTRING*)vr$18, 0 );
 	}
 	goto label$113;
@@ -1418,14 +1418,14 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 	label$115:;
 	FBSTRING* vr$23 = fb_LongintToStr( *(int64*)(((int64)(struct $9FBWARNING*)WARNINGMSGS$ + (MSGNUM$1 << (4ll & 63ll))) + -16ll) );
 	FBSTRING* vr$24 = fb_LongintToStr( MSGNUM$1 );
-	__builtin_memset( &TMP$509$1, 0, 24ll );
-	FBSTRING* vr$27 = fb_StrConcat( &TMP$509$1, (void*)" warning ", 10ll, (void*)vr$24, -1ll );
-	__builtin_memset( &TMP$510$1, 0, 24ll );
-	FBSTRING* vr$30 = fb_StrConcat( &TMP$510$1, (void*)vr$27, -1ll, (void*)"(", 2ll );
 	__builtin_memset( &TMP$511$1, 0, 24ll );
-	FBSTRING* vr$33 = fb_StrConcat( &TMP$511$1, (void*)vr$30, -1ll, (void*)vr$23, -1ll );
+	FBSTRING* vr$27 = fb_StrConcat( &TMP$511$1, (void*)" warning ", 10ll, (void*)vr$24, -1ll );
 	__builtin_memset( &TMP$512$1, 0, 24ll );
-	FBSTRING* vr$36 = fb_StrConcat( &TMP$512$1, (void*)vr$33, -1ll, (void*)"): ", 4ll );
+	FBSTRING* vr$30 = fb_StrConcat( &TMP$512$1, (void*)vr$27, -1ll, (void*)"(", 2ll );
+	__builtin_memset( &TMP$513$1, 0, 24ll );
+	FBSTRING* vr$33 = fb_StrConcat( &TMP$513$1, (void*)vr$30, -1ll, (void*)vr$23, -1ll );
+	__builtin_memset( &TMP$514$1, 0, 24ll );
+	FBSTRING* vr$36 = fb_StrConcat( &TMP$514$1, (void*)vr$33, -1ll, (void*)"): ", 4ll );
 	fb_PrintString( 0, (FBSTRING*)vr$36, 0 );
 	FBSTRING* vr$38 = fb_StrAllocTempDescZ( *(char**)(((int64)(struct $9FBWARNING*)WARNINGMSGS$ + (MSGNUM$1 << (4ll & 63ll))) + -8ll) );
 	fb_PrintString( 0, (FBSTRING*)vr$38, 0 );
@@ -1609,16 +1609,16 @@ static void HPRINTERRMSG( int64 ERRNUM$1, char* MSGEX$1, $12FB_ERRMSGOPT OPTIONS
 	fb_PrintString( 0, (FBSTRING*)vr$11, 0 );
 	if( ERRNUM$1 < 0ll) goto label$43;
 	{
-		FBSTRING TMP$490$2;
-		FBSTRING TMP$491$2;
 		FBSTRING TMP$492$2;
+		FBSTRING TMP$493$2;
+		FBSTRING TMP$494$2;
 		FBSTRING* vr$12 = fb_LongintToStr( ERRNUM$1 );
-		__builtin_memset( &TMP$490$2, 0, 24ll );
-		FBSTRING* vr$15 = fb_StrConcat( &TMP$490$2, (void*)" ", 2ll, (void*)vr$12, -1ll );
-		__builtin_memset( &TMP$491$2, 0, 24ll );
-		FBSTRING* vr$18 = fb_StrConcat( &TMP$491$2, (void*)vr$15, -1ll, (void*)": ", 3ll );
 		__builtin_memset( &TMP$492$2, 0, 24ll );
-		FBSTRING* vr$21 = fb_StrConcat( &TMP$492$2, (void*)vr$18, -1ll, (void*)MSG$1, 0ll );
+		FBSTRING* vr$15 = fb_StrConcat( &TMP$492$2, (void*)" ", 2ll, (void*)vr$12, -1ll );
+		__builtin_memset( &TMP$493$2, 0, 24ll );
+		FBSTRING* vr$18 = fb_StrConcat( &TMP$493$2, (void*)vr$15, -1ll, (void*)": ", 3ll );
+		__builtin_memset( &TMP$494$2, 0, 24ll );
+		FBSTRING* vr$21 = fb_StrConcat( &TMP$494$2, (void*)vr$18, -1ll, (void*)MSG$1, 0ll );
 		fb_PrintString( 0, (FBSTRING*)vr$21, 0 );
 		if( CUSTOMTEXT$1 == (char*)0ull) goto label$45;
 		{
@@ -1684,12 +1684,12 @@ static void HPRINTERRMSG( int64 ERRNUM$1, char* MSGEX$1, $12FB_ERRMSGOPT OPTIONS
 			{
 				if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 256ll) == 0ll) goto label$62;
 				{
-					FBSTRING TMP$497$5;
-					FBSTRING TMP$498$5;
-					__builtin_memset( &TMP$497$5, 0, 24ll );
-					FBSTRING* vr$42 = fb_StrConcat( &TMP$497$5, (void*)" in '", 6ll, (void*)&LN$3, -1ll );
-					__builtin_memset( &TMP$498$5, 0, 24ll );
-					FBSTRING* vr$45 = fb_StrConcat( &TMP$498$5, (void*)vr$42, -1ll, (void*)"'", 2ll );
+					FBSTRING TMP$499$5;
+					FBSTRING TMP$500$5;
+					__builtin_memset( &TMP$499$5, 0, 24ll );
+					FBSTRING* vr$42 = fb_StrConcat( &TMP$499$5, (void*)" in '", 6ll, (void*)&LN$3, -1ll );
+					__builtin_memset( &TMP$500$5, 0, 24ll );
+					FBSTRING* vr$45 = fb_StrConcat( &TMP$500$5, (void*)vr$42, -1ll, (void*)"'", 2ll );
 					fb_PrintString( 0, (FBSTRING*)vr$45, 1 );
 				}
 				goto label$61;
@@ -1751,14 +1751,14 @@ static char* HADDTOKEN( int64 ISBEFORE$1, int64 ADDCOMMA$1, char* MSGEX$1 )
 	if( vr$2 <= 0ll) goto label$82;
 	{
 		{
-			int64 TMP$499$3;
+			int64 TMP$501$3;
 			int64 vr$3 = LEXGETTOKEN( 0ll );
-			TMP$499$3 = vr$3;
-			if( TMP$499$3 <= 32ll) goto label$85;
+			TMP$501$3 = vr$3;
+			if( TMP$501$3 <= 32ll) goto label$85;
 			label$86:;
-			if( TMP$499$3 == 257ll) goto label$85;
+			if( TMP$501$3 == 257ll) goto label$85;
 			label$87:;
-			if( TMP$499$3 != 256ll) goto label$84;
+			if( TMP$501$3 != 256ll) goto label$84;
 			label$85:;
 			{
 			}
@@ -1797,7 +1797,7 @@ static char* HADDTOKEN( int64 ISBEFORE$1, int64 ADDCOMMA$1, char* MSGEX$1 )
 
 static FBSTRING* GETNOTALLOWEDMSG( $11FB_LANG_OPT OPT$1, char* MSGEX$1 )
 {
-	FBSTRING TMP$514$1;
+	FBSTRING TMP$516$1;
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$130:;
@@ -1835,8 +1835,8 @@ static FBSTRING* GETNOTALLOWEDMSG( $11FB_LANG_OPT OPT$1, char* MSGEX$1 )
 		label$134:;
 	}
 	char* vr$12 = HADDTOKEN( 0ll, (int64)-(LANGS$1 > 0ll), MSGEX$1 );
-	__builtin_memset( &TMP$514$1, 0, 24ll );
-	FBSTRING* vr$16 = fb_StrConcat( &TMP$514$1, (void*)&MSG$1, -1ll, (void*)vr$12, 0ll );
+	__builtin_memset( &TMP$516$1, 0, 24ll );
+	FBSTRING* vr$16 = fb_StrConcat( &TMP$516$1, (void*)&MSG$1, -1ll, (void*)vr$12, 0ll );
 	fb_StrAssign( (void*)&MSG$1, -1ll, (void*)vr$16, -1ll, 0 );
 	fb_StrInit( (void*)&fb$result$1, -1ll, (void*)&MSG$1, -1ll, 0 );
 	fb_StrDelete( (FBSTRING*)&MSG$1 );
@@ -1874,9 +1874,9 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 	fb_StrAssign( (void*)&DESC$1, -1ll, (void*)"", 1ll, 0 );
 	if( MSGEX$1 == (char*)0ull) goto label$147;
 	{
-		FBSTRING TMP$515$2;
-		__builtin_memset( &TMP$515$2, 0, 24ll );
-		FBSTRING* vr$8 = fb_StrConcat( &TMP$515$2, (void*)MSGEX$1, 0ll, (void*)" ", 2ll );
+		FBSTRING TMP$517$2;
+		__builtin_memset( &TMP$517$2, 0, 24ll );
+		FBSTRING* vr$8 = fb_StrConcat( &TMP$517$2, (void*)MSGEX$1, 0ll, (void*)" ", 2ll );
 		fb_StrAssign( (void*)&DESC$1, -1ll, (void*)vr$8, -1ll, 0 );
 	}
 	label$147:;
@@ -1890,17 +1890,17 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 		{
 			if( PROC$1 == (struct $8FBSYMBOL*)0ull) goto label$153;
 			{
-				int64 TMP$517$4;
+				int64 TMP$519$4;
 				struct $8FBSYMBOL* PARAM$4;
 				PARAM$4 = *(struct $8FBSYMBOL**)((uint8*)PROC$1 + 136ll);
 				int64 CNT$4;
 				if( (*(int64*)((uint8*)PROC$1 + 16ll) & 2ll) == 0ll) goto label$154;
-				TMP$517$4 = 0ll;
+				TMP$519$4 = 0ll;
 				goto label$200;
 				label$154:;
-				TMP$517$4 = 1ll;
+				TMP$519$4 = 1ll;
 				label$200:;
-				CNT$4 = TMP$517$4;
+				CNT$4 = TMP$519$4;
 				label$155:;
 				if( PARAM$4 == (struct $8FBSYMBOL*)0ull) goto label$156;
 				{
@@ -1932,10 +1932,10 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 			int64 vr$16 = fb_StrLen( (void*)PID$1, 0ll );
 			if( vr$16 <= 0ll) goto label$164;
 			{
-				FBSTRING TMP$519$4;
+				FBSTRING TMP$521$4;
 				fb_StrConcatAssign( (void*)&DESC$1, -1ll, (void*)" (", 3ll, 0 );
-				__builtin_memset( &TMP$519$4, 0, 24ll );
-				FBSTRING* vr$19 = fb_StrConcat( &TMP$519$4, (void*)&DESC$1, -1ll, (void*)PID$1, 0ll );
+				__builtin_memset( &TMP$521$4, 0, 24ll );
+				FBSTRING* vr$19 = fb_StrConcat( &TMP$521$4, (void*)&DESC$1, -1ll, (void*)PID$1, 0ll );
 				fb_StrAssign( (void*)&DESC$1, -1ll, (void*)vr$19, -1ll, 0 );
 				fb_StrConcatAssign( (void*)&DESC$1, -1ll, (void*)")", 2ll, 0 );
 			}
@@ -2023,15 +2023,15 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 			label$178:;
 			if( PNAME$1 == (char*)0ull) goto label$185;
 			{
-				FBSTRING TMP$522$4;
+				FBSTRING TMP$524$4;
 				if( PNUM$1 <= 0ll) goto label$187;
 				{
 					fb_StrConcatAssign( (void*)&DESC$1, -1ll, (void*)" of ", 5ll, 0 );
 				}
 				label$187:;
 				label$186:;
-				__builtin_memset( &TMP$522$4, 0, 24ll );
-				FBSTRING* vr$39 = fb_StrConcat( &TMP$522$4, (void*)&DESC$1, -1ll, (void*)PNAME$1, 0ll );
+				__builtin_memset( &TMP$524$4, 0, 24ll );
+				FBSTRING* vr$39 = fb_StrConcat( &TMP$524$4, (void*)&DESC$1, -1ll, (void*)PNAME$1, 0ll );
 				fb_StrAssign( (void*)&DESC$1, -1ll, (void*)vr$39, -1ll, 0 );
 				if( ADDPRNTS$1 == 0ll) goto label$189;
 				{
@@ -2049,7 +2049,7 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 	goto label$165;
 	label$166:;
 	{
-		FBSTRING TMP$523$2;
+		FBSTRING TMP$525$2;
 		if( PNUM$1 <= 0ll) goto label$191;
 		{
 			fb_StrConcatAssign( (void*)&DESC$1, -1ll, (void*)" of ", 5ll, 0 );
@@ -2057,8 +2057,8 @@ static char* HMAKEPARAMDESC( char* MSGEX$1 )
 		label$191:;
 		label$190:;
 		char* vr$41 = SYMBKEYWORDGETTEXT( *(int64*)((uint8*)PARAMLOC$1 + 8ll) );
-		__builtin_memset( &TMP$523$2, 0, 24ll );
-		FBSTRING* vr$44 = fb_StrConcat( &TMP$523$2, (void*)&DESC$1, -1ll, (void*)vr$41, 0ll );
+		__builtin_memset( &TMP$525$2, 0, 24ll );
+		FBSTRING* vr$44 = fb_StrConcat( &TMP$525$2, (void*)&DESC$1, -1ll, (void*)vr$41, 0ll );
 		fb_StrAssign( (void*)&DESC$1, -1ll, (void*)vr$44, -1ll, 0 );
 	}
 	label$165:;

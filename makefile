@@ -84,6 +84,7 @@
 #
 #   bootstrap-dist      Create source package with precompiled fbc sources
 #   bootstrap-dist-arm  Create source package with precompiled fbc sources for arm and aarch64 only
+#   bootstrap-refresh   Regenerate the precompiled fbc sources that are kept in the repository
 #   bootstrap           Build fbc from the precompiled sources (only if precompiled sources exist)
 #   bootstrap-minimal   Build fbc from the precompiled sources (only if precompiled sources exist) with only the minimal features needed to compile another fbc
 #
@@ -1540,8 +1541,8 @@ bootstrap-dist:
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target win64               && mv src/compiler/*.c   bootstrap/win64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-arm           && mv src/compiler/*.c   bootstrap/linux-arm
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target linux-aarch64       && mv src/compiler/*.c   bootstrap/linux-aarch64
-	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target darwin-x86_64        && mv src/compiler/*.c   bootstrap/darwin-x86_64
-	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target darwin-aarch64        && mv src/compiler/*.c   bootstrap/darwin-aarch64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_darwin-x86_64) -target darwin-x86_64 && mv src/compiler/*.c bootstrap/darwin-x86_64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_darwin-aarch64) -target darwin-aarch64 && mv src/compiler/*.c bootstrap/darwin-aarch64
 
 	# Ensure to have LFs regardless of host system (LFs will probably work
 	# on DOS/Win32, but CRLFs could cause issues on Linux)
@@ -1609,7 +1610,7 @@ bootstrap-dist-target:
 	rm -rf bootstrap
 	mkdir -p bootstrap/$(FBTARGET)
 
-	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) -target $(FBTARGET) && mv src/compiler/*.$(FBBOOTSTRAPFILEEXT) bootstrap/$(FBTARGET)
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_$(FBTARGET)) -target $(FBTARGET) && mv src/compiler/*.$(FBBOOTSTRAPFILEEXT) bootstrap/$(FBTARGET)
 	@if [ -n "$(DOS2UNIX)" ]; then $(DOS2UNIX) bootstrap/$(FBTARGET)/*; fi
 
 	# Package FB sources (similar to our "gitdist" command), and add the bootstrap/ directory
@@ -1618,6 +1619,36 @@ bootstrap-dist-target:
 	mv bootstrap $(FBBOOTSTRAPTITLETARGET)
 	tar -cJf "$(FBBOOTSTRAPTITLETARGET).tar.xz" "$(FBBOOTSTRAPTITLETARGET)"
 	rm -rf "$(FBBOOTSTRAPTITLETARGET)"
+
+#
+# Regenerate the precompiled fbc sources that are kept in the repository, in
+# place and without packaging them.  They are kept in the repository so that a
+# fresh clone can be built on a system where no fbc exists yet (see the
+# "bootstrap" target below).  Unlike "bootstrap-dist", this does not discard
+# bootstrap/ and it leaves alone the targets that are not kept here.
+#
+# Every target listed here is a 64-bit target, so all of them produce C.
+# Run this whenever src/compiler/*.bas changes, and commit the result along
+# with the change, so that the sets do not drift away from the sources.
+#
+# A set has to be precompiled the way the fbc for that target is normally
+# built, or the seed will not match it.  Darwin has no terminfo at runtime, so
+# its compiler must not add -lncurses: a seed that did would pull Apple's
+# deprecated libncurses into the compiler built from it.
+#
+FB_BOOTSTRAP_DEFS_darwin-x86_64  := -d DISABLE_NCURSES
+FB_BOOTSTRAP_DEFS_darwin-aarch64 := -d DISABLE_NCURSES
+.PHONY: bootstrap-refresh
+bootstrap-refresh: $(FBC_EXE)
+	# Precompile fbc sources for the targets kept in the repository
+	mkdir -p bootstrap/darwin-aarch64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_darwin-aarch64) -target darwin-aarch64 && rm -f bootstrap/darwin-aarch64/*.o && mv src/compiler/*.c bootstrap/darwin-aarch64
+	mkdir -p bootstrap/linux-x86_64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_linux-x86_64) -target linux-x86_64 && rm -f bootstrap/linux-x86_64/*.o && mv src/compiler/*.c bootstrap/linux-x86_64
+	@if [ -n "$(DOS2UNIX)" ]; then \
+		$(DOS2UNIX) bootstrap/darwin-aarch64/*; \
+		$(DOS2UNIX) bootstrap/linux-x86_64/*; \
+	fi
 
 #
 # Build the fbc[.exe] binary from the precompiled sources in the bootstrap/

@@ -1530,7 +1530,7 @@ void FBINIT( int64 ISMAIN$1, char* ENTRY$1, int64 MODULE_COUNT$1 )
 	*($16FB_RESTART_FLAGS*)((uint8*)&ENV$ + 1616ll) = *(int64*)((uint8*)&ENV$ + 1616ll) & -6ll;
 	int32 vr$3 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&INFILETB$, 296ull, -1, 0, 1ull, 0ll, 15ll );
 	if( (int64)vr$3 == 0ll) goto label$39;
-	void* vr$5 = fb_ErrorThrowAt( 417, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fb.bas", (void*)0ull, (void*)0ull );
+	void* vr$5 = fb_ErrorThrowAt( 417, (char*)"src/compiler/fb.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$5;
 	__fb_jumpptr$0$:;
@@ -3073,7 +3073,7 @@ void FBCOMPILE( char* INFNAME$1, char* OUTFNAME$1, FBSTRING* PPONLYFILE$1, int64
 	{
 		int32 vr$41 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 1216ll) );
 		if( (int64)vr$41 == 0ll) goto label$376;
-		void* vr$43 = fb_ErrorThrowAt( 1359, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fb.bas", (void*)0ull, (void*)0ull );
+		void* vr$43 = fb_ErrorThrowAt( 1359, (char*)"src/compiler/fb.bas", (void*)0ull, (void*)0ull );
 		(void)&&__fb_jumpptr$0$;
 		goto *vr$43;
 		__fb_jumpptr$0$:;
@@ -3083,7 +3083,7 @@ void FBCOMPILE( char* INFNAME$1, char* OUTFNAME$1, FBSTRING* PPONLYFILE$1, int64
 	label$374:;
 	int32 vr$45 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
 	if( (int64)vr$45 == 0ll) goto label$377;
-	void* vr$47 = fb_ErrorThrowAt( 1362, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fb.bas", (void*)0ull, (void*)0ull );
+	void* vr$47 = fb_ErrorThrowAt( 1362, (char*)"src/compiler/fb.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$1$;
 	goto *vr$47;
 	__fb_jumpptr$1$:;
@@ -3447,7 +3447,7 @@ void FBINCLUDEFILE( char* FILENAME$1, int64 ISONCE$1 )
 	LEXPOPCTX(  );
 	int32 vr$115 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
 	if( (int64)vr$115 == 0ll) goto label$466;
-	void* vr$117 = fb_ErrorThrowAt( 1709, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/fb.bas", (void*)0ull, (void*)0ull );
+	void* vr$117 = fb_ErrorThrowAt( 1709, (char*)"src/compiler/fb.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$117;
 	__fb_jumpptr$0$:;

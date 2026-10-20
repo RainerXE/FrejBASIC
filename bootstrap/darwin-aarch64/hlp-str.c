@@ -3414,7 +3414,7 @@ void HSPLITSTR( FBSTRING* TXT$1, FBSTRING* DEL$1, struct $7FBARRAYI8FBSTRINGE* R
 	__builtin_memset( (void*)((uint8*)&DPOS$1 + 48ll), 0, 24ll );
 	int32 vr$3 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&DPOS$1, 8ull, -1, 0, 1ull, 0ll, ITEMS$1 + -1ll );
 	if( (int64)vr$3 == 0ll) goto label$534;
-	void* vr$5 = fb_ErrorThrowAt( 1539, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+	void* vr$5 = fb_ErrorThrowAt( 1539, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$5;
 	__fb_jumpptr$0$:;
@@ -3437,7 +3437,7 @@ void HSPLITSTR( FBSTRING* TXT$1, FBSTRING* DEL$1, struct $7FBARRAYI8FBSTRINGE* R
 				ITEMS$1 = ITEMS$1 + 10ll;
 				int32 vr$11 = fb_ArrayRedimPresvEx( (struct $7FBARRAYIvE*)&DPOS$1, 8ull, -1, 0, 1ull, 0ll, ITEMS$1 + -1ll );
 				if( (int64)vr$11 == 0ll) goto label$542;
-				void* vr$13 = fb_ErrorThrowAt( 1550, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+				void* vr$13 = fb_ErrorThrowAt( 1550, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 				(void)&&__fb_jumpptr$1$;
 				goto *vr$13;
 				__fb_jumpptr$1$:;
@@ -3460,7 +3460,7 @@ void HSPLITSTR( FBSTRING* TXT$1, FBSTRING* DEL$1, struct $7FBARRAYI8FBSTRINGE* R
 	{
 		int32 vr$19 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, -1, 1ull, 0ll, 0ll );
 		if( (int64)vr$19 == 0ll) goto label$545;
-		void* vr$21 = fb_ErrorThrowAt( 1560, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+		void* vr$21 = fb_ErrorThrowAt( 1560, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 		(void)&&__fb_jumpptr$2$;
 		goto *vr$21;
 		__fb_jumpptr$2$:;
@@ -3473,7 +3473,7 @@ void HSPLITSTR( FBSTRING* TXT$1, FBSTRING* DEL$1, struct $7FBARRAYI8FBSTRINGE* R
 	label$543:;
 	int32 vr$25 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, -1, 1ull, 0ll, CNT$1 );
 	if( (int64)vr$25 == 0ll) goto label$546;
-	void* vr$27 = fb_ErrorThrowAt( 1565, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+	void* vr$27 = fb_ErrorThrowAt( 1565, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$3$;
 	goto *vr$27;
 	__fb_jumpptr$3$:;
@@ -3550,7 +3550,7 @@ int64 HSTR2TOK( char* TXT$1, struct $7FBARRAYI8FBSTRINGE* RES$1 )
 	label$561:;
 	int32 vr$9 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, -1, 1ull, 0ll, T$1 + -1ll );
 	if( (int64)vr$9 == 0ll) goto label$563;
-	void* vr$11 = fb_ErrorThrowAt( 1607, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+	void* vr$11 = fb_ErrorThrowAt( 1607, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$11;
 	__fb_jumpptr$0$:;
@@ -3628,7 +3628,7 @@ int64 HSTR2ARGS( char* TXT$1, struct $7FBARRAYI8FBSTRINGE* RES$1 )
 	label$576:;
 	int32 vr$2 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, -1, 1ull, 0ll, MAX_T$1 + -1ll );
 	if( (int64)vr$2 == 0ll) goto label$578;
-	void* vr$4 = fb_ErrorThrowAt( 1654, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+	void* vr$4 = fb_ErrorThrowAt( 1654, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$4;
 	__fb_jumpptr$0$:;
@@ -3700,7 +3700,7 @@ int64 HSTR2ARGS( char* TXT$1, struct $7FBARRAYI8FBSTRINGE* RES$1 )
 						MAX_T$1 = MAX_T$1 + 10ll;
 						int32 vr$19 = fb_ArrayRedimPresvEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, -1, 1ull, 0ll, MAX_T$1 + -1ll );
 						if( (int64)vr$19 == 0ll) goto label$604;
-						void* vr$21 = fb_ErrorThrowAt( 1693, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+						void* vr$21 = fb_ErrorThrowAt( 1693, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 						(void)&&__fb_jumpptr$1$;
 						goto *vr$21;
 						__fb_jumpptr$1$:;
@@ -3935,7 +3935,7 @@ int64 HWSTR2ARGS( uint32* TXT$1, struct $7FBARRAYI8DWSTRINGE* RES$1 )
 	label$646:;
 	int32 vr$2 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, 0, 1ull, 0ll, MAX_T$1 + -1ll );
 	if( (int64)vr$2 == 0ll) goto label$648;
-	void* vr$4 = fb_ErrorThrowAt( 1818, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+	void* vr$4 = fb_ErrorThrowAt( 1818, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$4;
 	__fb_jumpptr$0$:;
@@ -4007,7 +4007,7 @@ int64 HWSTR2ARGS( uint32* TXT$1, struct $7FBARRAYI8DWSTRINGE* RES$1 )
 						MAX_T$1 = MAX_T$1 + 10ll;
 						int32 vr$19 = fb_ArrayRedimPresvEx( (struct $7FBARRAYIvE*)RES$1, 24ull, -1, 0, 1ull, 0ll, MAX_T$1 + -1ll );
 						if( (int64)vr$19 == 0ll) goto label$674;
-						void* vr$21 = fb_ErrorThrowAt( 1857, (char*)"/home/rainer/build/frej/FrejBASIC/src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
+						void* vr$21 = fb_ErrorThrowAt( 1857, (char*)"src/compiler/hlp-str.bas", (void*)0ull, (void*)0ull );
 						(void)&&__fb_jumpptr$1$;
 						goto *vr$21;
 						__fb_jumpptr$1$:;

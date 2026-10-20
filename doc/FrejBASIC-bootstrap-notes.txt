@@ -1,0 +1,88 @@
+FrejBASIC - the precompiled compiler sources in bootstrap/
+==========================================================
+
+bootstrap/ holds fbc's own sources precompiled to C. They are a seed for
+building the compiler on a system that has no working fbc yet: "make
+bootstrap" turns them into a first bin/fbc, and the regular build then
+rebuilds the compiler from src/compiler/*.bas with it.
+
+FreeBASIC itself keeps none of this in its repository. Upstream ships these
+sets only inside a source package of its own
+("FreeBASIC-<version>-source-bootstrap.tar.xz", the only asset on its GitHub
+releases), and its 1.10.1 downloads cover dos, windows, linux, FreeBSD and
+Raspbian but no macOS at all - the source package has no darwin directory
+either. This fork keeps the sets for the platforms it is being developed on
+in the repository instead, so that a clone is enough to get started, with
+nothing to download first.
+
+The sets are generated, not written by hand: they are the C that fbc produces
+for its own sources, and they belong to a particular revision of them. See
+section 2.
+
+
+1. Which sets are kept, and why
+--------------------------------
+
+  darwin-aarch64
+    There is no fbc for macOS to bootstrap from - no released macOS build
+    exists, and upstream's source package has no macOS set either - so on a
+    Mac the chicken and egg is total. This is the one set this fork cannot do
+    without.
+
+  linux-x86_64
+    Linux on x86_64 is where most people start, and it is what the secondary
+    build machine runs, so a clone should be buildable there with nothing
+    else installed.
+
+Everything else is deliberately left out of the repository: those platforms
+are not developed here, and getting a compiler going on them is what
+upstream's source package is for. "make bootstrap-dist" still generates all
+of upstream's targets and packages them into a tarball, which is what a
+release asset would use.
+
+
+2. Precompiling a set correctly
+--------------------------------
+
+    make FBC="bin/fbc -i inc" bootstrap-refresh
+
+regenerates the sets that are kept here, in place. (FBC=... is the usual
+self-hosting build setting, and it also lets the target make sure that
+bin/fbc is current before it is used as the generator.)
+
+Two things to be careful about:
+
+  * A set has to be precompiled the way the fbc for that target is normally
+    built, or the seed will not match it. Darwin has no terminfo at runtime,
+    so its compiler must not add -lncurses; a seed that did would pull
+    Apple's deprecated libncurses into the compiler built from it. That is
+    what the per-target FB_BOOTSTRAP_DEFS_* variables in the makefile are
+    for.
+
+  * "make bootstrap-dist" must not be used to refresh these sets. It starts
+    with "rm -rf bootstrap", packages all of upstream's targets and removes
+    the directory again at the end, which would delete the sets kept here.
+    "make bootstrap-refresh" is its counterpart for the ones in the
+    repository.
+
+The sets have to be regenerated whenever src/compiler/*.bas changes, and
+committed together with the change. A stale set normally still works, because
+the seed only has to be able to compile the current sources, but it should
+not be left to drift. Only the precompiled files whose output really changed
+are rewritten.
+
+
+3. Building a checkout that has no fbc yet
+-------------------------------------------
+
+    make bootstrap                 # rtlib + gfxlib2 + a first bin/fbc
+    make FBC="bin/fbc -i inc"      # rebuild the compiler from source with it
+
+The set that is used is chosen from the host as $(TARGET_OS)-$(TARGET_ARCH):
+darwin-aarch64 on an Apple Silicon Mac, linux-x86_64 on Linux. On a platform
+that has no set in the repository this fails with a missing bootstrap
+directory - that is the point to reach for upstream's source package.
+
+"make bootstrap" compiles the precompiled C in place, which leaves .o files
+next to the .c files in bootstrap/<target>/. They are ignored by git; "make
+clean-bootstrap" removes them.

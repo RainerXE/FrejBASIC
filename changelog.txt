@@ -77,6 +77,7 @@ Version 1.20.0
 - sf.net #1013 (gas64) : memfill calls MEMSET if area size is greater than 64 bytes as it's faster (SARG)
 - fbc: new syntax 'end while' equivalent to 'wend'. wend syntax remains valid (SARG)
 - fbc: darwin: warn when an operator is declared inside EXTERN "C"; fbc gives such operators the name GCC uses (the operator code without the parameter types), which a C++ module built with Clang will not provide. Declare the operator inside EXTERN "C++" instead, or build the C++ module with GCC (see doc/FrejBASIC-darwin-notes.txt)
+- bootstrap: keep the precompiled fbc sources for darwin-aarch64 and linux-x86_64 in the repository, so that a clone can be built on a platform where no fbc exists yet, and add "make bootstrap-refresh" to regenerate them (see doc/FrejBASIC-bootstrap-notes.txt)
 
 [fixed]
 - github #410: give consistent floating point comparisons results involving NaNs.
