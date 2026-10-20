@@ -29,6 +29,12 @@ section 2.
     Mac the chicken and egg is total. This is the one set this fork cannot do
     without.
 
+  darwin-x86_64
+    An Intel Mac has the same problem as an Apple Silicon one: no released
+    macOS build exists to bootstrap from. The set is kept so that such a
+    machine is ready to build too, but it has not been built on an Intel Mac
+    yet - see section 4.
+
   linux-x86_64
     Linux on x86_64 is where most people start, and it is what the secondary
     build machine runs, so a clone should be buildable there with nothing
@@ -90,3 +96,18 @@ directory - that is the point to reach for upstream's source package.
 "make bootstrap" compiles the precompiled C in place, which leaves .o files
 next to the .c files in bootstrap/<target>/. They are ignored by git; "make
 clean-bootstrap" removes them.
+
+
+4. What has been verified, and what has not
+--------------------------------------------
+
+darwin-aarch64 and linux-x86_64 have each been built this way from a fresh
+tree or clone on their own platform: "make bootstrap", then "make", then a
+program compiled and run with the result. The Linux clone was taken straight
+from the repository, with nothing else installed.
+
+darwin-x86_64 is precompiled and checked in, but it has not been built on an
+Intel Mac, because there was no such machine to try it on. Its precompiled C
+compiles cleanly for x86_64 and it regenerates byte-identically to the other
+sets on either build machine, so the first real check is "make bootstrap" on
+the machine itself.

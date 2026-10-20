@@ -1643,10 +1643,13 @@ bootstrap-refresh: $(FBC_EXE)
 	# Precompile fbc sources for the targets kept in the repository
 	mkdir -p bootstrap/darwin-aarch64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_darwin-aarch64) -target darwin-aarch64 && rm -f bootstrap/darwin-aarch64/*.o && mv src/compiler/*.c bootstrap/darwin-aarch64
+	mkdir -p bootstrap/darwin-x86_64
+	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_darwin-x86_64) -target darwin-x86_64 && rm -f bootstrap/darwin-x86_64/*.o && mv src/compiler/*.c bootstrap/darwin-x86_64
 	mkdir -p bootstrap/linux-x86_64
 	./$(FBC_EXE) src/compiler/*.bas -m fbc -i inc -e -r -v $(BOOTFBCFLAGS) $(FB_BOOTSTRAP_DEFS_linux-x86_64) -target linux-x86_64 && rm -f bootstrap/linux-x86_64/*.o && mv src/compiler/*.c bootstrap/linux-x86_64
 	@if [ -n "$(DOS2UNIX)" ]; then \
 		$(DOS2UNIX) bootstrap/darwin-aarch64/*; \
+		$(DOS2UNIX) bootstrap/darwin-x86_64/*; \
 		$(DOS2UNIX) bootstrap/linux-x86_64/*; \
 	fi
 
