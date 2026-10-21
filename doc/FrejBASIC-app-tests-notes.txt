@@ -15,6 +15,8 @@ run, look at the window.
     tests/apps/manifest.txt    the corpus: one program per line, paths
                                relative to the repository root
     tests/apps/run-apps.sh     builds and runs it
+    tests/apps/run-acceptance.sh  runs the self-checking bench (section 10)
+    tests/apps/acceptance/     checkup.bas, the visual acceptance bench
     tests/apps/_selftest/      tiny programs used to check the classifier
                                (ok, hang, crash, segv, bad syntax)
 
@@ -196,3 +198,68 @@ a gate: fragments, programs for other platforms and programs needing external
 libraries are expected to fail.  It is a quick way to see whether a change
 broke a large number of programs, and to compare two platforms entry by entry
 with --compare.
+
+
+10. The acceptance bench
+------------------------
+
+The corpus answers "does it survive".  The bench in tests/apps/acceptance
+answers "is the picture right": it draws a reference scene on each of its ten
+tabs and then verifies the result by reading the pixels back, so a primitive
+that silently draws the wrong thing fails loudly.
+
+    make acceptance            build it and run it unattended
+    tests/apps/acceptance/checkup        interactive (run it yourself)
+    tests/apps/acceptance/checkup auto   unattended, exit 0 = all checks passed
+
+Its own report is checkup.txt in the current directory; the console summary is
+the same list.  The runner copies the report to tests/apps/acceptance/checkup.txt
+and leaves the run directory behind when something failed.
+
+Tabs: info, shapes, modes, text, sprites, images, input, threads, 3d, summary.
+The tab strip is hit tested (hover, press, 1-0 / tab / arrows), so the input
+tab and the window handling are exercised by hand as well.  1024x700x32 with
+two pages and ScreenSet/Flip throughout, which is the configuration a future
+3D backend will present through as well.
+
+It is the template for that backend: adding a tab means one entry in the scene
+table, one draw routine and one set of checks.
+
+    CHECKUP_ONLY=n       run one tab only          (bisecting driver bugs)
+    CHECKUP_DWELL=ms     per-tab dwell time        (default 900)
+    CHECKUP_NODUMP       do not write the per-tab PPM dumps
+    CHECKUP_TRACE=1      append frame/scene lines to checkup-trace.txt
+    CHECKUP_DUMPDEBUG=1  log the screen geometry to dumpdebug.txt
+    FB_COCOA_THREAD=1    present from the driver's own thread (Cocoa)
+
+The PPM dumps (frej-checkup-<n>-<tab>.ppm in TMPDIR) are what the layout was
+checked against; convert them with "sips -s format png ...".
+
+Ten things the bench taught us, all of them in the app:
+
+  * Integer and UInteger are the native word size, so they are 8 bytes here.
+    A 32-bit pixel buffer walked with UInteger Ptr steps 8 bytes per pixel and
+    runs twice past the end of the image: use ULong Ptr for 32 bpp pixels.
+    This was the "endless crash" - a heap corruption detected hundreds of
+    mallocs later, in Core Graphics or in the report writer, never at the
+    write.  It was found with guard malloc plus a global "last statement"
+    marker, after the detector had moved three times.
+  * A fixed-length string never compares equal to a shorter variable-length
+    one (it is padded), so "name as string * 32" needs rtrim() on both sides.
+    Without that every check call appended a duplicate.
+  * Paint escapes an open boundary and floods the window: draw the closed
+    outline first, then fill, then the rest of the scene on top.
+  * Put ... Trans skips pixels equal to MASK_COLOR_32 (&hFF00FF, magenta), not
+    black ones, so a sprite grabbed over black comes out opaque.
+  * Put ... Alpha is only approximately right at high alpha in this gfxlib2
+    (alpha 237 behaved like transparent), so the checks stay at low and mid
+    alpha.
+  * Width does not scale the font on a graphics screen; Draw String always
+    uses the built-in 8x16 font.
+  * Point() returns -1 (&hFFFFFFFF) outside the viewport; inside a "view"
+    (without "screen") coordinates are view relative.
+  * RGB() returns &hFFRRGGBB once fb.GFX_ALPHA_PRIMITIVES is on while Point()
+    also carries an alpha byte, so colours must be compared RGB only.
+  * GetMouse's wheel value is cumulative, in the X11 and the Cocoa driver both.
+  * The worker thread must not call gfxlib2 in a default (non -mt) build; it
+    only touches raw image memory, guarded by a mutex.

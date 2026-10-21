@@ -81,6 +81,8 @@
 #   log-tests     using the newly built fbc)
 #   warning-tests
 #   apps-tests    Build and run the application corpus in tests/apps
+#   apps-tests-frames  same, but open each demo on screen for a couple of seconds
+#   acceptance    Build and run the self-checking acceptance test bench
 #   clean-tests
 #
 #   bootstrap-dist      Create source package with precompiled fbc sources
@@ -1163,7 +1165,7 @@ help:
 
 ################################################################################
 
-.PHONY: unit-tests log-tests apps-tests apps-tests-frames clean-tests
+.PHONY: unit-tests log-tests apps-tests apps-tests-frames acceptance clean-tests
 
 unit-tests:
 	cd tests && $(MAKE) unit-tests FBC="`pwd`/../$(FBC_EXE) -i `pwd`/../inc"
@@ -1179,6 +1181,15 @@ apps-tests:
 
 apps-tests-frames:
 	tests/apps/run-apps.sh --screens --fbc "`pwd`/$(FBC_EXE)" --inc "`pwd`/inc"
+
+# the acceptance bench compiles a single program and runs it; "auto" walks
+# every tab by itself and reports pass/fail in the exit code
+ACCEPTANCE_EXE = tests/apps/acceptance/checkup
+
+acceptance:
+	$(FBC_EXE) -i inc tests/apps/acceptance/checkup.bas -x $(ACCEPTANCE_EXE)
+	tests/apps/run-acceptance.sh ./$(ACCEPTANCE_EXE)
+
 
 clean-tests:
 	cd tests && $(MAKE) clean

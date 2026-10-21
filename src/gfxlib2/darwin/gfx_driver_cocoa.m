@@ -44,6 +44,7 @@ typedef struct {
 	NSWindow *window;
 	NSView *view;
 	CGContextRef ctx;			/* bitmap context over buf */
+	CGColorSpaceRef colorspace;		/* device RGB, owned for image creation */
 	unsigned char *buf;			/* w * h * 4, BGRA */
 	BLITTER *blitter;			/* framebuffer -> BGRA converter */
 	pthread_mutex_t mutex;
@@ -62,6 +63,17 @@ static COCOA_CTX cocoa;
 
 static int cocoa_ready = 0;
 static int cocoa_app_ready = 0;
+
+/* Presentation mode.  The default publishes the frame from fb_hCocoaUnlock on
+   the main thread, throttled to the refresh rate.  AppKit and Core Animation
+   are main-thread APIs, and this way exactly one thread ever touches the
+   framebuffer snapshot and the bitmap context.  FB_COCOA_THREAD=1 selects the
+   older background refresh thread instead, which keeps publishing even when a
+   program never unlocks, but races with the core's framebuffer teardown while
+   a mode change is in progress. */
+static int cocoa_use_thread = 0;
+static int cocoa_thread_started = 0;
+static double cocoa_last_present = 0.0;
 
 /* ------------------------------------------------------------- diagnostics */
 
@@ -128,13 +140,86 @@ static void cocoa_convert(void)
 	cocoa_dump_frame();
 }
 
-/* Best-effort publish from the refresh thread: Core Animation is thread-safe
-   for layer property mutation, and an explicit flush pushes the change to the
-   render server without relying on a main-thread run loop. */
-static void cocoa_present_background(CGImageRef image)
+/* Best-effort publish: Core Animation is thread-safe for layer property
+   mutation, and an explicit flush pushes the change to the render server
+   without relying on a main-thread run loop. */
+static void cocoa_publish(CGImageRef image)
 {
 	cocoa.view.layer.contents = (__bridge id)image;
 	[CATransaction flush];
+}
+
+/* Build an image for the layer from an immutable snapshot of the frame.
+   CGBitmapContextCreateImage() returns an image that shares the bitmap and
+   relies on copy-on-write bookkeeping inside Core Graphics.  We then keep
+   drawing into that same bitmap through the raw buffer, which Core Graphics
+   cannot see, so its shared-image accounting is corrupted and the heap dies a
+   few hundred mallocs later (ripc_DrawImage/RIPImageDataRelease).  Copying the
+   pixels costs one 4*w*h memcpy per presented frame and keeps every image
+   immutable. */
+static CGImageRef cocoa_snapshot_image(void)
+{
+	CFDataRef data;
+	CGDataProviderRef provider;
+	CGImageRef image;
+	size_t stride, len;
+
+	if (cocoa.buf == NULL || cocoa.colorspace == NULL)
+		return NULL;
+
+	stride = (size_t)cocoa.w * 4;
+	len = stride * (size_t)cocoa.h;
+
+	data = CFDataCreate(kCFAllocatorDefault, cocoa.buf, (CFIndex)len);
+	if (data == NULL)
+		return NULL;
+
+	provider = CGDataProviderCreateWithCFData(data);
+	CFRelease(data);
+	if (provider == NULL)
+		return NULL;
+
+	image = CGImageCreate(cocoa.w, cocoa.h, 8, 32, stride, cocoa.colorspace,
+	                      (CGBitmapInfo)(kCGImageAlphaNoneSkipLast |
+	                                     kCGBitmapByteOrder32Big),
+	                      provider, NULL, false, kCGRenderingIntentDefault);
+	CGDataProviderRelease(provider);
+
+	return image;
+}
+
+static double cocoa_frame_interval(void)
+{
+	int rate = (__fb_gfx && __fb_gfx->refresh_rate > 0) ? __fb_gfx->refresh_rate : 60;
+
+	return 1.0 / (double)rate;
+}
+
+/* Convert and publish the current frame, at most once per frame interval.
+   Caller must be on the main thread. */
+static void cocoa_present_now(void)
+{
+	CGImageRef image;
+	double now;
+
+	if (!cocoa_ready || cocoa.buf == NULL || cocoa.ctx == NULL)
+		return;
+
+	now = CACurrentMediaTime();
+	if (now - cocoa_last_present < cocoa_frame_interval())
+		return;
+	cocoa_last_present = now;
+
+	pthread_mutex_lock(&cocoa.mutex);
+	cocoa.present_pending = 0;
+	cocoa_convert();
+	image = cocoa_snapshot_image();
+	pthread_mutex_unlock(&cocoa.mutex);
+
+	if (image) {
+		cocoa_publish(image);
+		CGImageRelease(image);
+	}
 }
 
 /* --------------------------------------------------------------- event pump */
@@ -359,11 +444,11 @@ static void *cocoa_thread(void *arg)
 			cocoa.present_pending = 0;
 			pthread_mutex_lock(&cocoa.mutex);
 			cocoa_convert();
-			image = CGBitmapContextCreateImage(cocoa.ctx);
+			image = cocoa_snapshot_image();
 			pthread_mutex_unlock(&cocoa.mutex);
 
 			if (image) {
-				cocoa_present_background(image);
+				cocoa_publish(image);
 				CGImageRelease(image);
 			}
 		}
@@ -393,8 +478,11 @@ void fb_hCocoaUnlock(void)
 
 	pthread_mutex_unlock(&cocoa.mutex);
 
-	if (cocoa_ready && [NSThread isMainThread])
+	if (cocoa_ready && [NSThread isMainThread]) {
+		if (!cocoa_use_thread)
+			cocoa_present_now();
 		cocoa_pump_events();
+	}
 }
 
 void fb_hCocoaWaitVSync(void)
@@ -584,10 +672,10 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 			return -1;
 
 		cs = CGColorSpaceCreateDeviceRGB();
+		cocoa.colorspace = cs;
 		cocoa.ctx = CGBitmapContextCreate(cocoa.buf, w, h, 8, stride, cs,
 		                                  kCGImageAlphaNoneSkipLast |
 		                                  kCGBitmapByteOrder32Big);
-		CGColorSpaceRelease(cs);
 		if (cocoa.ctx == NULL)
 			return -1;
 
@@ -598,10 +686,15 @@ static int driver_init(char *title, int w, int h, int depth, int refresh_rate, i
 		cocoa_ready = 1;
 		cocoa.running = 1;
 		cocoa.present_pending = 1;
-		if (pthread_create(&cocoa.thread, NULL, cocoa_thread, NULL) != 0) {
-			cocoa.running = 0;
-			cocoa_ready = 0;
-			return -1;
+		cocoa_last_present = 0.0;
+		cocoa_use_thread = (getenv("FB_COCOA_THREAD") != NULL);
+		if (cocoa_use_thread) {
+			if (pthread_create(&cocoa.thread, NULL, cocoa_thread, NULL) != 0) {
+				cocoa.running = 0;
+				cocoa_use_thread = 0;
+			} else {
+				cocoa_thread_started = 1;
+			}
 		}
 
 		if (refresh_rate > 0 && __fb_gfx)
@@ -617,7 +710,10 @@ static void driver_exit(void)
 		return;
 
 	cocoa.running = 0;
-	pthread_join(cocoa.thread, NULL);
+	if (cocoa_thread_started) {
+		pthread_join(cocoa.thread, NULL);
+		cocoa_thread_started = 0;
+	}
 	cocoa_ready = 0;
 
 	@autoreleasepool {
@@ -628,6 +724,10 @@ static void driver_exit(void)
 		if (cocoa.buf) {
 			free(cocoa.buf);
 			cocoa.buf = NULL;
+		}
+		if (cocoa.colorspace) {
+			CGColorSpaceRelease(cocoa.colorspace);
+			cocoa.colorspace = NULL;
 		}
 		if (cocoa.window) {
 			[cocoa.window orderOut:nil];

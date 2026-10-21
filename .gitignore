@@ -26,3 +26,7 @@
 
 /lib/dos/libfb.dxe
 /lib/dos/libfblst.txt
+
+/tests/apps/acceptance/checkup
+/tests/apps/acceptance/checkup.txt
+/tests/apps/acceptance/checkup-trace.txt
