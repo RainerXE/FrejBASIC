@@ -941,6 +941,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -986,7 +987,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1072,7 +1073,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1337,7 +1338,7 @@ static void CCONSTASSIGN( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, $13FB_SYM
 		goto label$27;
 		label$28:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$30;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$30;
 			{
 				if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$32;
 				{
@@ -1357,7 +1358,7 @@ static void CCONSTASSIGN( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, $13FB_SYM
 		goto label$26;
 		label$35:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$37;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$37;
 			{
 				if( ((int64)-(*(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) | (int64)-(*(uint64*)((uint8*)&PARSER$ + 200ll) > 0ull)) == 0ll) goto label$39;
 				{
@@ -1374,7 +1375,7 @@ static void CCONSTASSIGN( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, $13FB_SYM
 		goto label$26;
 		label$40:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$42;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$42;
 			{
 				ERRREPORT( 4ll, 0ll, (char*)0ull );
 				HSKIPUNTIL( 44ll, 0ll, 0ll, 0ll );

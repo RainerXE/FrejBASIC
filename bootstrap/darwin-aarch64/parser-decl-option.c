@@ -931,6 +931,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -976,7 +977,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1061,7 +1062,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1074,7 +1075,7 @@ extern struct $7LEX_CTX LEX$;
 void COPTDECL( void )
 {
 	label$10:;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 33554432ll) != 0ll) goto label$13;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 33554432ll) != 0ll) goto label$13;
 	{
 		ERRREPORTNOTALLOWED( 33554432ll, 146ll, (char*)0ull );
 		HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -1099,31 +1100,31 @@ void COPTDECL( void )
 		label$18:;
 		{
 			LEXSKIPTOKEN( 2048ll );
-			*(int64*)((uint8*)&ENV$ + 1528ll) = 1ll;
+			*(int64*)((uint8*)&ENV$ + 1536ll) = 1ll;
 		}
 		goto label$16;
 		label$19:;
 		{
 			LEXSKIPTOKEN( 2048ll );
-			*(int64*)((uint8*)&ENV$ + 1568ll) = -1ll;
+			*(int64*)((uint8*)&ENV$ + 1576ll) = -1ll;
 		}
 		goto label$16;
 		label$20:;
 		{
 			LEXSKIPTOKEN( 2048ll );
-			*(int64*)((uint8*)&ENV$ + 1568ll) = 0ll;
+			*(int64*)((uint8*)&ENV$ + 1576ll) = 0ll;
 		}
 		goto label$16;
 		label$21:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 65536ll) != 0ll) goto label$23;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 65536ll) != 0ll) goto label$23;
 			{
 				ERRREPORTNOTALLOWED( 65536ll, 146ll, (char*)0ull );
 			}
 			goto label$22;
 			label$23:;
 			{
-				*(int64*)((uint8*)&ENV$ + 1576ll) = -1ll;
+				*(int64*)((uint8*)&ENV$ + 1584ll) = -1ll;
 			}
 			label$22:;
 			LEXSKIPTOKEN( 2048ll );
@@ -1141,7 +1142,7 @@ void COPTDECL( void )
 				if( (int64)vr$9 != 0ll) goto label$26;
 				label$27:;
 				{
-					*(int64*)((uint8*)&ENV$ + 1536ll) = -1ll;
+					*(int64*)((uint8*)&ENV$ + 1544ll) = -1ll;
 					LEXSKIPTOKEN( 2048ll );
 				}
 				goto label$25;
@@ -1151,7 +1152,7 @@ void COPTDECL( void )
 				label$29:;
 				{
 					LEXSKIPTOKEN( 2048ll );
-					*(int64*)((uint8*)&ENV$ + 1544ll) = 0ll;
+					*(int64*)((uint8*)&ENV$ + 1552ll) = 0ll;
 				}
 				goto label$25;
 				label$28:;
@@ -1160,7 +1161,7 @@ void COPTDECL( void )
 				label$31:;
 				{
 					LEXSKIPTOKEN( 2048ll );
-					*(int64*)((uint8*)&ENV$ + 1560ll) = -1ll;
+					*(int64*)((uint8*)&ENV$ + 1568ll) = -1ll;
 				}
 				goto label$25;
 				label$30:;
@@ -1181,7 +1182,7 @@ void COPTDECL( void )
 						char* vr$21 = LEXGETTEXT(  );
 						FBSTRING* vr$22 = fb_StrAllocTempDescZ( (char*)vr$21 );
 						int32 vr$23 = fb_VALINT( (FBSTRING*)vr$22 );
-						*(int64*)((uint8*)&ENV$ + 1520ll) = (int64)vr$23;
+						*(int64*)((uint8*)&ENV$ + 1528ll) = (int64)vr$23;
 						LEXSKIPTOKEN( 0ll );
 					}
 					label$34:;
@@ -1215,14 +1216,14 @@ void COPTDECL( void )
 				if( (int64)vr$30 != 0ll) goto label$43;
 				label$44:;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 65536ll) != 0ll) goto label$46;
+					if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 65536ll) != 0ll) goto label$46;
 					{
 						ERRREPORTNOTALLOWED( 65536ll, 146ll, (char*)0ull );
 					}
 					goto label$45;
 					label$46:;
 					{
-						*(int64*)((uint8*)&ENV$ + 1576ll) = 0ll;
+						*(int64*)((uint8*)&ENV$ + 1584ll) = 0ll;
 					}
 					label$45:;
 					LEXSKIPTOKEN( 2048ll );

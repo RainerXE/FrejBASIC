@@ -988,6 +988,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1033,7 +1034,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1119,7 +1120,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1166,7 +1167,7 @@ int64 PPDEFINELOAD( struct $8FBSYMBOL* S$1, struct $8FBSYMBOL* CURRMACRO$1 )
 	}
 	label$373:;
 	label$372:;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$375;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$375;
 	{
 		int64 vr$1 = HLOADDEFINE( S$1 );
 		fb$result$1 = vr$1;
@@ -1453,7 +1454,7 @@ static int64 ISMACROALLOWED( struct $8FBSYMBOL* S$1 )
 		{
 			{
 				$10FB_BACKEND TMP$98$4;
-				TMP$98$4 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+				TMP$98$4 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 				if( TMP$98$4 == 1ll) goto label$24;
 				label$25:;
 				if( TMP$98$4 != 2ll) goto label$23;
@@ -3956,7 +3957,7 @@ static struct $9FB_DEFTOK* HREADMACROTEXT( int64 ARGS$1, struct $11FB_DEFPARAM* 
 			goto label$437;
 			label$438:;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$440;
+				if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$440;
 				{
 					struct $9FB_DEFTOK* vr$14 = SYMBADDDEFINETOK( TOKTAIL$1, 2ll );
 					TOKTAIL$1 = vr$14;
@@ -4078,7 +4079,7 @@ static void HREADDEFINETEXT( struct $8FBSYMBOL* SYM$1, char* DEFNAME$1, int64 IS
 	label$457:;
 	char* TEXT$1;
 	uint32* TEXTW$1;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$460;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$460;
 	{
 		char* vr$0 = PPREADLITERAL( ISMULTILINE$1 );
 		TEXT$1 = vr$0;

@@ -1073,6 +1073,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1118,7 +1119,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1204,7 +1205,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $8FB_TOKEN;
 typedef int64 $15FB_CMPSTMT_MASK;
@@ -1362,11 +1363,11 @@ void SYMBVARINIT( void )
 	SYMBADDFIELD( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 199216ll), (char*)"ubound", 0ll, (struct $7FBARRAYI10FBARRAYDIME*)&tmp$95$1, 8ll, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, 0ll );
 	SYMBSTRUCTEND( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 199216ll), 0ll );
 	*(int64*)((uint8*)&SYMB$ + 199184ll) = 0ll;
-	*(int64*)((uint8*)&SYMB$ + 199192ll) = *(int64*)((uint8*)&ENV$ + 616ll);
-	*(int64*)((uint8*)&SYMB$ + 199200ll) = *(int64*)((uint8*)&ENV$ + 616ll) << (1ll & 63ll);
-	*(int64*)((uint8*)&SYMB$ + 199208ll) = *(int64*)((uint8*)&ENV$ + 616ll) * 6ll;
-	*(int64*)((uint8*)&SYMB$ + 199224ll) = *(int64*)((uint8*)&ENV$ + 616ll);
-	*(int64*)((uint8*)&SYMB$ + 199232ll) = *(int64*)((uint8*)&ENV$ + 616ll) << (1ll & 63ll);
+	*(int64*)((uint8*)&SYMB$ + 199192ll) = *(int64*)((uint8*)&ENV$ + 624ll);
+	*(int64*)((uint8*)&SYMB$ + 199200ll) = *(int64*)((uint8*)&ENV$ + 624ll) << (1ll & 63ll);
+	*(int64*)((uint8*)&SYMB$ + 199208ll) = *(int64*)((uint8*)&ENV$ + 624ll) * 6ll;
+	*(int64*)((uint8*)&SYMB$ + 199224ll) = *(int64*)((uint8*)&ENV$ + 624ll);
+	*(int64*)((uint8*)&SYMB$ + 199232ll) = *(int64*)((uint8*)&ENV$ + 624ll) << (1ll & 63ll);
 	label$11:;
 }
 
@@ -1402,8 +1403,8 @@ int64 SYMBGETDESCTYPEDIMENSIONS( struct $8FBSYMBOL* DESCTYPE$1 )
 	}
 	label$19:;
 	label$18:;
-	DIMTBSIZE$1 = *(int64*)((uint8*)DESCTYPE$1 + 80ll) - (*(int64*)((uint8*)&ENV$ + 616ll) * 6ll);
-	DIMENSIONS$1 = DIMTBSIZE$1 / (*(int64*)((uint8*)&ENV$ + 616ll) * 3ll);
+	DIMTBSIZE$1 = *(int64*)((uint8*)DESCTYPE$1 + 80ll) - (*(int64*)((uint8*)&ENV$ + 624ll) * 6ll);
+	DIMENSIONS$1 = DIMTBSIZE$1 / (*(int64*)((uint8*)&ENV$ + 624ll) * 3ll);
 	fb$result$1 = DIMENSIONS$1;
 	label$17:;
 	return fb$result$1;
@@ -1562,7 +1563,7 @@ struct $8FBSYMBOL* SYMBADDARRAYDESC( struct $8FBSYMBOL* ARRAY$1 )
 				fb_StrAssign( (void*)&TEMPID$1, -1ll, (void*)vr$27, -1ll, 0 );
 				{
 					$10FB_BACKEND TMP$117$5;
-					TMP$117$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+					TMP$117$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 					if( TMP$117$5 == 1ll) goto label$48;
 					label$49:;
 					if( TMP$117$5 != 2ll) goto label$47;
@@ -1934,7 +1935,7 @@ struct $8FBSYMBOL* SYMBADDTEMPVAR( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1 )
 	static struct $8FBARRAY1I10FBARRAYDIME tmp$122$1 = { (struct $10FBARRAYDIM*)DTB$1, (struct $10FBARRAYDIM*)DTB$1, 16ll, 16ll, 1ll, 49ll, { { 1ll, 0ll, 0ll } } };
 	$10FB_SYMBOPT OPTIONS$1;
 	OPTIONS$1 = 0ll;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 2ll) != 0ll) goto label$142;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 2ll) != 0ll) goto label$142;
 	{
 		OPTIONS$1 = OPTIONS$1 | 2ll;
 	}
@@ -1989,7 +1990,7 @@ int64 SYMBGETREALSIZE( struct $8FBSYMBOL* SYM$1 )
 	label$147:;
 	int64 SIZE$1;
 	if( (*(int64*)((uint8*)SYM$1 + 8ll) & 262144ll) == 0ll) goto label$149;
-	TMP$124$1 = *(int64*)((uint8*)&ENV$ + 616ll);
+	TMP$124$1 = *(int64*)((uint8*)&ENV$ + 624ll);
 	goto label$150;
 	label$149:;
 	TMP$124$1 = *(int64*)((uint8*)SYM$1 + 80ll);
@@ -2139,7 +2140,7 @@ int64 SYMBCHECKARRAYSIZE( int64 DIMENSIONS$1, struct $10FBARRAYDIM* DIMTB$1, int
 	goto label$181;
 	label$182:;
 	{
-		if( (IS_ON_STACK$1 & (int64)-(ALLELEMENTS$1 > *(uint64*)((uint8*)&ENV$ + 496ll))) == 0ll) goto label$184;
+		if( (IS_ON_STACK$1 & (int64)-(ALLELEMENTS$1 > *(uint64*)((uint8*)&ENV$ + 504ll))) == 0ll) goto label$184;
 		{
 			ERRREPORTWARN( 23ll, (char*)0ull, 1ll, (char*)0ull );
 		}
@@ -2313,7 +2314,7 @@ int64 SYMBVARCHECKACCESS( struct $8FBSYMBOL* SYM$1 )
 	int64 fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$224:;
-	if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$227;
+	if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$227;
 	{
 		if( (*(int64*)((uint8*)SYM$1 + 8ll) & 128ll) == 0ll) goto label$229;
 		{

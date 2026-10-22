@@ -774,6 +774,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -819,7 +820,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -905,7 +906,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -1167,7 +1168,7 @@ int64 CDATASTMT( $8FB_TOKEN TK$1 )
 		if( TK$1 != 447ll) goto label$33;
 		label$34:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$36;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$36;
 			{
 				int64 vr$11 = CCOMPSTMTISALLOWED( 32ll );
 				if( vr$11 != 0ll) goto label$38;
@@ -1179,7 +1180,7 @@ int64 CDATASTMT( $8FB_TOKEN TK$1 )
 				label$37:;
 				if( *(uint64*)((uint8*)&PARSER$ + 200ll) <= 0ull) goto label$40;
 				{
-					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$42;
+					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$42;
 					{
 						ERRREPORT( 61ll, 0ll, (char*)0ull );
 					}
@@ -1199,7 +1200,7 @@ int64 CDATASTMT( $8FB_TOKEN TK$1 )
 			goto label$35;
 			label$36:;
 			{
-				if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$44;
+				if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$44;
 				{
 					ERRREPORT( 61ll, 0ll, (char*)0ull );
 					HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -1215,7 +1216,7 @@ int64 CDATASTMT( $8FB_TOKEN TK$1 )
 			TREE$3 = vr$12;
 			struct $7ASTNODE* EXPR$3;
 			EXPR$3 = (struct $7ASTNODE*)0ull;
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$46;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$46;
 			{
 				LEXSKIPTOKEN( 2048ll );
 				label$47:;

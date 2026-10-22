@@ -706,7 +706,7 @@ static void HLOADFBCTINFFROMELF32_H( int64 ELF_MACHINE$1 )
 		*(uint8*)((int64)(uint8*)ELFMAGIC$ + 5ll) = (uint8)1u;
 	}
 	label$36:;
-	int64 vr$1 = FBGETOPTION( 3ll );
+	int64 vr$1 = FBGETOPTION( 4ll );
 	if( vr$1 != 6ll) goto label$39;
 	{
 		*(uint8*)((int64)(uint8*)ELFMAGIC$ + 7ll) = (uint8)9u;
@@ -922,7 +922,7 @@ static void HLOADFBCTINFFROMELF64_H( int64 ELF_MACHINE$1 )
 		*(uint8*)((int64)(uint8*)ELFMAGIC$ + 5ll) = (uint8)1u;
 	}
 	label$90:;
-	int64 vr$1 = FBGETOPTION( 3ll );
+	int64 vr$1 = FBGETOPTION( 4ll );
 	if( vr$1 != 6ll) goto label$93;
 	{
 		*(uint8*)((int64)(uint8*)ELFMAGIC$ + 7ll) = (uint8)9u;

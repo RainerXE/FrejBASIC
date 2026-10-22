@@ -876,6 +876,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -921,7 +922,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1007,7 +1008,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1193,13 +1194,13 @@ void LEXPUSHCTX( void )
 void LEXPOPCTX( void )
 {
 	label$12:;
-	if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$15;
+	if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$15;
 	{
 		DZSTRALLOCATE( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll), 0ll );
 	}
 	label$15:;
 	label$14:;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$17;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$17;
 	{
 		DZSTRALLOCATE( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll), 0ll );
 	}
@@ -1215,7 +1216,7 @@ void LEXPOPCTX( void )
 		{
 			if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + -40ll) == *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49648ll)) goto label$23;
 			{
-				int32 vr$12 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + -40ll) );
+				int32 vr$12 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 632ll), *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + -40ll) );
 				if( (int64)vr$12 == 0ll) goto label$24;
 				void* vr$14 = fb_ErrorThrowAt( 70, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
 				(void)&&__fb_jumpptr$0$;
@@ -1242,7 +1243,7 @@ void LEXINIT( $17LEX_TKCTX_CONTEXT CTX_KIND$1 )
 	__builtin_memset( &I$1, 0, 8ll );
 	struct $7FBTOKEN* N$1;
 	__builtin_memset( &N$1, 0, 8ll );
-	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 1296ll) == 0ll) & (int64)-(CTX_KIND$1 == 0ll)) == 0ll) goto label$28;
+	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 1304ll) == 0ll) & (int64)-(CTX_KIND$1 == 0ll)) == 0ll) goto label$28;
 	{
 		*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) = (struct $9LEX_TKCTX*)&LEX$;
 	}
@@ -1299,7 +1300,7 @@ void LEXINIT( $17LEX_TKCTX_CONTEXT CTX_KIND$1 )
 	*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16760ll) = -1ll;
 	*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) = 0ll;
 	*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16800ll) = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$40;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$40;
 	{
 		char* TMP$96$2;
 		if( CTX_KIND$1 != 2ll) goto label$41;
@@ -1334,7 +1335,7 @@ void LEXINIT( $17LEX_TKCTX_CONTEXT CTX_KIND$1 )
 		*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49648ll) = 0ll;
 	}
 	label$42:;
-	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 1296ll) == 0ll) | (int64)-(CTX_KIND$1 == 2ll)) == 0ll) goto label$45;
+	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 1304ll) == 0ll) | (int64)-(CTX_KIND$1 == 2ll)) == 0ll) goto label$45;
 	{
 		DZSTRALLOCATE( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll), 0ll );
 		*(int64*)((uint8*)&LEX$ + 844704ll) = 0ll;
@@ -1897,7 +1898,7 @@ void LEXNEXTTOKEN( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 		{
 			$8FB_TOKEN TMP$128$3;
 			*(int64*)((uint8*)T$1 + 8ll) = 4ll;
-			if( *(int64*)((uint8*)&ENV$ + 1560ll) == 0ll) goto label$645;
+			if( *(int64*)((uint8*)&ENV$ + 1568ll) == 0ll) goto label$645;
 			TMP$128$3 = 263ll;
 			goto label$701;
 			label$645:;
@@ -1905,7 +1906,7 @@ void LEXNEXTTOKEN( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 			label$701:;
 			*(int64*)T$1 = TMP$128$3;
 			*(int64*)((uint8*)T$1 + 16ll) = 2147483648ll;
-			if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$647;
+			if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$647;
 			{
 				HREADSTRING( T$1, (char*)((uint8*)T$1 + 24ll), FLAGS$1 );
 			}
@@ -1937,7 +1938,7 @@ void LEXNEXTTOKEN( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 			label$702:;
 			*(int64*)T$1 = TMP$129$3;
 			*(int64*)((uint8*)T$1 + 16ll) = 2147483648ll;
-			if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$653;
+			if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$653;
 			{
 				char* PS$4;
 				if( (FLAGS$1 & 16ll) != 0ll) goto label$655;
@@ -2547,7 +2548,7 @@ void LEXPPONLYEMITTOKEN( void )
 			if( vr$1 <= 0ll) goto label$787;
 			{
 				int64 TMP$148$4;
-				TMP$148$4 = *(int64*)((uint8*)&ENV$ + 1216ll);
+				TMP$148$4 = *(int64*)((uint8*)&ENV$ + 1224ll);
 				fb_PrintString( (int32)TMP$148$4, (FBSTRING*)&PPONLY_LN$, 1 );
 				fb_StrAssign( (void*)&PPONLY_LN$, -1ll, (void*)"", 1ll, 0 );
 			}
@@ -2559,7 +2560,7 @@ void LEXPPONLYEMITTOKEN( void )
 				if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16760ll) != 257ll) goto label$790;
 				{
 					int64 TMP$149$5;
-					TMP$149$5 = *(int64*)((uint8*)&ENV$ + 1216ll);
+					TMP$149$5 = *(int64*)((uint8*)&ENV$ + 1224ll);
 					FBSTRING* vr$5 = fb_StrAllocTempDescZEx( (char*)"", 0ll );
 					fb_PrintString( (int32)TMP$149$5, (FBSTRING*)vr$5, 1 );
 				}
@@ -2624,7 +2625,7 @@ void LEXSKIPTOKEN( $8LEXCHECK FLAGS$1 )
 	label$801:;
 	LEXCHECKTOKEN( FLAGS$1 );
 	FLAGS$1 = FLAGS$1 & -14337ll;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$804;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$804;
 	{
 		if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16768ll) != 0ll) goto label$806;
 		{
@@ -2893,14 +2894,14 @@ FBSTRING* LEXPEEKCURRENTLINE( FBSTRING* TOKEN_POS$1, int64 DO_TRIM$1 )
 	uint64 CHAR$1;
 	__builtin_memset( &CHAR$1, 0, 8ll );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)"", 1ll, 0 );
-	if( *(int64*)((uint8*)&ENV$ + 912ll) == 0ll) goto label$865;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) == 0ll) goto label$865;
 	{
 		fb_StrDelete( (FBSTRING*)&RES$1 );
 		goto label$863;
 	}
 	label$865:;
 	label$864:;
-	int64 vr$11 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
+	int64 vr$11 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 632ll) );
 	OLD_P$1 = vr$11;
 	if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16792ll) != 2ll) goto label$867;
 	{
@@ -2920,14 +2921,14 @@ FBSTRING* LEXPEEKCURRENTLINE( FBSTRING* TOKEN_POS$1, int64 DO_TRIM$1 )
 	}
 	label$869:;
 	label$868:;
-	int32 vr$20 = fb_FileGetStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), P$1 + 1ll, (void*)BUFFER$1, 1025ll );
+	int32 vr$20 = fb_FileGetStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 632ll), P$1 + 1ll, (void*)BUFFER$1, 1025ll );
 	if( (int64)vr$20 == 0ll) goto label$870;
 	void* vr$22 = fb_ErrorThrowAt( 2484, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$0$;
 	goto *vr$22;
 	__fb_jumpptr$0$:;
 	label$870:;
-	int32 vr$24 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), OLD_P$1 );
+	int32 vr$24 = fb_FileSeekLarge( (int32)*(int64*)((uint8*)&ENV$ + 632ll), OLD_P$1 );
 	if( (int64)vr$24 == 0ll) goto label$871;
 	void* vr$26 = fb_ErrorThrowAt( 2485, (char*)"src/compiler/lex.bas", (void*)0ull, (void*)0ull );
 	(void)&&__fb_jumpptr$1$;
@@ -3146,7 +3147,7 @@ void LEXCHECKTOKEN( $8LEXCHECK FLAGS$1 )
 			label$926:;
 			if( (FLAGS$1 & 4096ll) == 0ll) goto label$928;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 8388608ll) != 0ll) goto label$930;
+				if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 8388608ll) != 0ll) goto label$930;
 				{
 					FBSTRING TMP$174$5;
 					FBSTRING TMP$175$5;
@@ -3182,7 +3183,7 @@ void LEXCHECKTOKEN( $8LEXCHECK FLAGS$1 )
 			label$928:;
 			if( (FLAGS$1 & 8192ll) == 0ll) goto label$932;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 8388608ll) == 0ll) goto label$934;
+				if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 8388608ll) == 0ll) goto label$934;
 				{
 					if( *(int64*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4152ll) == 36ll) goto label$936;
 					{
@@ -3221,7 +3222,7 @@ void LEXCHECKTOKEN( $8LEXCHECK FLAGS$1 )
 				{
 					if( *(int64*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4152ll) != 36ll) goto label$939;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 408ll) & 256ll) == 0ll) goto label$941;
+						if( (*(int64*)((uint8*)&ENV$ + 416ll) & 256ll) == 0ll) goto label$941;
 						{
 							FBSTRING TMP$184$7;
 							FBSTRING TMP$185$7;
@@ -3435,7 +3436,7 @@ static uint64 HREADCHAR( void )
 	uint64 CHAR$1;
 	if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16800ll) <= 0ll) goto label$64;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$66;
+		if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$66;
 		{
 			CHAR$1 = (uint64)(uint8)*(*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll));
 		}
@@ -3445,9 +3446,9 @@ static uint64 HREADCHAR( void )
 			CHAR$1 = (uint64)*(*(uint32**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll));
 		}
 		label$65:;
-		if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$68;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$68;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$70;
+			if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$70;
 			{
 				if( *(int64*)((uint8*)&LEX$ + 844704ll) != 0ll) goto label$72;
 				{
@@ -3475,21 +3476,21 @@ static uint64 HREADCHAR( void )
 	{
 		if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) != 0ll) goto label$75;
 		{
-			int32 vr$13 = fb_FileEof( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
+			int32 vr$13 = fb_FileEof( (int32)*(int64*)((uint8*)&ENV$ + 632ll) );
 			if( (int64)vr$13 != 0ll) goto label$77;
 			{
-				int64 vr$16 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
+				int64 vr$16 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 632ll) );
 				*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49632ll) = vr$16;
 				{
 					uint64 TMP$100$5;
-					TMP$100$5 = *(uint64*)((uint8*)&ENV$ + 912ll);
+					TMP$100$5 = *(uint64*)((uint8*)&ENV$ + 920ll);
 					goto label$79;
 					label$80:;
 					{
-						int32 vr$21 = fb_FileGetStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 624ll), 0ll, (void*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16856ll), 8193ll );
+						int32 vr$21 = fb_FileGetStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 632ll), 0ll, (void*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16856ll), 8193ll );
 						if( (int64)vr$21 != 0ll) goto label$82;
 						{
-							int64 vr$24 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 624ll) );
+							int64 vr$24 = fb_FileTell( (int32)*(int64*)((uint8*)&ENV$ + 632ll) );
 							*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49648ll) = vr$24;
 							*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) = *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49648ll) - *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49632ll);
 							*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16848ll) = (char*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16856ll);
@@ -3544,7 +3545,7 @@ static uint64 HREADCHAR( void )
 		label$74:;
 		if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) <= 0ll) goto label$89;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$91;
+			if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$91;
 			{
 				CHAR$1 = (uint64)(uint8)*(*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16848ll));
 			}
@@ -3561,9 +3562,9 @@ static uint64 HREADCHAR( void )
 			CHAR$1 = 0ull;
 		}
 		label$88:;
-		if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$93;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$93;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$95;
+			if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$95;
 			{
 				if( *(int64*)((uint8*)&LEX$ + 844704ll) == 0ll) goto label$97;
 				{
@@ -3592,7 +3593,7 @@ static void HSKIPCHAR( void )
 	if( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16800ll) <= 0ll) goto label$112;
 	{
 		*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16800ll) = *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16800ll) + -1ll;
-		if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$114;
+		if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$114;
 		{
 			*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll) = (char*)((uint8*)*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll) + 1ll);
 		}
@@ -3614,7 +3615,7 @@ static void HSKIPCHAR( void )
 	if( *(uint64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16728ll) == 0ull) goto label$117;
 	{
 		*(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) = *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16840ll) + -1ll;
-		if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$119;
+		if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$119;
 		{
 			*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16848ll) = (char*)((uint8*)*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16848ll) + 1ll);
 		}
@@ -3793,7 +3794,7 @@ static void HREADIDENTIFIER( char* PID$1, int64* TLEN$1, int64* DTYPE$1, int64* 
 			goto label$153;
 			label$154:;
 			{
-				*DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1456ll);
+				*DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1464ll);
 				*SUFFIXCHAR$1 = 37ll;
 				LEXEATCHAR(  );
 			}
@@ -4404,7 +4405,7 @@ static void HREADFLOATNUMBER( char** PNUM$1, struct $7FBTOKEN* T$1, int64 HASDOT
 	uint64 C$1;
 	int64 LLEN$1;
 	int64 SKIPCHAR$1;
-	*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1512ll);
+	*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1520ll);
 	LLEN$1 = *(int64*)((uint8*)T$1 + 4128ll);
 	SKIPCHAR$1 = 0ll;
 	label$273:;
@@ -5107,42 +5108,42 @@ static void HREADNUMBER( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 		if( TMP$116$2 != 5ll) goto label$393;
 		label$394:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1464ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1472ll);
 		}
 		goto label$392;
 		label$393:;
 		if( TMP$116$2 != 6ll) goto label$395;
 		label$396:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1472ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1480ll);
 		}
 		goto label$392;
 		label$395:;
 		if( TMP$116$2 != 11ll) goto label$397;
 		label$398:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1480ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1488ll);
 		}
 		goto label$392;
 		label$397:;
 		if( TMP$116$2 != 12ll) goto label$399;
 		label$400:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1488ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1496ll);
 		}
 		goto label$392;
 		label$399:;
 		if( TMP$116$2 != 13ll) goto label$401;
 		label$402:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1496ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1504ll);
 		}
 		goto label$392;
 		label$401:;
 		if( TMP$116$2 != 14ll) goto label$403;
 		label$404:;
 		{
-			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1504ll);
+			*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1512ll);
 		}
 		label$403:;
 		label$392:;
@@ -5281,11 +5282,11 @@ static void HREADNUMBER( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 					{
 						int64 TMP$122$6;
 						int64 TMP$123$6;
-						if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 480ll) == 0ll) goto label$442;
+						if( (*(int64*)((uint8*)&ENV$ + 1464ll) & 480ll) == 0ll) goto label$442;
 						TMP$122$6 = 24ll;
 						goto label$968;
 						label$442:;
-						TMP$122$6 = *(int64*)((uint8*)&ENV$ + 1456ll) & 31ll;
+						TMP$122$6 = *(int64*)((uint8*)&ENV$ + 1464ll) & 31ll;
 						label$968:;
 						TMP$123$6 = *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$122$6 * 56ll)) + 8ll);
 						if( TMP$123$6 != 2ll) goto label$444;
@@ -5319,7 +5320,7 @@ static void HREADNUMBER( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 					}
 					label$449:;
 					label$448:;
-					*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1456ll);
+					*(int64*)((uint8*)T$1 + 16ll) = *(int64*)((uint8*)&ENV$ + 1464ll);
 					LEXEATCHAR(  );
 				}
 				goto label$416;
@@ -5900,7 +5901,7 @@ static int64 READID( struct $7FBTOKEN* T$1, $8LEXCHECK FLAGS$1 )
 	}
 	label$575:;
 	label$574:;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$581;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$581;
 	{
 		if( (FLAGS$1 & 64ll) != 0ll) goto label$583;
 		{

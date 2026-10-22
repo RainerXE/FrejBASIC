@@ -1158,6 +1158,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1203,7 +1204,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1289,7 +1290,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1589,7 +1590,7 @@ void ASTSCOPEALLOCLOCALS( struct $8FBSYMBOL* SYMTBHEAD$1 )
 	S$1 = SYMTBHEAD$1;
 	{
 		$10FB_BACKEND TMP$108$2;
-		TMP$108$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$108$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$108$2 == 1ll) goto label$164;
 		label$165:;
 		if( TMP$108$2 != 2ll) goto label$163;
@@ -1800,8 +1801,8 @@ static void HBRANCHERROR( int64 ERRNUM$1, struct $7ASTNODE* N$1, struct $8FBSYMB
 	label$30:;
 	static int64 SHOWERROR$1;
 	static FBSTRING MSG$1;
-	SHOWERROR$1 = *(int64*)((uint8*)&ENV$ + 392ll);
-	*(int64*)((uint8*)&ENV$ + 392ll) = 0ll;
+	SHOWERROR$1 = *(int64*)((uint8*)&ENV$ + 400ll);
+	*(int64*)((uint8*)&ENV$ + 400ll) = 0ll;
 	if( *(char**)((uint8*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 24ll) + 32ll) == (char*)0ull) goto label$33;
 	{
 		FBSTRING TMP$96$2;
@@ -1844,7 +1845,7 @@ static void HBRANCHERROR( int64 ERRNUM$1, struct $7ASTNODE* N$1, struct $8FBSYMB
 	label$37:;
 	label$36:;
 	ERRREPORTEX( ERRNUM$1, (char*)*(char**)&MSG$1, *(int64*)((uint8*)N$1 + 56ll), 1ll, (char*)0ull );
-	*(int64*)((uint8*)&ENV$ + 392ll) = SHOWERROR$1;
+	*(int64*)((uint8*)&ENV$ + 400ll) = SHOWERROR$1;
 	label$31:;
 }
 
@@ -1853,8 +1854,8 @@ static void HBRANCHWARNING( int64 ERRNUM$1, struct $7ASTNODE* N$1, struct $8FBSY
 	label$41:;
 	static int64 SHOWERROR$1;
 	static FBSTRING MSG$1;
-	SHOWERROR$1 = *(int64*)((uint8*)&ENV$ + 392ll);
-	*(int64*)((uint8*)&ENV$ + 392ll) = 0ll;
+	SHOWERROR$1 = *(int64*)((uint8*)&ENV$ + 400ll);
+	*(int64*)((uint8*)&ENV$ + 400ll) = 0ll;
 	if( *(char**)((uint8*)*(struct $8FBSYMBOL**)((uint8*)N$1 + 24ll) + 32ll) == (char*)0ull) goto label$44;
 	{
 		FBSTRING TMP$103$2;
@@ -1881,7 +1882,7 @@ static void HBRANCHWARNING( int64 ERRNUM$1, struct $7ASTNODE* N$1, struct $8FBSY
 	label$48:;
 	label$47:;
 	ERRREPORTWARNEX( ERRNUM$1, (char*)*(char**)&MSG$1, *(int64*)((uint8*)N$1 + 56ll), 1ll, (char*)0ull );
-	*(int64*)((uint8*)&ENV$ + 392ll) = SHOWERROR$1;
+	*(int64*)((uint8*)&ENV$ + 400ll) = SHOWERROR$1;
 	label$42:;
 }
 

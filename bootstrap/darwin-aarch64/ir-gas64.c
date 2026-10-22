@@ -1334,6 +1334,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1379,7 +1380,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1465,7 +1466,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -4815,7 +4816,7 @@ static void HWRITEASM64( FBSTRING* LN2$1, int64 OPT$1 )
 	}
 	label$468:;
 	label$467:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$472;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$472;
 	{
 		if( *(int64*)((uint8*)&CTXDBG$ + 8ll) == -1ll) goto label$474;
 		{
@@ -5485,7 +5486,7 @@ static void EDBGEMITPROCHEADER_ASM64( struct $8FBSYMBOL* PROC$1 )
 	static FBSTRING DESC$1;
 	static FBSTRING PROCNAME$1;
 	static FBSTRING FILENAME$1;
-	fb_StrAssign( (void*)&FILENAME$1, -1ll, (void*)((uint8*)&ENV$ + 632ll), 261ll, 0 );
+	fb_StrAssign( (void*)&FILENAME$1, -1ll, (void*)((uint8*)&ENV$ + 640ll), 261ll, 0 );
 	DBG_FILENAME( &FILENAME$1 );
 	if( (*(int64*)((uint8*)PROC$1 + 24ll) & 4096ll) == 0ll) goto label$570;
 	{
@@ -8084,7 +8085,7 @@ static void HEMITVARIABLE( struct $8FBSYMBOL* SYM$1 )
 		goto label$920;
 		label$921:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$925;
+			if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$925;
 			{
 				if( IS_GLOBAL$1 != 2ll) goto label$927;
 				{
@@ -8162,7 +8163,7 @@ static void HEMITVARIABLE( struct $8FBSYMBOL* SYM$1 )
 			label$931:;
 			label$930:;
 		}
-		if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$943;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$943;
 		{
 			EDBGEMITLOCALVAR_ASM64( SYM$1, (int64)-((*(int64*)((uint8*)SYM$1 + 8ll) & 2ll) != 0ll) );
 			label$943:;
@@ -8751,18 +8752,18 @@ static int64 _EMITBEGIN( void )
 	int64 fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$980:;
-	int64 vr$2 = HFILEEXISTS( (char*)((uint8*)&ENV$ + 928ll) );
+	int64 vr$2 = HFILEEXISTS( (char*)((uint8*)&ENV$ + 936ll) );
 	if( vr$2 == 0ll) goto label$983;
 	{
-		FBSTRING* vr$4 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 928ll) );
+		FBSTRING* vr$4 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 936ll) );
 		fb_FileKill( (FBSTRING*)vr$4 );
 	}
 	label$983:;
 	label$982:;
 	int32 vr$5 = fb_FileFree(  );
-	*(int64*)((uint8*)&ENV$ + 920ll) = (int64)vr$5;
-	FBSTRING* vr$9 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 928ll) );
-	int32 vr$10 = fb_FileOpen( (FBSTRING*)vr$9, 0u, 3u, 0u, (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0 );
+	*(int64*)((uint8*)&ENV$ + 928ll) = (int64)vr$5;
+	FBSTRING* vr$9 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 936ll) );
+	int32 vr$10 = fb_FileOpen( (FBSTRING*)vr$9, 0u, 3u, 0u, (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0 );
 	if( (int64)vr$10 == 0ll) goto label$985;
 	{
 		fb$result$1 = 0ll;
@@ -8779,7 +8780,7 @@ static int64 _EMITBEGIN( void )
 	*(int64*)((uint8*)&CTX$ + 296ll) = 0ll;
 	*(int64*)((uint8*)&CTX$ + 304ll) = 0ll;
 	*(boolean*)((uint8*)&CTX$ + 312ll) = (boolean)0ll;
-	int64 vr$17 = FBGETOPTION( 3ll );
+	int64 vr$17 = FBGETOPTION( 4ll );
 	*($13FB_COMPTARGET*)((uint8*)&CTX$ + 464ll) = vr$17;
 	{
 		$13FB_COMPTARGET TMP$1010$2;
@@ -8839,7 +8840,7 @@ static int64 _EMITBEGIN( void )
 	goto label$995;
 	label$996:;
 	{
-		*(int64*)((uint8*)&CTX$ + 496ll) = *(int64*)((uint8*)&ENV$ + 496ll);
+		*(int64*)((uint8*)&CTX$ + 496ll) = *(int64*)((uint8*)&ENV$ + 504ll);
 		int32 vr$25 = fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&LISTREG$, 8ull, -1, 0, 1ull, 1ll, 6ll );
 		if( (int64)vr$25 == 0ll) goto label$998;
 		void* vr$27 = fb_ErrorThrowAt( 3168, (char*)"src/compiler/ir-gas64.bas", (void*)0ull, (void*)0ull );
@@ -8855,9 +8856,9 @@ static int64 _EMITBEGIN( void )
 		*(int64*)((uint8*)*(int64*)&LISTREG$ + 48ll) = 11ll;
 	}
 	label$995:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$1000;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$1000;
 	{
-		EDBGEMITHEADER_ASM64( (char*)((uint8*)&ENV$ + 632ll) );
+		EDBGEMITHEADER_ASM64( (char*)((uint8*)&ENV$ + 640ll) );
 	}
 	goto label$999;
 	label$1000:;
@@ -8897,7 +8898,7 @@ static int64 _EMITBEGIN( void )
 	fb_StrAssign( (void*)&TMP$1016$1, -1ll, (void*)".text", 6ll, 0 );
 	ASM_SECTION( &TMP$1016$1 );
 	fb_StrDelete( (FBSTRING*)&TMP$1016$1 );
-	if( *(int64*)((uint8*)&ENV$ + 376ll) != 3ll) goto label$1004;
+	if( *(int64*)((uint8*)&ENV$ + 384ll) != 3ll) goto label$1004;
 	{
 		HPROFILEEMITSECTIONS(  );
 	}
@@ -9217,18 +9218,18 @@ static void _EMITEND( void )
 	}
 	label$1027:;
 	label$1026:;
-	if( *(int64*)((uint8*)&ENV$ + 376ll) != 3ll) goto label$1034;
+	if( *(int64*)((uint8*)&ENV$ + 384ll) != 3ll) goto label$1034;
 	{
 		FBSTRING TMP$1083$2;
 		__builtin_memset( &TMP$1083$2, 0, 24ll );
-		fb_StrAssign( (void*)&TMP$1083$2, -1ll, (void*)((uint8*)&ENV$ + 632ll), 261ll, 0 );
+		fb_StrAssign( (void*)&TMP$1083$2, -1ll, (void*)((uint8*)&ENV$ + 640ll), 261ll, 0 );
 		HPROFILEEMITMODULENAME( &TMP$1083$2 );
-		fb_StrAssign( (void*)((uint8*)&ENV$ + 632ll), 261ll, (void*)&TMP$1083$2, -1ll, 0 );
+		fb_StrAssign( (void*)((uint8*)&ENV$ + 640ll), 261ll, (void*)&TMP$1083$2, -1ll, 0 );
 		fb_StrDelete( (FBSTRING*)&TMP$1083$2 );
 	}
 	label$1034:;
 	label$1033:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$1036;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$1036;
 	{
 		FBSTRING TMP$1084$2;
 		FBSTRING TMP$1085$2;
@@ -9257,43 +9258,43 @@ static void _EMITEND( void )
 	}
 	label$1036:;
 	label$1035:;
-	int32 vr$129 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 8ll), -1ll );
+	int32 vr$129 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 8ll), -1ll );
 	if( (int64)vr$129 == 0ll) goto label$1038;
 	{
 	}
 	label$1038:;
 	label$1037:;
-	int32 vr$133 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 32ll), -1ll );
+	int32 vr$133 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 32ll), -1ll );
 	if( (int64)vr$133 == 0ll) goto label$1040;
 	{
 	}
 	label$1040:;
 	label$1039:;
-	int32 vr$137 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 152ll), -1ll );
+	int32 vr$137 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 152ll), -1ll );
 	if( (int64)vr$137 == 0ll) goto label$1042;
 	{
 	}
 	label$1042:;
 	label$1041:;
-	int32 vr$141 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 176ll), -1ll );
+	int32 vr$141 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 176ll), -1ll );
 	if( (int64)vr$141 == 0ll) goto label$1044;
 	{
 	}
 	label$1044:;
 	label$1043:;
-	int32 vr$145 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 56ll), -1ll );
+	int32 vr$145 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 56ll), -1ll );
 	if( (int64)vr$145 == 0ll) goto label$1046;
 	{
 	}
 	label$1046:;
 	label$1045:;
-	int32 vr$148 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 920ll) );
+	int32 vr$148 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 928ll) );
 	if( (int64)vr$148 == 0ll) goto label$1048;
 	{
 	}
 	label$1048:;
 	label$1047:;
-	*(int64*)((uint8*)&ENV$ + 920ll) = 0ll;
+	*(int64*)((uint8*)&ENV$ + 928ll) = 0ll;
 	label$1025:;
 }
 
@@ -11439,7 +11440,7 @@ static void _PROCALLOCARG( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* SYM$1 )
 		label$1210:;
 	}
 	label$1167:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$1249;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$1249;
 	{
 		EDBGEMITPROCARG_ASM64( SYM$1 );
 		label$1249:;
@@ -12675,7 +12676,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 45ll) goto label$1375;
 						label$1376:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1378;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1378;
 							{
 								char* vr$114 = SYMBUNIQUELABEL(  );
 								fb_StrAssign( (void*)&LNAME2$1, -1ll, (void*)vr$114, 0ll, 0 );
@@ -12691,7 +12692,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 48ll) goto label$1379;
 						label$1380:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1382;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1382;
 							{
 								fb_StrAssign( (void*)&PARITY$3, -1ll, (void*)"jp ", 4ll, 0 );
 								fb_StrConcatAssign( (void*)&PARITY$3, -1ll, (void*)&LNAME1$1, -1ll, 0 );
@@ -12741,7 +12742,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 45ll) goto label$1392;
 						label$1393:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1395;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1395;
 							{
 								fb_StrAssign( (void*)&PARITY$3, -1ll, (void*)"jp ", 4ll, 0 );
 								fb_StrConcatAssign( (void*)&PARITY$3, -1ll, (void*)&LNAME1$1, -1ll, 0 );
@@ -12755,7 +12756,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 48ll) goto label$1396;
 						label$1397:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1399;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1399;
 							{
 								char* vr$125 = SYMBUNIQUELABEL(  );
 								fb_StrAssign( (void*)&LNAME2$1, -1ll, (void*)vr$125, 0ll, 0 );
@@ -12815,7 +12816,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 45ll) goto label$1411;
 						label$1412:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1414;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1414;
 							{
 								FBSTRING TMP$1641$8;
 								char* vr$131 = SYMBGETMANGLEDNAME( LABEL$1 );
@@ -12832,7 +12833,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 48ll) goto label$1415;
 						label$1416:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1418;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1418;
 							{
 								char* vr$136 = SYMBUNIQUELABEL(  );
 								fb_StrAssign( (void*)&LNAME2$1, -1ll, (void*)vr$136, 0ll, 0 );
@@ -12884,7 +12885,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 45ll) goto label$1428;
 						label$1429:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1431;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1431;
 							{
 								char* vr$141 = SYMBUNIQUELABEL(  );
 								fb_StrAssign( (void*)&LNAME2$1, -1ll, (void*)vr$141, 0ll, 0 );
@@ -12900,7 +12901,7 @@ static void BOP_FLOAT( int64 OP$1, struct $6IRVREG* V1$1, struct $6IRVREG* V2$1,
 						if( OP$1 != 48ll) goto label$1432;
 						label$1433:;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 240ll) == 1ll) goto label$1435;
+							if( *(int64*)((uint8*)&ENV$ + 248ll) == 1ll) goto label$1435;
 							{
 								FBSTRING TMP$1644$8;
 								char* vr$146 = SYMBGETMANGLEDNAME( LABEL$1 );
@@ -22483,9 +22484,9 @@ static void _EMITLOADRES( struct $6IRVREG* V1$1, struct $6IRVREG* VR$1 )
 				goto label$2669;
 				label$2670:;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 592ll) & 16ll) == 0ll) goto label$2672;
+					if( (*(int64*)((uint8*)&ENV$ + 600ll) & 16ll) == 0ll) goto label$2672;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 592ll) & 32ll) == 0ll) goto label$2674;
+						if( (*(int64*)((uint8*)&ENV$ + 600ll) & 32ll) == 0ll) goto label$2674;
 						{
 							FBSTRING TMP$3238$7;
 							FBSTRING TMP$3239$7;
@@ -22545,9 +22546,9 @@ static void _EMITLOADRES( struct $6IRVREG* V1$1, struct $6IRVREG* VR$1 )
 				goto label$2677;
 				label$2678:;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 592ll) & 16ll) == 0ll) goto label$2680;
+					if( (*(int64*)((uint8*)&ENV$ + 600ll) & 16ll) == 0ll) goto label$2680;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 592ll) & 32ll) == 0ll) goto label$2682;
+						if( (*(int64*)((uint8*)&ENV$ + 600ll) & 32ll) == 0ll) goto label$2682;
 						{
 							FBSTRING TMP$3246$7;
 							FBSTRING TMP$3247$7;
@@ -25374,7 +25375,7 @@ static void HDOCALL( struct $8FBSYMBOL* PROC$1, FBSTRING* PNAME$1, FBSTRING* FIR
 	goto label$3035;
 	label$3036:;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 376ll) != 3ll) goto label$3038;
+		if( *(int64*)((uint8*)&ENV$ + 384ll) != 3ll) goto label$3038;
 		{
 			HPROFILEDOCALL( PNAME$1 );
 		}
@@ -25586,9 +25587,9 @@ static void HDOCALL( struct $8FBSYMBOL* PROC$1, FBSTRING* PNAME$1, FBSTRING* FIR
 			goto label$3058;
 			label$3059:;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 592ll) & 16ll) == 0ll) goto label$3061;
+				if( (*(int64*)((uint8*)&ENV$ + 600ll) & 16ll) == 0ll) goto label$3061;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 592ll) & 32ll) == 0ll) goto label$3063;
+					if( (*(int64*)((uint8*)&ENV$ + 600ll) & 32ll) == 0ll) goto label$3063;
 					{
 						FBSTRING TMP$3702$6;
 						__builtin_memset( &TMP$3702$6, 0, 24ll );
@@ -25627,9 +25628,9 @@ static void HDOCALL( struct $8FBSYMBOL* PROC$1, FBSTRING* PNAME$1, FBSTRING* FIR
 			goto label$3065;
 			label$3066:;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 592ll) & 16ll) == 0ll) goto label$3068;
+				if( (*(int64*)((uint8*)&ENV$ + 600ll) & 16ll) == 0ll) goto label$3068;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 592ll) & 32ll) == 0ll) goto label$3070;
+					if( (*(int64*)((uint8*)&ENV$ + 600ll) & 32ll) == 0ll) goto label$3070;
 					{
 						FBSTRING TMP$3706$6;
 						__builtin_memset( &TMP$3706$6, 0, 24ll );
@@ -27750,7 +27751,7 @@ static void _EMITVARINIBEGIN( struct $8FBSYMBOL* SYM$1 )
 	goto label$3311;
 	label$3312:;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$3314;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$3314;
 		{
 			if( (*(int64*)((uint8*)SYM$1 + 8ll) & 57ll) == 0ll) goto label$3316;
 			{
@@ -27998,7 +27999,7 @@ static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLA
 	fb_StrAssign( (void*)&TMP$4059$1, -1ll, (void*)vr$53, -1ll, 0 );
 	HWRITEASM64( &TMP$4059$1, 0ll );
 	fb_StrDelete( (FBSTRING*)&TMP$4059$1 );
-	if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3348;
+	if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3348;
 	{
 		FBSTRING TMP$4061$2;
 		__builtin_memset( &TMP$4061$2, 0, 24ll );
@@ -28008,7 +28009,7 @@ static void _EMITPROCBEGIN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLA
 	}
 	label$3348:;
 	label$3347:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$3350;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$3350;
 	{
 		EDBGEMITPROCHEADER_ASM64( PROC$1 );
 		label$3350:;
@@ -28056,7 +28057,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	label$3355:;
 	*(int64*)((uint8*)&CTX$ + 232ll) = (*(int64*)((uint8*)&CTX$ + 232ll) + 15ll) & -16ll;
 	*(int64*)&CTX$ = 3ll;
-	if( *(int64*)((uint8*)&ENV$ + 376ll) != 3ll) goto label$3361;
+	if( *(int64*)((uint8*)&ENV$ + 384ll) != 3ll) goto label$3361;
 	{
 		HPROFILEPROCPROLOG(  );
 	}
@@ -28079,7 +28080,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 		fb_StrAssign( (void*)&TMP$4066$2, -1ll, (void*)".seh_pushreg rbp", 17ll, 0 );
 		CFI_WINDOWS_ASM_CODE( &TMP$4066$2 );
 		fb_StrDelete( (FBSTRING*)&TMP$4066$2 );
-		if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3365;
+		if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3365;
 		{
 			FBSTRING TMP$4068$3;
 			__builtin_memset( &TMP$4068$3, 0, 24ll );
@@ -28089,7 +28090,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 		}
 		label$3365:;
 		label$3364:;
-		if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3367;
+		if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3367;
 		{
 			FBSTRING TMP$4070$3;
 			__builtin_memset( &TMP$4070$3, 0, 24ll );
@@ -28107,7 +28108,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 		fb_StrAssign( (void*)&TMP$4074$2, -1ll, (void*)".seh_setframe rbp, 0", 21ll, 0 );
 		CFI_WINDOWS_ASM_CODE( &TMP$4074$2 );
 		fb_StrDelete( (FBSTRING*)&TMP$4074$2 );
-		if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3369;
+		if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3369;
 		{
 			FBSTRING TMP$4076$3;
 			__builtin_memset( &TMP$4076$3, 0, 24ll );
@@ -28463,14 +28464,14 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	label$3401:;
 	label$3400:;
 	*(int64*)&CTX$ = 5ll;
-	if( *(int64*)((uint8*)&ENV$ + 376ll) != 3ll) goto label$3433;
+	if( *(int64*)((uint8*)&ENV$ + 384ll) != 3ll) goto label$3433;
 	{
 		HPROFILEPROCEPILOG(  );
 		HPROFILEPROCEMITDATA( PROC$1 );
 	}
 	label$3433:;
 	label$3432:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$3435;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$3435;
 	{
 		FBSTRING TMP$4172$2;
 		FBSTRING TMP$4173$2;
@@ -28519,7 +28520,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 		fb_StrAssign( (void*)&TMP$4181$2, -1ll, (void*)"pop rbp", 8ll, 0 );
 		HWRITEASM64( &TMP$4181$2, 2ll );
 		fb_StrDelete( (FBSTRING*)&TMP$4181$2 );
-		if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3441;
+		if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3441;
 		{
 			FBSTRING TMP$4183$3;
 			__builtin_memset( &TMP$4183$3, 0, 24ll );
@@ -28529,7 +28530,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 		}
 		label$3441:;
 		label$3440:;
-		if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3443;
+		if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3443;
 		{
 			FBSTRING TMP$4185$3;
 			__builtin_memset( &TMP$4185$3, 0, 24ll );
@@ -28546,7 +28547,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	fb_StrAssign( (void*)&TMP$4186$1, -1ll, (void*)"ret", 4ll, 0 );
 	HWRITEASM64( &TMP$4186$1, 2ll );
 	fb_StrDelete( (FBSTRING*)&TMP$4186$1 );
-	if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3445;
+	if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3445;
 	{
 		FBSTRING TMP$4188$2;
 		__builtin_memset( &TMP$4188$2, 0, 24ll );
@@ -28560,7 +28561,7 @@ static void _EMITPROCEND( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABE
 	fb_StrAssign( (void*)&TMP$4190$1, -1ll, (void*)".seh_endproc", 13ll, 0 );
 	CFI_WINDOWS_ASM_CODE( &TMP$4190$1 );
 	fb_StrDelete( (FBSTRING*)&TMP$4190$1 );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != -1ll) goto label$3447;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != -1ll) goto label$3447;
 	{
 		FBSTRING TMP$4191$2;
 		FBSTRING TMP$4192$2;
@@ -29478,7 +29479,7 @@ static void _EMITLOAD( struct $6IRVREG* V1$1 )
 static void CFI_WINDOWS_ASM_CODE( FBSTRING* STATEMENT$1 )
 {
 	label$3549:;
-	if( *(int64*)((uint8*)&ENV$ + 368ll) != -1ll) goto label$3552;
+	if( *(int64*)((uint8*)&ENV$ + 376ll) != -1ll) goto label$3552;
 	{
 		if( *(int64*)((uint8*)&CTX$ + 464ll) != 0ll) goto label$3554;
 		{

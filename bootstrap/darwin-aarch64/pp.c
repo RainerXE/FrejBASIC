@@ -999,6 +999,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1044,7 +1045,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1129,7 +1130,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1460,7 +1461,7 @@ void PPPARSE( void )
 					goto label$51;
 					label$52:;
 					{
-						if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$54;
+						if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$54;
 						{
 							if( *(int64*)SYM$4 == 5ll) goto label$56;
 							{
@@ -1619,9 +1620,9 @@ void PPPARSE( void )
 		label$42:;
 	}
 	CCOMMENT( 0ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$75;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$75;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$77;
+		if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$77;
 		{
 			struct $7ASTNODE* vr$19 = ASTNEWLIT( *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll) );
 			ASTADD( vr$19 );
@@ -2855,7 +2856,7 @@ static void PPINCLIB( void )
 	}
 	label$89:;
 	label$88:;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$91;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$91;
 	{
 		FBSTRING TMP$127$2;
 		__builtin_memset( &TMP$127$2, 0, 24ll );
@@ -2884,7 +2885,7 @@ static void PPLIBPATH( void )
 	}
 	label$95:;
 	label$94:;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$97;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$97;
 	{
 		FBSTRING TMP$129$2;
 		__builtin_memset( &TMP$129$2, 0, 24ll );
@@ -2956,7 +2957,7 @@ static void PPLANG( void )
 	}
 	label$109:;
 	label$108:;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$111;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$111;
 	{
 		FBSTRING TMP$132$2;
 		FBSTRING TMP$133$2;
@@ -2973,7 +2974,7 @@ static void PPLANG( void )
 	}
 	label$111:;
 	label$110:;
-	FBCHANGEOPTION( 10ll, ID$1 );
+	FBCHANGEOPTION( 11ll, ID$1 );
 	LEXSKIPTOKEN( 0ll );
 	label$105:;
 }
@@ -3135,7 +3136,7 @@ static void PPCMDLINE( void )
 	label$235:;
 	char* vr$1 = LEXGETTEXT(  );
 	ARGS$1 = vr$1;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$238;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$238;
 	{
 		FBSTRING TMP$155$2;
 		FBSTRING TMP$156$2;
@@ -3153,7 +3154,7 @@ static void PPCMDLINE( void )
 	label$237:;
 	if( *(uint64*)((uint8*)&PARSER$ + 200ll) == 0ull) goto label$240;
 	{
-		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$242;
+		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$242;
 		{
 			ERRREPORT( 61ll, 0ll, (char*)0ull );
 		}
@@ -3166,20 +3167,20 @@ static void PPCMDLINE( void )
 	}
 	goto label$239;
 	label$240:;
-	if( *(int64*)((uint8*)&ENV$ + 1592ll) == 1ll) goto label$243;
+	if( *(int64*)((uint8*)&ENV$ + 1600ll) == 1ll) goto label$243;
 	{
 		ERRREPORTWARN( 46ll, (char*)0ull, 1ll, (char*)0ull );
 	}
 	goto label$239;
 	label$243:;
-	int64 vr$12 = FBGETOPTION( 43ll );
+	int64 vr$12 = FBGETOPTION( 44ll );
 	if( vr$12 == 0ll) goto label$244;
 	{
 		ERRREPORTWARN( 46ll, (char*)0ull, 1ll, (char*)0ull );
 	}
 	goto label$239;
 	label$244:;
-	if( (*(int64*)((uint8*)&ENV$ + 1616ll) & 10ll) == 0ll) goto label$245;
+	if( (*(int64*)((uint8*)&ENV$ + 1624ll) & 10ll) == 0ll) goto label$245;
 	{
 	}
 	goto label$239;

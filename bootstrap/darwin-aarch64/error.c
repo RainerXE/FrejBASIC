@@ -865,6 +865,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -910,7 +911,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -995,7 +996,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1302,9 +1303,9 @@ void ERRREPORTEX( int64 ERRNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRMSGOP
 	}
 	label$70:;
 	label$69:;
-	HPRINTERRMSG( ERRNUM$1, MSGEX$1, OPTIONS$1, LINENUM$1, *(int64*)((uint8*)&ENV$ + 392ll), CUSTOMTEXT$1 );
+	HPRINTERRMSG( ERRNUM$1, MSGEX$1, OPTIONS$1, LINENUM$1, *(int64*)((uint8*)&ENV$ + 400ll), CUSTOMTEXT$1 );
 	*(int64*)((uint8*)&ERRCTX$ + 8ll) = *(int64*)((uint8*)&ERRCTX$ + 8ll) + 1ll;
-	if( *(int64*)((uint8*)&ERRCTX$ + 8ll) < *(int64*)((uint8*)&ENV$ + 400ll)) goto label$76;
+	if( *(int64*)((uint8*)&ERRCTX$ + 8ll) < *(int64*)((uint8*)&ENV$ + 408ll)) goto label$76;
 	{
 		HPRINTERRMSG( 133ll, (char*)0ull, 0ll, LINENUM$1, 0ll, (char*)0ull );
 		ERRHIDEFURTHERERRORS(  );
@@ -1347,7 +1348,7 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 	}
 	label$100:;
 	label$99:;
-	if( *(int64*)(((int64)(struct $9FBWARNING*)WARNINGMSGS$ + (MSGNUM$1 << (4ll & 63ll))) + -16ll) >= *(int64*)((uint8*)&ENV$ + 384ll)) goto label$102;
+	if( *(int64*)(((int64)(struct $9FBWARNING*)WARNINGMSGS$ + (MSGNUM$1 << (4ll & 63ll))) + -16ll) >= *(int64*)((uint8*)&ENV$ + 392ll)) goto label$102;
 	{
 		goto label$98;
 	}
@@ -1359,7 +1360,7 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 	}
 	label$104:;
 	label$103:;
-	if( (*(int64*)((uint8*)&ENV$ + 408ll) & 512ll) == 0ll) goto label$106;
+	if( (*(int64*)((uint8*)&ENV$ + 416ll) & 512ll) == 0ll) goto label$106;
 	{
 		*(int64*)((uint8*)&ERRCTX$ + 8ll) = *(int64*)((uint8*)&ERRCTX$ + 8ll) + 1ll;
 	}
@@ -1372,10 +1373,10 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 	}
 	label$108:;
 	label$107:;
-	int64 vr$8 = fb_StrLen( (void*)((uint8*)&ENV$ + 632ll), 261ll );
+	int64 vr$8 = fb_StrLen( (void*)((uint8*)&ENV$ + 640ll), 261ll );
 	if( vr$8 <= 0ll) goto label$110;
 	{
-		FBSTRING* vr$10 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 632ll) );
+		FBSTRING* vr$10 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 640ll) );
 		fb_PrintString( 0, (FBSTRING*)vr$10, 0 );
 	}
 	goto label$109;
@@ -1409,7 +1410,7 @@ void ERRREPORTWARNEX( int64 MSGNUM$1, char* MSGEX$1, int64 LINENUM$1, $12FB_ERRM
 		fb_PrintString( 0, (FBSTRING*)vr$19, 0 );
 	}
 	label$113:;
-	if( (*(int64*)((uint8*)&ENV$ + 408ll) & 512ll) == 0ll) goto label$116;
+	if( (*(int64*)((uint8*)&ENV$ + 416ll) & 512ll) == 0ll) goto label$116;
 	{
 		FBSTRING* vr$21 = fb_StrAllocTempDescZEx( (char*)" error", 6ll );
 		fb_PrintString( 0, (FBSTRING*)vr$21, 0 );
@@ -1586,10 +1587,10 @@ static void HPRINTERRMSG( int64 ERRNUM$1, char* MSGEX$1, $12FB_ERRMSGOPT OPTIONS
 	}
 	label$37:;
 	label$36:;
-	int64 vr$5 = fb_StrLen( (void*)((uint8*)&ENV$ + 632ll), 261ll );
+	int64 vr$5 = fb_StrLen( (void*)((uint8*)&ENV$ + 640ll), 261ll );
 	if( vr$5 <= 0ll) goto label$39;
 	{
-		FBSTRING* vr$7 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 632ll) );
+		FBSTRING* vr$7 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 640ll) );
 		fb_PrintString( 0, (FBSTRING*)vr$7, 0 );
 		FBSTRING* vr$8 = fb_StrAllocTempDescZEx( (char*)"(", 1ll );
 		fb_PrintString( 0, (FBSTRING*)vr$8, 0 );
@@ -1677,12 +1678,12 @@ static void HPRINTERRMSG( int64 ERRNUM$1, char* MSGEX$1, $12FB_ERRMSGOPT OPTIONS
 		if( SHOWERROR$1 == 0ll) goto label$58;
 		{
 			static FBSTRING LN$3;
-			FBSTRING* vr$37 = LEXPEEKCURRENTLINE( &TOKEN_POS$1, (int64)-((*(int64*)((uint8*)&ENV$ + 1448ll) & 256ll) != 0ll) );
+			FBSTRING* vr$37 = LEXPEEKCURRENTLINE( &TOKEN_POS$1, (int64)-((*(int64*)((uint8*)&ENV$ + 1456ll) & 256ll) != 0ll) );
 			fb_StrAssign( (void*)&LN$3, -1ll, (void*)vr$37, -1ll, 0 );
 			int64 vr$38 = fb_StrLen( (void*)&LN$3, -1ll );
 			if( vr$38 <= 0ll) goto label$60;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 256ll) == 0ll) goto label$62;
+				if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 256ll) == 0ll) goto label$62;
 				{
 					FBSTRING TMP$499$5;
 					FBSTRING TMP$500$5;

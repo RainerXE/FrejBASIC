@@ -772,6 +772,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -817,7 +818,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -903,7 +904,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
@@ -1020,7 +1021,7 @@ struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
 	PROCMODE_FB$1 = *(int64*)((uint8*)PROC$1 + 152ll);
 	if( PROCMODE_FB$1 != -1ll) goto label$103;
 	{
-		PROCMODE_FB$1 = *(int64*)((uint8*)&ENV$ + 576ll);
+		PROCMODE_FB$1 = *(int64*)((uint8*)&ENV$ + 584ll);
 		label$103:;
 	}
 	if( PROCMODE_FB$1 != 3ll) goto label$105;
@@ -1029,7 +1030,7 @@ struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
 	}
 	goto label$104;
 	label$105:;
-	if( (((int64)-(PROCMODE_FB$1 == 1ll) | (int64)-(PROCMODE_FB$1 == 2ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll)) == 0ll) goto label$106;
+	if( (((int64)-(PROCMODE_FB$1 == 1ll) | (int64)-(PROCMODE_FB$1 == 2ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 0ll)) == 0ll) goto label$106;
 	{
 		PROCMODE$1 = 0ll;
 	}

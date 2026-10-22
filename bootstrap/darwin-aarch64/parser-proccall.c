@@ -1168,6 +1168,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1213,7 +1214,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1298,7 +1299,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1831,7 +1832,7 @@ int64 CPROCCALLORASSIGN( void )
 	struct $8FBSYMBOL* BASE_PARENT$1;
 	struct $7ASTNODE* EXPR$1;
 	fb$result$1 = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$244;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$244;
 	{
 		int64 vr$1 = HPROCCALLORASSIGN_QB(  );
 		fb$result$1 = vr$1;
@@ -1862,7 +1863,7 @@ int64 CPROCCALLORASSIGN( void )
 				goto label$250;
 				label$251:;
 				{
-					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$253;
+					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$253;
 					{
 						ERRREPORT( 254ll, 0ll, (char*)0ull );
 						HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -1910,7 +1911,7 @@ int64 CPROCCALLORASSIGN( void )
 				goto label$249;
 				label$260:;
 				{
-					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$262;
+					if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$262;
 					{
 						ERRREPORT( 193ll, 0ll, (char*)0ull );
 						HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -1963,7 +1964,7 @@ int64 CPROCCALLORASSIGN( void )
 				goto label$249;
 				label$269:;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 131072ll) != 0ll) goto label$271;
+					if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 131072ll) != 0ll) goto label$271;
 					{
 						ERRREPORTNOTALLOWED( 131072ll, 146ll, (char*)0ull );
 						HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -2142,7 +2143,7 @@ int64 HFORWARDCALL( void )
 		if( TMP$108$2 != 0ll) goto label$322;
 		label$323:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$325;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$325;
 			{
 				if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$327;
 				{
@@ -2282,7 +2283,7 @@ int64 HFORWARDCALL( void )
 	}
 	label$354:;
 	label$353:;
-	struct $8FBSYMBOL* vr$24 = SYMBADDPROC( PROC$1, (char*)*(char**)&ID$1, (char*)0ull, 0ll, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, *(int64*)((uint8*)&ENV$ + 576ll), 0ll );
+	struct $8FBSYMBOL* vr$24 = SYMBADDPROC( PROC$1, (char*)*(char**)&ID$1, (char*)0ull, 0ll, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, *(int64*)((uint8*)&ENV$ + 584ll), 0ll );
 	PROC$1 = vr$24;
 	if( PROC$1 != (struct $8FBSYMBOL*)0ull) goto label$358;
 	{

@@ -799,6 +799,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -844,7 +845,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -930,7 +931,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -1487,7 +1488,7 @@ static int64 HARRAYINIT( struct $10FB_INITCTX* CTX$1, int64 NO_FAKE$1 )
 			int64 PAD_LGT$3;
 			if( (*(int64*)((uint8*)*(struct $8FBSYMBOL**)CTX$1 + 8ll) & 262144ll) == 0ll) goto label$75;
 			{
-				PAD_LGT$3 = *(int64*)((uint8*)&ENV$ + 616ll);
+				PAD_LGT$3 = *(int64*)((uint8*)&ENV$ + 624ll);
 			}
 			goto label$74;
 			label$75:;

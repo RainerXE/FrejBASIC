@@ -912,6 +912,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -957,7 +958,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1043,7 +1044,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -2127,7 +2128,7 @@ static struct $7ASTNODE* HCAST( $11AST_CONVOPT OPTIONS$1 )
 		{
 			if( (OPTIONS$1 & 4ll) == 0ll) goto label$117;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 408ll) & 16ll) == 0ll) goto label$119;
+				if( (*(int64*)((uint8*)&ENV$ + 416ll) & 16ll) == 0ll) goto label$119;
 				{
 					ERRREPORTWARN( 27ll, (char*)0ull, 1ll, (char*)0ull );
 				}
@@ -2207,7 +2208,7 @@ static struct $7ASTNODE* HCAST( $11AST_CONVOPT OPTIONS$1 )
 	label$127:;
 	label$126:;
 	OPTIONS$1 = OPTIONS$1 | 2ll;
-	if( ((int64)-((*(int64*)((uint8*)&ENV$ + 408ll) & 64ll) == 0ll) & (int64)-((*(int64*)((uint8*)&ENV$ + 408ll) & 128ll) == 0ll)) == 0ll) goto label$129;
+	if( ((int64)-((*(int64*)((uint8*)&ENV$ + 416ll) & 64ll) == 0ll) & (int64)-((*(int64*)((uint8*)&ENV$ + 416ll) & 128ll) == 0ll)) == 0ll) goto label$129;
 	{
 		OPTIONS$1 = OPTIONS$1 | 32ll;
 	}

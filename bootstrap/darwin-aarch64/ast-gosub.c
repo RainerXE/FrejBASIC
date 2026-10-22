@@ -841,6 +841,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -886,7 +887,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -972,7 +973,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1006,7 +1007,7 @@ void ASTGOSUBADDINIT( struct $8FBSYMBOL* PROC$1 )
 	}
 	label$13:;
 	label$12:;
-	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 416ll) == 0ll)) == 0ll) goto label$15;
+	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 424ll) == 0ll)) == 0ll) goto label$15;
 	{
 		DTYPE$1 = 8ll;
 	}
@@ -1032,7 +1033,7 @@ void ASTGOSUBADDJMP( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* L$1 )
 	label$16:;
 	struct $8FBSYMBOL* LABEL$1;
 	ASTGOSUBADDINIT( PROC$1 );
-	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 416ll) == 0ll)) == 0ll) goto label$19;
+	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 424ll) == 0ll)) == 0ll) goto label$19;
 	{
 		struct $7ASTNODE* vr$7 = ASTBUILDVARINC( *(struct $8FBSYMBOL**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 120ll), 1ll );
 		ASTADD( vr$7 );
@@ -1067,7 +1068,7 @@ void ASTGOSUBADDJUMPPTR( struct $8FBSYMBOL* PROC$1, struct $7ASTNODE* JUMPTB$1, 
 	label$20:;
 	struct $8FBSYMBOL* LABEL$1;
 	ASTGOSUBADDINIT( PROC$1 );
-	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 416ll) == 0ll)) == 0ll) goto label$23;
+	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 424ll) == 0ll)) == 0ll) goto label$23;
 	{
 		struct $7ASTNODE* vr$7 = ASTBUILDVARINC( *(struct $8FBSYMBOL**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 120ll), 1ll );
 		ASTADD( vr$7 );
@@ -1108,7 +1109,7 @@ int64 ASTGOSUBADDRETURN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* L$1 )
 	label$24:;
 	struct $8FBSYMBOL* LABEL$1;
 	ASTGOSUBADDINIT( PROC$1 );
-	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 416ll) == 0ll)) == 0ll) goto label$27;
+	if( (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 424ll) == 0ll)) == 0ll) goto label$27;
 	{
 		struct $8FBSYMBOL* vr$6 = SYMBADDLABEL( (char*)0ull, 4ll );
 		LABEL$1 = vr$6;
@@ -1127,7 +1128,7 @@ int64 ASTGOSUBADDRETURN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* L$1 )
 		goto label$28;
 		label$29:;
 		{
-			struct $7ASTNODE* vr$17 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 616ll), 8ll, (struct $8FBSYMBOL*)0ull );
+			struct $7ASTNODE* vr$17 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 624ll), 8ll, (struct $8FBSYMBOL*)0ull );
 			struct $7ASTNODE* vr$18 = ASTNEWSTACK( 90ll, vr$17 );
 			ASTADD( vr$18 );
 			struct $7ASTNODE* vr$19 = ASTNEWBRANCH( 99ll, L$1, (struct $7ASTNODE*)0ull );
@@ -1138,10 +1139,10 @@ int64 ASTGOSUBADDRETURN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* L$1 )
 		ASTADD( vr$20 );
 		struct $7ASTNODE* vr$21 = ASTNEWCONSTI( 16ll, 8ll, (struct $8FBSYMBOL*)0ull );
 		RTLERRORSETNUM( vr$21 );
-		if( *(int64*)((uint8*)&ENV$ + 312ll) == 0ll) goto label$31;
+		if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$31;
 		{
 			struct $7ASTNODE* vr$24 = ASTNEWCONSTI( 16ll, 8ll, (struct $8FBSYMBOL*)0ull );
-			RTLERRORTHROW( vr$24, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), (char*)((uint8*)&ENV$ + 632ll) );
+			RTLERRORTHROW( vr$24, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), (char*)((uint8*)&ENV$ + 640ll) );
 		}
 		label$31:;
 		label$30:;
@@ -1175,10 +1176,10 @@ int64 ASTGOSUBADDRETURN( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* L$1 )
 			ASTADD( vr$40 );
 			struct $7ASTNODE* vr$41 = ASTNEWCONSTI( 16ll, 8ll, (struct $8FBSYMBOL*)0ull );
 			RTLERRORSETNUM( vr$41 );
-			if( *(int64*)((uint8*)&ENV$ + 312ll) == 0ll) goto label$35;
+			if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$35;
 			{
 				struct $7ASTNODE* vr$44 = ASTNEWCONSTI( 16ll, 8ll, (struct $8FBSYMBOL*)0ull );
-				RTLERRORTHROW( vr$44, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), (char*)((uint8*)&ENV$ + 632ll) );
+				RTLERRORTHROW( vr$44, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), (char*)((uint8*)&ENV$ + 640ll) );
 			}
 			label$35:;
 			label$34:;
@@ -1196,7 +1197,7 @@ void ASTGOSUBADDEXIT( struct $8FBSYMBOL* PROC$1 )
 	label$36:;
 	if( (*(int64*)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 96ll) & 4ll) == 0ll) goto label$39;
 	{
-		if( (((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 416ll) == 0ll)) != 0ll) goto label$41;
+		if( (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 4ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 424ll) == 0ll)) != 0ll) goto label$41;
 		{
 			struct $7ASTNODE* vr$10 = ASTNEWVAR( *(struct $8FBSYMBOL**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)PROC$1 + 208ll) + 120ll), 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 			struct $7ASTNODE* vr$11 = ASTNEWADDROF( vr$10 );

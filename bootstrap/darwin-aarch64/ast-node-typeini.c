@@ -1012,6 +1012,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1057,7 +1058,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1143,7 +1144,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -1558,7 +1559,7 @@ struct $7ASTNODE* ASTTYPEINIADDASSIGN( struct $7ASTNODE* TREE$1, struct $7ASTNOD
 		{
 			if( (*(int64*)((uint8*)SYM$1 + 8ll) & 262144ll) == 0ll) goto label$135;
 			{
-				*(int64*)((uint8*)N$1 + 48ll) = *(int64*)((uint8*)&ENV$ + 616ll);
+				*(int64*)((uint8*)N$1 + 48ll) = *(int64*)((uint8*)&ENV$ + 624ll);
 			}
 			goto label$134;
 			label$135:;
@@ -2495,7 +2496,7 @@ static int64 HASTCHECKTYPEINIASSIGNMENT( struct $7ASTNODE* N$1, int64 MAXSIZE$1,
 			{
 				if( (*(int64*)((uint8*)N$1 + 40ll) + *(int64*)((uint8*)N$1 + 48ll)) <= MAXSIZE$1) goto label$173;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 408ll) & 1024ll) == 0ll) goto label$175;
+					if( (*(int64*)((uint8*)&ENV$ + 416ll) & 1024ll) == 0ll) goto label$175;
 					{
 						ERRREPORTWARN( 49ll, (char*)0ull, 1ll, (char*)0ull );
 					}

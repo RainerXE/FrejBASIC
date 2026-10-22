@@ -919,6 +919,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -964,7 +965,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1050,7 +1051,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 struct $7ASTNODE* _Z17ASTBUILDVARASSIGNP8FBSYMBOLll( struct $8FBSYMBOL* LHS$1, int64 RHS$1, int64 OPTIONS$1 )
@@ -1489,7 +1490,7 @@ struct $7ASTNODE* ASTBUILDVTABLELOOKUP( struct $8FBSYMBOL* PROC$1, struct $7ASTN
 		struct $8FBSYMBOL* vr$12 = SYMBADDPROCPTRFROMFUNCTION( PROC$1 );
 		struct $7ASTNODE* vr$13 = ASTNEWCONV( 54ll, vr$12, P$1, 0ll, (int64*)0ull );
 		P$1 = vr$13;
-		if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$86;
+		if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$86;
 		{
 			if( (*(int64*)((uint8*)PROC$1 + 16ll) & 512ll) == 0ll) goto label$88;
 			{
@@ -1898,7 +1899,7 @@ struct $7ASTNODE* ASTBUILDMULTIDEREF( int64 CNT$1, struct $7ASTNODE* EXPR$1, int
 				label$166:;
 				label$162:;
 			}
-			if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$169;
+			if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$169;
 			{
 				struct $7ASTNODE* vr$19 = ASTBUILDPTRCHK( EXPR$1 );
 				EXPR$1 = vr$19;

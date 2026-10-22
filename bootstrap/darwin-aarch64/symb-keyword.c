@@ -863,6 +863,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -908,7 +909,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -994,7 +995,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 static struct $7SYMBKWD KWDTB$[263] = { { (char*)"AND", 288ll, 5ll }, { (char*)"OR", 289ll, 5ll }, { (char*)"ANDALSO", 290ll, 5ll }, { (char*)"ORELSE", 291ll, 5ll }, { (char*)"XOR", 292ll, 5ll }, { (char*)"EQV", 293ll, 5ll }, { (char*)"IMP", 294ll, 5ll }, { (char*)"NOT", 295ll, 5ll }, { (char*)"MOD", 296ll, 5ll }, { (char*)"SHL", 297ll, 5ll, 1ll }, { (char*)"SHR", 298ll, 5ll, 1ll }, { (char*)"NEW", 389ll, 5ll, 1ll }, { (char*)"DELETE", 390ll, 5ll, 1ll }, { (char*)"REM", 260ll, 1ll }, { (char*)"DIM", 308ll, 1ll }, { (char*)"ABS", 448ll, 1ll }, { (char*)"SGN", 449ll, 1ll }, { (char*)"FIX", 450ll, 1ll }, { (char*)"FRAC", 451ll, 1ll, 1ll }, { (char*)"INT", 461ll, 1ll }, { (char*)"STATIC", 307ll, 1ll }, { (char*)"SHARED", 312ll, 1ll }, { (char*)"BOOLEAN", 356ll, 1ll, 1ll }, { (char*)"BYTE", 357ll, 1ll, 1ll }, { (char*)"UBYTE", 358ll, 1ll, 1ll }, { (char*)"SHORT", 359ll, 1ll, 1ll }, { (char*)"USHORT", 360ll, 1ll, 1ll }, { (char*)"INTEGER", 361ll, 1ll }, { (char*)"UINTEGER", 362ll, 1ll, 1ll }, { (char*)"LONG", 363ll, 1ll }, { (char*)"ULONG", 364ll, 1ll, 1ll }, { (char*)"LONGINT", 365ll, 1ll, 1ll }, { (char*)"ULONGINT", 366ll, 1ll, 1ll }, { (char*)"SINGLE", 367ll, 1ll }, { (char*)"DOUBLE", 368ll, 1ll }, { (char*)"STRING", 369ll, 1ll, 2ll }, { (char*)"ZSTRING", 370ll, 1ll, 1ll }, { (char*)"WSTRING", 371ll, 1ll, 1ll }, { (char*)"UNSIGNED", 375ll, 1ll, 1ll }, { (char*)"ANY", 372ll, 1ll }, { (char*)"PTR", 373ll, 1ll, 1ll }, { (char*)"POINTER", 374ll, 1ll, 1ll }, { (char*)"TYPEOF", 377ll, 1ll, 1ll }, { (char*)"WHILE", 273ll, 1ll }, { (char*)"UNTIL", 274ll, 1ll }, { (char*)"WEND", 275ll, 1ll }, { (char*)"CONTINUE", 276ll, 1ll, 1ll }, { (char*)"CBOOL", 401ll, 1ll, 1ll }, { (char*)"CBYTE", 402ll, 1ll, 1ll }, { (char*)"CSHORT", 404ll, 1ll, 1ll }, { (char*)"CINT", 406ll, 1ll }, { (char*)"CLNG", 408ll, 1ll }, { (char*)"CLNGINT", 410ll, 1ll, 1ll }, { (char*)"CUBYTE", 403ll, 1ll, 1ll }, { (char*)"CUSHORT", 405ll, 1ll, 1ll }, { (char*)"CUINT", 407ll, 1ll, 1ll }, { (char*)"CULNG", 409ll, 1ll, 1ll }, { (char*)"CULNGINT", 411ll, 1ll, 1ll }, { (char*)"CSNG", 412ll, 1ll }, { (char*)"CDBL", 413ll, 1ll }, { (char*)"CSIGN", 414ll, 1ll, 1ll }, { (char*)"CUNSG", 415ll, 1ll, 1ll }, { (char*)"CPTR", 416ll, 1ll, 1ll }, { (char*)"CAST", 417ll, 1ll, 1ll }, { (char*)"CALL", 395ll, 1ll }, { (char*)"BYVAL", 319ll, 1ll }, { (char*)"BYREF", 320ll, 1ll }, { (char*)"AS", 376ll, 1ll }, { (char*)"DECLARE", 334ll, 1ll }, { (char*)"GOTO", 393ll, 1ll }, { (char*)"CONST", 335ll, 1ll }, { (char*)"FOR", 281ll, 1ll }, { (char*)"STEP", 282ll, 1ll }, { (char*)"NEXT", 283ll, 1ll }, { (char*)"TO", 284ll, 1ll }, { (char*)"TYPE", 336ll, 1ll }, { (char*)"UNION", 337ll, 1ll, 1ll }, { (char*)"END", 340ll, 1ll }, { (char*)"SUB", 345ll, 1ll }, { (char*)"FUNCTION", 346ll, 1ll }, { (char*)"CDECL", 382ll, 1ll }, { (char*)"STDCALL", 383ll, 1ll }, { (char*)"__THISCALL", 384ll, 1ll }, { (char*)"__FASTCALL", 385ll, 1ll }, { (char*)"PASCAL", 381ll, 1ll }, { (char*)"ALIAS", 386ll, 1ll }, { (char*)"LIB", 387ll, 1ll }, { (char*)"LET", 391ll, 1ll }, { (char*)"EXIT", 277ll, 1ll }, { (char*)"DO", 278ll, 1ll }, { (char*)"LOOP", 279ll, 1ll }, { (char*)"RETURN", 392ll, 1ll }, { (char*)"IF", 266ll, 1ll }, { (char*)"THEN", 267ll, 1ll }, { (char*)"ELSE", 268ll, 1ll }, { (char*)"ELSEIF", 269ll, 1ll }, { (char*)"ENDIF", 314ll, 1ll }, { (char*)"SELECT", 270ll, 1ll }, { (char*)"CASE", 271ll, 1ll }, { (char*)"IS", 272ll, 1ll }, { (char*)"USING", 287ll, 1ll }, { (char*)"LEN", 465ll, 2ll }, { (char*)"PEEK", 467ll, 2ll }, { (char*)"POKE", 468ll, 2ll }, { (char*)"SWAP", 469ll, 2ll }, { (char*)"COMMON", 311ll, 1ll }, { (char*)"ENUM", 338ll, 1ll }, { (char*)"ASM", 344ll, 1ll, 1ll }, { (char*)"EXTERN", 306ll, 1ll, 1ll }, { (char*)"WITH", 280ll, 1ll, 1ll }, { (char*)"SCOPE", 285ll, 1ll, 1ll }, { (char*)"PUBLIC", 378ll, 1ll, 1ll }, { (char*)"PRIVATE", 379ll, 1ll, 1ll }, { (char*)"PROTECTED", 380ll, 1ll, 1ll }, { (char*)"PROCPTR", 398ll, 1ll, 1ll }, { (char*)"NAMESPACE", 286ll, 1ll, 1ll }, { (char*)"EXPORT", 341ll, 1ll, 1ll }, { (char*)"IMPORT", 342ll, 1ll, 1ll }, { (char*)"OVERLOAD", 388ll, 1ll, 1ll }, { (char*)"CONSTRUCTOR", 347ll, 1ll, 1ll }, { (char*)"DESTRUCTOR", 348ll, 1ll, 1ll }, { (char*)"OPERATOR", 349ll, 1ll, 1ll }, { (char*)"PROPERTY", 350ll, 1ll, 1ll }, { (char*)"CLASS", 339ll, 1ll, 1ll }, { (char*)"EXTENDS", 351ll, 1ll, 1ll }, { (char*)"IMPLEMENTS", 352ll, 1ll, 1ll }, { (char*)"BASE", 353ll, 1ll, 1ll }, { (char*)"VIRTUAL", 354ll, 1ll, 1ll }, { (char*)"ABSTRACT", 355ll, 1ll, 1ll }, { (char*)"VAR", 309ll, 1ll, 1ll }, { (char*)"IIF", 503ll, 1ll, 1ll }, { (char*)"VA_FIRST", 497ll, 1ll, 1ll }, { (char*)"DATA", 447ll, 2ll }, { (char*)"FIELD", 493ll, 2ll }, { (char*)"LOCAL", 500ll, 2ll }, { (char*)"DEFINED", 315ll, 2ll }, { (char*)"SIZEOF", 466ll, 2ll, 1ll }, { (char*)"STRPTR", 397ll, 2ll }, { (char*)"VARPTR", 396ll, 2ll }, { (char*)"DYNAMIC", 317ll, 2ll }, { (char*)"INCLUDE", 316ll, 2ll }, { (char*)"GOSUB", 394ll, 2ll }, { (char*)"DEFBYTE", 321ll, 2ll, 1ll }, { (char*)"DEFUBYTE", 322ll, 2ll, 1ll }, { (char*)"DEFSHORT", 323ll, 2ll, 1ll }, { (char*)"DEFUSHORT", 324ll, 2ll, 1ll }, { (char*)"DEFINT", 325ll, 2ll }, { (char*)"DEFUINT", 326ll, 2ll, 1ll }, { (char*)"DEFLNG", 327ll, 2ll }, { (char*)"DEFULNG", 328ll, 2ll, 1ll }, { (char*)"DEFLONGINT", 329ll, 2ll, 1ll }, { (char*)"DEFULONGINT", 330ll, 2ll, 1ll }, { (char*)"DEFSNG", 331ll, 2ll }, { (char*)"DEFDBL", 332ll, 2ll }, { (char*)"DEFSTR", 333ll, 2ll }, { (char*)"OPTION", 343ll, 2ll }, { (char*)"EXPLICIT", 318ll, 2ll, 1ll }, { (char*)"SADD", 399ll, 2ll }, { (char*)"ON", 498ll, 2ll }, { (char*)"ERROR", 499ll, 2ll }, { (char*)"SIN", 452ll, 2ll }, { (char*)"ASIN", 453ll, 2ll, 1ll }, { (char*)"COS", 454ll, 2ll }, { (char*)"ACOS", 455ll, 2ll, 1ll }, { (char*)"TAN", 456ll, 2ll }, { (char*)"ATN", 457ll, 2ll }, { (char*)"SQR", 458ll, 2ll }, { (char*)"LOG", 459ll, 2ll }, { (char*)"EXP", 460ll, 2ll }, { (char*)"ATAN2", 462ll, 2ll, 1ll }, { (char*)"RESUME", 502ll, 2ll }, { (char*)"ERR", 501ll, 2ll }, { (char*)"REDIM", 310ll, 2ll }, { (char*)"ERASE", 494ll, 2ll }, { (char*)"LBOUND", 495ll, 2ll }, { (char*)"UBOUND", 496ll, 2ll }, { (char*)"STR", 423ll, 2ll, 2ll }, { (char*)"CVD", 424ll, 2ll }, { (char*)"CVS", 425ll, 2ll }, { (char*)"CVI", 426ll, 2ll }, { (char*)"CVL", 427ll, 2ll }, { (char*)"CVSHORT", 428ll, 2ll, 1ll }, { (char*)"CVLONGINT", 429ll, 2ll, 1ll }, { (char*)"MKD", 430ll, 2ll, 2ll }, { (char*)"MKS", 431ll, 2ll, 2ll }, { (char*)"MKI", 432ll, 2ll, 2ll }, { (char*)"MKL", 433ll, 2ll, 2ll }, { (char*)"MKSHORT", 434ll, 2ll, 1ll }, { (char*)"MKLONGINT", 435ll, 2ll, 1ll }, { (char*)"WSTR", 436ll, 2ll, 1ll }, { (char*)"MID", 437ll, 2ll, 2ll }, { (char*)"INSTR", 438ll, 2ll }, { (char*)"INSTRREV", 439ll, 2ll, 1ll }, { (char*)"TRIM", 440ll, 2ll, 1ll }, { (char*)"RTRIM", 441ll, 2ll, 2ll }, { (char*)"LTRIM", 442ll, 2ll, 2ll }, { (char*)"LCASE", 443ll, 2ll, 2ll }, { (char*)"UCASE", 444ll, 2ll, 2ll }, { (char*)"RESTORE", 445ll, 2ll }, { (char*)"READ", 446ll, 2ll }, { (char*)"PRINT", 463ll, 2ll }, { (char*)"LPRINT", 464ll, 2ll }, { (char*)"OPEN", 470ll, 2ll }, { (char*)"CLOSE", 471ll, 2ll }, { (char*)"SEEK", 472ll, 2ll }, { (char*)"PUT", 473ll, 2ll }, { (char*)"GET", 474ll, 2ll }, { (char*)"ACCESS", 475ll, 2ll }, { (char*)"WRITE", 476ll, 2ll }, { (char*)"LOCK", 477ll, 2ll }, { (char*)"INPUT", 478ll, 2ll }, { (char*)"WINPUT", 479ll, 2ll, 1ll }, { (char*)"OUTPUT", 480ll, 2ll }, { (char*)"BINARY", 481ll, 2ll }, { (char*)"RANDOM", 482ll, 2ll }, { (char*)"APPEND", 483ll, 2ll }, { (char*)"ENCODING", 484ll, 2ll, 1ll }, { (char*)"NAME", 485ll, 2ll }, { (char*)"WIDTH", 491ll, 2ll }, { (char*)"COLOR", 492ll, 2ll }, { (char*)"PRESERVE", 313ll, 2ll }, { (char*)"SPC", 486ll, 2ll }, { (char*)"TAB", 487ll, 2ll }, { (char*)"LINE", 488ll, 2ll }, { (char*)"VIEW", 489ll, 2ll }, { (char*)"UNLOCK", 490ll, 2ll }, { (char*)"CHR", 421ll, 2ll, 2ll }, { (char*)"WCHR", 422ll, 2ll, 1ll }, { (char*)"ASC", 420ll, 2ll }, { (char*)"LSET", 418ll, 2ll }, { (char*)"RSET", 419ll, 2ll }, { (char*)"PSET", 504ll, 2ll }, { (char*)"PRESET", 505ll, 2ll }, { (char*)"POINT", 506ll, 2ll }, { (char*)"CIRCLE", 507ll, 2ll }, { (char*)"WINDOW", 508ll, 2ll }, { (char*)"PALETTE", 509ll, 2ll }, { (char*)"SCREEN", 510ll, 2ll, 1ll }, { (char*)"SCREEN", 511ll, 2ll, 4ll }, { (char*)"PAINT", 512ll, 2ll }, { (char*)"DRAW", 513ll, 2ll }, { (char*)"IMAGECREATE", 514ll, 2ll, 1ll }, { (char*)"THREADCALL", 519ll, 2ll, 1ll }, { (char*)"CVA_START", 515ll, 1ll, 1ll }, { (char*)"CVA_END", 517ll, 1ll, 1ll }, { (char*)"CVA_ARG", 516ll, 1ll, 1ll }, { (char*)"CVA_COPY", 518ll, 1ll, 1ll }, { (char*)0ull } };
 static char KWDFALSE$[6] = "FALSE";
@@ -1012,7 +1013,7 @@ void SYMBKEYWORDINIT( void )
 		KNAME$2 = *(char**)((int64)(struct $7SYMBKWD*)KWDTB$ + (I$1 << (5ll & 63ll)));
 		if( (*(int64*)(((int64)(struct $7SYMBKWD*)KWDTB$ + (I$1 << (5ll & 63ll))) + 24ll) & 1ll) == 0ll) goto label$15;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$17;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$17;
 			{
 				FBSTRING TMP$335$4;
 				static FBSTRING TMP$4;
@@ -1028,7 +1029,7 @@ void SYMBKEYWORDINIT( void )
 		label$14:;
 		if( (*(int64*)(((int64)(struct $7SYMBKWD*)KWDTB$ + (I$1 << (5ll & 63ll))) + 24ll) & 4ll) == 0ll) goto label$19;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$21;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$21;
 			{
 				I$1 = I$1 + 1ll;
 				goto label$12;
@@ -1117,7 +1118,7 @@ void SYMBKEYWORDCONSTSINIT( void )
 	struct $8FBSYMBOL* SYM$1;
 	ATTRIB$1 = 3072ll;
 	*(int64*)&V$1 = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$39;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$39;
 	{
 		FBSTRING TMP$336$2;
 		__builtin_memset( &TMP$336$2, 0, 24ll );
@@ -1139,7 +1140,7 @@ void SYMBKEYWORDCONSTSINIT( void )
 	label$41:;
 	label$40:;
 	*(int64*)&V$1 = -1ll;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$43;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$43;
 	{
 		FBSTRING TMP$337$2;
 		__builtin_memset( &TMP$337$2, 0, 24ll );
@@ -1171,7 +1172,7 @@ void SYMBKEYWORDTYPEINIT( void )
 	int64 DTYPE$1;
 	static struct $10FBARRAYDIM DTB$1[1];
 	static struct $8FBARRAY1I10FBARRAYDIME tmp$338$1 = { (struct $10FBARRAYDIM*)DTB$1, (struct $10FBARRAYDIM*)DTB$1, 16ll, 16ll, 1ll, 49ll, { { 1ll, 0ll, 0ll } } };
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$49;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$49;
 	{
 		PID$1 = (char*)"__cva_list";
 	}

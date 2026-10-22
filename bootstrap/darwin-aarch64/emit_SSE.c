@@ -1003,6 +1003,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1048,7 +1049,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1134,7 +1135,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8FBARRAY1IPvE {
 	void** DATA;
@@ -7073,7 +7074,7 @@ static void _EMITSIN_SSE( struct $6IRVREG* DVREG$1 )
 	TMP$1197$1 = *(int64*)((uint8*)DVREG$1 + 8ll) & 31ll;
 	label$808:;
 	DDSIZE$1 = *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$1197$1 * 56ll)) + 8ll);
-	if( ((int64)-(DDSIZE$1 == 4ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 240ll) == 1ll)) == 0ll) goto label$564;
+	if( ((int64)-(DDSIZE$1 == 4ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 248ll) == 1ll)) == 0ll) goto label$564;
 	{
 		HSINCOS_FAST_SSE( DVREG$1, 0ll );
 		goto label$561;
@@ -7323,7 +7324,7 @@ static void _EMITCOS_SSE( struct $6IRVREG* DVREG$1 )
 	TMP$1239$1 = *(int64*)((uint8*)DVREG$1 + 8ll) & 31ll;
 	label$810:;
 	DDSIZE$1 = *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$1239$1 * 56ll)) + 8ll);
-	if( ((int64)-(DDSIZE$1 == 4ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 240ll) == 1ll)) == 0ll) goto label$588;
+	if( ((int64)-(DDSIZE$1 == 4ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 248ll) == 1ll)) == 0ll) goto label$588;
 	{
 		HSINCOS_FAST_SSE( DVREG$1, -1ll );
 		goto label$585;

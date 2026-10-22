@@ -1221,6 +1221,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1266,7 +1267,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1352,7 +1353,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $8FB_TOKEN;
 typedef int64 $15FB_CMPSTMT_MASK;
@@ -1703,7 +1704,7 @@ void ASTPROCBEGIN( struct $8FBSYMBOL* SYM$1, int64 ISMAIN$1 )
 	*(struct $8FBSYMBOL**)((uint8*)SYM$1 + 104ll) = (struct $8FBSYMBOL*)0ull;
 	*(struct $8FBSYMBOL**)((uint8*)SYM$1 + 112ll) = (struct $8FBSYMBOL*)0ull;
 	SYMBPROCALLOCEXT( SYM$1 );
-	*(char**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)SYM$1 + 208ll) + 48ll) = *(char**)((uint8*)&ENV$ + 896ll);
+	*(char**)((uint8*)*(struct $10FB_PROCEXT**)((uint8*)SYM$1 + 208ll) + 48ll) = *(char**)((uint8*)&ENV$ + 904ll);
 	*(struct $7ASTNODE**)((uint8*)&AST$ + 80ll) = N$1;
 	*(struct $7ASTNODE**)((uint8*)&AST$ + 264ll) = N$1;
 	if( ISMAIN$1 == 0ll) goto label$102;
@@ -1758,7 +1759,7 @@ void ASTPROCBEGIN( struct $8FBSYMBOL* SYM$1, int64 ISMAIN$1 )
 		struct $7ASTNODE* vr$35 = ASTNEWVAR( *(struct $8FBSYMBOL**)((uint8*)ARGV$2 + 104ll), 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$37 = ASTNEWVAR( *(struct $8FBSYMBOL**)((uint8*)ARGC$2 + 104ll), 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$38 = RTLINITAPP( vr$37, vr$35 );
-		*(struct $7ASTNODE**)((uint8*)&ENV$ + 1440ll) = vr$38;
+		*(struct $7ASTNODE**)((uint8*)&ENV$ + 1448ll) = vr$38;
 	}
 	goto label$107;
 	label$108:;
@@ -1884,7 +1885,7 @@ int64 ASTPROCEND( int64 CALLRTEXIT$1 )
 			if( *(int64*)((uint8*)N$1 + 96ll) != 0ll) goto label$180;
 			{
 				int64 vr$50 = SYMBPROCHASFWDREFINSIGNATURE( SYM$1 );
-				if( ((int64)-((*(int64*)((uint8*)SYM$1 + 8ll) & 64ll) == 0ll) & (~vr$50 | (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll))) == 0ll) goto label$182;
+				if( ((int64)-((*(int64*)((uint8*)SYM$1 + 8ll) & 64ll) == 0ll) & (~vr$50 | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll))) == 0ll) goto label$182;
 				{
 					DO_FLUSH$1 = -1ll;
 				}
@@ -1912,9 +1913,9 @@ int64 ASTPROCEND( int64 CALLRTEXIT$1 )
 	}
 	label$175:;
 	SYMBNESTEND( 0ll );
-	if( *(int64*)((uint8*)&ENV$ + 248ll) < 1ll) goto label$184;
+	if( *(int64*)((uint8*)&ENV$ + 256ll) < 1ll) goto label$184;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 208ll) != 0ll) goto label$186;
+		if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$186;
 		{
 			ASTPROCVECTORIZE( *(struct $7ASTNODE**)((uint8*)N$1 + 112ll) );
 		}
@@ -1941,8 +1942,8 @@ int64 ASTPROCEND( int64 CALLRTEXIT$1 )
 	*(struct $7ASTNODE**)((uint8*)&AST$ + 80ll) = *(struct $7ASTNODE**)((uint8*)&AST$ + 64ll);
 	*(struct $7ASTNODE**)((uint8*)&AST$ + 264ll) = *(struct $7ASTNODE**)((uint8*)&AST$ + 64ll);
 	*(uint64*)((uint8*)&PARSER$ + 200ll) = 0ull;
-	*(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) = *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll);
-	*(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 224ll) = *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll);
+	*(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) = *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll);
+	*(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 224ll) = *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll);
 	REC_CNT$1 = REC_CNT$1 + -1ll;
 	fb$result$1 = RES$1;
 	label$150:;
@@ -2239,9 +2240,9 @@ static struct $7ASTNODE* HCHECKERRHND( struct $7ASTNODE* HEAD_NODE$1, struct $8F
 	struct $7ASTNODE* fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$111:;
-	if( *(int64*)((uint8*)&ENV$ + 336ll) == 0ll) goto label$114;
+	if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$114;
 	{
-		struct $7ASTNODE* vr$2 = ASTNEWCONSTSTR( (char*)((uint8*)&ENV$ + 632ll) );
+		struct $7ASTNODE* vr$2 = ASTNEWCONSTSTR( (char*)((uint8*)&ENV$ + 640ll) );
 		struct $7ASTNODE* vr$3 = RTLERRORSETMODNAME( SYM$1, vr$2 );
 		struct $7ASTNODE* vr$4 = ASTADDAFTER( vr$3, HEAD_NODE$1 );
 		HEAD_NODE$1 = vr$4;
@@ -2348,14 +2349,14 @@ static struct $7ASTNODE* HCALLPROFILER( struct $7ASTNODE* HEAD_NODE$1, struct $8
 	label$133:;
 	{
 		int64 TMP$101$2;
-		int64 vr$1 = FBGETOPTION( 24ll );
+		int64 vr$1 = FBGETOPTION( 25ll );
 		TMP$101$2 = vr$1;
 		if( TMP$101$2 != 1ll) goto label$136;
 		label$137:;
 		{
 			{
 				int64 TMP$102$4;
-				int64 vr$2 = FBGETOPTION( 2ll );
+				int64 vr$2 = FBGETOPTION( 3ll );
 				TMP$102$4 = vr$2;
 				if( TMP$102$4 == 1ll) goto label$140;
 				label$141:;
@@ -2366,7 +2367,7 @@ static struct $7ASTNODE* HCALLPROFILER( struct $7ASTNODE* HEAD_NODE$1, struct $8
 				goto label$138;
 				label$139:;
 				{
-					if( *(int64*)((uint8*)&ENV$ + 216ll) == 4ll) goto label$144;
+					if( *(int64*)((uint8*)&ENV$ + 224ll) == 4ll) goto label$144;
 					{
 						struct $7ASTNODE* vr$3 = RTLPROFILECALL_MCOUNT(  );
 						struct $7ASTNODE* vr$4 = ASTADDAFTER( vr$3, HEAD_NODE$1 );
@@ -2384,7 +2385,7 @@ static struct $7ASTNODE* HCALLPROFILER( struct $7ASTNODE* HEAD_NODE$1, struct $8
 		if( TMP$101$2 != 2ll) goto label$145;
 		label$146:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1552ll) == 0ll) goto label$148;
+			if( *(int64*)((uint8*)&ENV$ + 1560ll) == 0ll) goto label$148;
 			{
 				struct $8FBSYMBOL* PROCINFOSYM$4;
 				struct $8FBSYMBOL* vr$5 = SYMBADDIMPLICITVAR( 32ll, (struct $8FBSYMBOL*)0ull, 2ll );
@@ -2483,7 +2484,7 @@ static void HLOADPROCRESULT( struct $8FBSYMBOL* PROC$1 )
 		N$1 = vr$9;
 		{
 			$10FB_BACKEND TMP$105$3;
-			TMP$105$3 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+			TMP$105$3 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 			if( TMP$105$3 == 1ll) goto label$209;
 			label$210:;
 			if( TMP$105$3 == 2ll) goto label$209;
@@ -2503,7 +2504,7 @@ static void HLOADPROCRESULT( struct $8FBSYMBOL* PROC$1 )
 			{
 				{
 					int64 TMP$106$5;
-					int64 vr$12 = FBGETOPTION( 24ll );
+					int64 vr$12 = FBGETOPTION( 25ll );
 					TMP$106$5 = vr$12;
 					if( TMP$106$5 != 2ll) goto label$216;
 					label$217:;
@@ -2991,7 +2992,7 @@ static struct $7ASTNODE* HINITVPTR( struct $8FBSYMBOL* PARENT$1, struct $8FBSYMB
 	label$296:;
 	struct $8FBSYMBOL* THIS_$1;
 	THIS_$1 = *(struct $8FBSYMBOL**)((uint8*)*(struct $8FBSYMBOL**)((uint8*)PROC$1 + 136ll) + 104ll);
-	struct $7ASTNODE* vr$8 = ASTNEWVAR( *(struct $8FBSYMBOL**)((uint8*)*(struct $12FB_STRUCTEXT**)((uint8*)PARENT$1 + 240ll) + 296ll), *(int64*)((uint8*)&ENV$ + 616ll) << (1ll & 63ll), 2147483648ll, (struct $8FBSYMBOL*)0ull );
+	struct $7ASTNODE* vr$8 = ASTNEWVAR( *(struct $8FBSYMBOL**)((uint8*)*(struct $12FB_STRUCTEXT**)((uint8*)PARENT$1 + 240ll) + 296ll), *(int64*)((uint8*)&ENV$ + 624ll) << (1ll & 63ll), 2147483648ll, (struct $8FBSYMBOL*)0ull );
 	struct $7ASTNODE* vr$9 = ASTNEWADDROF( vr$8 );
 	struct $7ASTNODE* vr$10 = ASTNEWCONV( 32ll, (struct $8FBSYMBOL*)0ull, vr$9, 0ll, (int64*)0ull );
 	struct $8FBSYMBOL* vr$11 = SYMBUDTGETFIRSTFIELD( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 199248ll) );

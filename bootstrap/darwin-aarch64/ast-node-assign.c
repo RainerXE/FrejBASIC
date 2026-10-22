@@ -983,6 +983,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1028,7 +1029,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1114,7 +1115,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 int64 ASTCHECKASSIGN( struct $7ASTNODE* L$1, struct $7ASTNODE* R$1, int64 NO_UPCAST$1 )
@@ -1849,7 +1850,7 @@ struct $7ASTNODE* ASTNEWASSIGN( struct $7ASTNODE* L$1, struct $7ASTNODE* R$1, $9
 			label$250:;
 			int64 DOCONV$3;
 			DOCONV$3 = -1ll;
-			if( *(int64*)((uint8*)&ENV$ + 208ll) != 0ll) goto label$256;
+			if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$256;
 			{
 				if( ((int64)-(LDCLASS$1 == 1ll) | (int64)-(RDCLASS$1 == 1ll)) == 0ll) goto label$258;
 				{
@@ -2094,7 +2095,7 @@ static int64 HCHECKWSTRINGOPS( struct $7ASTNODE* L$1, int64* LDFULL$1, struct $7
 		}
 		label$44:;
 		label$43:;
-		*LDFULL$1 = (*LDFULL$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 568ll) & 511ll);
+		*LDFULL$1 = (*LDFULL$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 576ll) & 511ll);
 	}
 	goto label$41;
 	label$42:;
@@ -2105,7 +2106,7 @@ static int64 HCHECKWSTRINGOPS( struct $7ASTNODE* L$1, int64* LDFULL$1, struct $7
 		}
 		label$46:;
 		label$45:;
-		*RDFULL$1 = (*RDFULL$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 568ll) & 511ll);
+		*RDFULL$1 = (*RDFULL$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 576ll) & 511ll);
 	}
 	label$41:;
 	fb$result$1 = -1ll;
@@ -2271,7 +2272,7 @@ static struct $7ASTNODE* HSHALLOWCOPY( struct $7ASTNODE* L$1, struct $7ASTNODE* 
 	R$1 = vr$8;
 	if( HAS_VPTR$1 == 0ll) goto label$150;
 	{
-		BYTESTOCOPY$1 = BYTESTOCOPY$1 - *(int64*)((uint8*)&ENV$ + 616ll);
+		BYTESTOCOPY$1 = BYTESTOCOPY$1 - *(int64*)((uint8*)&ENV$ + 624ll);
 		if( BYTESTOCOPY$1 != 0ll) goto label$152;
 		{
 			T$1 = (struct $7ASTNODE*)0ull;
@@ -2307,9 +2308,9 @@ static struct $7ASTNODE* HSHALLOWCOPY( struct $7ASTNODE* L$1, struct $7ASTNODE* 
 		}
 		label$152:;
 		label$151:;
-		struct $7ASTNODE* vr$19 = _Z19ASTBUILDDEREFADDROFP7ASTNODExlP8FBSYMBOLS2_( L$1, *(int64*)((uint8*)&ENV$ + 616ll), 2ll, (struct $8FBSYMBOL*)0ull, (struct $8FBSYMBOL*)0ull );
+		struct $7ASTNODE* vr$19 = _Z19ASTBUILDDEREFADDROFP7ASTNODExlP8FBSYMBOLS2_( L$1, *(int64*)((uint8*)&ENV$ + 624ll), 2ll, (struct $8FBSYMBOL*)0ull, (struct $8FBSYMBOL*)0ull );
 		L$1 = vr$19;
-		struct $7ASTNODE* vr$20 = _Z19ASTBUILDDEREFADDROFP7ASTNODExlP8FBSYMBOLS2_( R$1, *(int64*)((uint8*)&ENV$ + 616ll), 2ll, (struct $8FBSYMBOL*)0ull, (struct $8FBSYMBOL*)0ull );
+		struct $7ASTNODE* vr$20 = _Z19ASTBUILDDEREFADDROFP7ASTNODExlP8FBSYMBOLS2_( R$1, *(int64*)((uint8*)&ENV$ + 624ll), 2ll, (struct $8FBSYMBOL*)0ull, (struct $8FBSYMBOL*)0ull );
 		R$1 = vr$20;
 	}
 	label$150:;

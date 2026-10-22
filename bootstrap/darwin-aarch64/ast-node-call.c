@@ -967,6 +967,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1012,7 +1013,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1098,7 +1099,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 void ASTCALLINIT( void )
@@ -1175,11 +1176,11 @@ struct $7ASTNODE* ASTNEWCALL( struct $8FBSYMBOL* SYM$1, struct $7ASTNODE* PTREXP
 	label$22:;
 	*(struct $7ASTNODE**)((uint8*)N$1 + 88ll) = (struct $7ASTNODE*)0ull;
 	*(struct $7ASTNODE**)((uint8*)N$1 + 96ll) = (struct $7ASTNODE*)0ull;
-	if( *(int64*)((uint8*)&ENV$ + 1552ll) == 0ll) goto label$25;
+	if( *(int64*)((uint8*)&ENV$ + 1560ll) == 0ll) goto label$25;
 	{
 		if( CANPROFILE$1 == 0ll) goto label$27;
 		{
-			int64 vr$30 = FBGETOPTION( 24ll );
+			int64 vr$30 = FBGETOPTION( 25ll );
 			if( vr$30 != 2ll) goto label$29;
 			{
 				{
@@ -1260,7 +1261,7 @@ struct $6IRVREG* ASTLOADCALL( struct $7ASTNODE* N$1 )
 	PCVR$1 = (struct $6IRVREG*)0ull;
 	RECLEVEL$1 = RECLEVEL$1 + 1ll;
 	PROC$1 = *(struct $8FBSYMBOL**)((uint8*)N$1 + 24ll);
-	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll) & (int64)-((*(int64*)((uint8*)&ENV$ + 592ll) & 64ll) != 0ll)) == 0ll) goto label$46;
+	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) & (int64)-((*(int64*)((uint8*)&ENV$ + 600ll) & 64ll) != 0ll)) == 0ll) goto label$46;
 	{
 		ARGBYTES$1 = 0ll;
 		ARG$1 = *(struct $7ASTNODE**)((uint8*)N$1 + 120ll);
@@ -1282,7 +1283,7 @@ struct $6IRVREG* ASTLOADCALL( struct $7ASTNODE* N$1 )
 		int64 vr$17 = SYMBPROCRETURNSONSTACK( PROC$1 );
 		if( vr$17 == 0ll) goto label$52;
 		{
-			ARGBYTES$1 = ARGBYTES$1 + *(int64*)((uint8*)&ENV$ + 616ll);
+			ARGBYTES$1 = ARGBYTES$1 + *(int64*)((uint8*)&ENV$ + 624ll);
 		}
 		label$52:;
 		label$51:;
@@ -1376,9 +1377,9 @@ struct $6IRVREG* ASTLOADCALL( struct $7ASTNODE* N$1 )
 			if( TMP$87$3 != 6ll) goto label$72;
 			label$73:;
 			{
-				if( (*(int64*)((uint8*)&ENV$ + 592ll) & 8ll) != 0ll) goto label$77;
+				if( (*(int64*)((uint8*)&ENV$ + 600ll) & 8ll) != 0ll) goto label$77;
 				{
-					BYTESTOPOP$1 = BYTESTOPOP$1 + *(int64*)((uint8*)&ENV$ + 616ll);
+					BYTESTOPOP$1 = BYTESTOPOP$1 + *(int64*)((uint8*)&ENV$ + 624ll);
 				}
 				label$77:;
 				label$76:;
@@ -1406,7 +1407,7 @@ struct $6IRVREG* ASTLOADCALL( struct $7ASTNODE* N$1 )
 		}
 		label$79:;
 		label$78:;
-		TOTALSTACKBYTES$1 = TOTALSTACKBYTES$1 + *(int64*)((uint8*)&ENV$ + 616ll);
+		TOTALSTACKBYTES$1 = TOTALSTACKBYTES$1 + *(int64*)((uint8*)&ENV$ + 624ll);
 	}
 	label$70:;
 	label$69:;

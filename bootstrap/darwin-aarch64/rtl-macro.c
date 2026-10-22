@@ -739,6 +739,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -784,7 +785,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -870,7 +871,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 static struct $15FB_RTL_MACRODEF MACRODATA$[17] = { { (char*)"RGB", 0ll, 3ll, { (char*)"R", (char*)"G", (char*)"B" }, { { 2ll, (void*)"culng((culng(cubyte(" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) shl 16) or (culng(cubyte(" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) shl 8) or culng(cubyte(" }, { 0ll, (void*)2ull }, { 2ll, (void*)")) or (&hFF000000ul))" }, { -1ll } } }, { (char*)"RGBA", 0ll, 4ll, { (char*)"R", (char*)"G", (char*)"B", (char*)"A" }, { { 2ll, (void*)"culng((culng(cubyte(" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) shl 16) or (culng(cubyte(" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) shl 8) or culng(cubyte(" }, { 0ll, (void*)2ull }, { 2ll, (void*)")) or (culng(cubyte(" }, { 0ll, (void*)3ull }, { 2ll, (void*)")) shl 24))" }, { -1ll } } }, { (char*)"VA_ARG", 8192ll, 2ll, { (char*)"A", (char*)"T" }, { { 2ll, (void*)"peek(" }, { 0ll, (void*)1ull }, { 2ll, (void*)"," }, { 0ll, (void*)0ull }, { 2ll, (void*)")" }, { -1ll } } }, { (char*)"VA_NEXT", 8192ll, 2ll, { (char*)"A", (char*)"T" }, { { 2ll, (void*)"(cptr(" }, { 0ll, (void*)1ull }, { 2ll, (void*)" ptr, cptr(byte ptr, " }, { 0ll, (void*)0ull }, { 2ll, (void*)") + (sizeof(" }, { 0ll, (void*)1ull }, { 2ll, (void*)") + sizeof(any ptr)-1 and -sizeof(any ptr)) ) )" }, { -1ll } } }, { (char*)"ASSERT", 16ll, 1ll, { (char*)"E" }, { { 2ll, (void*)"if (" }, { 0ll, (void*)0ull }, { 2ll, (void*)") = 0 then fb_Assert(__FILE__, __LINE__, __FUNCTION__, " }, { 1ll, (void*)0ull }, { 2ll, (void*)") end if" }, { -1ll } } }, { (char*)"ASSERTWARN", 16ll, 1ll, { (char*)"E" }, { { 2ll, (void*)"if (" }, { 0ll, (void*)0ull }, { 2ll, (void*)") = 0 then fb_AssertWarn(__FILE__, __LINE__, __FUNCTION__, " }, { 1ll, (void*)0ull }, { 2ll, (void*)") end if" }, { -1ll } } }, { (char*)"OFFSETOF", 0ll, 2ll, { (char*)"T", (char*)"F" }, { { 2ll, (void*)"cint( @cast( " }, { 0ll, (void*)0ull }, { 2ll, (void*)" ptr, 0 )->" }, { 0ll, (void*)1ull }, { 2ll, (void*)" )" }, { -1ll } } }, { (char*)"__FB_MIN_VERSION__", 0ll, 3ll, { (char*)"MAJOR", (char*)"MINOR", (char*)"PATCH_LEVEL" }, { { 2ll, (void*)"((__FB_VER_MAJOR__ > (" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) or ((__FB_VER_MAJOR__ = (" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) and ((__FB_VER_MINOR__ > (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) or (__FB_VER_MINOR__ = (" }, { 0ll, (void*)1ull }, { 2ll, (void*)") and __FB_VER_PATCH__ >= (" }, { 0ll, (void*)2ull }, { 2ll, (void*)")))))" }, { -1ll } } }, { (char*)"LOWORD", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h0000FFFF)" }, { -1ll } } }, { (char*)"HIWORD", 32768ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") shr 16)" }, { -1ll } } }, { (char*)"HIWORD", 65536ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"((cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &hFFFF0000u) shr 16)" }, { -1ll } } }, { (char*)"LOBYTE", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h000000FF)" }, { -1ll } } }, { (char*)"HIBYTE", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"((cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h0000FF00) shr 8)" }, { -1ll } } }, { (char*)"BIT", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"(((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and (cast(typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)"))) <> 0)" }, { -1ll } } }, { (char*)"BITSET", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") or (cast(typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")))" }, { -1ll } } }, { (char*)"BITRESET", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and not (cast(typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")))" }, { -1ll } } }, { (char*)0ull } };
 static struct $15FB_RTL_MACRODEF MACRODATAQB$[17] = { { (char*)"__RGB", 0ll, 3ll, { (char*)"R", (char*)"G", (char*)"B" }, { { 2ll, (void*)"__culng((__culng(__cubyte(" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) __shl 16) or (__culng(__cubyte(" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) __shl 8) or __culng(__cubyte(" }, { 0ll, (void*)2ull }, { 2ll, (void*)")) or &hFF000000ul)" }, { -1ll } } }, { (char*)"__RGBA", 0ll, 4ll, { (char*)"R", (char*)"G", (char*)"B", (char*)"A" }, { { 2ll, (void*)"__culng((__culng(__cubyte(" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) __shl 16) or (__culng(__cubyte(" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) __shl 8) or __culng(__cubyte(" }, { 0ll, (void*)2ull }, { 2ll, (void*)")) or (__culng(__cubyte(" }, { 0ll, (void*)3ull }, { 2ll, (void*)")) __shl 24))" }, { -1ll } } }, { (char*)"__VA_ARG", 8192ll, 2ll, { (char*)"A", (char*)"T" }, { { 2ll, (void*)"peek(" }, { 0ll, (void*)1ull }, { 2ll, (void*)"," }, { 0ll, (void*)0ull }, { 2ll, (void*)")" }, { -1ll } } }, { (char*)"__VA_NEXT", 8192ll, 2ll, { (char*)"A", (char*)"T" }, { { 2ll, (void*)"(__cptr(" }, { 0ll, (void*)1ull }, { 2ll, (void*)" __ptr, __cptr(__byte __ptr, " }, { 0ll, (void*)0ull }, { 2ll, (void*)") + (__sizeof(" }, { 0ll, (void*)1ull }, { 2ll, (void*)") + __sizeof(any __ptr)-1 and -__sizeof(any __ptr)) ) )" }, { -1ll } } }, { (char*)"__ASSERT", 16ll, 1ll, { (char*)"E" }, { { 2ll, (void*)"if (" }, { 0ll, (void*)0ull }, { 2ll, (void*)") = 0 then fb_Assert(__FILE__, __LINE__, __FUNCTION__, " }, { 1ll, (void*)0ull }, { 2ll, (void*)") end if" }, { -1ll } } }, { (char*)"__ASSERTWARN", 16ll, 1ll, { (char*)"E" }, { { 2ll, (void*)"if (" }, { 0ll, (void*)0ull }, { 2ll, (void*)") = 0 then fb_AssertWarn(__FILE__, __LINE__, __FUNCTION__, " }, { 1ll, (void*)0ull }, { 2ll, (void*)") end if" }, { -1ll } } }, { (char*)"__OFFSETOF", 32768ll, 2ll, { (char*)"T", (char*)"F" }, { { 2ll, (void*)"clng( @__cast( " }, { 0ll, (void*)0ull }, { 2ll, (void*)" __ptr, 0 )->" }, { 0ll, (void*)1ull }, { 2ll, (void*)" )" }, { -1ll } } }, { (char*)"__OFFSETOF", 65536ll, 2ll, { (char*)"T", (char*)"F" }, { { 2ll, (void*)"__clngint( @__cast( " }, { 0ll, (void*)0ull }, { 2ll, (void*)" __ptr, 0 )->" }, { 0ll, (void*)1ull }, { 2ll, (void*)" )" }, { -1ll } } }, { (char*)"__FB_MIN_VERSION__", 0ll, 3ll, { (char*)"MAJOR", (char*)"MINOR", (char*)"PATCH_LEVEL" }, { { 2ll, (void*)"((__FB_VER_MAJOR__ > (" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) or ((__FB_VER_MAJOR__ = (" }, { 0ll, (void*)0ull }, { 2ll, (void*)")) and ((__FB_VER_MINOR__ > (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")) or (__FB_VER_MINOR__ = (" }, { 0ll, (void*)1ull }, { 2ll, (void*)") and __FB_VER_PATCH__ >= (" }, { 0ll, (void*)2ull }, { 2ll, (void*)")))))" }, { -1ll } } }, { (char*)"__LOWORD", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(__cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h0000FFFF)" }, { -1ll } } }, { (char*)"__HIWORD", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(__cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") __shr 16)" }, { -1ll } } }, { (char*)"__LOBYTE", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"(__cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h000000FF)" }, { -1ll } } }, { (char*)"__HIBYTE", 0ll, 1ll, { (char*)"X" }, { { 2ll, (void*)"((__cuint(" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and &h0000FF00) __shr 8)" }, { -1ll } } }, { (char*)"__BIT", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"(((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and (__cast(__typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) __shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)"))) <> 0)" }, { -1ll } } }, { (char*)"__BITSET", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") or (__cast(__typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) __shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")))" }, { -1ll } } }, { (char*)"__BITRESET", 0ll, 2ll, { (char*)"X", (char*)"Y" }, { { 2ll, (void*)"((" }, { 0ll, (void*)0ull }, { 2ll, (void*)") and not (__cast(__typeof(" }, { 0ll, (void*)0ull }, { 2ll, (void*)"), 1) __shl (" }, { 0ll, (void*)1ull }, { 2ll, (void*)")))" }, { -1ll } } }, { (char*)0ull } };
@@ -878,7 +879,7 @@ static struct $15FB_RTL_MACRODEF MACRODATAQB$[17] = { { (char*)"__RGB", 0ll, 3ll
 void RTLMACROMODINIT( void )
 {
 	label$47:;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$50;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$50;
 	{
 		HADDMACROS( (struct $15FB_RTL_MACRODEF*)MACRODATAQB$ );
 	}
@@ -949,7 +950,7 @@ static void HADDMACRO( struct $15FB_RTL_MACRODEF* MACDEF$1 )
 	}
 	if( (*(int64*)((uint8*)MACDEF$1 + 8ll) & 16ll) == 0ll) goto label$19;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$21;
+		if( *(int64*)((uint8*)&ENV$ + 312ll) != 0ll) goto label$21;
 		{
 			ADDBODY$1 = 0ll;
 		}
@@ -960,7 +961,7 @@ static void HADDMACRO( struct $15FB_RTL_MACRODEF* MACDEF$1 )
 	label$18:;
 	if( (*(int64*)((uint8*)MACDEF$1 + 8ll) & 8192ll) == 0ll) goto label$23;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 208ll) != 1ll) goto label$25;
+		if( *(int64*)((uint8*)&ENV$ + 216ll) != 1ll) goto label$25;
 		{
 			ADDBODY$1 = 0ll;
 			FLAGS$1 = FLAGS$1 | 2ll;

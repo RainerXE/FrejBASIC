@@ -1046,6 +1046,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1091,7 +1092,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1177,7 +1178,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1242,7 +1243,7 @@ struct $10FBSYMCHAIN* CIDENTIFIER( struct $8FBSYMBOL** BASE_PARENT$1, $8FB_IDOPT
 		CHAIN_$1 = *(struct $10FBSYMCHAIN**)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4136ll);
 	}
 	label$90:;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 4ll) != 0ll) goto label$93;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 4ll) != 0ll) goto label$93;
 	{
 		fb$result$1 = CHAIN_$1;
 		goto label$89;
@@ -1621,7 +1622,7 @@ struct $8FBSYMBOL* CPARENTID( $8FB_IDOPT OPTIONS$1 )
 	struct $8FBSYMBOL* SYM$1;
 	struct $8FBSYMBOL* PARENT$1;
 	struct $8FBSYMBOL* BASE_PARENT$1;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 4ll) != 0ll) goto label$193;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 4ll) != 0ll) goto label$193;
 	{
 		fb$result$1 = (struct $8FBSYMBOL*)0ull;
 		goto label$191;

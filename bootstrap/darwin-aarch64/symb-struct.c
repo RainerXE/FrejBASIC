@@ -918,6 +918,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -963,7 +964,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1049,7 +1050,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $8FB_TOKEN;
 typedef int64 $15FB_CMPSTMT_MASK;
@@ -1255,11 +1256,11 @@ struct $8FBSYMBOL* SYMBSTRUCTBEGIN( struct $10FBSYMBOLTB* SYMTB$1, struct $8FBHA
 	label$20:;
 	*(struct $13FBNAMESPC_EXT**)((uint8*)S$1 + 168ll) = (struct $13FBNAMESPC_EXT*)0ull;
 	*(int64*)((uint8*)S$1 + 88ll) = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$25;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$25;
 	{
 		if( ALIGN$1 != 0ll) goto label$27;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 216ll) == 12ll) goto label$29;
+			if( *(int64*)((uint8*)&ENV$ + 224ll) == 12ll) goto label$29;
 			{
 				ALIGN$1 = 1ll;
 			}
@@ -1335,7 +1336,7 @@ int64 TYPECALCNATURALALIGN( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1 )
 		goto label$39;
 		label$42:;
 		{
-			ALIGN$1 = *(int64*)((uint8*)&ENV$ + 616ll);
+			ALIGN$1 = *(int64*)((uint8*)&ENV$ + 624ll);
 		}
 		goto label$39;
 		label$43:;
@@ -1362,7 +1363,7 @@ int64 TYPECALCNATURALALIGN( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1 )
 		label$39:;
 	}
 	int64 vr$7 = FBGETCPUFAMILY(  );
-	if( ((int64)-(vr$7 == 0ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) != 0ll)) == 0ll) goto label$46;
+	if( ((int64)-(vr$7 == 0ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 224ll) != 0ll)) == 0ll) goto label$46;
 	{
 		if( ALIGN$1 != 8ll) goto label$48;
 		{
@@ -1545,7 +1546,7 @@ struct $8FBSYMBOL* SYMBADDFIELD( struct $8FBSYMBOL* PARENT$1, char* ID$1, int64 
 		{
 			if( BITS$1 <= 0ll) goto label$93;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 464ll) != 0ll) goto label$95;
+				if( *(int64*)((uint8*)&ENV$ + 472ll) != 0ll) goto label$95;
 				{
 					if( BITS$1 > (PAD$1 << (3ll & 63ll))) goto label$97;
 					{
@@ -2009,12 +2010,12 @@ void SYMBSTRUCTEND( struct $8FBSYMBOL* SYM$1, int64 ISNESTED$1 )
 	MODE$1 = 3ll;
 	if( *(int64*)((uint8*)&PARSER$ + 208ll) != 4ll) goto label$293;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$295;
+		if( *(int64*)((uint8*)&ENV$ + 224ll) != 0ll) goto label$295;
 		{
 			int64 vr$11 = FBIS64BIT(  );
 			if( vr$11 != 0ll) goto label$297;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 432ll) != 0ll) goto label$299;
+				if( *(int64*)((uint8*)&ENV$ + 440ll) != 0ll) goto label$299;
 				{
 					MODE$1 = 5ll;
 				}
@@ -2439,7 +2440,7 @@ static int64 HGETRETURNTYPE( struct $8FBSYMBOL* SYM$1 )
 	label$230:;
 	{
 		$10FB_BACKEND TMP$113$2;
-		TMP$113$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$113$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$113$2 == 1ll) goto label$234;
 		label$235:;
 		if( TMP$113$2 != 2ll) goto label$233;
@@ -2454,9 +2455,9 @@ static int64 HGETRETURNTYPE( struct $8FBSYMBOL* SYM$1 )
 	int64 vr$2 = FBIS64BIT(  );
 	if( vr$2 == 0ll) goto label$237;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 208ll) != 4ll) goto label$239;
+		if( *(int64*)((uint8*)&ENV$ + 216ll) != 4ll) goto label$239;
 		{
-			if( ((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 2ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 6ll)) == 0ll) goto label$241;
+			if( ((int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 2ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 6ll)) == 0ll) goto label$241;
 			{
 				int64 vr$6 = HGETRETURNTYPEGAS64SYSTEMV( SYM$1 );
 				fb$result$1 = vr$6;
@@ -2470,7 +2471,7 @@ static int64 HGETRETURNTYPE( struct $8FBSYMBOL* SYM$1 )
 	}
 	label$237:;
 	label$236:;
-	if( (*(int64*)((uint8*)&ENV$ + 592ll) & 16ll) != 0ll) goto label$243;
+	if( (*(int64*)((uint8*)&ENV$ + 600ll) & 16ll) != 0ll) goto label$243;
 	{
 		fb$result$1 = 52ll;
 		goto label$229;

@@ -948,6 +948,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -993,7 +994,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1079,7 +1080,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 void CFORSTMTBEGIN( void )
@@ -1524,7 +1525,7 @@ void CFORSTMTEND( void )
 			}
 			label$262:;
 			label$261:;
-			if( (*(int64*)((uint8*)&ENV$ + 408ll) & 8ll) == 0ll) goto label$264;
+			if( (*(int64*)((uint8*)&ENV$ + 416ll) & 8ll) == 0ll) goto label$264;
 			{
 				ERRREPORTWARN( 26ll, (char*)*(char**)((uint8*)*(struct $8FBSYMBOL**)((uint8*)IDEXPR$2 + 24ll) + 32ll), 1ll, (char*)0ull );
 			}
@@ -1707,7 +1708,7 @@ static struct $8FBSYMBOL* HADDIMPLICITVAR( int64 DTYPE$1, struct $8FBSYMBOL* SUB
 	struct $8FBSYMBOL* S$1;
 	int64 OPTIONS$1;
 	OPTIONS$1 = 0ll;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 2ll) != 0ll) goto label$42;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 2ll) != 0ll) goto label$42;
 	{
 		OPTIONS$1 = OPTIONS$1 | 2ll;
 	}
@@ -1739,7 +1740,7 @@ static struct $8FBSYMBOL* HSTORETEMP( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$
 	label$45:;
 	int64 OPTIONS$1;
 	OPTIONS$1 = 0ll;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 2ll) != 0ll) goto label$48;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 2ll) != 0ll) goto label$48;
 	{
 		OPTIONS$1 = OPTIONS$1 | 2ll;
 	}

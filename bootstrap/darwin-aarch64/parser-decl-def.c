@@ -142,6 +142,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -187,7 +188,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $11FB_FUNCMODE;
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
@@ -887,7 +888,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 void CDEFDECL( void )
@@ -898,7 +899,7 @@ void CDEFDECL( void )
 	int64 DTYPE$1;
 	int64 ICHAR$1;
 	int64 ECHAR$1;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 4194304ll) != 0ll) goto label$13;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 4194304ll) != 0ll) goto label$13;
 	{
 		ERRREPORTNOTALLOWED( 4194304ll, 146ll, (char*)0ull );
 		HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -906,7 +907,7 @@ void CDEFDECL( void )
 	}
 	label$13:;
 	label$12:;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$14;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$14;
 	TMP$95$1 = 9ll;
 	goto label$43;
 	label$14:;
@@ -948,7 +949,7 @@ void CDEFDECL( void )
 		goto label$17;
 		label$23:;
 		{
-			DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1456ll);
+			DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1464ll);
 		}
 		goto label$17;
 		label$24:;

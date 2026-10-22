@@ -845,6 +845,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -890,7 +891,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -976,7 +977,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1174,7 +1175,7 @@ struct $7ASTNODE* RTLERRORCHECK( struct $7ASTNODE* EXPR$1 )
 	struct $8FBSYMBOL* RESLABEL$1;
 	struct $7ASTNODE* T$1;
 	T$1 = (struct $7ASTNODE*)0ull;
-	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$23;
+	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$23;
 	{
 		struct $8FBSYMBOL* vr$1 = SYMBADDLABEL( (char*)0ull, 4ll );
 		RESLABEL$1 = vr$1;
@@ -1188,7 +1189,7 @@ struct $7ASTNODE* RTLERRORCHECK( struct $7ASTNODE* EXPR$1 )
 		RESLABEL$1 = (struct $8FBSYMBOL*)0ull;
 	}
 	label$22:;
-	if( *(int64*)((uint8*)&ENV$ + 312ll) == 0ll) goto label$25;
+	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$25;
 	{
 		struct $8FBSYMBOL* vr$4 = SYMBADDLABEL( (char*)0ull, 4ll );
 		NXTLABEL$1 = vr$4;
@@ -1255,7 +1256,7 @@ void RTLERRORTHROW( struct $7ASTNODE* ERREXPR$1, int64 LINENUM$1, char* MODULE$1
 	}
 	label$33:;
 	label$32:;
-	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$35;
+	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$35;
 	{
 		struct $7ASTNODE* vr$10 = ASTNEWVAR( RESLABEL$1, 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$11 = ASTNEWADDROF( vr$10 );
@@ -1275,7 +1276,7 @@ void RTLERRORTHROW( struct $7ASTNODE* ERREXPR$1, int64 LINENUM$1, char* MODULE$1
 	}
 	label$37:;
 	label$36:;
-	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$39;
+	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$39;
 	{
 		struct $7ASTNODE* vr$14 = ASTNEWVAR( NXTLABEL$1, 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$15 = ASTNEWADDROF( vr$14 );
@@ -1320,7 +1321,7 @@ void RTLERRORSETHANDLER( struct $7ASTNODE* NEWHANDLER$1, int64 SAVECURRENT$1 )
 	EXPR$1 = (struct $7ASTNODE*)0ull;
 	if( SAVECURRENT$1 == 0ll) goto label$47;
 	{
-		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$49;
+		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$49;
 		{
 			{
 				struct $10FB_PROCERR* TMP$116$4;
@@ -1515,7 +1516,7 @@ static struct $7ASTNODE* HERRORTHROW( struct $8FBSYMBOL* RESLABEL$1, struct $8FB
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$4 = ASTNEWCONSTI( *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), 8ll, (struct $8FBSYMBOL*)0ull );
 	ASTNEWARG( PROC$1, vr$4, 2147483648ll, -1ll );
-	struct $7ASTNODE* vr$6 = ASTNEWCONSTSTR( (char*)((uint8*)&ENV$ + 632ll) );
+	struct $7ASTNODE* vr$6 = ASTNEWCONSTSTR( (char*)((uint8*)&ENV$ + 640ll) );
 	ASTNEWARG( PROC$1, vr$6, 2147483648ll, -1ll );
 	if( RESLABEL$1 == (struct $8FBSYMBOL*)0ull) goto label$17;
 	{
@@ -1531,7 +1532,7 @@ static struct $7ASTNODE* HERRORTHROW( struct $8FBSYMBOL* RESLABEL$1, struct $8FB
 	}
 	label$16:;
 	ASTNEWARG( PROC$1, PARAM$1, 2147483648ll, -1ll );
-	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$19;
+	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$19;
 	{
 		struct $7ASTNODE* vr$10 = ASTNEWVAR( NXTLABEL$1, 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$11 = ASTNEWADDROF( vr$10 );

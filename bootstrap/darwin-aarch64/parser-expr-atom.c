@@ -953,6 +953,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -998,7 +999,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1083,7 +1084,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1393,7 +1394,7 @@ struct $7ASTNODE* CATOM( struct $8FBSYMBOL* BASE_PARENT$1, struct $10FBSYMCHAIN*
 		goto label$172;
 		label$177:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$179;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$179;
 			{
 				struct $7ASTNODE* vr$7 = HCHECKID( BASE_PARENT$1, *(struct $10FBSYMCHAIN**)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4136ll) );
 				fb$result$1 = vr$7;
@@ -1802,7 +1803,7 @@ static struct $7ASTNODE* HFINDID( struct $8FBSYMBOL* BASE_PARENT$1, struct $10FB
 	struct $7ASTNODE* fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$115:;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$118;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$118;
 	{
 		struct $7ASTNODE* vr$1 = HFINDID_QB( BASE_PARENT$1, CHAIN_$1 );
 		fb$result$1 = vr$1;
@@ -2047,7 +2048,7 @@ static struct $7ASTNODE* HCHECKID( struct $8FBSYMBOL* BASE_PARENT$1, struct $10F
 	}
 	label$161:;
 	label$160:;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$163;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$163;
 	{
 		int64 vr$10 = LEXGETCLASS( 0ll );
 		if( vr$10 == 0ll) goto label$165;

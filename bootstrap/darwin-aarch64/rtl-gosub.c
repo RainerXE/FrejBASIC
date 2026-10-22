@@ -769,6 +769,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -814,7 +815,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -900,7 +901,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 static struct $14FB_RTL_PROCDEF FUNCDATA$[5] = { { (char*)"fb_GosubPush", (char*)0ull, 32ll, -1ll, (tmp$34)0ull, 0ll, 1ll, { { 64ll, 1ll, 0ll } } }, { (char*)"fb_GosubPop", (char*)0ull, 11ll, -1ll, (tmp$34)0ull, 0ll, 1ll, { { 64ll, 1ll, 0ll } } }, { (char*)"fb_GosubReturn", (char*)0ull, 11ll, -1ll, (tmp$34)0ull, 0ll, 1ll, { { 64ll, 1ll, 0ll } } }, { (char*)"fb_GosubExit", (char*)0ull, 0ll, -1ll, (tmp$34)0ull, 0ll, 1ll, { { 64ll, 1ll, 0ll } } }, { (char*)0ull } };
 static struct $14FB_RTL_PROCDEF FUNCDATA1_WIN32$[2] = { { (char*)"fb_SetJmp", (char*)"_setjmp", 11ll, 3ll, (tmp$34)0ull, 0ll, 1ll, { { 32ll, 1ll, 0ll } } }, { (char*)0ull } };
@@ -910,10 +911,10 @@ static struct $14FB_RTL_PROCDEF FUNCDATA2$[2] = { { (char*)"fb_SetJmp", (char*)"
 void RTLGOSUBMODINIT( void )
 {
 	label$10:;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 65536ll) == 0ll) goto label$13;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 65536ll) == 0ll) goto label$13;
 	{
 		RTLADDINTRINSICPROCS( (struct $14FB_RTL_PROCDEF*)FUNCDATA$ );
-		if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$15;
+		if( *(int64*)((uint8*)&ENV$ + 224ll) != 0ll) goto label$15;
 		{
 			int64 vr$1 = FBIS64BIT(  );
 			if( vr$1 == 0ll) goto label$17;
@@ -1051,7 +1052,7 @@ struct $7ASTNODE* RTLSETJMP( struct $7ASTNODE* CTX$1 )
 	}
 	label$39:;
 	label$38:;
-	if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$41;
+	if( *(int64*)((uint8*)&ENV$ + 224ll) != 0ll) goto label$41;
 	{
 		int64 vr$4 = FBIS64BIT(  );
 		if( vr$4 == 0ll) goto label$43;

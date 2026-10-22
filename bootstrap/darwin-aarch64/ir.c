@@ -964,6 +964,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1009,7 +1010,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1095,7 +1096,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8FBARRAY1IPvE {
 	void** DATA;
@@ -1124,7 +1125,7 @@ void IRINIT( void )
 	label$10:;
 	{
 		$10FB_BACKEND TMP$107$2;
-		TMP$107$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$107$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$107$2 == 1ll) goto label$14;
 		label$15:;
 		if( TMP$107$2 != 2ll) goto label$13;

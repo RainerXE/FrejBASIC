@@ -1,0 +1,80 @@
+1. fbc -fsyntax - parse and type-check, generate nothing
+========================================================
+
+An editor can check a FreeBASIC file as it is typed only if the compiler can
+be asked "is this valid?" without also producing output.  Before this flag the
+answer was to compile with -c into a scratch directory and throw the .o away,
+which is slow and leaves files behind.
+
+    fbc -fsyntax program.bas
+
+exits 0 if the program parses and type-checks, or 1 if it does not, with the
+usual file(line): error N: text messages on stderr.  It creates no .o, .c,
+.asm, or executable.
+
+
+2. What it still checks
+-----------------------
+
+Everything the front end does, which is most of what an editor wants:
+
+  * lexing, preprocessing, and #include resolution
+  * syntax and block structure
+  * type checking, overload resolution, and constant folding
+  * undefined labels (the same check a full compile runs)
+
+It does not check anything the back end would catch.  In practice there is
+little of that, because FreeBASIC's semantic analysis is all in the front end.
+
+
+3. How it is implemented
+------------------------
+
+Two settings, not a new code path:
+
+  * a new FB_COMPOPT_SYNTAXONLY option, set by the -fsyntax flag
+  * fbc stops before the assembler and linker (the same early exit -pp and -r
+    use), and fb.bas skips irEmitBegin()/irEmitEnd() so the backend is never
+    opened and no output file exists even transiently
+
+That is deliberate: the parse and type-check logic is exactly the normal one,
+so the flag cannot drift away from what a real compile accepts.  The risk of
+a check that is not the real check is much worse than the cost of two guards.
+
+
+4. Speed
+--------
+
+A full compile of the 1300-line acceptance bench takes seconds; -fsyntax takes
+about 25 ms on the same file, most of which is process start and #include
+processing.  That is quick enough to run on every save, or on every keystroke
+with a debounce.
+
+
+5. Tests
+--------
+
+tests/syntax/fsyntax.sh runs eight checks against the built compiler:
+
+    FBC="bin/fbc -i inc" ./tests/syntax/fsyntax.sh
+
+  * a valid program exits 0
+  * a valid program creates no output files
+  * a syntax error exits non-zero and reports the line
+  * a type mismatch exits non-zero
+  * #include is followed
+  * an undefined label is still reported
+  * nothing is left behind
+
+The script builds everything in a temporary directory and removes it, so it
+is safe to run repeatedly.
+
+
+6. Not done here
+----------------
+
+  * No editor integration.  The flag is what an editor needs; choosing one and
+    wiring it up is a separate decision.
+  * No incremental mode.  Each invocation re-parses the whole file, which is
+    fine at 25 ms but would not be for a very large program; -fsyntax does not
+    attempt to cache anything.

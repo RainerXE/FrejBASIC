@@ -987,6 +987,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1032,7 +1033,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1118,7 +1119,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 int64 ASTINCOFFSET( struct $7ASTNODE* N$1, int64 OFS$1 )
@@ -1547,7 +1548,7 @@ struct $7ASTNODE* HOPTSELFCOMPARE( struct $7ASTNODE* N$1 )
 	}
 	label$738:;
 	label$737:;
-	if( *(int64*)((uint8*)&ENV$ + 240ll) != 0ll) goto label$740;
+	if( *(int64*)((uint8*)&ENV$ + 248ll) != 0ll) goto label$740;
 	{
 		int64 TMP$172$2;
 		int64 TMP$173$2;
@@ -1663,7 +1664,7 @@ struct $7ASTNODE* ASTOPTIMIZETREE( struct $7ASTNODE* N$1 )
 	N$1 = vr$11;
 	struct $7ASTNODE* vr$12 = HOPTSELFCOMPARE( N$1 );
 	N$1 = vr$12;
-	if( ((int64)-((*(int64*)((uint8*)&IR$ + 544ll) & 1ll) == 0ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 0ll)) == 0ll) goto label$783;
+	if( ((int64)-((*(int64*)((uint8*)&IR$ + 544ll) & 1ll) == 0ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll)) == 0ll) goto label$783;
 	{
 		struct $7ASTNODE* vr$17 = HDOOPTREMCONV( N$1 );
 		N$1 = vr$17;
@@ -1672,7 +1673,7 @@ struct $7ASTNODE* ASTOPTIMIZETREE( struct $7ASTNODE* N$1 )
 	label$782:;
 	if( (*(int64*)((uint8*)&IR$ + 544ll) & 131072ll) != 0ll) goto label$785;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 240ll) != 1ll) goto label$787;
+		if( *(int64*)((uint8*)&ENV$ + 248ll) != 1ll) goto label$787;
 		{
 			struct $7ASTNODE* vr$19 = HOPTRECIPROCAL( N$1 );
 			N$1 = vr$19;
@@ -2324,7 +2325,7 @@ static void HOPTCONSTIDXMULT( struct $7ASTNODE* N$1 )
 	label$149:;
 	TMP$95$1 = (*(int64*)((uint8*)L$1 + 8ll) & 511ll) & 31ll;
 	label$794:;
-	if( ((int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$94$1 * 56ll)) != 0ll) | (int64)-(*(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$95$1 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 616ll))) == 0ll) goto label$151;
+	if( ((int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$94$1 * 56ll)) != 0ll) | (int64)-(*(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$95$1 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 624ll))) == 0ll) goto label$151;
 	{
 		struct $7ASTNODE* vr$40 = ASTNEWCONV( 8ll, (struct $8FBSYMBOL*)0ull, L$1, 0ll, (int64*)0ull );
 		*(struct $7ASTNODE**)((uint8*)N$1 + 112ll) = vr$40;

@@ -993,6 +993,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1038,7 +1039,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1124,7 +1125,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1568,7 +1569,7 @@ struct $7ASTNODE* CTYPEOREXPRESSION( int64 TK$1, int64* DTYPE$1, struct $8FBSYMB
 		}
 	}
 	label$104:;
-	if( ((MAYBE_TYPE$1 & (int64)-(TK$1 == 465ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 272ll) == 3ll)) == 0ll) goto label$118;
+	if( ((MAYBE_TYPE$1 & (int64)-(TK$1 == 465ll)) & (int64)-(*(int64*)((uint8*)&ENV$ + 280ll) == 3ll)) == 0ll) goto label$118;
 	{
 		MAYBE_TYPE$1 = 0ll;
 	}
@@ -1809,7 +1810,7 @@ int64 CSYMBOLTYPE( int64* DTYPE$1, struct $8FBSYMBOL** SUBTYPE$1, int64* LGT$1, 
 				goto label$213;
 				label$214:;
 				{
-					*DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1456ll);
+					*DTYPE$1 = *(int64*)((uint8*)&ENV$ + 1464ll);
 				}
 				label$213:;
 			}
@@ -2622,7 +2623,7 @@ static int64 CMANGLEMODIFIER( int64* DTYPE$1, struct $8FBSYMBOL** SUBTYPE$1 )
 				label$153:;
 				{
 					int64 vr$10 = FBIS64BIT(  );
-					if( (vr$10 & (int64)-((*(int64*)((uint8*)&ENV$ + 592ll) & 1ll) == 0ll)) == 0ll) goto label$155;
+					if( (vr$10 & (int64)-((*(int64*)((uint8*)&ENV$ + 600ll) & 1ll) == 0ll)) == 0ll) goto label$155;
 					{
 						{
 							int64 TMP$123$7;

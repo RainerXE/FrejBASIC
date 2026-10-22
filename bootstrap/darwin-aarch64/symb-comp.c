@@ -955,6 +955,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1000,7 +1001,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1086,7 +1087,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 void SYMBCOMPINIT( void )
@@ -1691,7 +1692,7 @@ int64 OPTIMIZEPUREABSTRACTTYPES( struct $8FBSYMBOL* UDT$1 )
 	int64 fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$286:;
-	if( *(int64*)((uint8*)&ENV$ + 552ll) == 0ll) goto label$289;
+	if( *(int64*)((uint8*)&ENV$ + 560ll) == 0ll) goto label$289;
 	{
 		if( *(struct $12FB_STRUCTEXT**)((uint8*)UDT$1 + 240ll) == (struct $12FB_STRUCTEXT*)0ull) goto label$291;
 		{
@@ -1981,7 +1982,7 @@ void SYMBCOMPRTTIINIT( void )
 	SYMBADDFIELD( RTTITYPE$1, (char*)"rttibase", 0ll, (struct $7FBARRAYI10FBARRAYDIME*)&tmp$95$1, 52ll, RTTITYPE$1, 0ll, 0ll, 0ll );
 	SYMBSTRUCTEND( RTTITYPE$1, 0ll );
 	char* PTYPENAME$1;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$385;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$385;
 	{
 		PTYPENAME$1 = (char*)"__OBJECT";
 	}

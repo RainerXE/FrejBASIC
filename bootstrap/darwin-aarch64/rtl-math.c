@@ -746,6 +746,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -791,7 +792,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -877,7 +878,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 static struct $14FB_RTL_PROCDEF FUNCDATA$[31] = { { (char*)"fb___divdi3", (char*)"__divdi3", 13ll, 3ll, (tmp$34)0ull, 0ll, 2ll, { { 13ll, 1ll, 0ll }, { 13ll, 1ll, 0ll } } }, { (char*)"fb___udivdi3", (char*)"__udivdi3", 14ll, 3ll, (tmp$34)0ull, 0ll, 2ll, { { 14ll, 1ll, 0ll }, { 14ll, 1ll, 0ll } } }, { (char*)"fb___moddi3", (char*)"__moddi3", 13ll, 3ll, (tmp$34)0ull, 0ll, 2ll, { { 13ll, 1ll, 0ll }, { 13ll, 1ll, 0ll } } }, { (char*)"fb___umoddi3", (char*)"__umoddi3", 14ll, 3ll, (tmp$34)0ull, 0ll, 2ll, { { 14ll, 1ll, 0ll }, { 14ll, 1ll, 0ll } } }, { (char*)"fb___fixunsdfdi", (char*)"__fixunsdfdi", 14ll, 3ll, (tmp$34)0ull, 0ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"fb_Pow", (char*)"pow", 16ll, 3ll, (tmp$34)0ull, 0ll, 2ll, { { 16ll, 1ll, 0ll }, { 16ll, 1ll, 0ll } } }, { (char*)"randomize", (char*)"fb_Randomize", 0ll, -1ll, (tmp$34)&HRNDCALLBACK, 0ll, 2ll, { { 16ll, 1ll, -1ll, -1ll }, { 11ll, 1ll, -1ll, 0ll } } }, { (char*)"rnd", (char*)"fb_Rnd", 16ll, -1ll, (tmp$34)&HRNDCALLBACK, 0ll, 1ll, { { 15ll, 1ll, -1ll, 1ll } } }, { (char*)"{asin}", (char*)"asinf", 15ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{asin}", (char*)"asin", 16ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{acos}", (char*)"acosf", 15ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{acos}", (char*)"acos", 16ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{tan}", (char*)"tanf", 15ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{tan}", (char*)"tan", 16ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{atan}", (char*)"atanf", 15ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{atan}", (char*)"atan", 16ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{abs}", (char*)"abs", 11ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 11ll, 1ll, 0ll } } }, { (char*)"{abs}", (char*)"llabs", 13ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 13ll, 1ll, 0ll } } }, { (char*)"{abs}", (char*)"fabsf", 15ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{abs}", (char*)"fabs", 16ll, 3ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{sgn}", (char*)"fb_SGNi", 11ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 11ll, 1ll, 0ll } } }, { (char*)"{sgn}", (char*)"fb_SGNl", 11ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 13ll, 1ll, 0ll } } }, { (char*)"{sgn}", (char*)"fb_SGNSingle", 11ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{sgn}", (char*)"fb_SGNDouble", 11ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{fix}", (char*)"fb_FIXSingle", 15ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{fix}", (char*)"fb_FIXDouble", 16ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{frac}", (char*)"fb_FRACf", 15ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 15ll, 1ll, 0ll } } }, { (char*)"{frac}", (char*)"fb_FRACd", 16ll, -1ll, (tmp$34)0ull, 1ll, 1ll, { { 16ll, 1ll, 0ll } } }, { (char*)"{atan2}", (char*)"atan2f", 15ll, 3ll, (tmp$34)0ull, 1ll, 2ll, { { 15ll, 1ll, 0ll }, { 15ll, 1ll, 0ll } } }, { (char*)"{atan2}", (char*)"atan2", 16ll, 3ll, (tmp$34)0ull, 1ll, 2ll, { { 16ll, 1ll, 0ll }, { 16ll, 1ll, 0ll } } }, { (char*)0ull } };
 
@@ -1205,7 +1206,7 @@ static int64 HRNDCALLBACK( struct $8FBSYMBOL* SYM$1 )
 		LIBSADDED$1 = -1ll;
 		{
 			$13FB_COMPTARGET TMP$140$3;
-			TMP$140$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 216ll);
+			TMP$140$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 224ll);
 			if( TMP$140$3 == 0ll) goto label$71;
 			label$72:;
 			if( TMP$140$3 != 1ll) goto label$70;

@@ -969,6 +969,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1014,7 +1015,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1100,7 +1101,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 struct $7ASTNODE* ASTNEWBRANCH( int64 OP$1, struct $8FBSYMBOL* LABEL$1, struct $7ASTNODE* L$1 )
@@ -1229,7 +1230,7 @@ struct $7ASTNODE* ASTBUILDJMPTB( struct $8FBSYMBOL* TEMPVAR$1, uint64* VALUES1$1
 	TREE$1 = (struct $7ASTNODE*)0ull;
 	{
 		$10FB_BACKEND TMP$88$2;
-		TMP$88$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$88$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$88$2 == 0ll) goto label$46;
 		label$47:;
 		if( TMP$88$2 != 3ll) goto label$45;
@@ -1247,7 +1248,7 @@ struct $7ASTNODE* ASTBUILDJMPTB( struct $8FBSYMBOL* TEMPVAR$1, uint64* VALUES1$1
 		label$45:;
 		label$44:;
 	}
-	if( *(int64*)((uint8*)&ENV$ + 208ll) != 0ll) goto label$51;
+	if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$51;
 	{
 		char* vr$4 = SYMBUNIQUELABEL(  );
 		struct $8FBSYMBOL* vr$5 = SYMBADDVAR( (char*)vr$4, (char*)0ull, 32ll, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, (struct $7FBARRAYI10FBARRAYDIME*)&tmp$87$1, 1ll, 0ll );
@@ -1260,7 +1261,7 @@ struct $7ASTNODE* ASTBUILDJMPTB( struct $8FBSYMBOL* TEMPVAR$1, uint64* VALUES1$1
 		struct $7ASTNODE* vr$13 = ASTNEWBOP( 46ll, vr$12, vr$9, DEFLABEL$1, 0ll );
 		struct $7ASTNODE* vr$14 = ASTNEWLINK( TREE$1, vr$13, 0ll );
 		TREE$1 = vr$14;
-		struct $7ASTNODE* vr$15 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 616ll), DTYPE$1, (struct $8FBSYMBOL*)0ull );
+		struct $7ASTNODE* vr$15 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 624ll), DTYPE$1, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$16 = ASTNEWVAR( TEMPVAR$1, 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$17 = ASTNEWBOP( 30ll, vr$16, vr$15, (struct $8FBSYMBOL*)0ull, 1ll );
 		int64 vr$18 = HPRECALCBIASOFFSET( BIAS$1, DTYPE$1 );
@@ -1391,7 +1392,7 @@ static int64 HPRECALCBIASOFFSET( uint64 BIAS$1, int64 DTYPE$1 )
 	T$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWUOP( 55ll, T$1 );
 	T$1 = vr$3;
-	struct $7ASTNODE* vr$4 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 616ll), DTYPE$1, (struct $8FBSYMBOL*)0ull );
+	struct $7ASTNODE* vr$4 = ASTNEWCONSTI( *(int64*)((uint8*)&ENV$ + 624ll), DTYPE$1, (struct $8FBSYMBOL*)0ull );
 	struct $7ASTNODE* vr$5 = ASTNEWBOP( 30ll, T$1, vr$4, (struct $8FBSYMBOL*)0ull, 1ll );
 	T$1 = vr$5;
 	int64 vr$6 = ASTCONSTFLUSHTOINT( T$1, 11ll );

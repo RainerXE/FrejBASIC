@@ -845,6 +845,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -890,7 +891,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -976,7 +977,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1271,7 +1272,7 @@ void EDBGINIT( void )
 	label$10:;
 	{
 		$13FB_COMPTARGET TMP$136$2;
-		TMP$136$2 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 216ll);
+		TMP$136$2 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 224ll);
 		if( TMP$136$2 == 0ll) goto label$14;
 		label$15:;
 		if( TMP$136$2 == 1ll) goto label$14;
@@ -1284,7 +1285,7 @@ void EDBGINIT( void )
 		goto label$12;
 		label$13:;
 		{
-			*(int64*)((int64)(int64*)REMAPTB$ + 56ll) = *(int64*)((int64)(int64*)REMAPTB$ + (*(int64*)((uint8*)&ENV$ + 568ll) << (3ll & 63ll)));
+			*(int64*)((int64)(int64*)REMAPTB$ + 56ll) = *(int64*)((int64)(int64*)REMAPTB$ + (*(int64*)((uint8*)&ENV$ + 576ll) << (3ll & 63ll)));
 		}
 		label$17:;
 		label$12:;
@@ -1300,7 +1301,7 @@ void EDBGEMITHEADER( char* FILENAME$1 )
 	label$28:;
 	FBSTRING LNAME$1;
 	__builtin_memset( &LNAME$1, 0, 24ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$31;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$31;
 	{
 		fb_StrDelete( (FBSTRING*)&LNAME$1 );
 		goto label$29;
@@ -1363,7 +1364,7 @@ void EDBGEMITFOOTER( void )
 {
 	label$38:;
 	static FBSTRING LNAME$1;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$41;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$41;
 	{
 		goto label$39;
 	}
@@ -1380,7 +1381,7 @@ void EDBGEMITFOOTER( void )
 void EDBGLINEBEGIN( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, int64 POS_$1, char* FILENAME$1 )
 {
 	label$42:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$45;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$45;
 	{
 		goto label$43;
 	}
@@ -1418,7 +1419,7 @@ void EDBGLINEBEGIN( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, int64 POS_$1, char*
 void EDBGLINEEND( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, int64 POS_$1 )
 {
 	label$52:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$55;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$55;
 	{
 		goto label$53;
 	}
@@ -1448,7 +1449,7 @@ void EDBGEMITLINE( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, struct $8FBSYMBOL* L
 	FBSTRING TMP$158$1;
 	label$60:;
 	static char* S$1;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$63;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$63;
 	{
 		goto label$61;
 	}
@@ -1482,7 +1483,7 @@ void EDBGEMITLINEFLUSH( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, struct $8FBSYMB
 	FBSTRING TMP$160$1;
 	FBSTRING TMP$161$1;
 	label$66:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$69;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$69;
 	{
 		goto label$67;
 	}
@@ -1504,7 +1505,7 @@ void EDBGEMITLINEFLUSH( struct $8FBSYMBOL* PROC$1, int64 LNUM$1, struct $8FBSYMB
 void EDBGSCOPEBEGIN( struct $8FBSYMBOL* S$1 )
 {
 	label$70:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$73;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$73;
 	{
 		goto label$71;
 	}
@@ -1519,7 +1520,7 @@ void EDBGSCOPEBEGIN( struct $8FBSYMBOL* S$1 )
 void EDBGSCOPEEND( struct $8FBSYMBOL* S$1 )
 {
 	label$74:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$77;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$77;
 	{
 		goto label$75;
 	}
@@ -1534,7 +1535,7 @@ void EDBGSCOPEEND( struct $8FBSYMBOL* S$1 )
 void EDBGEMITSCOPEINI( struct $8FBSYMBOL* S$1 )
 {
 	label$78:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$81;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$81;
 	{
 		goto label$79;
 	}
@@ -1548,7 +1549,7 @@ void EDBGEMITSCOPEINI( struct $8FBSYMBOL* S$1 )
 void EDBGEMITSCOPEEND( struct $8FBSYMBOL* S$1 )
 {
 	label$82:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$85;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$85;
 	{
 		goto label$83;
 	}
@@ -1586,7 +1587,7 @@ void EDBGEMITPROCHEADER( struct $8FBSYMBOL* PROC$1 )
 	label$100:;
 	static FBSTRING DESC$1;
 	static FBSTRING PROCNAME$1;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$103;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$103;
 	{
 		goto label$101;
 	}
@@ -1646,7 +1647,7 @@ void EDBGEMITPROCFOOTER( struct $8FBSYMBOL* PROC$1, struct $8FBSYMBOL* INITLABEL
 	label$129:;
 	static FBSTRING PROCNAME$1;
 	static FBSTRING LNAME$1;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$132;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$132;
 	{
 		goto label$130;
 	}
@@ -1680,7 +1681,7 @@ void EDBGEMITGLOBALVAR( struct $8FBSYMBOL* SYM$1, int64 SECTION$1 )
 	int64 ATTRIB$1;
 	FBSTRING DESC$1;
 	__builtin_memset( &DESC$1, 0, 24ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$192;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$192;
 	{
 		fb_StrDelete( (FBSTRING*)&DESC$1 );
 		goto label$190;
@@ -1749,7 +1750,7 @@ void EDBGEMITLOCALVAR( struct $8FBSYMBOL* SYM$1, int64 ISSTATIC$1 )
 	__builtin_memset( &DESC$1, 0, 24ll );
 	FBSTRING VALUE$1;
 	__builtin_memset( &VALUE$1, 0, 24ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$207;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$207;
 	{
 		fb_StrDelete( (FBSTRING*)&VALUE$1 );
 		fb_StrDelete( (FBSTRING*)&DESC$1 );
@@ -1806,7 +1807,7 @@ void EDBGEMITPROCARG( struct $8FBSYMBOL* SYM$1 )
 	label$214:;
 	FBSTRING DESC$1;
 	__builtin_memset( &DESC$1, 0, 24ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$217;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$217;
 	{
 		fb_StrDelete( (FBSTRING*)&DESC$1 );
 		goto label$215;

@@ -1164,6 +1164,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1209,7 +1210,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1294,7 +1295,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1705,7 +1706,7 @@ $11FB_FUNCMODE CPROCCALLINGCONV( $11FB_FUNCMODE DEFAULT$1, int64* IS_EXPLICIT$1 
 	*IS_EXPLICIT$1 = 0ll;
 	if( DEFAULT$1 != -1ll) goto label$186;
 	{
-		DEFAULT$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 576ll);
+		DEFAULT$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 584ll);
 	}
 	label$186:;
 	label$185:;
@@ -1724,7 +1725,7 @@ $11FB_FUNCMODE CPROCCALLINGCONV( $11FB_FUNCMODE DEFAULT$1, int64* IS_EXPLICIT$1 
 		label$190:;
 		{
 			*IS_EXPLICIT$1 = -1ll;
-			fb$result$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 584ll);
+			fb$result$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 592ll);
 			LEXSKIPTOKEN( 2048ll );
 		}
 		goto label$187;
@@ -1737,7 +1738,7 @@ $11FB_FUNCMODE CPROCCALLINGCONV( $11FB_FUNCMODE DEFAULT$1, int64* IS_EXPLICIT$1 
 		goto label$187;
 		label$192:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 432ll) != 0ll) goto label$194;
+			if( *(int64*)((uint8*)&ENV$ + 440ll) != 0ll) goto label$194;
 			{
 				*IS_EXPLICIT$1 = -1ll;
 				fb$result$1 = 5ll;
@@ -1749,7 +1750,7 @@ $11FB_FUNCMODE CPROCCALLINGCONV( $11FB_FUNCMODE DEFAULT$1, int64* IS_EXPLICIT$1 
 		goto label$187;
 		label$195:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 440ll) != 0ll) goto label$197;
+			if( *(int64*)((uint8*)&ENV$ + 448ll) != 0ll) goto label$197;
 			{
 				*IS_EXPLICIT$1 = -1ll;
 				fb$result$1 = 6ll;
@@ -1798,7 +1799,7 @@ $11FB_FUNCMODE CPROCCALLINGCONV( $11FB_FUNCMODE DEFAULT$1, int64* IS_EXPLICIT$1 
 			goto label$200;
 			label$206:;
 			{
-				fb$result$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 584ll);
+				fb$result$1 = *($11FB_FUNCMODE*)((uint8*)&ENV$ + 592ll);
 			}
 			goto label$200;
 			label$207:;
@@ -2150,7 +2151,7 @@ struct $8FBSYMBOL* CPROCHEADER( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATT
 		{
 			struct $8FBSYMBOL* vr$48 = HGETID( PARENT$1, (char*)ID$1, &DTYPE$1, (int64)-(TK$1 == 345ll) | (int64)-(TK$1 == 350ll) );
 			HEAD_PROC$1 = vr$48;
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 8388608ll) == 0ll) goto label$495;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 8388608ll) == 0ll) goto label$495;
 			{
 				if( DTYPE$1 == 2147483648ll) goto label$497;
 				{
@@ -2190,12 +2191,12 @@ struct $8FBSYMBOL* CPROCHEADER( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATT
 		{
 			if( *(int64*)((uint8*)&PARSER$ + 208ll) != 4ll) goto label$508;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$510;
+				if( *(int64*)((uint8*)&ENV$ + 224ll) != 0ll) goto label$510;
 				{
 					int64 vr$54 = FBIS64BIT(  );
 					if( vr$54 != 0ll) goto label$512;
 					{
-						if( *(int64*)((uint8*)&ENV$ + 432ll) != 0ll) goto label$514;
+						if( *(int64*)((uint8*)&ENV$ + 440ll) != 0ll) goto label$514;
 						{
 							MODE$1 = 5ll;
 						}
@@ -2221,7 +2222,7 @@ struct $8FBSYMBOL* CPROCHEADER( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATT
 	int64 vr$57 = LEXGETTOKEN( 0ll );
 	if( vr$57 != 388ll) goto label$516;
 	{
-		if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 16ll) != 0ll) goto label$518;
+		if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 16ll) != 0ll) goto label$518;
 		{
 			ERRREPORTNOTALLOWED( 16ll, 146ll, (char*)0ull );
 		}
@@ -2462,7 +2463,7 @@ struct $8FBSYMBOL* CPROCHEADER( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATT
 			{
 				if( TK$1 != 346ll) goto label$580;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 4194304ll) == 0ll) goto label$582;
+					if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 4194304ll) == 0ll) goto label$582;
 					{
 						if( DTYPE$1 != 2147483648ll) goto label$584;
 						{
@@ -2656,7 +2657,7 @@ struct $8FBSYMBOL* CPROCHEADER( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATT
 		label$626:;
 		label$625:;
 		LEXSKIPTOKEN( 2048ll );
-		FBSETOPTION( 34ll, -1ll );
+		FBSETOPTION( 35ll, -1ll );
 		ATTRIB$1 = ATTRIB$1 | 288ll;
 	}
 	label$622:;
@@ -3011,7 +3012,7 @@ void CPROCSTMTBEGIN( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATTRIB$1 )
 	struct $13FB_CMPSTMTSTK* STK$1;
 	if( (ATTRIB$1 & 96ll) != 0ll) goto label$721;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 1544ll) == 0ll) goto label$723;
+		if( *(int64*)((uint8*)&ENV$ + 1552ll) == 0ll) goto label$723;
 		{
 			ATTRIB$1 = ATTRIB$1 | 32ll;
 		}
@@ -3037,7 +3038,7 @@ void CPROCSTMTBEGIN( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATTRIB$1 )
 		goto label$724;
 		label$727:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 64ll) != 0ll) goto label$729;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 64ll) != 0ll) goto label$729;
 			{
 				ERRREPORTNOTALLOWED( 64ll, 146ll, (char*)0ull );
 			}
@@ -3054,7 +3055,7 @@ void CPROCSTMTBEGIN( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATTRIB$1 )
 		goto label$724;
 		label$730:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 64ll) != 0ll) goto label$732;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 64ll) != 0ll) goto label$732;
 			{
 				ERRREPORTNOTALLOWED( 64ll, 146ll, (char*)0ull );
 			}
@@ -3071,7 +3072,7 @@ void CPROCSTMTBEGIN( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATTRIB$1 )
 		goto label$724;
 		label$733:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 32ll) != 0ll) goto label$735;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 32ll) != 0ll) goto label$735;
 			{
 				ERRREPORTNOTALLOWED( 32ll, 146ll, (char*)0ull );
 			}
@@ -3081,7 +3082,7 @@ void CPROCSTMTBEGIN( $13FB_SYMBATTRIB ATTRIB$1, $13FB_PROCATTRIB PATTRIB$1 )
 		goto label$724;
 		label$736:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 64ll) != 0ll) goto label$738;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 64ll) != 0ll) goto label$738;
 			{
 				ERRREPORTNOTALLOWED( 64ll, 146ll, (char*)0ull );
 			}
@@ -3492,7 +3493,7 @@ static int64 HCHECKIDTOKEN( int64 HAS_PARENT$1 )
 		goto label$103;
 		label$104:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$106;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$106;
 			{
 				if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$108;
 				{
@@ -3512,7 +3513,7 @@ static int64 HCHECKIDTOKEN( int64 HAS_PARENT$1 )
 		goto label$102;
 		label$111:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$113;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$113;
 			{
 				if( (~HAS_PARENT$1 | (int64)-(*(uint64*)((uint8*)&PARSER$ + 200ll) > 0ull)) == 0ll) goto label$115;
 				{
@@ -3528,7 +3529,7 @@ static int64 HCHECKIDTOKEN( int64 HAS_PARENT$1 )
 		goto label$102;
 		label$116:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$118;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$118;
 			{
 				ERRREPORT( 4ll, 0ll, (char*)0ull );
 				goto label$101;

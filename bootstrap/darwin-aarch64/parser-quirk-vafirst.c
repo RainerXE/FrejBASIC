@@ -781,6 +781,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -826,7 +827,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -912,7 +913,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -1116,7 +1117,7 @@ struct $7ASTNODE* CVAFUNCT( void )
 	label$73:;
 	{
 		$10FB_BACKEND TMP$98$2;
-		TMP$98$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$98$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$98$2 == 1ll) goto label$79;
 		label$80:;
 		if( TMP$98$2 != 2ll) goto label$78;
@@ -1246,7 +1247,7 @@ struct $7ASTNODE* CVALISTFUNCT( $8FB_TOKEN TK$1 )
 		label$96:;
 		int64 LGT$2;
 		int64 vr$27 = SYMBCALCLEN( DTYPE$1, SUBTYPE$1 );
-		LGT$2 = ((vr$27 + *(int64*)((uint8*)&ENV$ + 616ll)) + -1ll) & -(*(int64*)((uint8*)&ENV$ + 616ll));
+		LGT$2 = ((vr$27 + *(int64*)((uint8*)&ENV$ + 624ll)) + -1ll) & -(*(int64*)((uint8*)&ENV$ + 624ll));
 		struct $7ASTNODE* EXPR1$2;
 		struct $7ASTNODE* vr$32 = ASTNEWCONSTI( LGT$2, 9ll, (struct $8FBSYMBOL*)0ull );
 		struct $7ASTNODE* vr$33 = ASTCLONETREE( EXPR$1 );
@@ -1508,7 +1509,7 @@ static int64 HGETVARARGPROCPARAM( struct $8FBSYMBOL** PROC$1, struct $8FBSYMBOL*
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$10:;
 	fb$result$1 = 0ll;
-	if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$13;
+	if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$13;
 	{
 		goto label$11;
 	}

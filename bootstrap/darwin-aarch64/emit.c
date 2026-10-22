@@ -958,6 +958,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1003,7 +1004,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1089,7 +1090,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $14IR_OPTIONVALUE;
 typedef int64 (*tmp$41)( $14IR_OPTIONVALUE );
@@ -1211,7 +1212,7 @@ void EMITWRITESTR( char* S$1, int64 ADDTAB$1 )
 	}
 	label$20:;
 	fb_StrConcatAssign( (void*)&OSTR$1, -1ll, (void*)"\x0A", 2ll, 0 );
-	int32 vr$4 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)&OSTR$1, -1ll );
+	int32 vr$4 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)&OSTR$1, -1ll );
 	if( (int64)vr$4 == 0ll) goto label$23;
 	{
 	}

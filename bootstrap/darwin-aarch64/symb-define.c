@@ -1139,6 +1139,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1184,7 +1185,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1270,7 +1271,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1431,7 +1432,7 @@ struct $6PP_CTX {
 };
 __FB_STATIC_ASSERT( sizeof( struct $6PP_CTX ) == 408 );
 extern struct $6PP_CTX PP$;
-static struct $7SYMBDEF DEFTB$[40] = { { (char*)"__FB_VERSION__", (char*)"1.20.0", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_DATE__", (char*)"10-22-2026", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_DATE_ISO__", (char*)"2026-10-22", 1ll, (tmp$28)0ull }, { (char*)"__FB_VER_MAJOR__", (char*)"1", 0ll, (tmp$28)0ull }, { (char*)"__FB_VER_MINOR__", (char*)"20", 0ll, (tmp$28)0ull }, { (char*)"__FB_VER_PATCH__", (char*)"0", 0ll, (tmp$28)0ull }, { (char*)"__FB_SIGNATURE__", (char*)"FreeBASIC 1.20.0", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_SHA1__", (char*)"", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_FORK_ID__", (char*)"", 1ll, (tmp$28)0ull }, { (char*)"__FB_MT__", (char*)0ull, 0ll, (tmp$28)&HDEFMULTITHREAD_CB }, { (char*)"__FILE__", (char*)0ull, 1ll, (tmp$28)&HDEFFILE_CB }, { (char*)"__FILE_NQ__", (char*)0ull, 0ll, (tmp$28)&HDEFFILE_CB }, { (char*)"__FUNCTION__", (char*)0ull, 1ll, (tmp$28)&HDEFFUNCTION_CB }, { (char*)"__FUNCTION_NQ__", (char*)0ull, 0ll, (tmp$28)&HDEFFUNCTION_CB }, { (char*)"__LINE__", (char*)0ull, 0ll, (tmp$28)&HDEFLINE_CB }, { (char*)"__DATE__", (char*)0ull, 1ll, (tmp$28)&HDEFDATE_CB }, { (char*)"__DATE_ISO__", (char*)0ull, 1ll, (tmp$28)&HDEFDATEISO_CB }, { (char*)"__TIME__", (char*)0ull, 1ll, (tmp$28)&HDEFTIME_CB }, { (char*)"__PATH__", (char*)0ull, 1ll, (tmp$28)&HDEFPATH_CB }, { (char*)"__FB_OPTION_BYVAL__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTBYVAL_CB }, { (char*)"__FB_OPTION_DYNAMIC__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTDYNAMIC_CB }, { (char*)"__FB_OPTION_ESCAPE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTESCAPE_CB }, { (char*)"__FB_OPTION_EXPLICIT__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTEXPLICIT_CB }, { (char*)"__FB_OPTION_PRIVATE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTPRIVATE_CB }, { (char*)"__FB_OPTION_GOSUB__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTGOSUB_CB }, { (char*)"__FB_OPTION_PROFILE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTPROFILE_CB }, { (char*)"__FB_OUT_EXE__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTEXE_CB }, { (char*)"__FB_OUT_LIB__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTLIB_CB }, { (char*)"__FB_OUT_DLL__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTDLL_CB }, { (char*)"__FB_OUT_OBJ__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTOBJ_CB }, { (char*)"__FB_DEBUG__", (char*)0ull, 0ll, (tmp$28)&HDEFDEBUG_CB }, { (char*)"__FB_ERR__", (char*)0ull, 0ll, (tmp$28)&HDEFERR_CB }, { (char*)"__FB_LANG__", (char*)0ull, 1ll, (tmp$28)&HDEFLANG_CB }, { (char*)"__FB_BACKEND__", (char*)0ull, 1ll, (tmp$28)&HDEFBACKEND_CB }, { (char*)"__FB_FPU__", (char*)0ull, 1ll, (tmp$28)&HDEFFPU_CB }, { (char*)"__FB_FPMODE__", (char*)0ull, 1ll, (tmp$28)&HDEFFPMODE_CB }, { (char*)"__FB_GCC__", (char*)0ull, 0ll, (tmp$28)&HDEFGCC_CB }, { (char*)"__FB_GUI__", (char*)0ull, 0ll, (tmp$28)&HDEFGUI_CB }, { (char*)"__FB_OPTIMIZE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTIMIZE_CB }, { (char*)"__FB_PROFILE__", (char*)0ull, 0ll, (tmp$28)&HDEFPROFILE_CB } };
+static struct $7SYMBDEF DEFTB$[40] = { { (char*)"__FB_VERSION__", (char*)"1.20.0", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_DATE__", (char*)"10-23-2026", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_DATE_ISO__", (char*)"2026-10-23", 1ll, (tmp$28)0ull }, { (char*)"__FB_VER_MAJOR__", (char*)"1", 0ll, (tmp$28)0ull }, { (char*)"__FB_VER_MINOR__", (char*)"20", 0ll, (tmp$28)0ull }, { (char*)"__FB_VER_PATCH__", (char*)"0", 0ll, (tmp$28)0ull }, { (char*)"__FB_SIGNATURE__", (char*)"FreeBASIC 1.20.0", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_SHA1__", (char*)"", 1ll, (tmp$28)0ull }, { (char*)"__FB_BUILD_FORK_ID__", (char*)"", 1ll, (tmp$28)0ull }, { (char*)"__FB_MT__", (char*)0ull, 0ll, (tmp$28)&HDEFMULTITHREAD_CB }, { (char*)"__FILE__", (char*)0ull, 1ll, (tmp$28)&HDEFFILE_CB }, { (char*)"__FILE_NQ__", (char*)0ull, 0ll, (tmp$28)&HDEFFILE_CB }, { (char*)"__FUNCTION__", (char*)0ull, 1ll, (tmp$28)&HDEFFUNCTION_CB }, { (char*)"__FUNCTION_NQ__", (char*)0ull, 0ll, (tmp$28)&HDEFFUNCTION_CB }, { (char*)"__LINE__", (char*)0ull, 0ll, (tmp$28)&HDEFLINE_CB }, { (char*)"__DATE__", (char*)0ull, 1ll, (tmp$28)&HDEFDATE_CB }, { (char*)"__DATE_ISO__", (char*)0ull, 1ll, (tmp$28)&HDEFDATEISO_CB }, { (char*)"__TIME__", (char*)0ull, 1ll, (tmp$28)&HDEFTIME_CB }, { (char*)"__PATH__", (char*)0ull, 1ll, (tmp$28)&HDEFPATH_CB }, { (char*)"__FB_OPTION_BYVAL__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTBYVAL_CB }, { (char*)"__FB_OPTION_DYNAMIC__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTDYNAMIC_CB }, { (char*)"__FB_OPTION_ESCAPE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTESCAPE_CB }, { (char*)"__FB_OPTION_EXPLICIT__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTEXPLICIT_CB }, { (char*)"__FB_OPTION_PRIVATE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTPRIVATE_CB }, { (char*)"__FB_OPTION_GOSUB__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTGOSUB_CB }, { (char*)"__FB_OPTION_PROFILE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTPROFILE_CB }, { (char*)"__FB_OUT_EXE__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTEXE_CB }, { (char*)"__FB_OUT_LIB__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTLIB_CB }, { (char*)"__FB_OUT_DLL__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTDLL_CB }, { (char*)"__FB_OUT_OBJ__", (char*)0ull, 0ll, (tmp$28)&HDEFOUTOBJ_CB }, { (char*)"__FB_DEBUG__", (char*)0ull, 0ll, (tmp$28)&HDEFDEBUG_CB }, { (char*)"__FB_ERR__", (char*)0ull, 0ll, (tmp$28)&HDEFERR_CB }, { (char*)"__FB_LANG__", (char*)0ull, 1ll, (tmp$28)&HDEFLANG_CB }, { (char*)"__FB_BACKEND__", (char*)0ull, 1ll, (tmp$28)&HDEFBACKEND_CB }, { (char*)"__FB_FPU__", (char*)0ull, 1ll, (tmp$28)&HDEFFPU_CB }, { (char*)"__FB_FPMODE__", (char*)0ull, 1ll, (tmp$28)&HDEFFPMODE_CB }, { (char*)"__FB_GCC__", (char*)0ull, 0ll, (tmp$28)&HDEFGCC_CB }, { (char*)"__FB_GUI__", (char*)0ull, 0ll, (tmp$28)&HDEFGUI_CB }, { (char*)"__FB_OPTIMIZE__", (char*)0ull, 0ll, (tmp$28)&HDEFOPTIMIZE_CB }, { (char*)"__FB_PROFILE__", (char*)0ull, 0ll, (tmp$28)&HDEFPROFILE_CB } };
 static struct $9SYMBMACRO MACROTB$[14] = { { (char*)"__FB_UNIQUEID_PUSH__", 0ll, (tmp$29)&HDEFUNIQUEIDPUSH_CB, (tmp$30)0ull, 1ll, { (char*)"ID" } }, { (char*)"__FB_UNIQUEID__", 0ll, (tmp$29)&HDEFUNIQUEID_CB, (tmp$30)0ull, 1ll, { (char*)"ID" } }, { (char*)"__FB_UNIQUEID_POP__", 0ll, (tmp$29)&HDEFUNIQUEIDPOP_CB, (tmp$30)0ull, 1ll, { (char*)"ID" } }, { (char*)"__FB_ARG_COUNT__", 4ll, (tmp$29)&HDEFARGCOUNT_CB, (tmp$30)0ull, 1ll, { (char*)"ARGS" } }, { (char*)"__FB_ARG_EXTRACT__", 4ll, (tmp$29)&HDEFARGEXTRACT_CB, (tmp$30)0ull, 2ll, { (char*)"ARGNUM", (char*)"ARGS" } }, { (char*)"__FB_ARG_LEFTOF__", 4ll, (tmp$29)&HDEFARGLEFT_CB, (tmp$30)0ull, 3ll, { (char*)"ARG", (char*)"SEP", (char*)"RET" } }, { (char*)"__FB_ARG_RIGHTOF__", 4ll, (tmp$29)&HDEFARGRIGHT_CB, (tmp$30)0ull, 3ll, { (char*)"ARG", (char*)"SEP", (char*)"RET" } }, { (char*)"__FB_JOIN__", 0ll, (tmp$29)&HDEFJOINZ_CB, (tmp$30)&HDEFJOINW_CB, 2ll, { (char*)"L", (char*)"R" } }, { (char*)"__FB_QUOTE__", 0ll, (tmp$29)&HDEFQUOTEZ_CB, (tmp$30)&HDEFQUOTEW_CB, 1ll, { (char*)"ARG" } }, { (char*)"__FB_UNQUOTE__", 0ll, (tmp$29)&HDEFUNQUOTEZ_CB, (tmp$30)&HDEFUNQUOTEW_CB, 1ll, { (char*)"ARG" } }, { (char*)"__FB_EVAL__", 0ll, (tmp$29)&HDEFEVALZ_CB, (tmp$30)&HDEFEVALW_CB, 1ll, { (char*)"ARG" } }, { (char*)"__FB_IIF__", 0ll, (tmp$29)&HDEFIIFZ_CB, (tmp$30)&HDEFIIFW_CB, 3ll, { (char*)"CMPEXPR", (char*)"TEXPR", (char*)"FEXPR" } }, { (char*)"__FB_QUERY_SYMBOL__", 0ll, (tmp$29)&HDEFQUERYSYMZ_CB, (tmp$30)0ull, 2ll, { (char*)"WHAT", (char*)"SYM" } }, { (char*)"__FB_ARG_LISTEXPAND__", 4ll, (tmp$29)&HDEFARGLISTEXPANDZ_CB, (tmp$30)&HDEFARGLISTEXPANDW_CB, 3ll, { (char*)"MACRONAME", (char*)"MACROARGCOUNT", (char*)"ARGS" } } };
 
 void SYMBDEFINEINIT( int64 ISMAIN$1 )
@@ -1479,7 +1480,7 @@ void SYMBDEFINEINIT( int64 ISMAIN$1 )
 		label$553:;
 	}
 	__builtin_memset( &TMP$269$1, 0, 24ll );
-	FBSTRING* vr$24 = fb_StrAllocTempDescZ( (char*)*(char**)((uint8*)&ENV$ + 560ll) );
+	FBSTRING* vr$24 = fb_StrAllocTempDescZ( (char*)*(char**)((uint8*)&ENV$ + 568ll) );
 	FBSTRING* vr$25 = fb_StrUcase2( (FBSTRING*)vr$24, 0 );
 	__builtin_memset( &TMP$267$1, 0, 24ll );
 	FBSTRING* vr$28 = fb_StrConcat( &TMP$267$1, (void*)"__FB_", 6ll, (void*)vr$25, -1ll );
@@ -1488,13 +1489,13 @@ void SYMBDEFINEINIT( int64 ISMAIN$1 )
 	fb_StrAssign( (void*)&TMP$269$1, -1ll, (void*)vr$31, -1ll, 0 );
 	SYMBADDDEFINE( (char*)*(char**)&TMP$269$1, (char*)0ull, 0ll, 0ll, (tmp$28)0ull, 0ll );
 	fb_StrDelete( (FBSTRING*)&TMP$269$1 );
-	if( *(int64*)((uint8*)&ENV$ + 216ll) != 12ll) goto label$560;
+	if( *(int64*)((uint8*)&ENV$ + 224ll) != 12ll) goto label$560;
 	{
 		SYMBADDDEFINE( (char*)"__FB_LINUX__", (char*)0ull, 0ll, 0ll, (tmp$28)0ull, 0ll );
 	}
 	label$560:;
 	label$559:;
-	if( (*(int64*)((uint8*)&ENV$ + 592ll) & 1ll) == 0ll) goto label$562;
+	if( (*(int64*)((uint8*)&ENV$ + 600ll) & 1ll) == 0ll) goto label$562;
 	{
 		SYMBADDDEFINE( (char*)"__FB_UNIX__", (char*)0ull, 0ll, 0ll, (tmp$28)0ull, 0ll );
 	}
@@ -1559,13 +1560,13 @@ void SYMBDEFINEINIT( int64 ISMAIN$1 )
 	}
 	label$579:;
 	label$578:;
-	if( *(int64*)((uint8*)&ENV$ + 232ll) < 1ll) goto label$581;
+	if( *(int64*)((uint8*)&ENV$ + 240ll) < 1ll) goto label$581;
 	{
 		SYMBADDDEFINE( (char*)"__FB_SSE__", (char*)0ull, 0ll, 0ll, (tmp$28)0ull, 0ll );
 	}
 	label$581:;
 	label$580:;
-	FBSTRING* vr$38 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 248ll) );
+	FBSTRING* vr$38 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 256ll) );
 	fb_StrAssign( (void*)&VALUE$1, -1ll, (void*)vr$38, -1ll, 0 );
 	int64 vr$41 = fb_StrLen( (void*)&VALUE$1, -1ll );
 	SYMBADDDEFINE( (char*)"__FB_VECTORIZE__", (char*)*(char**)&VALUE$1, vr$41, 0ll, (tmp$28)0ull, 0ll );
@@ -1930,7 +1931,7 @@ static FBSTRING* HDEFFILE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$10:;
-	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)((uint8*)&ENV$ + 632ll), 261ll, 0 );
+	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)((uint8*)&ENV$ + 640ll), 261ll, 0 );
 	label$11:;
 	FBSTRING* vr$4 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
 	return vr$4;
@@ -2170,7 +2171,7 @@ static FBSTRING* HDEFMULTITHREAD_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$51:;
-	FBSTRING* vr$1 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 472ll) );
+	FBSTRING* vr$1 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 480ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$1, -1ll, 0 );
 	label$52:;
 	FBSTRING* vr$4 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2182,7 +2183,7 @@ static FBSTRING* HDEFOPTBYVAL_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$53:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1528ll) == 1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1536ll) == 1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$54:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2194,7 +2195,7 @@ static FBSTRING* HDEFOPTDYNAMIC_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$55:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1568ll) == -1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1576ll) == -1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$56:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2206,7 +2207,7 @@ static FBSTRING* HDEFOPTESCAPE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$57:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1560ll) == -1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1568ll) == -1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$58:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2218,7 +2219,7 @@ static FBSTRING* HDEFOPTEXPLICIT_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$59:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1536ll) == -1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1544ll) == -1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$60:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2230,7 +2231,7 @@ static FBSTRING* HDEFOPTPRIVATE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$61:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1544ll) == 0ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1552ll) == 0ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$62:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2242,7 +2243,7 @@ static FBSTRING* HDEFOPTPROFILE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$63:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1552ll) == -1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1560ll) == -1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$64:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2254,7 +2255,7 @@ static FBSTRING* HDEFOPTGOSUB_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$65:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1576ll) == -1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 1584ll) == -1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$66:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2266,7 +2267,7 @@ static FBSTRING* HDEFGUI_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$67:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 520ll) == 1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 528ll) == 1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$68:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2278,7 +2279,7 @@ static FBSTRING* HDEFOPTIMIZE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$69:;
-	int64 vr$1 = FBGETOPTION( 8ll );
+	int64 vr$1 = FBGETOPTION( 9ll );
 	FBSTRING* vr$2 = fb_LongintToStr( vr$1 );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$70:;
@@ -2291,7 +2292,7 @@ static FBSTRING* HDEFPROFILE_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$71:;
-	int64 vr$1 = FBGETOPTION( 24ll );
+	int64 vr$1 = FBGETOPTION( 25ll );
 	FBSTRING* vr$2 = fb_LongintToStr( vr$1 );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$72:;
@@ -2352,7 +2353,7 @@ static FBSTRING* HDEFDEBUG_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$81:;
-	FBSTRING* vr$1 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 288ll) );
+	FBSTRING* vr$1 = fb_LongintToStr( *(int64*)((uint8*)&ENV$ + 296ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$1, -1ll, 0 );
 	label$82:;
 	FBSTRING* vr$4 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2366,67 +2367,67 @@ static FBSTRING* HDEFERR_CB( void )
 	label$83:;
 	int64 RES$1;
 	RES$1 = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 312ll) == 0ll) goto label$86;
+	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$86;
 	{
 		RES$1 = 1ll;
 	}
 	label$86:;
 	label$85:;
-	if( *(int64*)((uint8*)&ENV$ + 320ll) == 0ll) goto label$88;
+	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$88;
 	{
 		RES$1 = RES$1 | 2ll;
 	}
 	label$88:;
 	label$87:;
-	if( *(int64*)((uint8*)&ENV$ + 328ll) == 0ll) goto label$90;
+	if( *(int64*)((uint8*)&ENV$ + 336ll) == 0ll) goto label$90;
 	{
 		RES$1 = RES$1 | 4ll;
 	}
 	label$90:;
 	label$89:;
-	if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$92;
+	if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$92;
 	{
 		RES$1 = RES$1 | 8ll;
 	}
 	label$92:;
 	label$91:;
-	if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$94;
+	if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$94;
 	{
 		RES$1 = RES$1 | 16ll;
 	}
 	label$94:;
 	label$93:;
-	if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$96;
+	if( *(int64*)((uint8*)&ENV$ + 312ll) == 0ll) goto label$96;
 	{
 		RES$1 = RES$1 | 32ll;
 	}
 	label$96:;
 	label$95:;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$98;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$98;
 	{
 		RES$1 = RES$1 | 64ll;
 	}
 	label$98:;
 	label$97:;
-	if( *(int64*)((uint8*)&ENV$ + 288ll) == 0ll) goto label$100;
+	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$100;
 	{
 		RES$1 = RES$1 | 128ll;
 	}
 	label$100:;
 	label$99:;
-	if( *(int64*)((uint8*)&ENV$ + 336ll) == 0ll) goto label$102;
+	if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$102;
 	{
 		RES$1 = RES$1 | 256ll;
 	}
 	label$102:;
 	label$101:;
-	if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$104;
+	if( *(int64*)((uint8*)&ENV$ + 376ll) == 0ll) goto label$104;
 	{
 		RES$1 = RES$1 | 512ll;
 	}
 	label$104:;
 	label$103:;
-	if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$106;
+	if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$106;
 	{
 		RES$1 = RES$1 | 1024ll;
 	}
@@ -2444,7 +2445,7 @@ static FBSTRING* HDEFLANG_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$107:;
-	FBSTRING* vr$1 = FBGETLANGNAME( *($7FB_LANG*)((uint8*)&ENV$ + 272ll) );
+	FBSTRING* vr$1 = FBGETLANGNAME( *($7FB_LANG*)((uint8*)&ENV$ + 280ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$1, -1ll, 0 );
 	label$108:;
 	FBSTRING* vr$4 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2456,7 +2457,7 @@ static FBSTRING* HDEFBACKEND_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$109:;
-	FBSTRING* vr$1 = FBGETBACKENDNAME( *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll) );
+	FBSTRING* vr$1 = FBGETBACKENDNAME( *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$1, -1ll, 0 );
 	label$110:;
 	FBSTRING* vr$4 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2470,7 +2471,7 @@ static FBSTRING* HDEFFPU_CB( void )
 	label$111:;
 	{
 		int64 TMP$105$2;
-		int64 vr$1 = FBGETOPTION( 5ll );
+		int64 vr$1 = FBGETOPTION( 6ll );
 		TMP$105$2 = vr$1;
 		if( TMP$105$2 != 0ll) goto label$114;
 		label$115:;
@@ -2513,7 +2514,7 @@ static FBSTRING* HDEFFPMODE_CB( void )
 	label$121:;
 	{
 		int64 TMP$109$2;
-		int64 vr$1 = FBGETOPTION( 6ll );
+		int64 vr$1 = FBGETOPTION( 7ll );
 		TMP$109$2 = vr$1;
 		if( TMP$109$2 != 0ll) goto label$124;
 		label$125:;
@@ -2546,7 +2547,7 @@ static FBSTRING* HDEFGCC_CB( void )
 	FBSTRING fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 24ll );
 	label$129:;
-	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 1ll) );
+	FBSTRING* vr$2 = fb_LongintToStr( (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 1ll) );
 	fb_StrAssign( (void*)&fb$result$1, -1ll, (void*)vr$2, -1ll, 0 );
 	label$130:;
 	FBSTRING* vr$5 = fb_StrAllocTempResult( (FBSTRING*)&fb$result$1 );
@@ -2560,7 +2561,7 @@ static FBSTRING* HDEFASM_CB( void )
 	label$131:;
 	{
 		$12FB_ASMSYNTAX TMP$112$2;
-		TMP$112$2 = *($12FB_ASMSYNTAX*)((uint8*)&ENV$ + 264ll);
+		TMP$112$2 = *($12FB_ASMSYNTAX*)((uint8*)&ENV$ + 272ll);
 		if( TMP$112$2 != 0ll) goto label$134;
 		label$135:;
 		{
@@ -2588,7 +2589,7 @@ static char* HMACRO_GETARGZ( struct $11LEXPP_ARGTB* ARGTB$1, int64 NUM$1 )
 	label$138:;
 	char* RES$1;
 	RES$1 = (char*)0ull;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$141;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$141;
 	{
 		char* DT$2;
 		DT$2 = *(char**)((uint8*)ARGTB$1 + (NUM$1 * 24ll));
@@ -2628,7 +2629,7 @@ static uint32* HMACRO_GETARGW( struct $11LEXPP_ARGTB* ARGTB$1, int64 NUM$1 )
 	label$146:;
 	static struct $8DWSTRING RES$1;
 	DWSTRASSIGN( &RES$1, (uint32*)0ull );
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$149;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$149;
 	{
 		char* DT$2;
 		DT$2 = *(char**)((uint8*)ARGTB$1 + (NUM$1 * 24ll));
@@ -2664,7 +2665,7 @@ static uint32* HMACRO_GETARGW( struct $11LEXPP_ARGTB* ARGTB$1, int64 NUM$1 )
 static void HARGAPPENDLFCHAR( void )
 {
 	label$154:;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$157;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$157;
 	{
 		DZSTRCONCATASSIGN( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll), (char*)"\x0A" );
 		*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll) = *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll);
@@ -2684,7 +2685,7 @@ static void HARGAPPENDLFCHAR( void )
 static void HARGINSERTARGA( char* ARG$1 )
 {
 	label$158:;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$161;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$161;
 	{
 		DZSTRASSIGN( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll), (char*)ARG$1 );
 		*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll) = *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll);
@@ -2706,7 +2707,7 @@ static void HARGINSERTARGA( char* ARG$1 )
 static void HARGINSERTARGW( uint32* ARG$1 )
 {
 	label$162:;
-	if( *(int64*)((uint8*)&ENV$ + 912ll) != 0ll) goto label$165;
+	if( *(int64*)((uint8*)&ENV$ + 920ll) != 0ll) goto label$165;
 	{
 		DZSTRASSIGNW( (struct $8DZSTRING*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll), (uint32*)ARG$1 );
 		*(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16808ll) = *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16816ll);
@@ -2733,7 +2734,7 @@ static FBSTRING* HMACRO_EVALZ( char* ARG$1, int64* ERRNUM$1 )
 	struct $8DZSTRING RES$1;
 	__builtin_memset( &RES$1, 0, 24ll );
 	DZSTRASSIGN( &RES$1, (char*)0ull );
-	if( *(int64*)((uint8*)&ENV$ + 1296ll) < 16ll) goto label$169;
+	if( *(int64*)((uint8*)&ENV$ + 1304ll) < 16ll) goto label$169;
 	{
 		*ERRNUM$1 = 27ll;
 		fb_StrInit( (void*)&fb$result$1, -1ll, *(void**)&RES$1, 0ll, 0 );
@@ -2845,7 +2846,7 @@ static uint32* HMACRO_EVALW( uint32* ARG$1, int64* ERRNUM$1 )
 	label$185:;
 	static struct $8DWSTRING RES$1;
 	DWSTRASSIGN( &RES$1, (uint32*)0ull );
-	if( *(int64*)((uint8*)&ENV$ + 1296ll) < 16ll) goto label$188;
+	if( *(int64*)((uint8*)&ENV$ + 1304ll) < 16ll) goto label$188;
 	{
 		*ERRNUM$1 = 27ll;
 		fb$result$1 = *(uint32**)&RES$1;
@@ -4388,7 +4389,7 @@ static FBSTRING* HDEFQUERYSYMZ_CB( struct $11LEXPP_ARGTB* ARGTB$1, int64* ERRNUM
 	label$460:;
 	FBSTRING RES$1;
 	fb_StrInit( (void*)&RES$1, -1ll, (void*)"", 1ll, 0 );
-	if( *(int64*)((uint8*)&ENV$ + 1296ll) < 16ll) goto label$463;
+	if( *(int64*)((uint8*)&ENV$ + 1304ll) < 16ll) goto label$463;
 	{
 		*ERRNUM$1 = 27ll;
 		fb_StrInit( (void*)&fb$result$1, -1ll, (void*)&RES$1, -1ll, 0 );

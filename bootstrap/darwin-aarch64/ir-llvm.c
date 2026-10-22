@@ -1273,6 +1273,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1318,7 +1319,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1404,7 +1405,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -2711,18 +2712,18 @@ static int64 _EMITBEGIN( void )
 	int64 fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$251:;
-	int64 vr$2 = HFILEEXISTS( (char*)((uint8*)&ENV$ + 928ll) );
+	int64 vr$2 = HFILEEXISTS( (char*)((uint8*)&ENV$ + 936ll) );
 	if( vr$2 == 0ll) goto label$254;
 	{
-		FBSTRING* vr$4 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 928ll) );
+		FBSTRING* vr$4 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 936ll) );
 		fb_FileKill( (FBSTRING*)vr$4 );
 	}
 	label$254:;
 	label$253:;
 	int32 vr$5 = fb_FileFree(  );
-	*(int64*)((uint8*)&ENV$ + 920ll) = (int64)vr$5;
-	FBSTRING* vr$9 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 928ll) );
-	int32 vr$10 = fb_FileOpen( (FBSTRING*)vr$9, 0u, 3u, 0u, (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0 );
+	*(int64*)((uint8*)&ENV$ + 928ll) = (int64)vr$5;
+	FBSTRING* vr$9 = fb_StrAllocTempDescZ( (char*)((uint8*)&ENV$ + 936ll) );
+	int32 vr$10 = fb_FileOpen( (FBSTRING*)vr$9, 0u, 3u, 0u, (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0 );
 	if( (int64)vr$10 == 0ll) goto label$256;
 	{
 		fb$result$1 = 0ll;
@@ -2753,7 +2754,7 @@ static int64 _EMITBEGIN( void )
 		if( I$2 <= 17ll) goto label$260;
 		label$259:;
 	}
-	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$262;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$262;
 	{
 		_EMITDBG( 114ll, (struct $8FBSYMBOL*)0ull, 0ll, (char*)0ull );
 	}
@@ -2871,31 +2872,31 @@ static void _EMITEND( void )
 	label$276:;
 	label$275:;
 	*(int64*)((uint8*)&CTX$ + 272ll) = 2ll;
-	int32 vr$53 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 280ll), -1ll );
+	int32 vr$53 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 280ll), -1ll );
 	if( (int64)vr$53 == 0ll) goto label$278;
 	{
 	}
 	label$278:;
 	label$277:;
-	int32 vr$57 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 304ll), -1ll );
+	int32 vr$57 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 304ll), -1ll );
 	if( (int64)vr$57 == 0ll) goto label$280;
 	{
 	}
 	label$280:;
 	label$279:;
-	int32 vr$61 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 920ll), 0ll, (void*)((uint8*)&CTX$ + 328ll), -1ll );
+	int32 vr$61 = fb_FilePutStrLarge( (int32)*(int64*)((uint8*)&ENV$ + 928ll), 0ll, (void*)((uint8*)&CTX$ + 328ll), -1ll );
 	if( (int64)vr$61 == 0ll) goto label$282;
 	{
 	}
 	label$282:;
 	label$281:;
-	int32 vr$64 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 920ll) );
+	int32 vr$64 = fb_FileClose( (int32)*(int64*)((uint8*)&ENV$ + 928ll) );
 	if( (int64)vr$64 == 0ll) goto label$284;
 	{
 	}
 	label$284:;
 	label$283:;
-	*(int64*)((uint8*)&ENV$ + 920ll) = 0ll;
+	*(int64*)((uint8*)&ENV$ + 928ll) = 0ll;
 	label$266:;
 }
 
@@ -5312,7 +5313,7 @@ static void _EMITDBG( int64 OP$1, struct $8FBSYMBOL* PROC$1, int64 LNUM$1, char*
 			FBSTRING TMP$519$3;
 			FBSTRING TMP$520$3;
 			__builtin_memset( &TMP$520$3, 0, 24ll );
-			FBSTRING* vr$20 = HREPLACE( (char*)((uint8*)&ENV$ + 632ll), (char*)"\x5C", (char*)"\x5C\x5C" );
+			FBSTRING* vr$20 = HREPLACE( (char*)((uint8*)&ENV$ + 640ll), (char*)"\x5C", (char*)"\x5C\x5C" );
 			FBSTRING* vr$21 = fb_LongintToStr( LNUM$1 );
 			__builtin_memset( &TMP$516$3, 0, 24ll );
 			FBSTRING* vr$24 = fb_StrConcat( &TMP$516$3, (void*)"#line ", 7ll, (void*)vr$21, -1ll );
@@ -5809,7 +5810,7 @@ static void _EMITFBCTINFEND( void )
 	fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)" c\x22", 4ll, 0 );
 	fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)((uint8*)&CTX$ + 240ll), -1ll, 0 );
 	fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)"\x22", 2ll, 0 );
-	int64 vr$8 = FBGETOPTION( 3ll );
+	int64 vr$8 = FBGETOPTION( 4ll );
 	if( vr$8 != 10ll) goto label$736;
 	{
 		fb_StrConcatAssign( (void*)&LN$1, -1ll, (void*)", section \x22__DATA,fbctinf\x22", 27ll, 0 );

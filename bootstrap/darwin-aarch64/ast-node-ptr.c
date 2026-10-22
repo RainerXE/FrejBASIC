@@ -938,6 +938,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -983,7 +984,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1069,7 +1070,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 struct $7ASTNODE* ASTNEWDEREF( struct $7ASTNODE* L$1, int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, int64 OFS$1 )
@@ -1219,7 +1220,7 @@ struct $6IRVREG* ASTLOADDEREF( struct $7ASTNODE* N$1 )
 		label$43:;
 		TMP$87$2 = *(int64*)((uint8*)V1$1 + 8ll) & 31ll;
 		label$47:;
-		if( (((int64)-(*(int64*)V1$1 != 4ll) | (int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$86$2 * 56ll)) != 0ll)) | (int64)-(*(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$87$2 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 616ll))) == 0ll) goto label$45;
+		if( (((int64)-(*(int64*)V1$1 != 4ll) | (int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$86$2 * 56ll)) != 0ll)) | (int64)-(*(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$87$2 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 624ll))) == 0ll) goto label$45;
 		{
 			struct $6IRVREG* vr$39 = (*(tmp$70*)((uint8*)&IR$ + 448ll))( (((*(int64*)((uint8*)N$1 + 8ll) & 31ll) | ((*(int64*)((uint8*)N$1 + 8ll) & 480ll) + 32ll)) | ((*(int64*)((uint8*)N$1 + 8ll) & 261632ll) << (1ll & 63ll))) | (*(int64*)((uint8*)N$1 + 8ll) & 32505856ll), *(struct $8FBSYMBOL**)((uint8*)N$1 + 16ll) );
 			VP$1 = vr$39;

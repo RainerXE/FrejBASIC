@@ -1128,6 +1128,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1173,7 +1174,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1259,7 +1260,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE* R$1, struct $8FBSYMBOL* EX$1, $9AST_OPOPT OPTIONS$1 )
@@ -1597,7 +1598,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 			{
 				if( LITSYM$1 == (struct $8FBSYMBOL*)0ull) goto label$350;
 				{
-					if( ((int64)-((LDTYPE$1 & 511ll) == (RDTYPE$1 & 511ll)) | (int64)-(*(int64*)((uint8*)&ENV$ + 600ll) != 0ll)) == 0ll) goto label$352;
+					if( ((int64)-((LDTYPE$1 & 511ll) == (RDTYPE$1 & 511ll)) | (int64)-(*(int64*)((uint8*)&ENV$ + 608ll) != 0ll)) == 0ll) goto label$352;
 					{
 						struct $7ASTNODE* vr$84 = HWSTRLITERALCONCAT( L$1, R$1 );
 						fb$result$1 = vr$84;
@@ -1906,7 +1907,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 	label$401:;
 	LDTYPE0$1 = LDTYPE$1;
 	RDTYPE0$1 = RDTYPE$1;
-	DO_PROMOTE$1 = ((int64)-(*(int64*)((uint8*)&ENV$ + 272ll) != 3ll) & ~IS_STR$1) & ~IS_BOOLEAN$1;
+	DO_PROMOTE$1 = ((int64)-(*(int64*)((uint8*)&ENV$ + 280ll) != 3ll) & ~IS_STR$1) & ~IS_BOOLEAN$1;
 	if( DO_PROMOTE$1 == 0ll) goto label$410;
 	{
 		INTRANK$1 = *(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + 472ll);
@@ -2241,7 +2242,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 					goto label$480;
 					label$481:;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 408ll) & 32ll) == 0ll) goto label$485;
+						if( (*(int64*)((uint8*)&ENV$ + 416ll) & 32ll) == 0ll) goto label$485;
 						{
 							WARNING$3 = 35ll;
 						}
@@ -2297,7 +2298,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 					goto label$494;
 					label$495:;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 408ll) & 32ll) == 0ll) goto label$499;
+						if( (*(int64*)((uint8*)&ENV$ + 416ll) & 32ll) == 0ll) goto label$499;
 						{
 							WARNING$3 = 35ll;
 						}
@@ -2589,7 +2590,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 							label$565:;
 							TMP$189$7 = (*(int64*)((uint8*)*(struct $7ASTNODE**)((uint8*)L$1 + 112ll) + 8ll) & 511ll) & 31ll;
 							label$682:;
-							if( ((int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$189$7 * 56ll)) == 1ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 240ll) == 0ll)) == 0ll) goto label$567;
+							if( ((int64)-(*(int64*)((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$189$7 * 56ll)) == 1ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 248ll) == 0ll)) == 0ll) goto label$567;
 							{
 								*($9AST_OPOPT*)((uint8*)L$1 + 48ll) = *(int64*)((uint8*)L$1 + 48ll) ^ 128ll;
 							}
@@ -2964,7 +2965,7 @@ struct $7ASTNODE* ASTNEWBOP( int64 OP$1, struct $7ASTNODE* L$1, struct $7ASTNODE
 	*(int64*)((uint8*)N$1 + 40ll) = OP$1;
 	{
 		$10FB_BACKEND TMP$200$2;
-		TMP$200$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$200$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$200$2 == 1ll) goto label$641;
 		label$642:;
 		if( TMP$200$2 != 2ll) goto label$640;
@@ -4632,7 +4633,7 @@ static int64 HCHECKDEREFWCHARPTR( struct $7ASTNODE* L$1, int64* PLDTYPE$1, struc
 	}
 	label$247:;
 	label$246:;
-	*PLDTYPE$1 = (*PLDTYPE$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 568ll) & 511ll);
+	*PLDTYPE$1 = (*PLDTYPE$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 576ll) & 511ll);
 	fb$result$1 = -1ll;
 	label$243:;
 	return fb$result$1;

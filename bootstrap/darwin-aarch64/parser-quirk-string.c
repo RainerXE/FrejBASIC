@@ -831,6 +831,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -876,7 +877,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -962,7 +963,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 int64 CMIDSTMT( void )
@@ -1414,7 +1415,7 @@ struct $7ASTNODE* CCVXFUNCT( $8FB_TOKEN TK$1 )
 			goto label$176;
 			label$177:;
 			{
-				FUNCTYPE$1 = *($11FB_DATATYPE*)((uint8*)&ENV$ + 1456ll);
+				FUNCTYPE$1 = *($11FB_DATATYPE*)((uint8*)&ENV$ + 1464ll);
 			}
 			label$176:;
 		}
@@ -1800,7 +1801,7 @@ struct $7ASTNODE* CMKXFUNCT( $8FB_TOKEN TK$1 )
 			{
 				if( DTYPE$1 != 2147483648ll) goto label$263;
 				{
-					DTYPE$1 = *($11FB_DATATYPE*)((uint8*)&ENV$ + 1456ll);
+					DTYPE$1 = *($11FB_DATATYPE*)((uint8*)&ENV$ + 1464ll);
 				}
 				label$263:;
 				label$262:;
@@ -1970,7 +1971,7 @@ struct $7ASTNODE* CSTRINGFUNCT( $8FB_TOKEN TK$1 )
 			label$294:;
 			if( IS_WSTR$1 != 0ll) goto label$297;
 			{
-				struct $7ASTNODE* vr$6 = RTLTOSTR( EXPR1$1, (int64)-(*(int64*)((uint8*)&ENV$ + 272ll) == 3ll) );
+				struct $7ASTNODE* vr$6 = RTLTOSTR( EXPR1$1, (int64)-(*(int64*)((uint8*)&ENV$ + 280ll) == 3ll) );
 				EXPR1$1 = vr$6;
 			}
 			goto label$296;
@@ -2860,7 +2861,7 @@ static struct $7ASTNODE* CSTRASC( void )
 	}
 	if( LITSYM$1 == (struct $8FBSYMBOL*)0ull) goto label$124;
 	{
-		if( ((int64)-((*(int64*)((uint8*)EXPR1$1 + 8ll) & 511ll) == 7ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 600ll) == 0ll)) == 0ll) goto label$126;
+		if( ((int64)-((*(int64*)((uint8*)EXPR1$1 + 8ll) & 511ll) == 7ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 608ll) == 0ll)) == 0ll) goto label$126;
 		{
 			P$1 = -1ll;
 		}

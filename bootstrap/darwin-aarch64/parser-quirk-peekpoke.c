@@ -761,6 +761,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -806,7 +807,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -892,7 +893,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 int64 CPOKESTMT( void )
@@ -962,7 +963,7 @@ int64 CPOKESTMT( void )
 			label$35:;
 			TMP$100$3 = (*(int64*)((uint8*)EXPR1$1 + 8ll) & 511ll) & 31ll;
 			label$43:;
-			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$100$3 * 56ll)) + 8ll) == *(int64*)((uint8*)&ENV$ + 616ll)) goto label$37;
+			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$100$3 * 56ll)) + 8ll) == *(int64*)((uint8*)&ENV$ + 624ll)) goto label$37;
 			{
 				ERRREPORT( 24ll, 0ll, (char*)0ull );
 				ASTDELTREE( EXPR1$1 );
@@ -974,7 +975,7 @@ int64 CPOKESTMT( void )
 		label$34:;
 		label$29:;
 	}
-	if( (*(int64*)((uint8*)&ENV$ + 408ll) & 128ll) == 0ll) goto label$39;
+	if( (*(int64*)((uint8*)&ENV$ + 416ll) & 128ll) == 0ll) goto label$39;
 	{
 		struct $7ASTNODE* vr$31 = ASTNEWCONV( (((POKETYPE$1 & 31ll) | ((POKETYPE$1 & 480ll) + 32ll)) | ((POKETYPE$1 & 261632ll) << (1ll & 63ll))) | (POKETYPE$1 & 32505856ll), SUBTYPE$1, EXPR1$1, 0ll, (int64*)0ull );
 		EXPR1$1 = vr$31;
@@ -1070,7 +1071,7 @@ struct $7ASTNODE* CPEEKFUNCT( void )
 			label$57:;
 			TMP$103$3 = (*(int64*)((uint8*)EXPR$1 + 8ll) & 511ll) & 31ll;
 			label$69:;
-			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$103$3 * 56ll)) + 8ll) == *(int64*)((uint8*)&ENV$ + 616ll)) goto label$59;
+			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$103$3 * 56ll)) + 8ll) == *(int64*)((uint8*)&ENV$ + 624ll)) goto label$59;
 			{
 				ERRREPORT( 24ll, 0ll, (char*)0ull );
 				ASTDELTREE( EXPR$1 );

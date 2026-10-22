@@ -1003,6 +1003,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1048,7 +1049,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1134,7 +1135,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $15FB_CMPSTMT_MASK;
 struct $17FB_CMPSTMT_FORELM {
@@ -1495,7 +1496,7 @@ int64 SYMBCANDUPLICATE( struct $8FBSYMBOL* HEAD_SYM$1, struct $8FBSYMBOL* S$1 )
 					goto label$60;
 					label$66:;
 					{
-						if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$68;
+						if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$68;
 						{
 							goto label$31;
 						}
@@ -1598,7 +1599,7 @@ int64 SYMBCANDUPLICATE( struct $8FBSYMBOL* HEAD_SYM$1, struct $8FBSYMBOL* S$1 )
 					goto label$86;
 					label$92:;
 					{
-						if( *(int64*)((uint8*)&ENV$ + 272ll) == 3ll) goto label$94;
+						if( *(int64*)((uint8*)&ENV$ + 280ll) == 3ll) goto label$94;
 						{
 							goto label$31;
 						}
@@ -1651,7 +1652,7 @@ int64 SYMBCANDUPLICATE( struct $8FBSYMBOL* HEAD_SYM$1, struct $8FBSYMBOL* S$1 )
 					{
 						if( (int64)*(uint16*)((uint8*)S$1 + 72ll) != (int64)*(uint16*)((uint8*)HEAD_SYM$1 + 72ll)) goto label$110;
 						{
-							if( *(int64*)((uint8*)&ENV$ + 272ll) != 0ll) goto label$112;
+							if( *(int64*)((uint8*)&ENV$ + 280ll) != 0ll) goto label$112;
 							{
 								goto label$31;
 							}
@@ -1850,7 +1851,7 @@ struct $8FBSYMBOL* SYMBNEWSYMBOL( $10FB_SYMBOPT OPTIONS$1, struct $8FBSYMBOL* S$
 	if( SYMTB$1 != (struct $10FBSYMBOLTB*)0ull) goto label$142;
 	{
 		SYMTB$1 = *(struct $10FBSYMBOLTB**)((uint8*)&SYMB$ + 197040ll);
-		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$144;
+		if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$144;
 		{
 			if( *(uint64*)((uint8*)&PARSER$ + 200ll) != 0ull) goto label$146;
 			{
@@ -2015,7 +2016,7 @@ struct $8FBSYMBOL* SYMBNEWSYMBOL( $10FB_SYMBOPT OPTIONS$1, struct $8FBSYMBOL* S$
 			label$169:;
 			label$168:;
 			*(struct $8HASHITEM**)((uint8*)S$1 + 256ll) = *(struct $8HASHITEM**)((uint8*)HEAD_SYM$2 + 256ll);
-			if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$179;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$179;
 			{
 				struct $8FBSYMBOL* PREV$4;
 				PREV$4 = (struct $8FBSYMBOL*)0ull;
@@ -3588,7 +3589,7 @@ int64 SYMBGETDEFTYPE( char* SYMBOL$1 )
 	I$1 = (int64)((uint64)C$1 + 18446744073709551551ull);
 	if( ((int64)-(I$1 < 0ll) | (int64)-(I$1 > 30ll)) == 0ll) goto label$620;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$622;
+		if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$622;
 		{
 			fb$result$1 = 15ll;
 		}
@@ -4090,7 +4091,7 @@ static void HINITDEFTYPETB( void )
 	__builtin_memset( &DTYPE$1, 0, 8ll );
 	int64 I$1;
 	__builtin_memset( &I$1, 0, 8ll );
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$17;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$17;
 	{
 		DTYPE$1 = 15ll;
 	}

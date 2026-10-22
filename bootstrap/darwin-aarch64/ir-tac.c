@@ -1292,6 +1292,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1337,7 +1338,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1423,7 +1424,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef void (*tmp$103)( int64, int64 );
 typedef char* (*tmp$104)( int64 );
@@ -2268,7 +2269,7 @@ static void _EMITVARINIWSTR( int64 TOTLGT$1, uint32* LITSTR$1, int64 LITLGT$1 )
 	__builtin_memset( &WCLEN$1, 0, 8ll );
 	if( TOTLGT$1 != 0ll) goto label$194;
 	{
-		EMITVARINII( *(int64*)((uint8*)&ENV$ + 568ll), 0ll );
+		EMITVARINII( *(int64*)((uint8*)&ENV$ + 576ll), 0ll );
 		goto label$192;
 	}
 	label$194:;
@@ -2356,7 +2357,7 @@ static struct $6IRVREG* HNEWVR( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, int
 	*($11FB_DATATYPE*)((uint8*)V$1 + 8ll) = TMP$118$1;
 	*(struct $8FBSYMBOL**)((uint8*)V$1 + 16ll) = SUBTYPE$1;
 	*(int64*)((uint8*)V$1 + 24ll) = -1ll;
-	if( *(int64*)((uint8*)&ENV$ + 232ll) != 0ll) goto label$215;
+	if( *(int64*)((uint8*)&ENV$ + 240ll) != 0ll) goto label$215;
 	{
 		*($12IR_REGFAMILY*)((uint8*)V$1 + 32ll) = 0ll;
 	}
@@ -3006,7 +3007,7 @@ static void _FLUSH( void )
 			goto *tmp$183[TMP$130$3 - 1ull];
 			label$325:;
 		}
-		if( *(int64*)((uint8*)&ENV$ + 232ll) < 1ll) goto label$341;
+		if( *(int64*)((uint8*)&ENV$ + 240ll) < 1ll) goto label$341;
 		{
 			if( *(int64*)((int64)(struct $10AST_OPINFO*)AST_OPTB$ + (OP$1 << (5ll & 63ll))) == 9ll) goto label$343;
 			{
@@ -5388,7 +5389,7 @@ static void _LOADVR( int64 REG$1, struct $6IRVREG* VREG$1, struct $6IRVREG* VAUX
 	label$835:;
 	label$834:;
 	*(int64*)((uint8*)VREG$1 + 24ll) = REG$1;
-	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 232ll) >= 1ll) & (int64)-(VAUXPARENT$1 != (struct $6IRVREG*)0ull)) == 0ll) goto label$839;
+	if( ((int64)-(*(int64*)((uint8*)&ENV$ + 240ll) >= 1ll) & (int64)-(VAUXPARENT$1 != (struct $6IRVREG*)0ull)) == 0ll) goto label$839;
 	{
 		*($12IR_REGFAMILY*)((uint8*)VREG$1 + 32ll) = 1ll;
 	}
@@ -5434,7 +5435,7 @@ static void _STOREVR( struct $6IRVREG* VREG$1, struct $6IRVREG* VAUXPARENT$1 )
 		}
 		label$849:;
 		label$848:;
-		if( *(int64*)((uint8*)&ENV$ + 232ll) < 1ll) goto label$851;
+		if( *(int64*)((uint8*)&ENV$ + 240ll) < 1ll) goto label$851;
 		{
 			*($12IR_REGFAMILY*)((uint8*)VREG$1 + 32ll) = 1ll;
 		}

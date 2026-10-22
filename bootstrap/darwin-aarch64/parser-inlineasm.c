@@ -872,6 +872,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -917,7 +918,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1003,7 +1004,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1679,9 +1680,9 @@ int64 CASMBLOCK( void )
 	int64 vr$3 = CCOMMENT( 0ll );
 	if( vr$3 == 0ll) goto label$128;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$130;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$130;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$132;
+			if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$132;
 			{
 				struct $7ASTNODE* vr$5 = ASTNEWLIT( *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll) );
 				ASTADD( vr$5 );
@@ -1717,16 +1718,16 @@ int64 CASMBLOCK( void )
 	{
 		if( ISSINGLELINE$1 != 0ll) goto label$141;
 		{
-			struct $7ASTNODE* vr$11 = ASTNEWDBG( 114ll, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), *(char**)((uint8*)&ENV$ + 896ll) );
+			struct $7ASTNODE* vr$11 = ASTNEWDBG( 114ll, *(int64*)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16752ll), *(char**)((uint8*)&ENV$ + 904ll) );
 			ASTADD( vr$11 );
 		}
 		label$141:;
 		label$140:;
 		CASMCODE(  );
 		CCOMMENT( 1028ll );
-		if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$143;
+		if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$143;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$145;
+			if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$145;
 			{
 				struct $7ASTNODE* vr$13 = ASTNEWLIT( *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll) );
 				ASTADD( vr$13 );

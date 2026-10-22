@@ -1002,6 +1002,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1047,7 +1048,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1133,7 +1134,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $8TSTACKTB;
 struct $10TSTACKNODE;
@@ -1488,7 +1489,7 @@ struct $7ASTNODE* ASTNEWDBG( int64 OP$1, int64 EX$1, char* FILENAME$1 )
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$51:;
 	struct $7ASTNODE* N$1;
-	if( *(int64*)((uint8*)&ENV$ + 296ll) != 0ll) goto label$54;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) != 0ll) goto label$54;
 	{
 		fb$result$1 = (struct $7ASTNODE*)0ull;
 		goto label$52;

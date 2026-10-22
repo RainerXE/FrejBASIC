@@ -1128,6 +1128,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1173,7 +1174,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1259,7 +1260,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1611,7 +1612,7 @@ struct $7ASTNODE* CMEMBERDEREF( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, str
 						label$173:;
 						label$167:;
 					}
-					if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$175;
+					if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$175;
 					{
 						struct $7ASTNODE* vr$14 = ASTBUILDPTRCHK( VAREXPR$1 );
 						VAREXPR$1 = vr$14;
@@ -1839,7 +1840,7 @@ struct $7ASTNODE* CMEMBERDEREF( int64 DTYPE$1, struct $8FBSYMBOL* SUBTYPE$1, str
 						label$226:;
 						struct $7ASTNODE* vr$64 = HCHECKINTEGERINDEX( IDXEXPR$1 );
 						IDXEXPR$1 = vr$64;
-						if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$229;
+						if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$229;
 						{
 							struct $7ASTNODE* vr$65 = ASTBUILDPTRCHK( VAREXPR$1 );
 							VAREXPR$1 = vr$65;
@@ -1960,7 +1961,7 @@ struct $7ASTNODE* CFUNCPTRORMEMBERDEREF( int64 DTYPE$1, struct $8FBSYMBOL* SUBTY
 	}
 	label$254:;
 	label$253:;
-	if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$256;
+	if( *(int64*)((uint8*)&ENV$ + 368ll) == 0ll) goto label$256;
 	{
 		struct $7ASTNODE* vr$6 = ASTBUILDPTRCHK( EXPR$1 );
 		EXPR$1 = vr$6;
@@ -2270,7 +2271,7 @@ struct $7ASTNODE* _Z11CVARIABLEEXP10FBSYMCHAINl( struct $10FBSYMCHAIN* CHAIN_$1,
 	char* vr$1 = LEXGETTEXT(  );
 	ID$1 = vr$1;
 	SUFFIX$1 = *(int64*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 16ll);
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$363;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$363;
 	{
 		int64 vr$4 = LEXGETCLASS( 0ll );
 		if( vr$4 != 1ll) goto label$365;
@@ -2288,7 +2289,7 @@ struct $7ASTNODE* _Z11CVARIABLEEXP10FBSYMCHAINl( struct $10FBSYMCHAIN* CHAIN_$1,
 	}
 	label$363:;
 	label$362:;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 8388608ll) == 0ll) goto label$369;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 8388608ll) == 0ll) goto label$369;
 	{
 		if( SUFFIX$1 != 2147483648ll) goto label$371;
 		{
@@ -2320,7 +2321,7 @@ struct $7ASTNODE* _Z11CVARIABLEEXP10FBSYMCHAINl( struct $10FBSYMCHAIN* CHAIN_$1,
 	label$368:;
 	if( SYM$1 != (struct $8FBSYMBOL*)0ull) goto label$375;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 1536ll) == 0ll) goto label$377;
+		if( *(int64*)((uint8*)&ENV$ + 1544ll) == 0ll) goto label$377;
 		{
 			ERRREPORTUNDEF( 42ll, ID$1 );
 			fb$result$1 = (struct $7ASTNODE*)0ull;
@@ -2330,7 +2331,7 @@ struct $7ASTNODE* _Z11CVARIABLEEXP10FBSYMCHAINl( struct $10FBSYMCHAIN* CHAIN_$1,
 		label$376:;
 		if( CHAIN_$1 == (struct $10FBSYMCHAIN*)0ull) goto label$379;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 8388608ll) == 0ll) goto label$381;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 8388608ll) == 0ll) goto label$381;
 			{
 				struct $8FBSYMBOL* vr$13 = SYMBFINDBYCLASS( CHAIN_$1, 1ll );
 				SYM$1 = vr$13;
@@ -2362,9 +2363,9 @@ struct $7ASTNODE* _Z11CVARIABLEEXP10FBSYMCHAINl( struct $10FBSYMCHAIN* CHAIN_$1,
 		label$386:;
 		if( (*(int64*)((uint8*)&PARSER$ + 304ll) & 4ll) == 0ll) goto label$389;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 2ll) == 0ll) goto label$391;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 2ll) == 0ll) goto label$391;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 1536ll) != 0ll) goto label$393;
+				if( *(int64*)((uint8*)&ENV$ + 1544ll) != 0ll) goto label$393;
 				{
 					ERRREPORTWARN( 11ll, (char*)ID$1, 1ll, (char*)0ull );
 				}
@@ -2730,7 +2731,7 @@ static struct $7ASTNODE* CFIXEDSIZEARRAYINDEX( struct $8FBSYMBOL* SYM$1 )
 		struct $7ASTNODE* vr$10 = HINDEXEXPR(  );
 		struct $7ASTNODE* vr$11 = HCHECKINTEGERINDEX( vr$10 );
 		DIMEXPR$1 = vr$11;
-		if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$33;
+		if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$33;
 		{
 			struct $7ASTNODE* vr$12 = ASTNEWCONSTI( UPPER$1, 8ll, (struct $8FBSYMBOL*)0ull );
 			struct $7ASTNODE* vr$13 = ASTNEWCONSTI( LOWER$1, 8ll, (struct $8FBSYMBOL*)0ull );
@@ -3107,7 +3108,7 @@ static struct $7ASTNODE* HSTRINDEXING( int64 DTYPE$1, struct $7ASTNODE* VAREXPR$
 	}
 	label$147:;
 	label$146:;
-	if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$149;
+	if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$149;
 	{
 		struct $7ASTNODE* vr$11 = ASTBUILDPTRCHK( VAREXPR$1 );
 		VAREXPR$1 = vr$11;
@@ -3124,7 +3125,7 @@ static struct $7ASTNODE* HSTRINDEXING( int64 DTYPE$1, struct $7ASTNODE* VAREXPR$
 	label$454:;
 	if( TMP$109$1 != 7ll) goto label$152;
 	{
-		DTYPE$1 = (DTYPE$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 568ll) & 511ll);
+		DTYPE$1 = (DTYPE$1 & -512ll) | (*(int64*)((uint8*)&ENV$ + 576ll) & 511ll);
 	}
 	goto label$151;
 	label$152:;
@@ -3177,7 +3178,7 @@ static struct $7ASTNODE* CDYNAMICARRAYINDEX( struct $8FBSYMBOL* SYM$1, struct $7
 		struct $7ASTNODE* vr$5 = HINDEXEXPR(  );
 		struct $7ASTNODE* vr$6 = HCHECKINTEGERINDEX( vr$5 );
 		DIMEXPR$1 = vr$6;
-		if( *(int64*)((uint8*)&ENV$ + 344ll) == 0ll) goto label$269;
+		if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$269;
 		{
 			struct $7ASTNODE* vr$8 = ASTCLONETREE( DESCEXPR$1 );
 			struct $7ASTNODE* vr$9 = _Z19ASTBUILDDEREFADDROFP7ASTNODExlP8FBSYMBOLS2_( vr$8, DIMOFFSET$1 + *(int64*)((uint8*)&SYMB$ + 199232ll), 8ll, (struct $8FBSYMBOL*)0ull, (struct $8FBSYMBOL*)0ull );
@@ -3211,7 +3212,7 @@ static struct $7ASTNODE* CDYNAMICARRAYINDEX( struct $8FBSYMBOL* SYM$1, struct $7
 	struct $7ASTNODE* vr$20 = ASTNEWCONSTI( *(int64*)((uint8*)SYM$1 + 80ll), 8ll, (struct $8FBSYMBOL*)0ull );
 	struct $7ASTNODE* vr$21 = ASTNEWBOP( 30ll, EXPR$1, vr$20, (struct $8FBSYMBOL*)0ull, 1ll );
 	EXPR$1 = vr$21;
-	if( *(int64*)((uint8*)&ENV$ + 352ll) == 0ll) goto label$273;
+	if( *(int64*)((uint8*)&ENV$ + 360ll) == 0ll) goto label$273;
 	{
 		if( *(int64*)SYM$1 == 12ll) goto label$275;
 		{
@@ -3270,7 +3271,7 @@ static struct $8FBSYMBOL* HVARADDUNDECL( char* ID$1, int64 DTYPE$1 )
 		ATTRIB$1 = 0ll;
 		if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$283;
 		{
-			if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$285;
+			if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) != *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$285;
 			{
 				if( (ATTRIB$1 & 57ll) != 0ll) goto label$287;
 				{
@@ -3298,7 +3299,7 @@ static struct $8FBSYMBOL* HVARADDUNDECL( char* ID$1, int64 DTYPE$1 )
 	}
 	label$288:;
 	OPTIONS$1 = 0ll;
-	if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 2ll) == 0ll) goto label$291;
+	if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 2ll) == 0ll) goto label$291;
 	{
 		if( (*(int64*)((uint8*)&PARSER$ + 304ll) & 8ll) != 0ll) goto label$293;
 		{

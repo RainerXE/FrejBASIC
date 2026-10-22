@@ -875,6 +875,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -920,7 +921,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1005,7 +1006,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1023,7 +1024,7 @@ void CPARAMETERS( struct $8FBSYMBOL* PARENT$1, struct $8FBSYMBOL* PROC$1, int64 
 	if( (*(int64*)((uint8*)PROC$1 + 16ll) & 2ll) == 0ll) goto label$13;
 	{
 		SYMBADDPROCINSTANCEPARAM( PARENT$1, PROC$1 );
-		LENGTH$1 = LENGTH$1 + *(int64*)((uint8*)&ENV$ + 616ll);
+		LENGTH$1 = LENGTH$1 + *(int64*)((uint8*)&ENV$ + 624ll);
 	}
 	label$13:;
 	label$12:;
@@ -1085,7 +1086,7 @@ void CPARAMETERS( struct $8FBSYMBOL* PARENT$1, struct $8FBSYMBOL* PROC$1, int64 
 		LEXSKIPTOKEN( 0ll );
 	}
 	label$27:;
-	if( LENGTH$1 <= (*(int64*)((uint8*)&ENV$ + 616ll) << (6ll & 63ll))) goto label$30;
+	if( LENGTH$1 <= (*(int64*)((uint8*)&ENV$ + 624ll) << (6ll & 63ll))) goto label$30;
 	{
 		ERRREPORTWARN( 18ll, (char*)*(char**)((uint8*)PROC$1 + 32ll), 1ll, (char*)0ull );
 	}
@@ -1185,7 +1186,7 @@ static struct $8FBSYMBOL* HMOCKPARAM( struct $8FBSYMBOL* PROC$1, int64 PMODE$1 )
 	int64 DTYPE$1;
 	if( PMODE$1 != -1ll) goto label$52;
 	{
-		PMODE$1 = *(int64*)((uint8*)&ENV$ + 1528ll);
+		PMODE$1 = *(int64*)((uint8*)&ENV$ + 1536ll);
 	}
 	label$52:;
 	label$51:;
@@ -1438,9 +1439,9 @@ static struct $8FBSYMBOL* HPARAMDECL( struct $8FBSYMBOL* PROC$1, int64 PROC_MODE
 	USE_DEFAULT$1 = 0ll;
 	if( MODE$1 != -1ll) goto label$100;
 	{
-		MODE$1 = *(int64*)((uint8*)&ENV$ + 1528ll);
+		MODE$1 = *(int64*)((uint8*)&ENV$ + 1536ll);
 		USE_DEFAULT$1 = -1ll;
-		if( (*(int64*)((uint8*)&ENV$ + 408ll) & 2ll) == 0ll) goto label$102;
+		if( (*(int64*)((uint8*)&ENV$ + 416ll) & 2ll) == 0ll) goto label$102;
 		{
 			HPARAMWARNING( PROC$1, ID$1, 15ll, 1ll );
 		}
@@ -1502,7 +1503,7 @@ static struct $8FBSYMBOL* HPARAMDECL( struct $8FBSYMBOL* PROC$1, int64 PROC_MODE
 	goto label$103;
 	label$104:;
 	{
-		if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 4194304ll) != 0ll) goto label$116;
+		if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 4194304ll) != 0ll) goto label$116;
 		{
 			ERRREPORTNOTALLOWED( 4194304ll, 147ll, (char*)0ull );
 			DOSKIP$1 = -1ll;
@@ -1523,7 +1524,7 @@ static struct $8FBSYMBOL* HPARAMDECL( struct $8FBSYMBOL* PROC$1, int64 PROC_MODE
 		ATTRIB$1 = ATTRIB$1 | 1048576ll;
 	}
 	label$103:;
-	if( *(int64*)((uint8*)&ENV$ + 272ll) != 0ll) goto label$120;
+	if( *(int64*)((uint8*)&ENV$ + 280ll) != 0ll) goto label$120;
 	{
 		if( USE_DEFAULT$1 == 0ll) goto label$122;
 		{
@@ -1657,9 +1658,9 @@ static struct $8FBSYMBOL* HPARAMDECL( struct $8FBSYMBOL* PROC$1, int64 PROC_MODE
 	label$145:;
 	if( ISPROTO$1 != 0ll) goto label$148;
 	{
-		if( *(int64*)((uint8*)PARAM$1 + 80ll) <= (*(int64*)((uint8*)&ENV$ + 616ll) << (2ll & 63ll))) goto label$150;
+		if( *(int64*)((uint8*)PARAM$1 + 80ll) <= (*(int64*)((uint8*)&ENV$ + 624ll) << (2ll & 63ll))) goto label$150;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 408ll) & 4ll) == 0ll) goto label$152;
+			if( (*(int64*)((uint8*)&ENV$ + 416ll) & 4ll) == 0ll) goto label$152;
 			{
 				HPARAMWARNING( PROC$1, ID$1, 17ll, 0ll );
 			}

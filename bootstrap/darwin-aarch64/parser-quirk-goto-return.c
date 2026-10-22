@@ -979,6 +979,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1024,7 +1025,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1109,7 +1110,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $17FBPARSER_STMT_LET {
 	struct $5TLIST LIST;
@@ -1175,7 +1176,7 @@ int64 CGOTOSTMT( $8FB_TOKEN TK$1 )
 		goto label$51;
 		label$56:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 65536ll) != 0ll) goto label$58;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 65536ll) != 0ll) goto label$58;
 			{
 				ERRREPORTNOTALLOWED( 65536ll, 146ll, (char*)0ull );
 				HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );
@@ -1184,7 +1185,7 @@ int64 CGOTOSTMT( $8FB_TOKEN TK$1 )
 			}
 			label$58:;
 			label$57:;
-			if( *(int64*)((uint8*)&ENV$ + 1576ll) == 0ll) goto label$60;
+			if( *(int64*)((uint8*)&ENV$ + 1584ll) == 0ll) goto label$60;
 			{
 				HGOSUBBRANCH(  );
 			}
@@ -1201,9 +1202,9 @@ int64 CGOTOSTMT( $8FB_TOKEN TK$1 )
 		goto label$51;
 		label$61:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 65536ll) == 0ll) goto label$63;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 65536ll) == 0ll) goto label$63;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 1576ll) == 0ll) goto label$65;
+				if( *(int64*)((uint8*)&ENV$ + 1584ll) == 0ll) goto label$65;
 				{
 					int64 vr$4 = HGOSUBRETURN(  );
 					fb$result$1 = vr$4;
@@ -1221,7 +1222,7 @@ int64 CGOTOSTMT( $8FB_TOKEN TK$1 )
 		goto label$51;
 		label$66:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 134217728ll) != 0ll) goto label$68;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 134217728ll) != 0ll) goto label$68;
 			{
 				ERRREPORTNOTALLOWED( 134217728ll, 146ll, (char*)0ull );
 				HSKIPUNTIL( -1ll, 0ll, 0ll, 0ll );

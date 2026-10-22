@@ -945,6 +945,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -990,7 +991,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1076,7 +1077,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1273,7 +1274,7 @@ void CENUMBODY( struct $8FBSYMBOL* S$1, $13FB_SYMBATTRIB ATTRIB$1 )
 						if( TMP$97$6 != 0ll) goto label$38;
 						label$39:;
 						{
-							if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$41;
+							if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$41;
 							{
 								if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$43;
 								{
@@ -1342,9 +1343,9 @@ void CENUMBODY( struct $8FBSYMBOL* S$1, $13FB_SYMBATTRIB ATTRIB$1 )
 				goto label$34;
 				label$35:;
 				CCOMMENT( 0ll );
-				if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$56;
+				if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$56;
 				{
-					if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$58;
+					if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$58;
 					{
 						struct $7ASTNODE* vr$24 = ASTNEWLIT( *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll) );
 						ASTADD( vr$24 );
@@ -1403,7 +1404,7 @@ void CENUMDECL( $13FB_SYMBATTRIB ATTRIB$1 )
 		if( TMP$98$2 != 2ll) goto label$68;
 		label$69:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$72;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$72;
 			{
 				if( *(struct $8FBSYMBOL**)((uint8*)&SYMB$ + 197024ll) == (struct $8FBSYMBOL*)((uint8*)&SYMB$ + 196704ll)) goto label$74;
 				{
@@ -1461,9 +1462,9 @@ void CENUMDECL( $13FB_SYMBATTRIB ATTRIB$1 )
 	label$81:;
 	label$80:;
 	CCOMMENT( 0ll );
-	if( *(int64*)((uint8*)&ENV$ + 296ll) == 0ll) goto label$83;
+	if( *(int64*)((uint8*)&ENV$ + 304ll) == 0ll) goto label$83;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 1296ll) != 0ll) goto label$85;
+		if( *(int64*)((uint8*)&ENV$ + 1304ll) != 0ll) goto label$85;
 		{
 			struct $7ASTNODE* vr$17 = ASTNEWLIT( *(char**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 49656ll) );
 			ASTADD( vr$17 );

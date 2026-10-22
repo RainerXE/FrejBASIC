@@ -893,6 +893,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -938,7 +939,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1024,7 +1025,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 typedef int64 $8FB_TOKEN;
 typedef int64 $15FB_CMPSTMT_MASK;
@@ -1170,7 +1171,7 @@ struct $9PARSERCTX {
 __FB_STATIC_ASSERT( sizeof( struct $9PARSERCTX ) == 336 );
 extern struct $9PARSERCTX PARSER$;
 static struct $15LEXPP_PRAGMASTK PRAGMASTK$[6];
-static struct $15LEXPP_PRAGMAOPT PRAGMAOPT$[6] = { { "msbitfields", 1ll, 35ll, 27ll }, { "once", 0ll, 0ll, 4ll }, { "constness", 3ll, 128ll, 27ll }, { "reserve", 0ll, 0ll, 4ll }, { "private", 2ll, 2ll, 27ll }, { "profile", 2ll, 1ll, 27ll } };
+static struct $15LEXPP_PRAGMAOPT PRAGMAOPT$[6] = { { "msbitfields", 1ll, 36ll, 27ll }, { "once", 0ll, 0ll, 4ll }, { "constness", 3ll, 128ll, 27ll }, { "reserve", 0ll, 0ll, 4ll }, { "private", 2ll, 2ll, 27ll }, { "profile", 2ll, 1ll, 27ll } };
 
 void PPPRAGMAINIT( void )
 {
@@ -1315,7 +1316,7 @@ void PPPRAGMA( void )
 		PRAGMAPOP( P$1, &VALUE$1 );
 		if( (*(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 32ll) & 8ll) == 0ll) goto label$105;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$107;
+			if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$107;
 			{
 				FBSTRING TMP$113$4;
 				FBSTRING TMP$114$4;
@@ -1347,7 +1348,7 @@ void PPPRAGMA( void )
 				if( TMP$116$4 != 3ll) goto label$111;
 				label$112:;
 				{
-					PRAGMAPUSH( P$1, (int64)-((*(int64*)((uint8*)&ENV$ + 408ll) & *(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 24ll)) != 0ll) );
+					PRAGMAPUSH( P$1, (int64)-((*(int64*)((uint8*)&ENV$ + 416ll) & *(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 24ll)) != 0ll) );
 				}
 				goto label$110;
 				label$111:;
@@ -1368,14 +1369,14 @@ void PPPRAGMA( void )
 						if( TMP$117$6 != 2ll) goto label$118;
 						label$119:;
 						{
-							PRAGMAPUSH( P$1, (int64)-(*(int64*)((uint8*)&ENV$ + 1544ll) == 0ll) );
+							PRAGMAPUSH( P$1, (int64)-(*(int64*)((uint8*)&ENV$ + 1552ll) == 0ll) );
 						}
 						goto label$117;
 						label$118:;
 						if( TMP$117$6 != 1ll) goto label$120;
 						label$121:;
 						{
-							PRAGMAPUSH( P$1, (int64)-(*(int64*)((uint8*)&ENV$ + 1552ll) != 0ll) );
+							PRAGMAPUSH( P$1, (int64)-(*(int64*)((uint8*)&ENV$ + 1560ll) != 0ll) );
 						}
 						label$120:;
 						label$117:;
@@ -1437,7 +1438,7 @@ void PPPRAGMA( void )
 		label$128:;
 		if( (*(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 32ll) & 8ll) == 0ll) goto label$133;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$135;
+			if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$135;
 			{
 				if( ISPUSH$1 == 0ll) goto label$137;
 				{
@@ -1518,9 +1519,9 @@ void PPPRAGMA( void )
 				if( TMP$131$4 != 3ll) goto label$148;
 				label$149:;
 				{
-					int64 vr$108 = FBGETOPTION( 28ll );
+					int64 vr$108 = FBGETOPTION( 29ll );
 					VALUE$1 = (VALUE$1 & *(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 24ll)) | (vr$108 & ~(*(int64*)(((int64)(struct $15LEXPP_PRAGMAOPT*)PRAGMAOPT$ + (P$1 * 40ll)) + 24ll)));
-					FBSETOPTION( 28ll, VALUE$1 );
+					FBSETOPTION( 29ll, VALUE$1 );
 				}
 				goto label$147;
 				label$148:;
@@ -1540,14 +1541,14 @@ void PPPRAGMA( void )
 						if( TMP$132$6 != 2ll) goto label$155;
 						label$156:;
 						{
-							*(int64*)((uint8*)&ENV$ + 1544ll) = (int64)-(VALUE$1 == 0ll);
+							*(int64*)((uint8*)&ENV$ + 1552ll) = (int64)-(VALUE$1 == 0ll);
 						}
 						goto label$154;
 						label$155:;
 						if( TMP$132$6 != 1ll) goto label$157;
 						label$158:;
 						{
-							*(int64*)((uint8*)&ENV$ + 1552ll) = (int64)-(VALUE$1 != 0ll);
+							*(int64*)((uint8*)&ENV$ + 1560ll) = (int64)-(VALUE$1 != 0ll);
 						}
 						label$157:;
 						label$154:;
@@ -1647,7 +1648,7 @@ static void PRAGMARESERVE( void )
 	HAVEASM$1 = 0ll;
 	int64 HAVEEXTERN$1;
 	HAVEEXTERN$1 = 0ll;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$29;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$29;
 	{
 		FBSTRING TMP$106$2;
 		__builtin_memset( &TMP$106$2, 0, 24ll );
@@ -1661,7 +1662,7 @@ static void PRAGMARESERVE( void )
 	if( vr$4 != 40ll) goto label$31;
 	{
 		LEXSKIPTOKEN( 0ll );
-		if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$33;
+		if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$33;
 		{
 			LEXPPONLYEMITTOKEN(  );
 		}
@@ -1680,7 +1681,7 @@ static void PRAGMARESERVE( void )
 				{
 					if( *(uint64*)((uint8*)&PARSER$ + 200ll) <= 0ull) goto label$42;
 					{
-						if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1432ll)) goto label$44;
+						if( *(struct $8FBSYMBOL**)((uint8*)&PARSER$ + 216ll) == *(struct $8FBSYMBOL**)((uint8*)&ENV$ + 1440ll)) goto label$44;
 						{
 							char* vr$6 = LEXGETTEXT(  );
 							ERRREPORTEX( 61ll, (char*)vr$6, 0ll, 1ll, (char*)0ull );
@@ -1744,7 +1745,7 @@ static void PRAGMARESERVE( void )
 				label$54:;
 				label$37:;
 			}
-			if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$56;
+			if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$56;
 			{
 				LEXPPONLYEMITTOKEN(  );
 			}
@@ -1763,7 +1764,7 @@ static void PRAGMARESERVE( void )
 		goto label$57;
 		label$58:;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$60;
+			if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$60;
 			{
 				LEXPPONLYEMITTOKEN(  );
 			}
@@ -1787,7 +1788,7 @@ static void PRAGMARESERVE( void )
 	}
 	label$62:;
 	label$61:;
-	if( *(int64*)((uint8*)&ENV$ + 1216ll) <= 0ll) goto label$64;
+	if( *(int64*)((uint8*)&ENV$ + 1224ll) <= 0ll) goto label$64;
 	{
 		LEXPPONLYEMITTOKEN(  );
 	}

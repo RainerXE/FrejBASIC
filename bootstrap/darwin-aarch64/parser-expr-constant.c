@@ -835,6 +835,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -880,7 +881,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -966,7 +967,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $7LEX_CTX {
 	struct $9LEX_TKCTX CTXTB[17];
@@ -1034,7 +1035,7 @@ struct $7ASTNODE* CSTRLITERAL( int64 SKIPTOKEN$1 )
 				ZS$1 = vr$11;
 				if( *(int64*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4144ll) == 0ll) goto label$26;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 408ll) & 1ll) == 0ll) goto label$28;
+					if( (*(int64*)((uint8*)&ENV$ + 416ll) & 1ll) == 0ll) goto label$28;
 					{
 						int64 vr$15 = LEXGETTOKEN( 0ll );
 						if( vr$15 == 264ll) goto label$30;
@@ -1096,7 +1097,7 @@ struct $7ASTNODE* CSTRLITERAL( int64 SKIPTOKEN$1 )
 				WS$1 = (uint32*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 24ll);
 				if( *(int64*)((uint8*)*(struct $7FBTOKEN**)((uint8*)*(struct $9LEX_TKCTX**)((uint8*)&LEX$ + 844696ll) + 16712ll) + 4144ll) == 0ll) goto label$40;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 408ll) & 1ll) == 0ll) goto label$42;
+					if( (*(int64*)((uint8*)&ENV$ + 416ll) & 1ll) == 0ll) goto label$42;
 					{
 						int64 vr$33 = LEXGETTOKEN( 0ll );
 						if( vr$33 == 264ll) goto label$44;

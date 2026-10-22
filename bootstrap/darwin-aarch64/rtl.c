@@ -925,6 +925,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -970,7 +971,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1056,7 +1057,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $6RTLCTX {
 	struct $5TLIST ARGLIST;
@@ -1137,7 +1138,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 		CALLCONV$1 = *(int64*)((uint8*)PROCDEF$1 + 24ll);
 		if( CALLCONV$1 != -1ll) goto label$22;
 		{
-			CALLCONV$1 = *(int64*)((uint8*)&ENV$ + 576ll);
+			CALLCONV$1 = *(int64*)((uint8*)&ENV$ + 584ll);
 		}
 		label$22:;
 		label$21:;
@@ -1145,7 +1146,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 		DOADD$2 = -1ll;
 		if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 4ll) == 0ll) goto label$24;
 		{
-			DOADD$2 = (int64)-((*(int64*)((uint8*)&ENV$ + 1448ll) & 1ll) != 0ll);
+			DOADD$2 = (int64)-((*(int64*)((uint8*)&ENV$ + 1456ll) & 1ll) != 0ll);
 		}
 		label$24:;
 		label$23:;
@@ -1160,19 +1161,19 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 		{
 			if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 256ll) == 0ll) goto label$30;
 			{
-				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 272ll) == 3ll);
+				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 280ll) == 3ll);
 			}
 			label$30:;
 			label$29:;
 			if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 1024ll) == 0ll) goto label$32;
 			{
-				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 272ll) == 0ll);
+				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 280ll) == 0ll);
 			}
 			label$32:;
 			label$31:;
 			if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 512ll) == 0ll) goto label$34;
 			{
-				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 272ll) != 0ll);
+				DOADD$2 = (int64)-(*(int64*)((uint8*)&ENV$ + 280ll) != 0ll);
 			}
 			label$34:;
 			label$33:;
@@ -1181,7 +1182,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 		label$27:;
 		if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 32ll) != 0ll) goto label$36;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 544ll) == 0ll) goto label$38;
+			if( *(int64*)((uint8*)&ENV$ + 552ll) == 0ll) goto label$38;
 			{
 				DOADD$2 = 0ll;
 			}
@@ -1310,7 +1311,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 									{
 										struct $15FB_RTL_PARAMDEF* TMP$94$10;
 										TMP$94$10 = (struct $15FB_RTL_PARAMDEF*)((uint8*)((uint8*)PROCDEF$1 + (I$4 << (5ll & 63ll))) + 56ll);
-										struct $8FBSYMBOL* vr$64 = SYMBADDPROCPTR( INNER_PROC$9, *(int64*)TMP$94$10, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, *(int64*)((uint8*)&ENV$ + 576ll) );
+										struct $8FBSYMBOL* vr$64 = SYMBADDPROCPTR( INNER_PROC$9, *(int64*)TMP$94$10, (struct $8FBSYMBOL*)0ull, 0ll, 0ll, *(int64*)((uint8*)&ENV$ + 584ll) );
 										SUBTYPE$6 = vr$64;
 									}
 									PARAM_OPTVAL$6 = (struct $7ASTNODE*)0ull;
@@ -1422,7 +1423,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 			PALIAS$3 = (char*)*(char**)((uint8*)PROCDEF$1 + 8ll);
 			if( (*(int64*)((uint8*)PROCDEF$1 + 40ll) & 128ll) == 0ll) goto label$73;
 			{
-				if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$75;
+				if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$75;
 				{
 					FBSTRING TMP$97$5;
 					if( PALIAS$3 != (char*)0ull) goto label$77;
@@ -1452,7 +1453,7 @@ void RTLADDINTRINSICPROCS( struct $14FB_RTL_PROCDEF* PROCDEF$1 )
 			label$78:;
 			$10FB_SYMBOPT SYMB_OPTS$3;
 			SYMB_OPTS$3 = 0ll;
-			if( *(int64*)((uint8*)&ENV$ + 544ll) != 0ll) goto label$81;
+			if( *(int64*)((uint8*)&ENV$ + 552ll) != 0ll) goto label$81;
 			{
 				SYMB_OPTS$3 = SYMB_OPTS$3 | 20ll;
 			}
@@ -1505,7 +1506,7 @@ struct $8FBSYMBOL* RTLPROCLOOKUP( char* PNAME$1, int64 PIDX$1 )
 		CHAIN_$1 = vr$3;
 		if( CHAIN_$1 != (struct $10FBSYMCHAIN*)0ull) goto label$95;
 		{
-			if( *(int64*)((uint8*)&ENV$ + 272ll) != 3ll) goto label$97;
+			if( *(int64*)((uint8*)&ENV$ + 280ll) != 3ll) goto label$97;
 			{
 				FBSTRING TMP$100$4;
 				static FBSTRING TMP_NAME$4;

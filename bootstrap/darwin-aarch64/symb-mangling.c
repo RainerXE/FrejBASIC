@@ -1072,6 +1072,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1117,7 +1118,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1203,7 +1204,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 struct $12FB_MANGLECTX {
 	struct $6TFLIST FLIST;
@@ -1241,8 +1242,8 @@ char* SYMBUNIQUEID( boolean VALIDFBNAME$1 )
 	char* fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$14:;
-	if( *(int64*)((uint8*)&ENV$ + 208ll) == 1ll) goto label$16;
-	TMP$85$1 = (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) == 2ll);
+	if( *(int64*)((uint8*)&ENV$ + 216ll) == 1ll) goto label$16;
+	TMP$85$1 = (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 2ll);
 	goto label$20;
 	label$16:;
 	TMP$85$1 = -1ll;
@@ -1286,7 +1287,7 @@ char* SYMBUNIQUELABEL( void )
 	label$22:;
 	{
 		$10FB_BACKEND TMP$91$2;
-		TMP$91$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$91$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$91$2 == 1ll) goto label$26;
 		label$27:;
 		if( TMP$91$2 != 2ll) goto label$25;
@@ -1304,7 +1305,7 @@ char* SYMBUNIQUELABEL( void )
 		label$25:;
 		{
 			FBSTRING TMP$96$3;
-			if( *(int64*)((uint8*)&ENV$ + 216ll) != 10ll) goto label$30;
+			if( *(int64*)((uint8*)&ENV$ + 224ll) != 10ll) goto label$30;
 			{
 				fb_StrAssign( (void*)((uint8*)&CTX$ + 120ll), 17ll, (void*)"L_", 3ll, 0 );
 			}
@@ -1507,13 +1508,13 @@ char* SYMBGETMANGLEDNAME( struct $8FBSYMBOL* SYM$1 )
 	SYMBMANGLERESETABBREV(  );
 	{
 		$10FB_BACKEND TMP$109$2;
-		TMP$109$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$109$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$109$2 == 1ll) goto label$79;
 		label$80:;
 		if( TMP$109$2 != 2ll) goto label$78;
 		label$79:;
 		{
-			if( (*(int64*)((uint8*)&ENV$ + 1448ll) & 524288ll) == 0ll) goto label$82;
+			if( (*(int64*)((uint8*)&ENV$ + 1456ll) & 524288ll) == 0ll) goto label$82;
 			{
 				HREPLACECHAR( *(char**)((uint8*)SYM$1 + 48ll), 46ll, 36ll );
 			}
@@ -1551,7 +1552,7 @@ char* HMANGLEBUILTINTYPE( int64 DTYPE$1, int64* ADD_ABBREV$1 )
 	label$110:;
 	label$109:;
 	int64 vr$3 = FBIS64BIT(  );
-	if( (vr$3 & (int64)-((*(int64*)((uint8*)&ENV$ + 592ll) & 1ll) == 0ll)) == 0ll) goto label$112;
+	if( (vr$3 & (int64)-((*(int64*)((uint8*)&ENV$ + 600ll) & 1ll) == 0ll)) == 0ll) goto label$112;
 	{
 		if( (DTYPE$1 & 32505856ll) == 0ll) goto label$114;
 		{
@@ -2100,7 +2101,7 @@ static int64 HADDUNDERSCORE( void )
 	label$197:;
 	{
 		$10FB_BACKEND TMP$148$2;
-		TMP$148$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+		TMP$148$2 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 		if( TMP$148$2 == 1ll) goto label$201;
 		label$202:;
 		if( TMP$148$2 != 2ll) goto label$200;
@@ -2111,7 +2112,7 @@ static int64 HADDUNDERSCORE( void )
 		goto label$199;
 		label$200:;
 		{
-			fb$result$1 = *(int64*)((uint8*)&ENV$ + 608ll);
+			fb$result$1 = *(int64*)((uint8*)&ENV$ + 616ll);
 		}
 		label$203:;
 		label$199:;
@@ -2150,7 +2151,7 @@ static int64 HDOCPPMANGLING( struct $8FBSYMBOL* SYM$1 )
 	{
 		{
 			$10FB_BACKEND TMP$150$3;
-			TMP$150$3 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+			TMP$150$3 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 			if( TMP$150$3 == 1ll) goto label$215;
 			label$216:;
 			if( TMP$150$3 != 2ll) goto label$214;
@@ -2277,7 +2278,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 	label$244:;
 	if( (*(int64*)((uint8*)SYM$1 + 8ll) & 59ll) == 0ll) goto label$247;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 208ll) != 3ll) goto label$249;
+		if( *(int64*)((uint8*)&ENV$ + 216ll) != 3ll) goto label$249;
 		{
 			fb_StrConcatAssign( (void*)&MANGLED$1, -1ll, (void*)"@", 2ll, 0 );
 		}
@@ -2292,7 +2293,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 		label$250:;
 		{
 			$13FB_COMPTARGET TMP$153$3;
-			TMP$153$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 216ll);
+			TMP$153$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 224ll);
 			if( TMP$153$3 == 0ll) goto label$254;
 			label$255:;
 			if( TMP$153$3 != 1ll) goto label$253;
@@ -2330,7 +2331,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 	goto label$246;
 	label$247:;
 	{
-		if( *(int64*)((uint8*)&ENV$ + 208ll) != 3ll) goto label$264;
+		if( *(int64*)((uint8*)&ENV$ + 216ll) != 3ll) goto label$264;
 		{
 			fb_StrConcatAssign( (void*)&MANGLED$1, -1ll, (void*)"%", 2ll, 0 );
 		}
@@ -2365,7 +2366,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 				fb_StrAssign( (void*)&ID$1, -1ll, *(void**)((uint8*)SYM$1 + 32ll), 0ll, 0 );
 				{
 					$10FB_BACKEND TMP$159$5;
-					TMP$159$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+					TMP$159$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 					if( TMP$159$5 == 1ll) goto label$276;
 					label$277:;
 					if( TMP$159$5 == 2ll) goto label$276;
@@ -2396,7 +2397,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 				fb_StrAssign( (void*)&ID$1, -1ll, (void*)vr$44, -1ll, 0 );
 				{
 					$10FB_BACKEND TMP$162$5;
-					TMP$162$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+					TMP$162$5 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 					if( TMP$162$5 == 1ll) goto label$283;
 					label$284:;
 					if( TMP$162$5 != 2ll) goto label$282;
@@ -2416,7 +2417,7 @@ static void HMANGLEVARIABLE( struct $8FBSYMBOL* SYM$1 )
 		{
 			{
 				$10FB_BACKEND TMP$163$4;
-				TMP$163$4 = *($10FB_BACKEND*)((uint8*)&ENV$ + 208ll);
+				TMP$163$4 = *($10FB_BACKEND*)((uint8*)&ENV$ + 216ll);
 				if( TMP$163$4 == 1ll) goto label$287;
 				label$288:;
 				if( TMP$163$4 != 2ll) goto label$286;
@@ -3116,8 +3117,8 @@ static void HMANGLEPROC( struct $8FBSYMBOL* SYM$1 )
 	int64 vr$1 = HDOCPPMANGLING( SYM$1 );
 	DOCPP$1 = vr$1;
 	int64 vr$13 = FBGETCPUFAMILY(  );
-	ADD_STDCALL_SUFFIX$1 = (((int64)-(*(int64*)((uint8*)SYM$1 + 152ll) == 1ll) | ((int64)-(*(int64*)((uint8*)SYM$1 + 152ll) == 6ll) & (((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 1ll)) | (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) == 5ll)))) & (int64)-(vr$13 == 0ll)) & ((int64)-(*(int64*)((uint8*)&ENV$ + 208ll) != 1ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 208ll) != 2ll));
-	if( *(int64*)((uint8*)&ENV$ + 208ll) != 3ll) goto label$413;
+	ADD_STDCALL_SUFFIX$1 = (((int64)-(*(int64*)((uint8*)SYM$1 + 152ll) == 1ll) | ((int64)-(*(int64*)((uint8*)SYM$1 + 152ll) == 6ll) & (((int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 0ll) | (int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 1ll)) | (int64)-(*(int64*)((uint8*)&ENV$ + 224ll) == 5ll)))) & (int64)-(vr$13 == 0ll)) & ((int64)-(*(int64*)((uint8*)&ENV$ + 216ll) != 1ll) & (int64)-(*(int64*)((uint8*)&ENV$ + 216ll) != 2ll));
+	if( *(int64*)((uint8*)&ENV$ + 216ll) != 3ll) goto label$413;
 	{
 		fb_StrConcatAssign( (void*)&MANGLED$1, -1ll, (void*)"@", 2ll, 0 );
 		if( ADD_STDCALL_SUFFIX$1 == 0ll) goto label$415;
@@ -3129,7 +3130,7 @@ static void HMANGLEPROC( struct $8FBSYMBOL* SYM$1 )
 		label$414:;
 		{
 			$13FB_COMPTARGET TMP$246$3;
-			TMP$246$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 216ll);
+			TMP$246$3 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 224ll);
 			if( TMP$246$3 == 0ll) goto label$418;
 			label$419:;
 			if( TMP$246$3 == 1ll) goto label$418;
@@ -3159,7 +3160,7 @@ static void HMANGLEPROC( struct $8FBSYMBOL* SYM$1 )
 		{
 			{
 				$13FB_COMPTARGET TMP$248$4;
-				TMP$248$4 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 216ll);
+				TMP$248$4 = *($13FB_COMPTARGET*)((uint8*)&ENV$ + 224ll);
 				if( TMP$248$4 == 0ll) goto label$429;
 				label$430:;
 				if( TMP$248$4 == 1ll) goto label$429;

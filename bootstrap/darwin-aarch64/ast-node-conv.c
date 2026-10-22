@@ -957,6 +957,7 @@ typedef int64 $11FB_MODEVIEW;
 struct $12FBCMMLINEOPT {
 	$10FB_OUTTYPE OUTTYPE;
 	int64 PPONLY;
+	int64 SYNTAXONLY;
 	$10FB_BACKEND BACKEND;
 	$13FB_COMPTARGET TARGET;
 	$10FB_CPUTYPE CPUTYPE;
@@ -1002,7 +1003,7 @@ struct $12FBCMMLINEOPT {
 	int64 NOBUILTINS;
 	int64 OPTABSTRACT;
 };
-__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 368 );
+__FB_STATIC_ASSERT( sizeof( struct $12FBCMMLINEOPT ) == 376 );
 typedef int64 $12FB_TARGETOPT;
 struct $8FBTARGET {
 	char* ID;
@@ -1088,7 +1089,7 @@ struct $5FBENV {
 	struct $7TSTRSET LIBPATHS;
 	int64 FBCTINF_STARTED;
 };
-__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1824 );
+__FB_STATIC_ASSERT( sizeof( struct $5FBENV ) == 1832 );
 extern struct $5FBENV ENV$;
 
 int64 ASTCHECKCONVNONPTRTOPTR( int64 TO_DTYPE$1, int64 EXPR_DTYPE$1, struct $7ASTNODE* EXPR$1, $11AST_CONVOPT OPTIONS$1 )
@@ -1125,7 +1126,7 @@ int64 ASTCHECKCONVNONPTRTOPTR( int64 TO_DTYPE$1, int64 EXPR_DTYPE$1, struct $7AS
 		label$75:;
 		TMP$96$2 = EXPR_DTYPE$1 & 31ll;
 		label$79:;
-		if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$96$2 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 616ll)) goto label$77;
+		if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$96$2 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 624ll)) goto label$77;
 		{
 			fb$result$1 = 0ll;
 			goto label$67;
@@ -1341,7 +1342,7 @@ struct $7ASTNODE* ASTNEWCONV( int64 TO_DTYPE$1, struct $8FBSYMBOL* TO_SUBTYPE$1,
 					*(int64*)((uint8*)N$1 + 56ll) = -1ll;
 					if( (OPTIONS$1 & 16ll) != 0ll) goto label$183;
 					{
-						if( (*(int64*)((uint8*)&ENV$ + 408ll) & 128ll) == 0ll) goto label$185;
+						if( (*(int64*)((uint8*)&ENV$ + 416ll) & 128ll) == 0ll) goto label$185;
 						{
 							ERRREPORTWARN( 40ll, (char*)0ull, 1ll, (char*)0ull );
 						}
@@ -1814,7 +1815,7 @@ struct $7ASTNODE* ASTNEWCONV( int64 TO_DTYPE$1, struct $8FBSYMBOL* TO_SUBTYPE$1,
 			{
 				if( (OPTIONS$1 & 16ll) != 0ll) goto label$288;
 				{
-					if( (*(int64*)((uint8*)&ENV$ + 408ll) & 128ll) == 0ll) goto label$290;
+					if( (*(int64*)((uint8*)&ENV$ + 416ll) & 128ll) == 0ll) goto label$290;
 					{
 						ERRREPORTWARN( 40ll, (char*)0ull, 1ll, (char*)0ull );
 					}
@@ -1831,7 +1832,7 @@ struct $7ASTNODE* ASTNEWCONV( int64 TO_DTYPE$1, struct $8FBSYMBOL* TO_SUBTYPE$1,
 	}
 	label$280:;
 	label$279:;
-	if( *(int64*)((uint8*)&ENV$ + 208ll) != 0ll) goto label$292;
+	if( *(int64*)((uint8*)&ENV$ + 216ll) != 0ll) goto label$292;
 	{
 		if( DOCONV$1 == 0ll) goto label$294;
 		{
@@ -2464,7 +2465,7 @@ static int64 HCHECKPTR( int64 TO_DTYPE$1, struct $8FBSYMBOL* TO_SUBTYPE$1, int64
 			label$94:;
 			TMP$98$3 = TO_DTYPE$1 & 31ll;
 			label$378:;
-			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$98$3 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 616ll)) goto label$96;
+			if( *(int64*)(((int64)(struct $13SYMB_DATATYPE*)SYMB_DTYPETB$ + (TMP$98$3 * 56ll)) + 8ll) != *(int64*)((uint8*)&ENV$ + 624ll)) goto label$96;
 			{
 				goto label$81;
 			}
