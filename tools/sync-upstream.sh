@@ -207,14 +207,17 @@ rebase_pr_branches() {
 # Would merging upstream/master into origin/master conflict?  Uses
 # 'git merge-tree' so the working tree is never touched.
 merge_would_conflict() {
-	local out
+	local out rc
+	# 'git merge-tree' exits non-zero when the merge conflicts, so the
+	# status has to be captured without tripping 'set -e'.
 	out=$(git merge-tree --write-tree --name-only \
-		"$ORIGIN_REMOTE/master" "$UPSTREAM_REMOTE/master" 2>/dev/null)
-	if [ $? -eq 0 ]; then
+		"$ORIGIN_REMOTE/master" "$UPSTREAM_REMOTE/master" 2>/dev/null) && rc=0 || rc=$?
+	if [ "$rc" -eq 0 ]; then
 		return 1	# no conflict
 	fi
-	# rc != 0: the lines after the tree hash are the conflicted paths
-	printf '%s\n' "$out" | tail -n +2 | grep -v '^$' || true
+	# rc != 0: after the tree hash come the conflicted paths, one per
+	# line, then a blank line and merge-tree's own messages.
+	printf '%s\n' "$out" | tail -n +2 | sed '/^$/,$d' || true
 	return 0		# conflict
 }
 
@@ -296,7 +299,7 @@ run_checks() {
 	# constant-evaluation of acos() in tests/optimizations/consteval.bas.
 	# They are a property of the host's floating point, not of our changes,
 	# so they are tolerated - but nothing else is.
-	make unit-tests >/tmp/frej-sync-unit.log 2>&1
+	make unit-tests >/tmp/frej-sync-unit.log 2>&1 || true
 	local unexpected
 	unexpected=$(grep ' : error : ' /tmp/frej-sync-unit.log \
 		| grep -v 'acos(' \
