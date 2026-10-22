@@ -31,11 +31,11 @@ function run_tests() {
 		echo "TEST $fbtarget $i"
 		withoutext=${i%.bas}
 
-		# The filename.bas(line) prefix is stripped using an ERE, not the
-		# BRE form with \| alternation, because BSD sed (macOS) does not
-		# support that and silently leaves every line untouched.
+		# The "file.bas(line)" prefix is stripped with an ERE rather than the
+		# BRE form using "\|" alternation, because BSD sed does not support
+		# that and silently leaves every line untouched.
 		$FBC -maxerr inf -w constness -target $fbtarget $i -r -m $withoutext | \
-			sed -E -e 's/^.*\.(bas|bi)\(.*\) warning .*\(.*\): /\t/g' > \
+			sed -E -e 's,^.*\.(bas|bi)\(.*\) warning .*\(.*\): ,\t,g' > \
 			$txtdir/$withoutext.txt
 	done
 
