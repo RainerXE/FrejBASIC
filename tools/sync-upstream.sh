@@ -280,8 +280,13 @@ run_checks() {
 	head1 "Local checks on $ORIGIN_REMOTE/master"
 	require_clean_tree || return 2
 	git checkout --quiet master
-	say "   building compiler and runtime (this takes a while)"
-	if ! make -j4 >/tmp/frej-sync-build.log 2>&1; then
+	say "   building the bootstrap compiler, then the compiler, runtime and gfxlib2"
+	if ! make bootstrap >/tmp/frej-sync-build.log 2>&1; then
+		warn "'make bootstrap' failed - see /tmp/frej-sync-build.log"
+		tail -20 /tmp/frej-sync-build.log >&2
+		return 2
+	fi
+	if ! make -j4 FBC="bin/fbc -i inc" >>/tmp/frej-sync-build.log 2>&1; then
 		warn "build failed - see /tmp/frej-sync-build.log"
 		tail -20 /tmp/frej-sync-build.log >&2
 		return 2
