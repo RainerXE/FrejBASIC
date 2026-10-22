@@ -952,7 +952,7 @@ struct $7ASTNODE* RTLGOSUBPUSH( struct $7ASTNODE* CTX$1 )
 	label$20:;
 	struct $7ASTNODE* PROC$1;
 	fb$result$1 = (struct $7ASTNODE*)0ull;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubPush", 349ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubPush", 350ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, -1ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWARG( PROC$1, CTX$1, 2147483648ll, -1ll );
@@ -974,7 +974,7 @@ struct $7ASTNODE* RTLGOSUBPOP( struct $7ASTNODE* CTX$1 )
 	label$24:;
 	struct $7ASTNODE* PROC$1;
 	fb$result$1 = (struct $7ASTNODE*)0ull;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubPop", 350ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubPop", 351ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, -1ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWARG( PROC$1, CTX$1, 2147483648ll, -1ll );
@@ -995,7 +995,7 @@ int64 RTLGOSUBRETURN( struct $7ASTNODE* CTX$1 )
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$28:;
 	struct $7ASTNODE* PROC$1;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubReturn", 351ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubReturn", 352ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, -1ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWARG( PROC$1, CTX$1, 2147483648ll, -1ll );
@@ -1019,7 +1019,7 @@ struct $7ASTNODE* RTLGOSUBEXIT( struct $7ASTNODE* CTX$1 )
 	label$32:;
 	struct $7ASTNODE* PROC$1;
 	fb$result$1 = (struct $7ASTNODE*)0ull;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubExit", 352ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_GosubExit", 353ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, -1ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWARG( PROC$1, CTX$1, 2147483648ll, -1ll );
@@ -1041,7 +1041,7 @@ struct $7ASTNODE* RTLSETJMP( struct $7ASTNODE* CTX$1 )
 	label$36:;
 	struct $7ASTNODE* PROC$1;
 	fb$result$1 = (struct $7ASTNODE*)0ull;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_SetJmp", 353ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_SetJmp", 354ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, -1ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWARG( PROC$1, CTX$1, 2147483648ll, -1ll );

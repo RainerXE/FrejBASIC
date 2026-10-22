@@ -1000,7 +1000,7 @@ struct $7ASTNODE* RTLTHREADCALL( struct $7ASTNODE* CALLEXPR$1 )
 	}
 	ASTDELTREE( CALLEXPR$1 );
 	struct $7ASTNODE* EXPR$1;
-	struct $8FBSYMBOL* vr$34 = RTLPROCLOOKUP( (char*)"fb_ThreadCall", 379ll );
+	struct $8FBSYMBOL* vr$34 = RTLPROCLOOKUP( (char*)"fb_ThreadCall", 380ll );
 	struct $7ASTNODE* vr$35 = ASTNEWCALL( vr$34, (struct $7ASTNODE*)0ull, -1ll );
 	EXPR$1 = vr$35;
 	struct $7ASTNODE* vr$36 = ASTBUILDPROCADDROF( PROC$1 );

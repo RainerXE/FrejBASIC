@@ -1118,7 +1118,7 @@ struct $7ASTNODE* RTLPROFILEBEGINPROC( struct $8FBSYMBOL* SYM$1 )
 	}
 	label$23:;
 	label$22:;
-	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileBeginProc", 341ll );
+	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileBeginProc", 342ll );
 	struct $7ASTNODE* vr$6 = ASTNEWCALL( vr$5, (struct $7ASTNODE*)0ull, 0ll );
 	PROC$1 = vr$6;
 	struct $7ASTNODE* vr$7 = HGETPROCNAME( SYM$1 );
@@ -1151,7 +1151,7 @@ struct $7ASTNODE* RTLPROFILEENDPROC( struct $8FBSYMBOL* SYM$1 )
 	}
 	label$29:;
 	label$28:;
-	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileEndProc", 342ll );
+	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileEndProc", 343ll );
 	struct $7ASTNODE* vr$6 = ASTNEWCALL( vr$5, (struct $7ASTNODE*)0ull, 0ll );
 	PROC$1 = vr$6;
 	struct $7ASTNODE* vr$7 = ASTNEWVAR( SYM$1, 0ll, 2147483648ll, (struct $8FBSYMBOL*)0ull );
@@ -1184,7 +1184,7 @@ struct $7ASTNODE* RTLPROFILEBEGINCALL( struct $8FBSYMBOL* SYM$1 )
 	}
 	label$35:;
 	label$34:;
-	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileBeginCall", 343ll );
+	struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"fb_ProfileBeginCall", 344ll );
 	struct $7ASTNODE* vr$6 = ASTNEWCALL( vr$5, (struct $7ASTNODE*)0ull, 0ll );
 	PROC$1 = vr$6;
 	struct $7ASTNODE* vr$7 = HGETPROCNAME( SYM$1 );
@@ -1208,7 +1208,7 @@ struct $7ASTNODE* RTLPROFILEENDCALL( void )
 	label$38:;
 	struct $7ASTNODE* PROC$1;
 	struct $7ASTNODE* EXPR$1;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_ProfileEndCall", 344ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_ProfileEndCall", 345ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, 0ll );
 	PROC$1 = vr$2;
 	struct $7ASTNODE* vr$3 = ASTNEWCONSTI( 0ll, 32ll, (struct $8FBSYMBOL*)0ull );
@@ -1230,7 +1230,7 @@ struct $7ASTNODE* RTLPROFILECALL_MCOUNT( void )
 	struct $7ASTNODE* fb$result$1;
 	__builtin_memset( &fb$result$1, 0, 8ll );
 	label$42:;
-	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_mcount", 347ll );
+	struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"fb_mcount", 348ll );
 	struct $7ASTNODE* vr$2 = ASTNEWCALL( vr$1, (struct $7ASTNODE*)0ull, 0ll );
 	fb$result$1 = vr$2;
 	label$43:;
@@ -1240,7 +1240,7 @@ struct $7ASTNODE* RTLPROFILECALL_MCOUNT( void )
 void RTLPROFILECALL_MONSTARTUP( void )
 {
 	label$44:;
-	struct $8FBSYMBOL* vr$0 = RTLPROCLOOKUP( (char*)"fb__monstartup", 348ll );
+	struct $8FBSYMBOL* vr$0 = RTLPROCLOOKUP( (char*)"fb__monstartup", 349ll );
 	struct $7ASTNODE* vr$1 = ASTNEWCALL( vr$0, (struct $7ASTNODE*)0ull, 0ll );
 	ASTADD( vr$1 );
 	label$45:;

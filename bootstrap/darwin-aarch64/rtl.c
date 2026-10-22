@@ -1063,7 +1063,7 @@ struct $6RTLCTX {
 };
 __FB_STATIC_ASSERT( sizeof( struct $6RTLCTX ) == 64 );
 static struct $6RTLCTX CTX$;
-static struct $8FBSYMBOL* RTLLOOKUPTB$[380];
+static struct $8FBSYMBOL* RTLLOOKUPTB$[381];
 struct $8FBARRAY1IP8FBSYMBOLE {
 	struct $8FBSYMBOL** DATA;
 	struct $8FBSYMBOL** PTR;
@@ -1074,7 +1074,7 @@ struct $8FBARRAY1IP8FBSYMBOLE {
 	struct $16__FB_ARRAYDIMTB$ DIMTB[1];
 };
 __FB_STATIC_ASSERT( sizeof( struct $8FBARRAY1IP8FBSYMBOLE ) == 72 );
-static struct $8FBARRAY1IP8FBSYMBOLE tmp$86$ = { (struct $8FBSYMBOL**)RTLLOOKUPTB$, (struct $8FBSYMBOL**)RTLLOOKUPTB$, 3040ll, 8ll, 1ll, 49ll, { { 380ll, 0ll, 379ll } } };
+static struct $8FBARRAY1IP8FBSYMBOLE tmp$86$ = { (struct $8FBSYMBOL**)RTLLOOKUPTB$, (struct $8FBSYMBOL**)RTLLOOKUPTB$, 3048ll, 8ll, 1ll, 49ll, { { 381ll, 0ll, 380ll } } };
 
 void RTLINIT( void )
 {

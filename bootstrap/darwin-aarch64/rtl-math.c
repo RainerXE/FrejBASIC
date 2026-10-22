@@ -1053,49 +1053,49 @@ struct $7ASTNODE* RTLMATHUOP( int64 OP$1, struct $7ASTNODE* EXPR$1 )
 		goto label$47;
 		label$48:;
 		{
-			struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"{sgn}", 354ll );
+			struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"{sgn}", 355ll );
 			SYM$1 = vr$1;
 		}
 		goto label$46;
 		label$49:;
 		{
-			struct $8FBSYMBOL* vr$2 = RTLPROCLOOKUP( (char*)"{abs}", 359ll );
+			struct $8FBSYMBOL* vr$2 = RTLPROCLOOKUP( (char*)"{abs}", 360ll );
 			SYM$1 = vr$2;
 		}
 		goto label$46;
 		label$50:;
 		{
-			struct $8FBSYMBOL* vr$3 = RTLPROCLOOKUP( (char*)"{fix}", 360ll );
+			struct $8FBSYMBOL* vr$3 = RTLPROCLOOKUP( (char*)"{fix}", 361ll );
 			SYM$1 = vr$3;
 		}
 		goto label$46;
 		label$51:;
 		{
-			struct $8FBSYMBOL* vr$4 = RTLPROCLOOKUP( (char*)"{frac}", 361ll );
+			struct $8FBSYMBOL* vr$4 = RTLPROCLOOKUP( (char*)"{frac}", 362ll );
 			SYM$1 = vr$4;
 		}
 		goto label$46;
 		label$52:;
 		{
-			struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"{asin}", 355ll );
+			struct $8FBSYMBOL* vr$5 = RTLPROCLOOKUP( (char*)"{asin}", 356ll );
 			SYM$1 = vr$5;
 		}
 		goto label$46;
 		label$53:;
 		{
-			struct $8FBSYMBOL* vr$6 = RTLPROCLOOKUP( (char*)"{acos}", 356ll );
+			struct $8FBSYMBOL* vr$6 = RTLPROCLOOKUP( (char*)"{acos}", 357ll );
 			SYM$1 = vr$6;
 		}
 		goto label$46;
 		label$54:;
 		{
-			struct $8FBSYMBOL* vr$7 = RTLPROCLOOKUP( (char*)"{tan}", 357ll );
+			struct $8FBSYMBOL* vr$7 = RTLPROCLOOKUP( (char*)"{tan}", 358ll );
 			SYM$1 = vr$7;
 		}
 		goto label$46;
 		label$55:;
 		{
-			struct $8FBSYMBOL* vr$8 = RTLPROCLOOKUP( (char*)"{atan}", 358ll );
+			struct $8FBSYMBOL* vr$8 = RTLPROCLOOKUP( (char*)"{atan}", 359ll );
 			SYM$1 = vr$8;
 		}
 		goto label$46;
@@ -1146,7 +1146,7 @@ struct $7ASTNODE* RTLMATHBOP( int64 OP$1, struct $7ASTNODE* LEXPR$1, struct $7AS
 		goto label$60;
 		label$61:;
 		{
-			struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"{atan2}", 362ll );
+			struct $8FBSYMBOL* vr$1 = RTLPROCLOOKUP( (char*)"{atan2}", 363ll );
 			SYM$1 = vr$1;
 		}
 		goto label$59;
