@@ -25,6 +25,7 @@
 #include once "fbgfx.bi"
 #include once "frej/timers.bi"
 #include once "frej/draw.bi"
+#include once "frej/sprite.bi"
 
 '' ---------------------------------------------------------------- geometry
 
@@ -144,7 +145,7 @@ dim shared as string * 12 tabname(0 to NSCENE - 1) = { _
 	"images", "input", "threads", "3d", "timers", "draw", "summary" }
 
 '' images and thread state
-dim shared as any ptr g_spr = 0, g_alpha = 0, g_bmp = 0
+dim shared as any ptr g_spr = 0, g_alpha = 0, g_bmp = 0, g_mask = 0
 dim shared as any ptr tmutex = 0, tthread = 0, timg = 0
 dim shared as integer trunning = 0
 '' The worker writes raw image memory only.  Calling gfxlib2 from a second
@@ -620,6 +621,62 @@ sub checks_sprites()
 	chk_set "put alpha", iif(alg > 240 andalso arg < 230 andalso arg > 120, 1, 0), _
 		"g " & str(alg) & " (a=15) -> " & str(arg) & " (a=120)"
 
+	'' masked blit: build a mask that is 0 on the left half and 255 on the right
+	g_mask = imagecreate(80, 80)
+	dim as integer mw, mh, mb, mpitch
+	dim as any ptr mpix
+	imageinfo g_mask, mw, mh, mb, mpitch, mpix
+	if mpix <> 0 andalso mw = 80 andalso mh = 80 then
+		dim as ulong ptr pm = mpix
+		for yy as integer = 0 to mh - 1
+			for xx as integer = 0 to mw - 1
+				dim as ulong a_ = iif(xx < 40, 0, 255)
+				pm[yy * (mpitch \ 4) + xx] = (a_ shl 24) or &h000000
+			next
+		next
+	end if
+	chk_set "mask image", iif(mw = 80 andalso mh = 80 andalso mb = 4, 1, 0), _
+		str(mw) & "x" & str(mh) & " bpp=" & str(mb)
+
+	'' mask 0: destination untouched
+	fillrect 0, 0, SW, SH, rgb(0, 0, 90)
+	put (100, 100), g_spr, pset
+	dim as integer before = point(140, 140) and &hFFFFFF
+	dim as any ptr mzero = imagecreate(80, 80)
+	imageinfo mzero, mw, mh, mb, mpitch, mpix
+	if mpix <> 0 then
+		dim as ulong ptr pm = mpix
+		for yy as integer = 0 to 79 : for xx as integer = 0 to 79
+			pm[yy * (mpitch \ 4) + xx] = 0
+		next : next
+	end if
+	putmask 100, 100, g_spr, mzero
+	dim as integer after0 = point(140, 140) and &hFFFFFF
+	chk_set "putmask 0", iif(same(before, after0), 1, 0), _
+		"dest preserved when mask is zero"
+
+	'' mask 255: source copied exactly
+	fillrect 0, 0, SW, SH, rgb(0, 0, 90)
+	putmask 100, 100, g_spr, g_mask
+	dim as integer ptl = point(140, 140) and &hFFFFFF
+	chk_set "putmask 255", iif(same(ptl, rgb(255, 255, 255)), 1, 0), _
+		"source copied where mask is 255"
+
+	'' the mask must skip the background of the sprite (magenta), because the
+	'' mask is 0 there and the destination must survive
+	fillrect 0, 0, SW, SH, rgb(0, 0, 90)
+	putmask 100, 100, g_spr, g_mask
+	dim as ulong pcol = point(100, 100)
+	dim as integer bgcol = pcol and &hFFFFFF
+	chk_set "putmask skip", iif(same(bgcol, rgb(0, 0, 90)), 1, 0), _
+		"background preserved where mask is zero"
+
+	'' clipping: a sprite placed partly off screen must not crash
+	fillrect 0, 0, SW, SH, rgb(0, 0, 90)
+	putmask -40, -40, g_spr, g_mask
+	chk_set "putmask clip", 1, "off-screen placement did not crash"
+
+	imagedestroy mzero
 	fillrect 0, 0, SW, SH, BG
 end sub
 
@@ -873,6 +930,10 @@ sub shutdown()
 	if g_bmp <> 0 then
 		imagedestroy g_bmp
 		g_bmp = 0
+	end if
+	if g_mask <> 0 then
+		imagedestroy g_mask
+		g_mask = 0
 	end if
 end sub
 

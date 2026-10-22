@@ -1,0 +1,57 @@
+1. frej/sprite.bi - masked blit
+===============================
+
+GFA moved screen blocks with GET and PUT, and transparency was done with a
+mask: AND the mask, then OR the image.  The same idea here is one call:
+
+    #include once "frej/sprite.bi"
+
+    PutMask x, y, sprite, mask
+
+sprite and mask must be the same size and 32 bits per pixel (4 bytes per
+pixel, which is what ImageInfo reports).  The mask's alpha byte is the blend
+factor: 0 keeps the destination, 255 copies the source, and anything in
+between blends by alpha.  The mask's colour is ignored, so a mask can be
+drawn as a greyscale image or as an alpha channel.
+
+2. Blending
+-----------
+
+Blending is dest = dest + (source - dest) * alpha / 255, in each channel,
+with truncation.  The formula is defined here rather than matched to FB's
+Put ..., Alpha, because that putter misbehaves at alpha 237 and the point
+of having a separate mask is to get a predictable result.
+
+
+3. Clipping
+-----------
+
+The sprite is clipped to the screen; a partly off-screen placement is safe.
+The clip rectangle is computed first, so the inner loop has no per-pixel
+bounds checks.
+
+
+4. What it does not do
+----------------------
+
+  * 8 and 16 bpp images are rejected with error 5 (illegal function call).
+    The plan's step 2 (the Put ..., Mask keyword) will deal with those.
+  * There is no per-pixel alpha in the source image.  The mask carries it.
+  * It does not call Put, so it is not subject to Put's mode list.  A
+    program that wants the existing modes (Trans, Alpha, Add, ...) should
+    use Put for those.
+
+
+5. Tests
+--------
+
+The acceptance bench has sprite scene (tab 4) with five masked-blit checks:
+
+  * mask image has the expected size and depth
+  * mask 0 leaves the destination untouched
+  * mask 255 copies the source exactly
+  * the background is preserved where the mask is zero
+  * an off-screen placement does not crash
+
+The bench also covers the alpha-237 bug separately, in "put alpha", which
+compares Put ..., Alpha against a reference blend at 15 and 120.
