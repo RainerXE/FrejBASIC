@@ -1,0 +1,119 @@
+1. frej/draw.bi - drawing state
+===============================
+
+GFA-BASIC 3.5 let a program set the style once and then draw:
+
+    DEFLINE pattern,colour
+    DEFFILL style,colour,pattern
+    DEFTEXT colour,font,effects
+
+Every LINE, BOX, CIRCLE and TEXT that followed used that state until it was
+changed, so a geometry call carried coordinates only and changing the theme
+was three lines instead of one per call.
+
+inc/frej/draw.bi keeps that model:
+
+    #include once "frej/draw.bi"
+
+    DefLine rgb(200, 0, 0), 3
+    DefFill rgb(0, 0, 255), FILL_SOLID
+    DefText rgb(255, 255, 255)
+
+    DLine 10, 10, 300, 200
+    DBox  20, 20, 120, 120
+    DBox  140, 20, 240, 120, OUTLINE
+    DCircle 320, 200, 60
+    DPaint 320, 200
+    DText 40, 40, "hello"
+
+
+2. Why it is a BASIC layer and not part of gfxlib2
+--------------------------------------------------
+
+Two reasons.
+
+The first is mergeability: gfxlib2 has had no upstream commit since December
+2023, and a state layer inside it would have to be maintained against every
+future merge of a library that is not moving.
+
+The second is that the state record is exactly what a GPU backend wants.  A
+pipeline describes a colour, a blend mode, a fill and a text style; so does
+this record.  Keeping the state in BASIC means a future backend translates it
+instead of inventing its own model, and the acceptance bench can compare the
+two backends against the same drawing.
+
+
+3. The API
+----------
+
+    DrawReset                       back to white, solid, white fill, white text
+    DefLine  colour [, style]       style 0 is solid
+    DefFill  colour [, mode]        FILL_SOLID (0) or FILL_NONE (1)
+    DefText  colour
+
+    DLine    x1, y1, x2, y2
+    DBox     x1, y1, x2, y2 [, mode]      mode -1 (default) uses the state
+    DCircle  x, y, radius [, mode]
+    DPaint   x, y                          fill colour, bounded by line colour
+    DText    x, y, text
+    DrawPush / DrawPop                     save and restore the whole state
+
+OUTLINE is an alias for FILL_NONE, for the calls that read better that way.
+The per-call mode overrides the state for that one call and leaves it alone.
+
+
+4. The trap: style 0 draws nothing
+----------------------------------
+
+Line's style argument is a 16-bit pattern where each bit is a pixel.  A style
+of 0 therefore means "no pixels", not "solid": asking for a solid line by
+passing 0 gives an invisible line.  To get a solid line the argument has to be
+left out entirely:
+
+    line (x1,y1)-(x2,y2), c               '' solid
+    line (x1,y1)-(x2,y2), c, , style      '' patterned
+
+Every routine in this file branches on the style for that reason.  DefLine's
+style 0 means "solid", which is the opposite of what Line does with 0, so the
+translation happens here and nowhere else.
+
+
+5. Fill modes
+-------------
+
+FILL_SOLID fills the shape in the fill colour, FILL_NONE draws only its
+outline in the line colour.  GFA had patterned fills as well; gfxlib2 has no
+Paint that takes a pattern, so that mode is not offered rather than
+approximated badly.
+
+
+6. Bugs this layer prevents
+---------------------------
+
+The store-in-a-UDT state makes two mistakes impossible that hand-written
+drawing code makes constantly:
+
+  * A routine changing the colour and not putting it back.  Bracketing with
+    DrawPush/DrawPop is one line, and the stack does not allocate.
+  * A scene inheriting the previous scene's theme.  DrawReset at the start of
+    a scene is one line, and the bench checks that a tab does not leak state.
+
+Underflow and overflow of the stack are ignored rather than fatal: a pop on an
+empty stack does nothing, and a push past sixteen levels keeps the current
+state.  A drawing helper should never be able to crash the program.
+
+
+7. Tests
+--------
+
+The acceptance bench has a draw-state tab (scene 10) with five checks:
+
+  * the same scene drawn both ways must be identical, pixel for pixel
+  * push changes the state, pop restores it
+  * DrawReset returns the defaults
+  * OUTLINE leaves the interior untouched
+  * the dash pattern really reaches the primitive (a dashed line leaves fewer
+    pixels than a solid one)
+
+The first check is the important one.  It is the contract, and it is what a
+GPU backend will have to keep true when it replaces the software rasteriser.

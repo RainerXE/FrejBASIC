@@ -24,6 +24,7 @@
 
 #include once "fbgfx.bi"
 #include once "frej/timers.bi"
+#include once "frej/draw.bi"
 
 '' ---------------------------------------------------------------- geometry
 
@@ -31,7 +32,7 @@
 #define SH          700
 #define TABY        40
 #define TABH        28
-#define TABW        92
+#define TABW        84
 #define FTR         (SH - 34)
 
 #define BTNX        540
@@ -39,7 +40,7 @@
 #define BTNW        280
 #define BTNH        64
 
-#define NSCENE      11
+#define NSCENE      12
 
 '' ------------------------------------------------------------------ colors
 
@@ -140,7 +141,7 @@ dim shared as integer done(0 to NSCENE - 1)
 dim shared as integer dumped(0 to NSCENE - 1)
 dim shared as string * 12 tabname(0 to NSCENE - 1) = { _
 	"info", "shapes", "modes", "text", "sprites", _
-	"images", "input", "threads", "3d", "timers", "summary" }
+	"images", "input", "threads", "3d", "timers", "draw", "summary" }
 
 '' images and thread state
 dim shared as any ptr g_spr = 0, g_alpha = 0, g_bmp = 0
@@ -1165,6 +1166,173 @@ sub draw_timers()
 		iif(c <> 0, OKC, BADC)
 end sub
 
+' ==================================================== scene: draw state
+
+'' The draw-state tab is checked differently from the others: instead of
+'' reading back pixels from a known scene, it draws the *same* scene twice -
+'' once with the raw statements, once through DefLine/DefFill/DefText - and
+'' requires the two to be identical.  That is the whole promise of the layer,
+'' and it is what a future GPU backend has to keep true as well.
+
+const DS_AREA_W = 640
+const DS_AREA_H = 200
+const DS_RED  = rgb(220, 40, 40)
+const DS_BLUE = rgb(40, 80, 220)
+const DS_DASH = &h0F0F
+
+dim shared as integer ds_diff, ds_pushok, ds_popok, ds_resetok, ds_outlineok, ds_dashok
+
+'' reference scene, written with the plain statements
+sub ds_direct()
+	line (20, 10)-(200, 10), DS_RED, , DS_DASH
+	line (20, 30)-(200, 30), DS_RED
+	line (20, 50)-(160, 120), DS_BLUE, BF
+	line (180, 50)-(300, 120), DS_RED, B, DS_DASH
+	circle (360, 85), 35, DS_BLUE, , , , F
+	circle (440, 85), 35, DS_RED
+	draw string (20, 150), "state", rgb(255, 255, 255)
+end sub
+
+'' the same scene through the state layer
+sub ds_stated()
+	drawreset
+	defline DS_RED, DS_DASH
+	dline 10 + 10, 10, 200, 10
+	defline DS_RED
+	dline 20, 30, 200, 30
+	deffill DS_BLUE, FILL_SOLID
+	dbox 20, 50, 160, 120
+	defline DS_RED, DS_DASH
+	deffill DS_RED, FILL_NONE
+	dbox 180, 50, 300, 120
+	deffill DS_BLUE, FILL_SOLID
+	dcircle 360, 85, 35
+	deffill DS_RED, FILL_NONE
+	dcircle 440, 85, 35
+	deftext rgb(255, 255, 255)
+	dtext 20, 150, "state"
+end sub
+
+sub checks_drawstate()
+	'' --- the two drawings must be identical
+	cls
+	ds_direct()
+	dim as any ptr a = imagecreate(DS_AREA_W, DS_AREA_H)
+	get (0, 0)-(DS_AREA_W - 1, DS_AREA_H - 1), a
+
+	cls
+	ds_stated()
+	dim as any ptr b = imagecreate(DS_AREA_W, DS_AREA_H)
+	get (0, 0)-(DS_AREA_W - 1, DS_AREA_H - 1), b
+
+	dim as integer w, h, bpp, pitch
+	dim as any ptr pa, pb
+	imageinfo a, w, h, bpp, pitch, pa
+	imageinfo b, w, h, bpp, pitch, pb
+
+	dim as ulong ptr ua = cast(ulong ptr, pa), ub = cast(ulong ptr, pb)
+	dim as integer x, y
+	ds_diff = 0
+	for y = 0 to DS_AREA_H - 1
+		for x = 0 to DS_AREA_W - 1
+			if (ua[y * pitch \ 4 + x] and &hFFFFFF) <> (ub[y * pitch \ 4 + x] and &hFFFFFF) then
+				ds_diff += 1
+			end if
+		next
+	next
+	imagedestroy a
+	imagedestroy b
+
+	chk_set "draw state identical", iif(ds_diff = 0, 1, 0), _
+		str(ds_diff) & " pixels differ from the direct drawing (0)"
+
+	'' --- push/pop
+	drawreset
+	defline DS_RED
+	drawpush
+	defline DS_BLUE
+	ds_pushok = iif(frej_draw.line_colour = DS_BLUE, 1, 0)
+	drawpop
+	ds_popok = iif(frej_draw.line_colour = DS_RED, 1, 0)
+	chk_set "draw state push/pop", iif(ds_pushok = 1 andalso ds_popok = 1, 1, 0), _
+		"colour changed inside the push and restored after the pop"
+
+	'' --- reset
+	defline DS_BLUE
+	deffill DS_RED, FILL_NONE
+	drawreset
+	ds_resetok = iif(frej_draw.line_colour = rgb(255, 255, 255) andalso _
+		frej_draw.fill_mode = FILL_SOLID, 1, 0)
+	chk_set "draw state reset", ds_resetok, "DrawReset returns line and fill to defaults"
+
+	'' --- OUTLINE leaves the interior alone
+	cls
+	line (0, 0)-(DS_AREA_W - 1, DS_AREA_H - 1), rgb(0, 0, 0), BF
+	defline DS_RED, 0
+	deffill rgb(0, 255, 0), FILL_SOLID
+	dbox 10, 10, 210, 110, OUTLINE
+	dim as ulong inside = point(110, 60)
+	ds_outlineok = iif((inside and &hFFFFFF) = 0, 1, 0)
+	chk_set "draw state outline", ds_outlineok, _
+		"OUTLINE leaves the interior untouched (background kept)"
+
+	'' --- the dash pattern really reaches the primitive: a dashed line
+	'' leaves fewer pixels than a solid one of the same length
+	cls
+	line (0, 0)-(DS_AREA_W - 1, DS_AREA_H - 1), rgb(0, 0, 0), BF
+	defline DS_RED, DS_DASH
+	dline 10, 20, 300, 20
+	dim as integer dashed = 0
+	for x = 10 to 300
+		if (point(x, 20) and &hFFFFFF) <> 0 then dashed += 1
+	next
+	cls
+	line (0, 0)-(DS_AREA_W - 1, DS_AREA_H - 1), rgb(0, 0, 0), BF
+	defline DS_RED
+	dline 10, 20, 300, 20
+	dim as integer solid = 0
+	for x = 10 to 300
+		if (point(x, 20) and &hFFFFFF) <> 0 then solid += 1
+	next
+	ds_dashok = iif(dashed > 0 andalso dashed < solid * 3 \ 4, 1, 0)
+	chk_set "draw state dash", ds_dashok, _
+		str(dashed) & " dashed px vs " & str(solid) & " solid px"
+
+	drawreset
+end sub
+
+sub draw_drawstate()
+	panel 16, 80, SW - 32, 470, "draw state: DefLine / DefFill / DefText"
+
+	'' a small demonstration, drawn with the layer it describes
+	drawreset
+	defline rgb(120, 170, 255), &h3333
+	dline 40, 120, 460, 120
+	deffill rgb(40, 80, 220), FILL_SOLID
+	dbox 40, 140, 200, 240
+	defline rgb(220, 40, 40)
+	deffill rgb(0, 0, 0), FILL_NONE
+	dbox 220, 140, 380, 240
+	dcircle 460, 190, 50
+	deftext rgb(255, 255, 255)
+	dtext 40, 268, "DefLine, DefFill and DefText"
+
+	text_at 520, 120, "identical", iif(ds_diff = 0, OKC, BADC)
+	text_at 520, 140, "diff " & str(ds_diff) & " px", iif(ds_diff = 0, OKC, BADC)
+	text_at 520, 176, "push/pop", iif(ds_pushok = 1 andalso ds_popok = 1, OKC, BADC)
+	text_at 520, 196, "reset", iif(ds_resetok = 1, OKC, BADC)
+	text_at 520, 216, "outline", iif(ds_outlineok = 1, OKC, BADC)
+	text_at 520, 236, "dash", iif(ds_dashok = 1, OKC, BADC)
+
+	text_at 40, 310, "The scene above is drawn through the layer; the same scene", DIMTXT
+	text_at 40, 328, "drawn with Line/Circle/Draw String must match it pixel for", DIMTXT
+	text_at 40, 346, "pixel.  That is the promise a GPU backend has to keep.", DIMTXT
+	text_at 40, 382, "DefLine colour,style    DefFill colour,mode    DefText colour", TXT
+	text_at 40, 400, "DLine  DBox  DCircle  DPaint  DText  DrawPush  DrawPop", DIMTXT
+	text_at 40, 424, "    style 0 is solid - Line treats an explicit 0 as 'draw", DIMTXT
+	text_at 40, 442, "    nothing', so the layer leaves the argument out instead.", DIMTXT
+end sub
+
 sub draw_summary()
 	panel 16, 80, SW - 32, SH - 80 - 44, "summary"
 
@@ -1231,6 +1399,8 @@ sub ensure_checks(byval s as integer)
 	case 9
 		checks_timers()
 	case 10
+		checks_drawstate()
+	case 11
 		write_report(0)
 	end select
 end sub
@@ -1258,6 +1428,8 @@ sub draw_scene()
 	case 9
 		draw_timers()
 	case 10
+		draw_drawstate()
+	case 11
 		draw_summary()
 	end select
 end sub

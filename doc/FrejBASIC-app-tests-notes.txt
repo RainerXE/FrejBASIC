@@ -205,7 +205,7 @@ with --compare.
 
 The corpus answers "does it survive".  The bench in tests/apps/acceptance
 answers "is the picture right": it draws a reference scene on each of its
-eleven tabs and then verifies the result by reading the pixels back, so a
+twelve tabs and then verifies the result by reading the pixels back, so a
 primitive that silently draws the wrong thing fails loudly.
 
     make acceptance            build it and run it unattended
@@ -217,7 +217,7 @@ the same list.  The runner copies the report to tests/apps/acceptance/checkup.tx
 and leaves the run directory behind when something failed.
 
 Tabs: info, shapes, modes, text, sprites, images, input, threads, 3d, timers,
-summary.  The summary has to stay last: the auto walk stops there and writes
+draw, summary.  The summary has to stay last: the auto walk stops there and writes
 the report.
 The tab strip is hit tested (hover, press, 1-0 / tab / arrows), so the input
 tab and the window handling are exercised by hand as well.  1024x700x32 with
@@ -226,6 +226,11 @@ two pages and ScreenSet/Flip throughout, which is the configuration a future
 
 It is the template for that backend: adding a tab means one entry in the scene
 table, one draw routine and one set of checks.
+
+The draw-state tab is checked by drawing the same scene twice - once with the
+raw Line/Circle/Draw String statements, once through DefLine/DefFill/DefText -
+and requiring the two images to be identical, pixel for pixel.  That is the
+promise of the layer, and it is what a future GPU backend has to keep true.
 
 The timers tab is the one that cannot be decided by reading pixels, because
 its subject is time.  It runs its checks one after another - a slow callback
