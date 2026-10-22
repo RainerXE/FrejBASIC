@@ -611,15 +611,24 @@ sub checks_sprites()
 
 	fillrect 0, 0, SW, SH, rgb(255, 255, 255)
 	put (300, 100), g_alpha, alpha
-	dim as integer al = point(305, 140) and &hFFFFFF
-	dim as integer ar = point(340, 140) and &hFFFFFF
-	dim as integer alg = (al shr 8) and &hFF
-	dim as integer arg = (ar shr 8) and &hFF
 	'' low alpha (15) must stay nearly white, mid alpha (120) must be tinted.
-	'' Do not check high alpha: the 32bpp putter in gfxlib2 is only
-	'' approximate there (see doc/FrejBASIC-app-tests-notes.txt).
-	chk_set "put alpha", iif(alg > 240 andalso arg < 230 andalso arg > 120, 1, 0), _
-		"g " & str(alg) & " (a=15) -> " & str(arg) & " (a=120)"
+	'' The ramp uses alpha = xx*3, so the columns below are the ones that land
+	'' on the interesting levels; each is checked against the blend formula
+	'' dest + (src - dest) * alpha / 255 (dest white, src green 40).
+	dim as integer a_ok = 1
+	dim as string a_note = ""
+	for xx as integer = 5 to 79 step 15
+		dim as integer aa = xx * 3
+		dim as integer ax = 300 + xx
+		dim as integer ay = 140
+		dim as integer got = (point(ax, ay) shr 8) and &hFF
+		dim as integer exp_ = 255 + (40 - 255) * aa \ 255
+		if abs(got - exp_) > 4 then
+			a_ok = 0
+			a_note &= str(aa) & ":" & str(got) & " "
+		end if
+	next
+	chk_set "put alpha", a_ok, "green at 15,60,120,180,237  (tolerance 4)"
 
 	'' masked blit: build a mask that is 0 on the left half and 255 on the right
 	g_mask = imagecreate(80, 80)
@@ -670,6 +679,14 @@ sub checks_sprites()
 	dim as integer bgcol = pcol and &hFFFFFF
 	chk_set "putmask skip", iif(same(bgcol, rgb(0, 0, 90)), 1, 0), _
 		"background preserved where mask is zero"
+
+	'' the same thing through the keyword form: Put (x,y), img, Mask, maskimg
+	fillrect 0, 0, SW, SH, rgb(0, 0, 90)
+	put (100, 100), g_spr, mask, g_mask
+	dim as integer kw_left = point(100, 100) and &hFFFFFF
+	dim as integer kw_right = point(140, 140) and &hFFFFFF
+	chk_set "put mask kw", iif(same(kw_left, rgb(0, 0, 90)) andalso same(kw_right, rgb(255, 255, 255)), 1, 0), _
+		"keyword form: left preserved, right copied"
 
 	'' clipping: a sprite placed partly off screen must not crash
 	fillrect 0, 0, SW, SH, rgb(0, 0, 90)

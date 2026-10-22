@@ -22,7 +22,8 @@ enum PUT_MODES_ENUM
 	PUT_MODE_ADD        = 7
 	PUT_MODE_CUSTOM     = 8
 	PUT_MODE_BLEND      = 9
-	PUT_MODES           = 10
+	PUT_MODE_MASK       = 10
+	PUT_MODES           = 11
 end enum
 
 extern "rtlib"

@@ -1121,6 +1121,35 @@ declare function hPorts_cb _
 				( typeAddrOf( FB_DATATYPE_VOID ), FB_PARAMMODE_BYVAL, FALSE ) _
 			} _
 		), _
+		/' sub fb_hPutMask cdecl _
+			( _
+				byval src as const ubyte ptr, _
+				byval dest as ubyte ptr, _
+				byval w as const long, _
+				byval h as const long, _
+				byval src_pitch as const long, _
+				byval dest_pitch as const long, _
+				byval alpha as const long, _
+				byval blender as BLENDER ptr, _
+				byval param as any ptr _
+			) '/ _
+		( _
+			@FB_RTL_GFXPUTMASK, NULL, _
+			FB_DATATYPE_VOID, FB_FUNCMODE_CDECL, _
+			@hGfxlib_cb, FB_RTL_OPT_NONE, _
+			9, _
+			{ _
+				( typeAddrOf( typeSetIsConst( FB_DATATYPE_UBYTE ) ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeAddrOf( FB_DATATYPE_UBYTE ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeSetIsConst( FB_DATATYPE_LONG ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeSetIsConst( FB_DATATYPE_LONG ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeSetIsConst( FB_DATATYPE_LONG ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeSetIsConst( FB_DATATYPE_LONG ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeSetIsConst( FB_DATATYPE_LONG ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeAddrOf( FB_DATATYPE_VOID ), FB_PARAMMODE_BYVAL, FALSE ), _
+				( typeAddrOf( FB_DATATYPE_VOID ), FB_PARAMMODE_BYVAL, FALSE ) _
+			} _
+		), _
 		/' sub fb_hPutPSet cdecl _
 			( _
 				byval src as const ubyte ptr, _
@@ -1454,6 +1483,8 @@ private function hGetPutter _
 		proc = PROCLOOKUP( GFXPUTALPHA )
 	case FBGFX_PUTMODE_BLEND
 		proc = PROCLOOKUP( GFXPUTBLEND )
+	case FBGFX_PUTMODE_MASK
+		proc = PROCLOOKUP( GFXPUTMASK )
 	case FBGFX_PUTMODE_ADD
 		proc = PROCLOOKUP( GFXPUTADD )
 	case else

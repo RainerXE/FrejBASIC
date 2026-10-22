@@ -223,9 +223,10 @@ LABEL(blend4_y_loop)
 	movl %ebx, %edx
 	andl $MASK_GA_32, %eax
 	andl $MASK_GA_32, %edx
+	shrl $8, %eax
+	shrl $8, %edx
 	subl %edx, %eax
 	shrl $8, %ecx
-	shrl $8, %eax
 	mull LOCAL3
 	movl %ebx, %edx
 	andl $MASK_RB_32, %ebx

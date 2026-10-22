@@ -369,6 +369,7 @@
 #define FB_RTL_GFXIMAGECREATEQB         "fb_GfxImageCreateQB"
 
 #define FB_RTL_GFXPUTTRANS              "fb_hPutTrans"
+#define FB_RTL_GFXPUTMASK               "fb_hPutMask"
 #define FB_RTL_GFXPUTPSET               "fb_hPutPSet"
 #define FB_RTL_GFXPUTPRESET             "fb_hPutPReset"
 #define FB_RTL_GFXPUTAND                "fb_hPutAnd"
@@ -796,6 +797,7 @@ enum FB_RTL_IDX
 	FB_RTL_IDX_GFXPUTXOR
 	FB_RTL_IDX_GFXPUTALPHA
 	FB_RTL_IDX_GFXPUTBLEND
+	FB_RTL_IDX_GFXPUTMASK
 	FB_RTL_IDX_GFXPUTADD
 	FB_RTL_IDX_GFXPUTCUSTOM
 	FB_RTL_IDX_GFXGET
@@ -1808,6 +1810,7 @@ const FBGFX_PUTMODE_ALPHA  = 6
 const FBGFX_PUTMODE_ADD    = 7
 const FBGFX_PUTMODE_CUSTOM = 8
 const FBGFX_PUTMODE_BLEND  = 9
+const FBGFX_PUTMODE_MASK   = 10
 
 ''
 '' macros

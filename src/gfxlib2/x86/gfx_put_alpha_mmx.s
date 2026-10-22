@@ -50,15 +50,17 @@ LABEL(alpha4_y_loop)
 	andl $MASK_RB_32, %eax         /* eax = __sr__sb     (srb)          */
 	andl $MASK_RB_32, %edx         /* edx = __dr__db     (drb)          */
 	shrl $24, LOCAL3               /* LOCAL3 = ______aa  (*src alpha)   */
+	incl LOCAL3                    /* LOCAL3 = a + 1 (1..256)           */
 	subl %edx, %eax                /* eax = __sr__sb - __dr__db         */
 	imull LOCAL3                   /* eax = (srb - drb) * a             */
 	xchg %eax, %ecx                /* ecx = (srb - drb) * a, eax = *src */
 	movl %ebx, %edx                /* edx = *dst                        */
 	andl $MASK_GA_32, %eax         /* eax = sa__sg__     (sga)          */
 	andl $MASK_GA_32, %edx         /* edx = da__dg__     (dga)          */
-	subl %edx, %eax                /* eax = sa__sg__ - da__dg__         */
-	shrl $8, %eax                  /* eax = (sga - dga) >> 8            */
-	imull LOCAL3                   /* eax = ((sga - dga) >> 8) * a      */
+	shrl $8, %eax                  /* eax = sga >> 8                    */
+	shrl $8, %edx                  /* edx = dga >> 8                    */
+	subl %edx, %eax                /* eax = (sga >> 8) - (dga >> 8)     */
+	imull LOCAL3                   /* eax = ((sga >> 8) - (dga >> 8)) * a */
 	shrl $8, %ecx                  /* ecx = ((srb - drb) * a) >> 8      */
 	movl %ebx, %edx                /* edx = *dst                        */
 	andl $MASK_RB_32, %ebx         /* ebx = __dr__db                    */

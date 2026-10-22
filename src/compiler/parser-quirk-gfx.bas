@@ -319,6 +319,16 @@ private function hGetMode _
 			mode = FBGFX_PUTMODE_TRANS
 			return TRUE
 
+		case "MASK"
+			lexSkipToken( LEXCHECK_POST_SUFFIX )
+			mode = FBGFX_PUTMODE_MASK
+
+			hMatchCOMMA( )
+
+			hMatchExpression( paramexpr )
+
+			return TRUE
+
 		case "ADD"
 			lexSkipToken( LEXCHECK_POST_SUFFIX )
 			mode = FBGFX_PUTMODE_ADD
