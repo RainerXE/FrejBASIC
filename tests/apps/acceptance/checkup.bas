@@ -23,6 +23,7 @@
 ''
 
 #include once "fbgfx.bi"
+#include once "frej/timers.bi"
 
 '' ---------------------------------------------------------------- geometry
 
@@ -30,7 +31,7 @@
 #define SH          700
 #define TABY        40
 #define TABH        28
-#define TABW        100
+#define TABW        92
 #define FTR         (SH - 34)
 
 #define BTNX        540
@@ -38,7 +39,7 @@
 #define BTNW        280
 #define BTNH        64
 
-#define NSCENE      10
+#define NSCENE      11
 
 '' ------------------------------------------------------------------ colors
 
@@ -139,7 +140,7 @@ dim shared as integer done(0 to NSCENE - 1)
 dim shared as integer dumped(0 to NSCENE - 1)
 dim shared as string * 12 tabname(0 to NSCENE - 1) = { _
 	"info", "shapes", "modes", "text", "sprites", _
-	"images", "input", "threads", "3d", "summary" }
+	"images", "input", "threads", "3d", "timers", "summary" }
 
 '' images and thread state
 dim shared as any ptr g_spr = 0, g_alpha = 0, g_bmp = 0
@@ -1015,6 +1016,155 @@ sub write_report(byval toconsole as integer)
 	end if
 end sub
 
+' ========================================================= scene: timers
+
+'' The timer checks are time based, so unlike the other tabs they cannot be
+'' decided by reading pixels at the end.  Each one runs its own interval and
+'' records an outcome; they are run one after another because a slow callback
+'' blocks the pump for every other timer, which is the documented behaviour
+'' and would otherwise spoil the measurement next to it.
+
+dim shared as integer tc_rate, tc_rate_res, tc_after, tc_stop, tc_go, tc_drift, tc_slow
+dim shared as integer tc_draws, tc_nopump, tc_active_ok, tc_phase
+dim shared as integer tc_timer = 0
+dim shared as double tc_t0 = 0
+
+sub tc_tick()
+	tc_rate += 1
+end sub
+
+sub tc_once_tick()
+	tc_after += 1
+end sub
+
+sub tc_slow_tick()
+	tc_slow += 1
+	sleep 50, 1
+end sub
+
+sub tc_draw_tick()
+	tc_draws += 1
+	pset (SW - 12, SH - 12), rgb(255, 0, 0)
+end sub
+
+sub checks_timers()
+	dim as double t0
+
+	'' 1. rate: a 20 ms timer driven for 600 ms should fire roughly 30 times
+	tc_rate = 0
+	tc_timer = every(20, @tc_tick)
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.6
+	timerremove tc_timer
+	tc_rate_res = tc_rate
+	chk_set "timer rate", iif(tc_rate_res >= 15 andalso tc_rate_res <= 45, 1, 0), _
+		str(tc_rate_res) & " fires in 600 ms at 20 ms (15..45)"
+
+	'' 2. after: fires once, then the slot is free
+	tc_after = 0
+	tc_timer = after(120, @tc_once_tick)
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.4
+	timerremove tc_timer
+	chk_set "timer after", iif(tc_after = 1, 1, 0), _
+		str(tc_after) & " fire(s) from After(120) (exactly 1)"
+
+	'' 3. stop and go
+	tc_stop = 0
+	tc_timer = every(30, @tc_tick)
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.15
+	timerstop tc_timer
+	tc_stop = tc_rate
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.2
+	dim as integer stopped = tc_rate - tc_stop
+	timergo tc_timer
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.2
+	tc_go = tc_rate - tc_stop - stopped
+	timerremove tc_timer
+	chk_set "timer stop", iif(stopped = 0, 1, 0), _
+		str(stopped) & " fires while stopped (0)"
+	chk_set "timer go", iif(tc_go > 0, 1, 0), _
+		str(tc_go) & " fires after TimerGo (>0)"
+
+	'' 4. drift: 10 ms for 500 ms should be about 50
+	tc_drift = 0
+	tc_timer = every(10, @tc_tick)
+	tc_rate = 0
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.5
+	tc_drift = tc_rate
+	timerremove tc_timer
+	chk_set "timer drift", iif(tc_drift >= 25 andalso tc_drift <= 75, 1, 0), _
+		str(tc_drift) & " fires in 500 ms at 10 ms (25..75)"
+
+	'' 5. a slow callback must not produce a catch-up burst
+	tc_slow = 0
+	tc_timer = every(10, @tc_slow_tick)
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.5
+	timerremove tc_timer
+	chk_set "timer no burst", iif(tc_slow > 0 andalso tc_slow <= 15, 1, 0), _
+		str(tc_slow) & " fires with a 50 ms callback at 10 ms (1..15)"
+
+	'' 6. a timer callback can draw
+	tc_draws = 0
+	tc_timer = every(20, @tc_draw_tick)
+	t0 = timer
+	do : waittimers 5 : loop until timer - t0 >= 0.2
+	timerremove tc_timer
+	chk_set "timer draws", iif(tc_draws > 0, 1, 0), _
+		str(tc_draws) & " callback draws (>0)"
+
+	'' 7. no pump, no fires.  This is the contract of the pure-BASIC timer.
+	tc_nopump = 0
+	tc_timer = every(5, @tc_tick)
+	tc_rate = 0
+	t0 = timer
+	do : loop until timer - t0 >= 0.15
+	tc_nopump = tc_rate
+	timerremove tc_timer
+	chk_set "timer needs pump", iif(tc_nopump = 0, 1, 0), _
+		str(tc_nopump) & " fires without ServiceTimers (0, by design)"
+
+	'' 8. ids answer for themselves
+	dim as integer id = every(1000, @tc_tick)
+	tc_active_ok = iif(timeractive(id) <> 0 andalso timeractive(0) = 0, 1, 0)
+	timerstop id
+	if timeractive(id) <> 0 then tc_active_ok = 0
+	timerremove id
+	if timeractive(id) <> 0 then tc_active_ok = 0
+	chk_set "timer ids", tc_active_ok, "TimerActive follows stop and remove"
+end sub
+
+sub draw_timers()
+	panel 16, 80, SW - 32, 420, "timers: Every / After, serviced by the program"
+
+	text_at 32, 116, "Every(20, @sub)   fires " & str(tc_rate_res) & " times per 600 ms", TXT
+	text_at 32, 140, "After(120, @sub)  fires " & str(tc_after) & " time(s)", TXT
+	text_at 32, 164, "TimerStop / Go    " & str(tc_stop) & " / " & str(tc_go), TXT
+	text_at 32, 188, "drift 10 ms       " & str(tc_drift) & " fires in 500 ms", TXT
+	text_at 32, 212, "slow callback     " & str(tc_slow) & " fires, no catch-up burst", TXT
+	text_at 32, 236, "callback drawing  " & str(tc_draws) & " times", TXT
+	text_at 32, 260, "without a pump    " & str(tc_nopump) & " fires", TXT
+
+	text_at 32, 300, "Timers fire when the program services them:", TXT
+	text_at 32, 320, "    ServiceTimers      fire what is due, return", DIMTXT
+	text_at 32, 338, "    WaitTimers ms      service, then wait", DIMTXT
+	text_at 32, 366, "Sleep cannot be hooked - it is a compiler intrinsic - so a", DIMTXT
+	text_at 32, 384, "program that wants animation calls WaitTimers instead.", DIMTXT
+	text_at 32, 412, "Missed ticks are dropped, never queued: a slow callback", DIMTXT
+	text_at 32, 430, "costs frames instead of building a backlog.", DIMTXT
+
+	'' show the pset the drawing callback left behind, so the tab proves the
+	'' callback really ran against the screen and not just a counter
+	dim as ulong c = point(SW - 12, SH - 12)
+	text_at 32, 462, "callback pixel    " & iif(c <> 0, "set", "not set"), _
+		iif(c <> 0, OKC, BADC)
+end sub
+
 sub draw_summary()
 	panel 16, 80, SW - 32, SH - 80 - 44, "summary"
 
@@ -1079,6 +1229,8 @@ sub ensure_checks(byval s as integer)
 	case 8
 		checks_3d()
 	case 9
+		checks_timers()
+	case 10
 		write_report(0)
 	end select
 end sub
@@ -1104,6 +1256,8 @@ sub draw_scene()
 	case 8
 		draw_3d()
 	case 9
+		draw_timers()
+	case 10
 		draw_summary()
 	end select
 end sub
@@ -1136,8 +1290,10 @@ sub draw_chrome()
 		dim as string nm
 		if i < 9 then
 			nm = str(i + 1) & " " & tabname(i)
-		else
+		elseif i = NSCENE - 1 then
 			nm = "0 " & tabname(i)
+		else
+			nm = tabname(i)
 		end if
 		text_at tx + 8, TABY + 7, nm, iif(i = scene, rgb(255, 255, 255), DIMTXT)
 	next
@@ -1198,7 +1354,7 @@ sub poll_input()
 			tscene = timer
 			lastkey = "key " & k
 		case "0"
-			scene = 9
+			scene = NSCENE - 1
 			tscene = timer
 			lastkey = "key 0"
 		case else

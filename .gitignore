@@ -30,3 +30,9 @@
 /tests/apps/acceptance/checkup
 /tests/apps/acceptance/checkup.txt
 /tests/apps/acceptance/checkup-trace.txt
+
+# side effects of running the application corpus
+/examples/compression/zlib.bas.bz2
+/examples/files/test.dat
+/examples/files/test.txt
+/examples/files/testdat.dat

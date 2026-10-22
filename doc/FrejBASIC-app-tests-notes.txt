@@ -204,9 +204,9 @@ with --compare.
 ------------------------
 
 The corpus answers "does it survive".  The bench in tests/apps/acceptance
-answers "is the picture right": it draws a reference scene on each of its ten
-tabs and then verifies the result by reading the pixels back, so a primitive
-that silently draws the wrong thing fails loudly.
+answers "is the picture right": it draws a reference scene on each of its
+eleven tabs and then verifies the result by reading the pixels back, so a
+primitive that silently draws the wrong thing fails loudly.
 
     make acceptance            build it and run it unattended
     tests/apps/acceptance/checkup        interactive (run it yourself)
@@ -216,7 +216,9 @@ Its own report is checkup.txt in the current directory; the console summary is
 the same list.  The runner copies the report to tests/apps/acceptance/checkup.txt
 and leaves the run directory behind when something failed.
 
-Tabs: info, shapes, modes, text, sprites, images, input, threads, 3d, summary.
+Tabs: info, shapes, modes, text, sprites, images, input, threads, 3d, timers,
+summary.  The summary has to stay last: the auto walk stops there and writes
+the report.
 The tab strip is hit tested (hover, press, 1-0 / tab / arrows), so the input
 tab and the window handling are exercised by hand as well.  1024x700x32 with
 two pages and ScreenSet/Flip throughout, which is the configuration a future
@@ -224,6 +226,14 @@ two pages and ScreenSet/Flip throughout, which is the configuration a future
 
 It is the template for that backend: adding a tab means one entry in the scene
 table, one draw routine and one set of checks.
+
+The timers tab is the one that cannot be decided by reading pixels, because
+its subject is time.  It runs its checks one after another - a slow callback
+blocks the pump for every other timer, so measuring two of them at once would
+measure the interference rather than the timer - and it is the only tab that
+takes a couple of seconds.  Its last check, "callback pixel", still reads a
+pixel to prove the timer callback ran against the real screen and not just a
+counter in memory.
 
     CHECKUP_ONLY=n       run one tab only          (bisecting driver bugs)
     CHECKUP_DWELL=ms     per-tab dwell time        (default 900)

@@ -1,0 +1,113 @@
+1. frej/timers.bi - declarative timers
+=====================================
+
+GFA-BASIC 3.5 had EVERY <ticks> GOSUB <label> and AFTER <ticks> GOSUB <label>:
+the program said what should happen and how often, and the runtime called it
+from the vertical-blank interrupt.  inc/frej/timers.bi keeps that shape and
+drops the two limits GFA had - one EVERY and one AFTER per program, and labels
+instead of procedures.
+
+    #include once "frej/timers.bi"
+
+    sub tick()
+        '' ...
+    end sub
+
+    dim as integer id = Every(16, @tick)      '' 0 on failure
+    do
+        WaitTimers 16
+        '' ... draw ...
+    loop until done
+
+    TimerRemove id
+
+
+2. Timers fire when the program services them
+---------------------------------------------
+
+This is the part that differs from GFA, and it is deliberate.
+
+FreeBASIC's Sleep and ScreenEvent are compiler intrinsics.  A library cannot
+hook them - trying to declare your own Sleep is a compile error ("Duplicated
+definition").  So a pure-BASIC timer cannot fire while the program is inside
+Sleep; something has to service it.
+
+There are two functions for that:
+
+    ServiceTimers           fire everything that is due, then return
+    WaitTimers ms           service, then wait up to ms milliseconds
+
+WaitTimers replaces Sleep in a program that wants animation.  It sleeps in
+short slices and services between them, so the shortest timer interval is
+honoured.
+
+The alternative was a hook in gfxlib2's unlock path, which would fire timers
+transparently but would make the whole timer feature depend on a change to
+the graphics library - and gfxlib2 has had no upstream commit since 2023, so
+that change would never be merged.  The explicit pump keeps this a pure
+FreeBASIC file that works with any compiler build, on any platform, including
+plain upstream FreeBASIC.
+
+
+3. What the timers guarantee
+----------------------------
+
+  * One shot per pass.  A timer that is 200 ms late fires once and its next
+    due time becomes now + interval.  Missed ticks are dropped, never queued.
+    A slow callback therefore costs frames instead of building a backlog that
+    then fires all at once.
+  * Callbacks run from ServiceTimers/WaitTimers, on the thread that serviced
+    them, with nothing held.  They may draw, register timers, stop timers or
+    remove them.
+  * ServiceTimers called from inside a callback does nothing, so a callback
+    that pumps cannot recurse.
+  * The callbacks that fire in one pass are collected before the first one
+    runs, so a callback that removes another timer does not disturb the pass.
+  * TimerStop and TimerGo take an id; id 0 means every timer.  TimerGo sets
+    the next fire a full interval in the future, so a timer stopped for a long
+    time does not fire immediately.
+  * After(ms) removes itself before its callback runs.
+  * Every(0) and After(0) fail and return 0.  So does registration when the
+    table (FREJ_TIMERS_MAX, 64) is full.
+
+
+4. The clock
+------------
+
+The scheduler runs on the Timer intrinsic, which is wall-clock seconds since
+midnight.  Midnight is handled exactly: the library keeps a day counter and
+shifts every pending due time when the day changes, so a timer keeps its
+period across 00:00.
+
+A clock correction (NTP) is not compensated.  The scheduler measures
+intervals, so a step forward fires the due timers once and a step backward
+delays them; either way the timer resynchronises on its next fire.  A
+monotonic clock would fix this properly, but there is no portable one in the
+FreeBASIC runtime today - fb_Timer is gettimeofday, not CLOCK_MONOTONIC.
+
+
+5. What it does not do
+----------------------
+
+  * It does not fire during Sleep.  Call WaitTimers instead.
+  * It is not reentrant across threads.  Timers belong to the thread that
+    services them; the state is module-level, like everything else in a
+    FreeBASIC include.
+  * It does not provide tick units.  GFA counted 1/200 s ticks; here the
+    unit is milliseconds, and ticks * 5 is the conversion.
+  * It does not survive the program ending a callback with End.  Don't.
+
+
+6. Tests
+--------
+
+The acceptance bench has a timers tab (scene 9) with nine checks: rate, After
+fires once, stop, go, drift, no catch-up burst, a callback that draws,
+"no pump means no fires", and the id lifecycle.  Each one runs in isolation
+because a slow callback blocks every other timer.
+
+    make acceptance
+
+The "no pump" check pins the contract above.  If a C accelerator is ever added
+that fires timers from the graphics unlock path, that check has to be inverted,
+and the tab says which behaviour is in force.
