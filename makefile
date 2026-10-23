@@ -581,15 +581,6 @@ ifeq ($(FB_DISABLE_NCURSES),yes)
 endif
 # ------------------------------------------------------------------------------
 
-ifneq ($(filter bootstrap bootstrap-minimal, $(MAKECMDGOALS)),)
-  # Disable features not needed to compile a minimal bootstrap fbc.
-  # "bootstrap" depends on "bootstrap-minimal", but MAKECMDGOALS only names the
-  # goal that was actually asked for, so it has to be matched here as well --
-  # otherwise a plain "make bootstrap" still demands gpm.h, ffi.h and X11
-  # headers that a host doing nothing but bootstrapping need not have.
-  ALLCFLAGS += -DDISABLE_GPM -DDISABLE_FFI -DDISABLE_X11
-endif
-
 ifeq ($(TARGET_OS),dos)
   ALLCFLAGS += -DDISABLE_WCHAR -DDISABLE_FFI
 endif
@@ -651,6 +642,37 @@ ifeq ($(TARGET_OS),darwin)
   # instead, for full terminfo fidelity.  See FB_DISABLE_NCURSES above.
   ifneq ($(strip $(NCURSES_PREFIX)),)
     ALLCFLAGS += -I$(NCURSES_PREFIX)/include
+  endif
+endif
+
+# ------------------------------------------------------------------------------
+# Optional host headers.
+#
+# Whether gpm, libffi and X11 are available is a property of the host compiler,
+# not of the make goal.  Deciding it from MAKECMDGOALS (as the bootstrap target
+# used to) compiled the rtlib without them and left those objects in the shared
+# object directory, so a later plain "make" mixed a non-X11 rtlib with an X11
+# gfxlib and failed to link on fb_x11keycode_to_scancode.  Probing the headers
+# is both correct for bootstrap (it needs nothing extra) and the same for every
+# goal.
+#
+# The probe uses ALLCFLAGS and CFLAGS so per-OS include paths (Darwin's
+# -I/usr/include/ffi, NetBSD's /usr/X11R7, Solaris's libffi) and any -I the
+# caller passed in CFLAGS are honoured, exactly as in the real compile.
+FB_HASH := \#
+FB_HAVE_HEADER = $(shell echo '$(FB_HASH)include <$(1)>' | $(CC) $(ALLCFLAGS) $(CFLAGS) -E -x c - >/dev/null 2>&1 && echo yes)
+
+ifeq ($(TARGET_OS),linux)
+  ifneq ($(call FB_HAVE_HEADER,gpm.h),yes)
+    ALLCFLAGS += -DDISABLE_GPM
+  endif
+endif
+ifneq ($(call FB_HAVE_HEADER,ffi.h),yes)
+  ALLCFLAGS += -DDISABLE_FFI
+endif
+ifneq ($(TARGET_OS),darwin)
+  ifneq ($(call FB_HAVE_HEADER,X11/Xlib.h),yes)
+    ALLCFLAGS += -DDISABLE_X11
   endif
 endif
 

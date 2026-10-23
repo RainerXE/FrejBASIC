@@ -22,8 +22,11 @@ enum PUT_MODES_ENUM
 	PUT_MODE_ADD        = 7
 	PUT_MODE_CUSTOM     = 8
 	PUT_MODE_BLEND      = 9
-	PUT_MODE_MASK       = 10
-	PUT_MODES           = 11
+	'' MASK is a compile-time selector only: the compiler passes fb_hPutMask
+	'' directly to fb_GfxPut and it is never cached in FB_GFXCTX.putter[],
+	'' which is why PUT_MODES stays 10 (see FBGFX_PUTMODE_MASK in
+	'' src/compiler/rtl.bi).
+	PUT_MODES           = 10
 end enum
 
 extern "rtlib"
