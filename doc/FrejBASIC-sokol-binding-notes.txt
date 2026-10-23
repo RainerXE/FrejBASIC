@@ -1,0 +1,108 @@
+1. sokol bindings: inc/sokol/
+================================
+
+Four generated headers, so a FreeBASIC program can use sokol directly:
+
+    inc/sokol/sokol_gfx.bi    3D API          (132 declares)
+    inc/sokol/sokol_app.bi    window + events  (62 declares)
+    inc/sokol/sokol_time.bi   timing           (10 declares)
+    inc/sokol/sokol_log.bi    logging           (1 declare)
+
+They are fbfrog output, not hand-written.  Regenerate rather than edit.
+
+
+2. Pinned source
+----------------
+
+sokol has no releases and its API changes between commits, so the headers are
+pinned by content.  This is the sokol-odin snapshot of 2026-08-31 -- the same
+revision RuiShin uses on this machine.
+
+    sokol_gfx.h   34dcb2c5e0df3904bbe1e3da3f045b5a87a6a39531eea425bc03d16c0d15743e
+    sokol_app.h   9c8b071e4b1d5f9692cb636216ad688dbf905f99f6fbc920d808a477c9a49437
+    sokol_time.h  0eeb8c1bc9ac2ec4438090f68e2ab0eb85d1daf10643158dec11383a8e8b1872
+    sokol_log.h   008999c5cd000adfbce47866423b751180ca24d2acf00db81d842747aad88152
+
+Do not track sokol master: its resource API was redesigned again after this
+snapshot (sg_write_image_transient, usage structs, no sg_update_image, no
+render_target flag).
+
+
+3. Regenerating
+
+    fbfrog sokol_gfx.h  -o sokol_gfx.bi  -inclib sokol_gfx  \
+        -fbfroginclude stdbool.h -removeinclude stdbool.h
+
+    (same pattern for sokol_app, sokol_time, sokol_log)
+
+`-fbfroginclude stdbool.h` / `-removeinclude stdbool.h` matter: without them
+fbfrog cannot find stdbool.h, leaves `bool` unmapped and emits
+`#include once "stdbool.bi"`, which FreeBASIC does not ship.  With them, C
+`bool` becomes FB `byte` (1 byte, nonzero is true) rather than FB `boolean`
+(1 byte, but -1 is true) -- `byte` is the ABI-correct choice here.
+
+
+4. ABI verification
+
+The generated structs were checked against the C header the same day, on
+arm64 macOS, by printing sizeof() from both languages:
+
+    struct                 C      FreeBASIC
+    sg_desc               144     144
+    sg_pipeline_desc      568     568
+    sg_shader_desc       3688    3688
+    sg_buffer_desc         96      96
+    sg_image_desc        1656    1656
+    sg_sampler_desc        96      96
+    sg_pass               248     248
+    sg_swapchain          104     104
+    sg_attachments_desc   128     128
+    sapp_desc             408     408
+    sapp_event            272     272
+
+All match.  Re-run that check after any regeneration; a mismatch means the
+binding and the library disagree and nothing else matters.
+
+
+5. What the binding does not do
+
+- **Window and swapchain.**  sokol_gfx creates neither; a program needs a
+  platform layer that makes a native drawable and hands it over in
+  `sg_swapchain.metal.current_drawable`.  sokol_app can do this on its own
+  terms, but it owns the window and the run loop, which conflicts with
+  FreeBASIC's gfx driver.  A program that wants sokol inside a FreeBASIC
+  window must write a small ObjC/C shim (see FrejBASIC-sokol-spike.md).
+- **The Metal device.**  `sg_desc.environment.metal.device` must be the
+  `MTLDevice`; FreeBASIC cannot call `MTLCreateSystemDefaultDevice()` itself.
+  The spike's shim is 6 lines:
+
+      #define SOKOL_IMPL
+      #define SOKOL_METAL
+      #include "sokol_gfx.h"
+      #import <Metal/Metal.h>
+
+      void *fb_sokol_mtl_device(void)
+      {
+          return (__bridge void *) MTLCreateSystemDefaultDevice();
+      }
+
+  Compile that as Objective-C into a dylib and link it; on Windows/Linux the
+  equivalent is D3D11/GL and no ObjC is involved.
+- **`SG_RANGE` and `SG_RANGE_REF`.**  fbfrog leaves them as TODOs; they are C
+  compound literals.  Write the fields out, and remember that in FreeBASIC
+  `sizeof(array)` is the element size -- pass `count * sizeof(type)`.
+
+Verified with a real call on the Metal backend:
+
+    valid=1
+    backend=4                  '' SG_BACKEND_METAL
+    max_image_size_2d=16384
+    shutdown ok
+
+
+6. Status
+
+First slice: the headers are generated, compile, and are ABI-exact.  Still to
+do before an upstream PR: one runnable example (a triangle through the binding
+rather than through the C shim), and a short "how to build the backend" note
+per platform.
