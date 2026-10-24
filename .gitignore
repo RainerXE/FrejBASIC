@@ -36,3 +36,7 @@
 /examples/files/test.dat
 /examples/files/test.txt
 /examples/files/testdat.dat
+
+# ai-memory routing: machine-local agent files
+/.claude/
+/CLAUDE.md

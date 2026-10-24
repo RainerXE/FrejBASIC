@@ -1,0 +1,6 @@
+# ai-memory project scope for this checkout.
+# Without it, the "upstream" remote (freebasic/fbc) makes ai-memory derive the
+# project as "freebasic-fbc", so sessions started here write to a different
+# project than the FrejBASIC pages.
+workspace = "default"
+project = "FrejBASIC"
