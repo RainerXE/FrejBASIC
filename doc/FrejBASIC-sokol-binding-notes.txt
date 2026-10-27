@@ -9,6 +9,9 @@ Four generated headers, so a FreeBASIC program can use sokol directly:
     inc/sokol/sokol_log.bi    logging           (1 declare)
 
 They are fbfrog output, not hand-written.  Regenerate rather than edit.
+They deliberately contain no #inclib: sokol is header-only, so there is no
+libsokol_gfx to link against.  The application compiles the implementation
+itself into one translation unit (see section 6).
 
 
 2. Pinned source
@@ -16,7 +19,16 @@ They are fbfrog output, not hand-written.  Regenerate rather than edit.
 
 sokol has no releases and its API changes between commits, so the headers are
 pinned by content.  This is the sokol-odin snapshot of 2026-08-31 -- the same
-revision RuiShin uses on this machine.
+revision RuiShin uses on this machine.  The upstream commits behind it are
+
+    sokol_gfx.h, sokol_time.h, sokol_log.h
+        79611ab0d5e90d838f048e60d99aeca0a1bd187a   (2024-05-11)
+    sokol_app.h
+        13554f665ebf32522b9e0323b35f08fb836b98b2   (2024-05-13)
+
+sokol-odin vendored sokol_app.h from a slightly later commit than the other
+three; the sha256 values below are what the bindings were generated from,
+and the build scripts verify against them rather than trusting commit ids.
 
     sokol_gfx.h   34dcb2c5e0df3904bbe1e3da3f045b5a87a6a39531eea425bc03d16c0d15743e
     sokol_app.h   9c8b071e4b1d5f9692cb636216ad688dbf905f99f6fbc920d808a477c9a49437
@@ -30,7 +42,7 @@ render_target flag).
 
 3. Regenerating
 
-    fbfrog sokol_gfx.h  -o sokol_gfx.bi  -inclib sokol_gfx  \
+    fbfrog sokol_gfx.h  -o sokol_gfx.bi  \
         -fbfroginclude stdbool.h -removeinclude stdbool.h
 
     (same pattern for sokol_app, sokol_time, sokol_log)
@@ -74,7 +86,8 @@ binding and the library disagree and nothing else matters.
   window must write a small ObjC/C shim (see FrejBASIC-sokol-spike.md).
 - **The Metal device.**  `sg_desc.environment.metal.device` must be the
   `MTLDevice`; FreeBASIC cannot call `MTLCreateSystemDefaultDevice()` itself.
-  The spike's shim is 6 lines:
+  With sokol_app the device comes from `sapp_metal_get_device()`, so no shim
+  is needed.  Without sokol_app the spike's shim was 6 lines:
 
       #define SOKOL_IMPL
       #define SOKOL_METAL
@@ -100,9 +113,42 @@ Verified with a real call on the Metal backend:
     shutdown ok
 
 
-6. Status
+6. The example -- examples/graphics/sokol/
 
-First slice: the headers are generated, compile, and are ABI-exact.  Still to
-do before an upstream PR: one runnable example (a triangle through the binding
-rather than through the C shim), and a short "how to build the backend" note
-per platform.
+`examples/graphics/sokol/sokol_triangle.bas` is the runnable proof: one
+window, one shader pair, one triangle, every call through the generated .bi.
+It closes itself after 180 frames and prints
+
+    sokol: backend=4
+    sokol: 180 frames
+
+`build-macos.sh` fetches the pinned headers into ./sokol/, verifies their
+sha256, compiles `sokol_impl.m` as Objective-C (SOKOL_METAL) and links with
+Cocoa, Metal, MetalKit and QuartzCore.  `build-linux.sh` does the same with
+`sokol_impl.c` (SOKOL_GLCORE) and links X11, Xi, Xcursor, GL, dl, pthread, m.
+
+Both scripts define SOKOL_NO_ENTRY: the BASIC program owns main() and calls
+`sapp_run()` itself, so sokol_app must not provide one.
+
+Platform notes that cost time:
+
+- sokol_app's Metal window is an **MTKView**, so the link needs
+  `-framework MetalKit` even though the spike's own shim did not.
+- On macOS **`sapp_run()` never returns**: sokol_app runs `[NSApp run]` and
+  ends the process from its delegate.  Anything to print must happen in the
+  callbacks; code after sapp_run() only runs on Linux and Windows.
+- The shader source is backend-specific.  The example carries MSL for Metal
+  and GLSL 330 for the GL backends and picks from `sg_query_backend()`.
+  D3D11 needs precompiled HLSL bytecode and is not covered.
+
+Verified 2026-10-27: macOS arm64, Apple M4, backend 4 (Metal), 180 frames;
+Linux x86_64 (plato, Ubuntu 24.04, DISPLAY=:1001), backend 0 (GLCORE),
+180 frames.  No sokol validation errors on either.
+
+
+7. Status
+
+The headers are generated, compile, are ABI-exact, and the example drives a
+real pipeline on both Metal and GL.  Remaining before an upstream PR: decide
+whether the example ships upstream or stays in the fork, then send the
+binding.

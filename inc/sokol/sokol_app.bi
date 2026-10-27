@@ -1,16 +1,18 @@
 '' FreeBASIC binding for sokol_app
 ''
 '' Generated with fbfrog from sokol_app.h; do not edit by hand.
-'' Pinned source: sokol-odin snapshot 2026-08-31, sokol_app.h
+'' Pinned source: sokol 13554f665ebf (2024-05-13), sokol_app.h
 '' sha256 9c8b071e4b1d5f96... (full hash in doc/FrejBASIC-sokol-binding-notes.txt)
 ''
 '' Regenerate:
-''   fbfrog sokol_app.h -o sokol_app.bi -inclib sokol_app \
+''   fbfrog sokol_app.h -o sokol_app.bi \
 ''       -fbfroginclude stdbool.h -removeinclude stdbool.h
+''
+'' sokol is header-only: the application compiles the implementation
+'' itself (see examples/graphics/sokol/README.txt).  There is no
+'' sokol library to link against, so this binding emits no #inclib.
 
 #pragma once
-
-#inclib "sokol_app"
 
 #include once "crt/stddef.bi"
 #include once "crt/stdint.bi"

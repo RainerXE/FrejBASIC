@@ -1,16 +1,18 @@
 '' FreeBASIC binding for sokol_gfx
 ''
 '' Generated with fbfrog from sokol_gfx.h; do not edit by hand.
-'' Pinned source: sokol-odin snapshot 2026-08-31, sokol_gfx.h
+'' Pinned source: sokol 79611ab0d5e9 (2024-05-11), sokol_gfx.h
 '' sha256 34dcb2c5e0df3904... (full hash in doc/FrejBASIC-sokol-binding-notes.txt)
 ''
 '' Regenerate:
-''   fbfrog sokol_gfx.h -o sokol_gfx.bi -inclib sokol_gfx \
+''   fbfrog sokol_gfx.h -o sokol_gfx.bi \
 ''       -fbfroginclude stdbool.h -removeinclude stdbool.h
+''
+'' sokol is header-only: the application compiles the implementation
+'' itself (see examples/graphics/sokol/README.txt).  There is no
+'' sokol library to link against, so this binding emits no #inclib.
 
 #pragma once
-
-#inclib "sokol_gfx"
 
 #include once "crt/stddef.bi"
 #include once "crt/stdint.bi"

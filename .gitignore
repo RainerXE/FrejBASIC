@@ -40,3 +40,8 @@
 # ai-memory routing: machine-local agent files
 /.claude/
 /CLAUDE.md
+
+# sokol example: fetched headers and build output
+/examples/graphics/sokol/sokol/
+/examples/graphics/sokol/sokol_impl.o
+/examples/graphics/sokol/sokol_triangle
