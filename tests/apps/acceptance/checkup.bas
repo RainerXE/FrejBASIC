@@ -1329,9 +1329,9 @@ sub checks_drawstate()
 	defline DS_RED
 	drawpush
 	defline DS_BLUE
-	ds_pushok = iif(frej_draw.line_colour = DS_BLUE, 1, 0)
+	ds_pushok = iif(fbdraw.line_colour = DS_BLUE, 1, 0)
 	drawpop
-	ds_popok = iif(frej_draw.line_colour = DS_RED, 1, 0)
+	ds_popok = iif(fbdraw.line_colour = DS_RED, 1, 0)
 	chk_set "draw state push/pop", iif(ds_pushok = 1 andalso ds_popok = 1, 1, 0), _
 		"colour changed inside the push and restored after the pop"
 
@@ -1339,8 +1339,8 @@ sub checks_drawstate()
 	defline DS_BLUE
 	deffill DS_RED, FILL_NONE
 	drawreset
-	ds_resetok = iif(frej_draw.line_colour = rgb(255, 255, 255) andalso _
-		frej_draw.fill_mode = FILL_SOLID, 1, 0)
+	ds_resetok = iif(fbdraw.line_colour = rgb(255, 255, 255) andalso _
+		fbdraw.fill_mode = FILL_SOLID, 1, 0)
 	chk_set "draw state reset", ds_resetok, "DrawReset returns line and fill to defaults"
 
 	'' --- OUTLINE leaves the interior alone
