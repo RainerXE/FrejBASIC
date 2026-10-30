@@ -1,0 +1,72 @@
+FrejBASIC project conventions
+=============================
+
+Two conventions that GFA 3.5/3.6 had as language features and that
+FreeBASIC gets from #include and #ifdef instead.  Both are documentation:
+no compiler or runtime work.
+
+
+A project is one main file plus modules
+---------------------------------------
+
+GFA 3.5 stored code, editor state and includes in one tokenised file; GB32
+made that a design principle.  FreeBASIC's #include already gives a single
+compilable file, so what is missing is only the convention:
+
+    project.bas         main program; includes modules in order
+    src/*.bas           modules
+    frej.cfg            optional: -d flags and include paths for a Makefile
+
+    fbc -i <frejbasic>/inc project.bas -x project
+
+Rules that come with it:
+
+- The include order is the compile order.  A module only sees what was
+  included before it, so shared types, constants and globals go first
+  (typically in a `src/common.bas` or directly in project.bas).
+- project.bas holds the screen setup and the main loop; modules hold the
+  drawing and the game logic and are called from there.
+- A module is plain BASIC, not a separate compilation unit: `#include`
+  textually inserts it, and `#include once` prevents a double insert.
+- No project file format.  A Makefile that compiles project.bas is enough.
+  A real project file is added only if the include list becomes painful.
+
+examples/frej/ is the worked example: project.bas includes src/scene.bas
+after the shared declarations, then runs the loop.
+
+
+Two implementations of one routine
+----------------------------------
+
+The useful half of GFA's $X was "choose a build mode", not the INLINE
+machine-code strings.  FreeBASIC does the same with -d and #ifdef, while
+keeping the reference implementation compiled so it can be compared:
+
+    function ScaleRef(byval x as single) as single
+        '' readable reference, always compiled
+        return x * 2.0
+    end function
+
+    #ifdef FREJ_ASM
+    function Scale(byval x as single) as single
+        asm
+            ...
+        end asm
+    end function
+    #else
+    function Scale(byval x as single) as single
+        return ScaleRef(x)
+    end function
+    #endif
+
+    fbc -d FREJ_ASM project.bas
+
+- Without -d, Scale is the reference (or a thin wrapper around it).
+- With -d FREJ_ASM, the assembler version is used.
+- ScaleRef stays compiled in both builds, so the acceptance bench can call
+  both and compare their results.
+
+That is the pattern to document, not a mechanism to implement: the assembler
+is inline in the source, checked by the compiler, and needs no tokeniser.
+INLINE strings and $X compiler directives are not part of FreeBASIC and are
+not being added.

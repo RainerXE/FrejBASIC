@@ -1,0 +1,142 @@
+FrejBASIC macOS binding slice (inc/frej/macos.bi)
+=================================================
+
+Ten AppKit calls that a GUI program actually needs, reachable from plain
+FreeBASIC: a message box, open and save panels, the window title, the
+clipboard, and open a URL.  No Objective-C in user code and no compiler
+feature: everything is objc_msgSend through a header.
+
+    #include once "frej/macos.bi"
+
+    if FrejMacReady() then
+        FrejClipboardSet "hello"
+        print FrejClipboardGet()
+        FrejAlert "Saved.", "FrejBASIC"
+    end if
+
+
+API
+---
+
+    function FrejMacReady() as integer            1 when the runtime is usable
+    function FrejMacIsMainThread() as integer     1 on the main thread
+
+    sub FrejAlert(text, title = "FrejBASIC")      modal message box
+    function FrejOpenFile(types = "") as string   modal open panel
+    function FrejSaveFile(suggested = "", types = "") as string
+    function FrejGetTitle() as string
+    sub FrejSetTitle(s)
+    function FrejClipboardGet() as string
+    sub FrejClipboardSet(s)
+    function FrejOpenURL(url) as integer          1 when handed to the system
+
+- Panels are modal; cancelling returns "".
+- `types` is a semicolon-separated extension list: "bas;bi".  "" means all.
+- FrejOpenFile only picks files, not directories, and only one at a time.
+- FrejOpenURL really launches the handler (browser, mail client, ...).
+- FrejGetTitle/FrejSetTitle use the main window, or the first window when
+  none is key.  A console program has no window, so Get returns "" and Set
+  does nothing.
+- Off macOS the same names exist as stubs; FrejMacReady() returns 0 and the
+  UI calls do nothing, so a portable program branches once on readiness.
+
+
+Why objc_msgSend, and why the casts
+-----------------------------------
+
+AppKit is Objective-C; the C ABI only offers objc_msgSend, which is
+variadic.  A variadic call cannot be declared in a way that is correct on
+both target architectures:
+
+- x86_64 passes variadic arguments in registers;
+- arm64 passes variadic arguments on the stack.
+
+The portable form is to cast the symbol to the exact signature of each
+message before calling it.  The header therefore has a small table of
+function-pointer types (0/1/2 pointer arguments, integer and BOOL returns)
+and one cast per type, all from the same objc_msgSend address.  A call site
+picks the type that matches the selector, so both architectures get the
+arguments where the callee expects them.
+
+The runtime and AppKit are reached with dylibload, not with #inclib:
+
+    libobjc.dylib           objc_getClass, sel_registerName,
+                            objc_autoreleasePoolPush/Pop, objc_msgSend
+    AppKit.framework        NSAlert, NSOpenPanel, NSSavePanel, NSPasteboard,
+                            NSWorkspace, ...
+
+A graphics program has AppKit loaded already (the Cocoa driver links it);
+a console program gets it loaded here.  This also means the header needs no
+link flags and cannot upset a build that does not use gfxlib2.
+
+
+Threading and objects
+---------------------
+
+- AppKit is a main-thread API.  Every UI function checks
+  FrejMacIsMainThread() and refuses to run otherwise; the graphics loop and
+  the BASIC program are on the main thread, so this is a safety net, not a
+  restriction a normal program will hit.
+- Each public call pushes an autorelease pool and pops it before returning,
+  so repeated calls do not grow the process.  Objects created with
+  alloc/init (the alert) are released explicitly.
+- The modal panels run their own event loop, so a panel can be used from
+  inside the normal frame loop.  Do not call one from a timer callback that
+  the frame is waiting on: the panel blocks the frame, not the timer.
+- In a console program the first UI call creates a minimal NSApplication.
+  That is enough for panels and alerts; a console program still has no
+  window, so the title calls do nothing.
+
+
+Limitations
+-----------
+
+- The clipboard functions read and write plain text only.  A pasteboard that
+  holds rich text or an image is replaced; the acceptance bench saves and
+  restores the text it found, but not other flavours.
+- File type filters use setAllowedFileTypes:, which is deprecated on macOS 12
+  in favour of UTType.  The panels still honour it.  Moving to UTType would
+  mean pulling in another set of runtime classes for no user-visible gain.
+- FrejAlert is a fixed one-button alert (OK).  Anything richer is a dialog
+  in gfxlib2, not an AppKit feature the binding should grow.
+
+
+Testing
+-------
+
+The acceptance bench has a "system" scene (index 11):
+
+    make acceptance
+
+shows the binding, the main-thread check, a clipboard round trip that
+restores the previous text, and a title set/get.  The modal alert is opt-in
+because it would stall an unattended run:
+
+    CHECKUP_SYSTEM=1 ./tests/apps/acceptance/checkup auto
+
+The panels are not in the bench for the same reason: they wait for a human.
+Both were smoke-tested by hand (the alert blocks in runModal until answered).
+
+The standalone checks used while building this:
+
+    ready=1  main=1
+    clipboard roundtrip=OK  restored=OK
+    title before=[]  windowed=[mactitle]  after=[frej macos title test]
+    alert: process alive in runModal until killed by an alarm
+
+On Linux the bench compiles against the stubs and the system scene reports
+one SKIP.
+
+
+Gotchas found while writing it
+------------------------------
+
+- `name` and `cls` are FreeBASIC keywords; they cannot be parameter or
+  variable names in a header (errors 59 and "duplicated definition").
+- The lazy-init state must not encode "ready" as 1 and then return
+  `state - 1`: the second call reports failure.  Keep an explicit
+  `if state = 1 then return 1`.
+- BOOL returns are one byte; declare them as `byte`, not `integer`, or the
+  upper register garbage is read as part of the value.
+- `print` after screenres goes to the graphics window, not the terminal; a
+  headless test has to write its results to a file.

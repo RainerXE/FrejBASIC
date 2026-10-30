@@ -26,6 +26,7 @@
 #include once "frej/timers.bi"
 #include once "frej/draw.bi"
 #include once "frej/sprite.bi"
+#include once "frej/macos.bi"
 
 '' ---------------------------------------------------------------- geometry
 
@@ -41,7 +42,7 @@
 #define BTNW        280
 #define BTNH        64
 
-#define NSCENE      12
+#define NSCENE      13
 
 '' ------------------------------------------------------------------ colors
 
@@ -142,7 +143,7 @@ dim shared as integer done(0 to NSCENE - 1)
 dim shared as integer dumped(0 to NSCENE - 1)
 dim shared as string * 12 tabname(0 to NSCENE - 1) = { _
 	"info", "shapes", "modes", "text", "sprites", _
-	"images", "input", "threads", "3d", "timers", "draw", "summary" }
+	"images", "input", "threads", "3d", "timers", "draw", "system", "summary" }
 
 '' images and thread state
 dim shared as any ptr g_spr = 0, g_alpha = 0, g_bmp = 0, g_mask = 0
@@ -1260,6 +1261,10 @@ const DS_DASH = &h0F0F
 
 dim shared as integer ds_diff, ds_pushok, ds_popok, ds_resetok, ds_outlineok, ds_dashok
 
+'' system scene (frej/macos.bi)
+dim shared as string sys_clip_saved, sys_title
+dim shared as integer sys_ready, sys_threadok, sys_clipok, sys_titleok, sys_alert = -1
+
 '' reference scene, written with the plain statements
 sub ds_direct()
 	line (20, 10)-(200, 10), DS_RED, , DS_DASH
@@ -1411,6 +1416,72 @@ sub draw_drawstate()
 	text_at 40, 442, "    nothing', so the layer leaves the argument out instead.", DIMTXT
 end sub
 
+sub checks_system()
+	sys_ready = FrejMacReady()
+	if sys_ready = 0 then
+		chk_set "system binding", -1, "frej/macos.bi is a stub on this platform"
+		exit sub
+	end if
+	chk_set "system binding", 1, "objc_msgSend + AppKit loaded"
+
+	sys_threadok = FrejMacIsMainThread()
+	chk_set "system main thread", sys_threadok, "AppKit may only be called here"
+
+	'' Clipboard: put a marker in, read it back, restore the text that was
+	'' there before.  Non-text pasteboard flavours are not preserved.
+	sys_clip_saved = FrejClipboardGet()
+	dim as string mark = "FrejBASIC clipboard " & str(int(timer * 1000))
+	FrejClipboardSet mark
+	sys_clipok = iif(FrejClipboardGet() = mark, 1, 0)
+	FrejClipboardSet sys_clip_saved
+	chk_set "system clipboard", sys_clipok, "set/get round trip, previous text restored"
+
+	'' The window title, read back through AppKit.
+	FrejSetTitle "FrejBASIC checkup - system"
+	sys_title = FrejGetTitle()
+	sys_titleok = iif(sys_title = "FrejBASIC checkup - system", 1, 0)
+	FrejSetTitle "FrejBASIC checkup"
+	chk_set "system window title", sys_titleok, "FrejSetTitle / FrejGetTitle"
+
+	'' A modal alert would stall an unattended run, so it is opt-in.
+	if len(environ("CHECKUP_SYSTEM")) > 0 then
+		FrejAlert "The macOS binding slice works." & chr(10) & chr(10) & _
+			"OK closes this alert; the bench continues afterwards.", "FrejBASIC checkup"
+		sys_alert = 1
+		chk_set "system alert", 1, "shown with CHECKUP_SYSTEM=1"
+	else
+		chk_set "system alert", -1, "set CHECKUP_SYSTEM=1 to show it"
+	end if
+end sub
+
+sub draw_system()
+	panel 16, 80, SW - 32, 470, "system: frej/macos.bi"
+
+	if sys_ready = 0 then
+		text_at 40, 120, "not macOS: frej/macos.bi provides stubs that report not ready", SKIPC
+		exit sub
+	end if
+
+	text_at 40, 120, "ready", OKC
+	text_at 240, 120, "objc_msgSend + AppKit via dylibload", DIMTXT
+	text_at 40, 150, "main thread", iif(sys_threadok, OKC, BADC)
+	text_at 240, 150, "AppKit calls are refused off the main thread", DIMTXT
+	text_at 40, 180, "clipboard", iif(sys_clipok, OKC, BADC)
+	text_at 240, 180, "set/get round trip, previous text restored", DIMTXT
+	text_at 40, 210, "title", iif(sys_titleok, OKC, BADC)
+	text_at 240, 210, "[" & clip(sys_title, 40) & "]", DIMTXT
+	text_at 40, 240, "alert", iif(sys_alert = 1, OKC, SKIPC)
+	text_at 240, 240, iif(sys_alert = 1, "shown", "set CHECKUP_SYSTEM=1 to show it"), DIMTXT
+
+	text_at 40, 300, "FrejAlert text,title          modal message box", TXT
+	text_at 40, 320, "FrejOpenFile types            modal open panel -> path", TXT
+	text_at 40, 340, "FrejSaveFile name,types       modal save panel -> path", TXT
+	text_at 40, 360, "FrejSetTitle / FrejGetTitle   window title", TXT
+	text_at 40, 380, "FrejClipboardGet / Set        general pasteboard as text", TXT
+	text_at 40, 400, "FrejOpenURL url               hand a URL to the system", TXT
+	text_at 40, 440, "types is a semicolon list: ""bas;bi"".  Cancelled panels return """"", DIMTXT
+end sub
+
 sub draw_summary()
 	panel 16, 80, SW - 32, SH - 80 - 44, "summary"
 
@@ -1479,6 +1550,8 @@ sub ensure_checks(byval s as integer)
 	case 10
 		checks_drawstate()
 	case 11
+		checks_system()
+	case 12
 		write_report(0)
 	end select
 end sub
@@ -1508,6 +1581,8 @@ sub draw_scene()
 	case 10
 		draw_drawstate()
 	case 11
+		draw_system()
+	case 12
 		draw_summary()
 	end select
 end sub
